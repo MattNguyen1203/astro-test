@@ -9,7 +9,6 @@ import {
 } from '@/components/ui/navigation-menu'
 import Image from 'next/image'
 import Link from 'next/link'
-import * as React from 'react'
 
 export default function NavDown() {
   return (
@@ -21,6 +20,7 @@ export default function NavDown() {
               className='size-[1.21171rem] object-contain'
               src={'/layout/nav/pen.svg'}
               alt='icon pen'
+              priority
               width={20}
               height={20}
             />
@@ -52,6 +52,7 @@ export default function NavDown() {
               className='size-[1.21171rem] object-contain'
               src={'/layout/nav/pen.svg'}
               alt='icon pen'
+              priority
               width={20}
               height={20}
             />
@@ -83,6 +84,7 @@ export default function NavDown() {
               className='size-[1.21171rem] object-contain'
               src={'/layout/nav/pen.svg'}
               alt='icon pen'
+              priority
               width={20}
               height={20}
             />
@@ -114,6 +116,7 @@ export default function NavDown() {
               className='size-[1.21171rem] object-contain'
               src={'/layout/nav/pen.svg'}
               alt='icon pen'
+              priority
               width={20}
               height={20}
             />
@@ -145,6 +148,7 @@ export default function NavDown() {
               className='size-[1.21171rem] object-contain'
               src={'/layout/nav/pen.svg'}
               alt='icon pen'
+              priority
               width={20}
               height={20}
             />
@@ -176,6 +180,7 @@ export default function NavDown() {
               className='size-[1.21171rem] object-contain'
               src={'/layout/nav/pen.svg'}
               alt='icon pen'
+              priority
               width={20}
               height={20}
             />
@@ -207,6 +212,7 @@ export default function NavDown() {
               className='size-[1.21171rem] object-contain'
               src={'/layout/nav/pen.svg'}
               alt='icon pen'
+              priority
               width={20}
               height={20}
             />
@@ -238,6 +244,7 @@ export default function NavDown() {
               className='size-[1.21171rem] object-contain'
               src={'/layout/nav/pen.svg'}
               alt='icon pen'
+              priority
               width={20}
               height={20}
             />

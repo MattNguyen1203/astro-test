@@ -3,6 +3,7 @@ import NavPage from './@nav/page'
 import './globals.css'
 import localFont from 'next/font/local'
 import FooterPage from './@footer/page'
+import StrengthPage from './@strength/page'
 
 export const metadata = {
   title: 'Create Next App',
@@ -70,8 +71,8 @@ export default function RootLayout({children}) {
       <body className={svnGraphik.className}>
         <NavPage />
         {children}
-        <Toaster />
         <FooterPage />
+        <Toaster />
       </body>
     </html>
   )

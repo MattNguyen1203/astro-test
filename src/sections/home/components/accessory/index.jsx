@@ -26,7 +26,6 @@ export default function Accessory() {
           </div>
         </div>
       </div>
-      <div className='h-screen'></div>
     </section>
   )
 }

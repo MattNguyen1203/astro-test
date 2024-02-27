@@ -79,6 +79,9 @@
   .caption1 {
     @apply text-[0.87848rem] leading-[1.2] tracking-[0.00878rem];
   }
+  .sub1 {
+    @apply text-[1.1713rem] leading-[1.2] tracking-[0.01464rem];
+  }
   .sub2 {
     @apply text-[1.02489rem] leading-[1.2];
   }
@@ -96,6 +99,9 @@
   }
   .giagoc {
     @apply text-[0.73206rem] leading-[1.2] tracking-[0.01464rem] line-through font-medium text-greyscale-30 text-start;
+  }
+  .body2 {
+    @apply text-[1.02489rem] leading-normal tracking-[0.00256rem];
   }
 }
 
@@ -151,19 +157,3 @@ body {
     margin-right: auto;
   }
 }
-/* @media (min-width: 1367px) {
-  .container {
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-} */
-/* .Arrow {
-  position: relative;
-  top: 70%;
-  background-color: white;
-  width: 10px;
-  height: 10px;
-  transform: rotate(45deg);
-  border-top-left-radius: 2px;
-} */

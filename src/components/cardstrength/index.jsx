@@ -2,10 +2,9 @@ import Image from 'next/image'
 
 export default function CardStrength({
   className = '',
-  src = '',
-  title = '',
-  description = '',
+  item,
   background = false,
+  priority = false,
 }) {
   return (
     <article
@@ -18,21 +17,20 @@ export default function CardStrength({
       <picture className='size-[3.51391rem] mr-[1.16rem]'>
         <Image
           className='object-contain size-full'
-          src={src || '/home/htmp.svg'}
+          src={item?.src || '/home/htmp.svg'}
           width={48}
           height={48}
           alt='icon strength'
+          priority={priority}
         />
       </picture>
       <div className='h-[3.58712rem] flex flex-col justify-between'>
         <h2 className='font-semibold text-blue-600 uppercase sub2'>
-          {title || 'HOÀN TRẢ MIỄN PHÍ'}
+          {item?.title}
         </h2>
         <p
           className='font-normal text-greyscale-40 caption1'
-          dangerouslySetInnerHTML={{
-            __html: description || `Trả hàng miễn phí <br>trong 7 ngày`,
-          }}
+          dangerouslySetInnerHTML={item?.description}
         />
       </div>
     </article>

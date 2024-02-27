@@ -1,0 +1,7 @@
+#banner_swiper .swiper-pagination-bullet {
+  background: #82828263 !important;
+  opacity: 1;
+}
+#banner_swiper .swiper-pagination-bullet-active {
+  background: white !important;
+}

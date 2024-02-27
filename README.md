@@ -11,6 +11,7 @@
   ## Đơn hàng chưa thanh toán hoặc đặt thành công tại sao lại có đang vận chuyển? 1-3 ngày sẽ tự mất "đang xử lý"
   ## Danh sách sản phẩm đã mua sẽ lưu thông tin lúc mua hay hiển thị thông tin mới nhất?
   ## Phần đánh giá của khách hàng là cố định số lượng item? lấy data ở đâu hay admn tự nhập? admin tự nhập
+  ## Trường nhập mk không requiered ở thanh toán?
 **Global**
 
 **Confirm lại**

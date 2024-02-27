@@ -20,6 +20,6 @@ import HomeIndex from '@/sections/home'
 //   }
 // }
 
-export default function Home({searchParams}) {
+export default function Home() {
   return <HomeIndex />
 }
