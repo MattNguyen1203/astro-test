@@ -1,4 +1,4 @@
-import {listCardStrength} from '@/app/@strength/page'
+import {listCardStrength} from '@/app/(main)/@strength/page'
 import CardStrength from '@/components/cardstrength'
 
 export default function BannerStrength() {

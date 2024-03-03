@@ -6,11 +6,11 @@ import Accessory from './components/accessory'
 import BannerHome from './components/banner'
 import PromotionSlide from './components/promotions'
 
-export default function HomeIndex() {
+export default function HomeIndex({viewport}) {
   return (
     <main className='relative'>
-      <section className='bg-elevation-20 pt-[7.76rem]'>
-        <BannerHome />
+      <section className='bg-elevation-20 pt-[8rem]'>
+        <BannerHome viewport={viewport} />
         <BannerStrength />
       </section>
       <section>

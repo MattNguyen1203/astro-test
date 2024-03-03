@@ -142,8 +142,8 @@ export default function InfoFooter() {
             className='w-[2.63053rem] h-[2.01288rem] object-contain'
             src={'/layout/footer/master-card.png'}
             alt='payment master card'
-            width={496}
-            height={106}
+            width={36}
+            height={36}
           />
         </div>
         <div className='w-[4.1194rem] h-[2.92826rem] rounded-[0.59561rem] bg-white shadow-[7.458px_4.068px_16.271px_0px_rgba(0,0,0,0.04),0px_1.356px_21.695px_0px_rgba(0,0,0,0.04)] mr-[0.29rem] flex justify-center items-center'>
@@ -169,8 +169,8 @@ export default function InfoFooter() {
             className='w-[5.40981rem] h-[2.03492rem] object-contain'
             src={'/layout/footer/bct.png'}
             alt='bộ công thương'
-            width={512}
-            height={194}
+            width={100}
+            height={28}
           />
         </div>
       </div>

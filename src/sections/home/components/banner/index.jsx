@@ -6,8 +6,9 @@ import 'swiper/css/pagination'
 import {Autoplay, Navigation, Pagination} from 'swiper/modules'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import Image from 'next/image'
+import {handleViewPort} from '@/lib/utils'
 
-export default function BannerHome() {
+export default function BannerHome({viewport}) {
   const pagination = {
     renderBullet: function (index, className) {
       return `<span class="${className} !w-[5.58rem] !h-[0.21962rem] !bg-[#82828263] !rounded-[0.73206rem]" ></span>`
@@ -41,8 +42,8 @@ export default function BannerHome() {
               src={'/home/banner.jpg'}
               alt='ảnh banner'
               priority
-              width={1200}
-              height={405}
+              width={handleViewPort(viewport, 1200, 680, 360)}
+              height={handleViewPort(viewport, 405, 300, 180)}
             />
           </div>
         </SwiperSlide>
@@ -53,8 +54,8 @@ export default function BannerHome() {
               src={'/home/banner.jpg'}
               alt='ảnh banner'
               priority
-              width={1200}
-              height={405}
+              width={handleViewPort(viewport, 1200, 680, 360)}
+              height={handleViewPort(viewport, 405, 300, 180)}
             />
           </div>
         </SwiperSlide>
@@ -65,8 +66,8 @@ export default function BannerHome() {
               src={'/home/banner.jpg'}
               alt='ảnh banner'
               priority
-              width={1200}
-              height={405}
+              width={handleViewPort(viewport, 1200, 680, 360)}
+              height={handleViewPort(viewport, 405, 300, 180)}
             />
           </div>
         </SwiperSlide>
@@ -77,8 +78,8 @@ export default function BannerHome() {
               src={'/home/banner.jpg'}
               alt='ảnh banner'
               priority
-              width={1200}
-              height={405}
+              width={handleViewPort(viewport, 1200, 680, 360)}
+              height={handleViewPort(viewport, 405, 300, 180)}
             />
           </div>
         </SwiperSlide>

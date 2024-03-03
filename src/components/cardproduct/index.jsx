@@ -6,7 +6,7 @@ export default function CardProduct({item}) {
   return (
     <Link
       href={item?.href || '/'}
-      className='w-[16.82284rem] h-[28.2rem] ml-[0.94rem] first:ml-0 rounded-[0.87848rem] border border-solid border-[#E5E7EB] group shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] hover:shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_32px_0px_rgba(12,46,112,0.08)]'
+      className='w-full h-[28.2rem] first:ml-0 rounded-[0.87848rem] border border-solid border-[#E5E7EB] group shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] hover:shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_32px_0px_rgba(12,46,112,0.08)]'
     >
       <picture className='size-[16.82284rem] rounded-tl-[0.87848rem] rounded-tr-[0.87848rem] overflow-hidden relative'>
         <Image

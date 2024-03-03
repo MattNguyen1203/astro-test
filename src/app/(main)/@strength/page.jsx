@@ -30,9 +30,7 @@ export const listCardStrength = [
     },
   },
 ]
-export default function StrengthPage({params, searchParams}) {
-  console.log('🚀 ~ StrengthPage ~ searchParams:', searchParams)
-  console.log('🚀 ~ StrengthPage ~ params:', params)
+export default function StrengthPage() {
   return (
     <section className='py-[2.71rem] bg-white'>
       <div className='container flex justify-between'>

@@ -32,6 +32,7 @@ export default function Social() {
       <ul className='flex *:ml-[0.88rem]'>
         {listSocial.map((e, index) => (
           <Link
+            key={index}
             href={e.href}
             target='_blank'
             className='flex size-[2.63543rem]'

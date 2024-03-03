@@ -20,6 +20,7 @@ import HomeIndex from '@/sections/home'
 //   }
 // }
 
-export default function Home() {
-  return <HomeIndex />
+export default function HomePage({searchParams}) {
+  const {viewport} = searchParams
+  return <HomeIndex viewport={viewport} />
 }

@@ -1,9 +1,8 @@
-import {Toaster} from '@/components/ui/sonner'
-import NavPage from './@nav/page'
 import './globals.css'
+
+import {Toaster} from '@/components/ui/sonner'
 import localFont from 'next/font/local'
 import FooterPage from './@footer/page'
-import StrengthPage from './@strength/page'
 
 export const metadata = {
   title: 'Create Next App',
@@ -49,27 +48,12 @@ const svnGraphik = localFont({
 
 export default function RootLayout({children}) {
   return (
-    <html
-      lang='en'
-      suppressHydrationWarning={true}
-    >
-      <head>
-        {/* <link rel="canonical" href="https://abc.com" />
-        <meta
-          name="google-site-verification"
-          content="xZu-R_qHMGQVpE1mZc1JuwL4Zj3Hi9ZybbsJfxgzQiQ"
-        />
-        <meta name="DC.title" content="Vietnam Cheers Hostel Official Site" />
-        <meta name="geo.region" content="VN-HN" />
-        <meta name="geo.placename" content="H&agrave; Nội" />
-        <meta
-          name="geo.position"
-          content="21.028530680620868;105.84580487600834"
-        />
-        <meta name="ICBM" content="21.028530680620868, 105.84580487600834" /> */}
-      </head>
-      <body className={svnGraphik.className}>
-        <NavPage />
+    <html lang='en'>
+      <head></head>
+      <body
+        suppressHydrationWarning={true}
+        className={svnGraphik.className}
+      >
         {children}
         <FooterPage />
         <Toaster />

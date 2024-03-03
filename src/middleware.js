@@ -13,5 +13,6 @@ export function middleware(request) {
       ? 'tablet'
       : 'desktop'
   url.searchParams.set('viewport', viewport)
+  url.searchParams.set('pathname', url.pathname)
   return NextResponse.rewrite(url)
 }

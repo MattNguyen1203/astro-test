@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function NavUp() {
+export default function NavUp({user}) {
   return (
     <div className='pt-[0.66rem] flex justify-between'>
       <Link
@@ -77,31 +77,45 @@ export default function NavUp() {
       </div>
       <div className='flex items-center'>
         <Link
-          href={'/ca-nhan'}
-          className='size-[2.63543rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center mr-[0.88rem]'
+          href={'/gio-hang'}
+          className='size-[2.63543rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center mr-[1.17rem]'
         >
           <Image
             className='flex-shrink-0 object-cover size-[1.31772rem]'
-            src={'/layout/nav/user.svg'}
-            alt='icon user'
+            src={'/home/cart.svg'}
+            alt='icon cart'
             width={18}
             height={18}
             priority
           />
         </Link>
         <Link
-          href={'/gio-hang'}
-          className='size-[2.63543rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center'
+          href={'/tai-khoan-ca-nhan'}
+          className='size-[2.63543rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center mr-[0.44rem] overflow-hidden'
         >
           <Image
-            className='flex-shrink-0 object-cover size-[1.31772rem]'
-            src={'/layout/nav/user.svg'}
+            className={`${
+              user?.image ? 'size-full' : 'size-[1.31772rem]'
+            } flex-shrink-0 object-cover `}
+            src={user?.image || '/layout/nav/user.svg'}
             alt='icon user'
             width={18}
             height={18}
             priority
           />
         </Link>
+        {user?.name ? (
+          <span className='font-normal caption1 text-greyscale-80 py-[0.44rem] pl-[0.44rem]'>
+            {user?.name}
+          </span>
+        ) : (
+          <Link
+            href={'/api/auth/signin'}
+            className='font-normal caption1 text-greyscale-80 py-[0.44rem] pl-[0.44rem]'
+          >
+            Đăng nhập
+          </Link>
+        )}
       </div>
     </div>
   )
