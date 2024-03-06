@@ -13,8 +13,8 @@ const listTab = [
 export default function FilterTab() {
   return (
     <ul>
-      {listTab.map((_, index) => (
-        <div></div>
+      {listTab.map((e, index) => (
+        <div>{e.title}</div>
       ))}
     </ul>
   )
