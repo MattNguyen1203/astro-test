@@ -1,10 +1,15 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import InputSearchNav from './InputSearchNav'
 
 export default function NavUp({user}) {
   return (
-    <div className='pt-[0.66rem] flex justify-between'>
+    <div
+      id='nav_up'
+      className='pt-[0.66rem] flex justify-between'
+    >
       <Link
+        id='logo_nav'
         className='w-[9rem] h-[2.31508rem] my-auto'
         href='/'
       >
@@ -17,30 +22,15 @@ export default function NavUp({user}) {
           priority
         />
       </Link>
-      <div className='bg-blue-50 rounded-[6.5vw] p-[0.29rem] flex items-center h-[3.22108rem]'>
-        <label
-          htmlFor='search'
-          className='w-[21.45rem] rounded-[6.5vw] bg-elevation-20 relative h-[2.63543rem] flex items-center'
+      <div
+        id='container_search_nav'
+        className='bg-blue-50 rounded-[6.5vw] p-[0.29rem] flex items-center h-[3.22108rem]'
+      >
+        <InputSearchNav />
+        <ul
+          id='categories_nav'
+          className='flex ml-[0.58rem]'
         >
-          <div className='absolute top-1/2 -translate-y-1/2 right-[0.88rem] size-[1.46413rem]'>
-            <Image
-              className='object-cover size-full'
-              src={'/layout/nav/search.svg'}
-              alt='icon search'
-              priority
-              height={20}
-              width={20}
-            />
-          </div>
-          <input
-            className='bg-transparent outline-none placeholder:text-greyscale-30 placeholder:font-normal placeholder:leading-[1.2] placeholder:tracking-[0.00878rem] px-[0.88rem]'
-            type='text'
-            id='search'
-            name='search'
-            placeholder='Tìm kiếm sản phẩm'
-          />
-        </label>
-        <ul className='flex ml-[0.58rem]'>
           <li>
             <Link
               className='caption1 font-medium text-blue-800 p-[0.88rem]'
@@ -75,7 +65,10 @@ export default function NavUp({user}) {
           </li>
         </ul>
       </div>
-      <div className='flex items-center'>
+      <div
+        id='cart_and_user'
+        className='flex items-center'
+      >
         <Link
           href={'/gio-hang'}
           className='size-[2.63543rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center mr-[1.17rem]'

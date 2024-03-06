@@ -1,11 +1,11 @@
-import { create } from 'zustand'
+import {create} from 'zustand'
 const useStore = create((set) => ({
-  indexTab: 1,
-  setIndexTab: (data) => {
+  isFocusSearchNav: false,
+  setIsFocusSearchNav: (data) => {
     set((state) => {
       return {
         ...state,
-        indexTab: data,
+        isFocusSearchNav: data,
       }
     })
   },

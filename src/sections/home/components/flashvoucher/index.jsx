@@ -34,7 +34,7 @@ export default function FlashVoucher() {
         </div>
         <VoucherSlide data={listData} />
         <div className='mt-[7.91rem] flex h-[8.56515rem] relative'>
-          <div className='bg-[#EEB357] size-full relative rounded-tl-[1.1713rem] rounded-bl-[1.1713rem]'>
+          <div className='bg-[#EEB357] size-full relative rounded-[1.1713rem]'>
             <Image
               className='absolute -top-[1.24rem] -left-[0.66rem] size-[11.49341rem] object-cover'
               src={'/home/circle-flash.svg'}
@@ -59,9 +59,9 @@ export default function FlashVoucher() {
               </h3>
             </Link>
           </div>
-          <div className='h6 font-semibold w-[41.142rem] h-[8.56515rem] flex justify-center items-center rounded-tr-[1.1713rem] rounded-br-[1.1713rem] text-white absolute right-0 top-0'>
+          <div className='h6 font-semibold w-[41.142rem] h-[8.56515rem] flex justify-center items-center text-white absolute right-0 top-0 '>
             <Image
-              className='absolute top-0 left-0 z-0 object-cover size-full'
+              className='absolute top-0 left-0 z-0 object-cover size-full rounded-tr-[1.1713rem] rounded-br-[1.1713rem]'
               src={'/home/bg-login.png'}
               alt='background elip'
               width={562}

@@ -72,6 +72,8 @@ module.exports = {
           foreground: 'hsl(var(--card-foreground))',
         },
         'blue-50': '#EBF0F7',
+        'blue-200': '#94A4B4',
+        'blue-400': '#45617D',
         'blue-500': '#204265',
         'blue-600': '#153454',
         'blue-700': '#102841',
@@ -87,6 +89,8 @@ module.exports = {
         'greyscale-80': '#262626',
         'elevation-20': '#F8F8F8',
         'brown-50': '#F9F4F0',
+        'brown-500': '#BE9367',
+        'brown-600': '#AD865E',
         'brown-700': '#876849',
       },
       borderRadius: {

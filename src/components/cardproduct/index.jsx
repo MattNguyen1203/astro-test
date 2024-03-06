@@ -6,9 +6,9 @@ export default function CardProduct({item}) {
   return (
     <Link
       href={item?.href || '/'}
-      className='w-full h-[28.2rem] first:ml-0 rounded-[0.87848rem] border border-solid border-[#E5E7EB] group shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] hover:shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_32px_0px_rgba(12,46,112,0.08)]'
+      className='w-full h-[28.2rem] first:ml-0 rounded-[0.87848rem] border border-solid border-[#E5E7EB] group shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] hover:shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_32px_0px_rgba(12,46,112,0.08)] select-none'
     >
-      <picture className='size-[16.82284rem] rounded-tl-[0.87848rem] rounded-tr-[0.87848rem] overflow-hidden relative'>
+      <picture className='h-[16.82284rem] w-full rounded-tl-[0.87848rem] rounded-tr-[0.87848rem] overflow-hidden relative'>
         <Image
           className='object-cover size-full'
           src={item?.thumnail || '/home/item-product.jpg'}

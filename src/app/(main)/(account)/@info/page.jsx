@@ -1,48 +1,9 @@
 import {auth} from '@/auth'
+import MenuUser from '@/sections/account/components/menuuser'
 import Image from 'next/image'
-import Link from 'next/link'
 import {redirect} from 'next/navigation'
 
-const menuOptions = [
-  {
-    title: 'Tài khoản cá nhân',
-    src: '/layout/nav/user.svg',
-    href: '/tai-khoan-ca-nhan',
-  },
-  {
-    title: 'Đơn hàng',
-    src: '/layout/nav/user.svg',
-    href: '/don-hang',
-  },
-  {
-    title: 'Sản phẩm yêu thích',
-    src: '/layout/nav/user.svg',
-    href: '/san-pham-yeu-thich',
-  },
-  {
-    title: 'Voucher của bạn',
-    src: '/layout/nav/user.svg',
-    href: '/voucher',
-  },
-  {
-    title: 'Sản phẩm đã mua',
-    src: '/layout/nav/user.svg',
-    href: '/san-pham-da-mua',
-  },
-  {
-    title: 'Khách hàng thân thiết',
-    src: '/layout/nav/user.svg',
-    href: '/khach-hang-than-thiet',
-  },
-  {
-    title: 'Đăng xuất',
-    src: '/layout/nav/user.svg',
-    href: '/',
-  },
-]
-
-export default async function InfoAccountPage(props) {
-  console.log('🚀 ~ InfoAccountPage ~ props:', props)
+export default async function InfoAccountPage() {
   const {user} = await auth()
   if (!user?.email) return redirect('/dang-Nhap')
   return (
@@ -87,31 +48,7 @@ export default async function InfoAccountPage(props) {
         </div>
       </div>
 
-      <ul className='flex flex-col p-[0.88rem] mt-[0.6rem] *:mt-[0.44rem] *:first:mt-0 bg-white rounded-[0.58565rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>
-        {menuOptions.map((e, index) => (
-          <li
-            key={index}
-            className='w-full h-fit rounded-[0.58565rem]'
-          >
-            <Link
-              href={e.href}
-              className='flex items-center px-[0.88rem]] py-[0.73rem]'
-            >
-              <Image
-                className='size-[1.02489rem] object-contain'
-                src={e.src}
-                alt={e.title}
-                width={14}
-                height={14}
-                priority
-              />
-              <span className='font-normal sub2 text-greyscale-20 inline-block ml-[0.59rem]'>
-                {e.title}
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <MenuUser />
     </aside>
   )
 }

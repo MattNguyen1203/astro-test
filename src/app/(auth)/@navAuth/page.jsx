@@ -1,10 +1,8 @@
-import TitleAuth from '@/sections/auth/title'
+import TitleAuth from '@/sections/auth/components/title'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function NavAuth({children}) {
-  console.log('🚀 ~ NavAuth ~ children:', children)
-
   return (
     <>
       <header className='fixed top-0 left-0 bg-[rgba(245,245,245,0.95)] h-[4.5388rem] w-full border-b-[2px] border-white backdrop-blur-[14px] flex items-center z-50'>
