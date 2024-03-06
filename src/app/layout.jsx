@@ -2,7 +2,7 @@ import './globals.css'
 
 import {Toaster} from '@/components/ui/sonner'
 import localFont from 'next/font/local'
-import FooterPage from './@footer/page'
+import Footer from '@/layout/footer'
 
 export const metadata = {
   title: 'Create Next App',
@@ -55,7 +55,7 @@ export default function RootLayout({children}) {
         className={svnGraphik.className}
       >
         {children}
-        <FooterPage />
+        <Footer />
         <Toaster />
       </body>
     </html>

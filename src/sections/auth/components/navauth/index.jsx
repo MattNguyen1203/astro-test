@@ -1,6 +1,6 @@
-import TitleAuth from '@/sections/auth/components/title'
 import Image from 'next/image'
 import Link from 'next/link'
+import TitleAuth from '../title'
 
 export default function NavAuth({children}) {
   return (

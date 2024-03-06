@@ -1,9 +1,9 @@
-import NavPage from '../@nav/page'
+import Nav from '@/layout/nav'
 
 export default function HomeLayout({children}) {
   return (
     <>
-      <NavPage />
+      <Nav />
       {children}
     </>
   )

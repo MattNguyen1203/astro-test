@@ -1,9 +1,9 @@
+import NavDown from './components/navDown'
+import NavUp from './components/navUp'
+import WrapNav from './components/wrapnav'
 import './style.css'
 
-import NavUp from './components/navUp'
-import NavDown from './components/navDown'
 import {auth} from '@/auth'
-import WrapNav from './components/wrapnav'
 
 export default async function Nav() {
   const session = await auth()

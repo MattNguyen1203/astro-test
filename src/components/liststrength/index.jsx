@@ -30,7 +30,7 @@ export const listCardStrength = [
     },
   },
 ]
-export default function StrengthPage() {
+export default function ListStrength() {
   return (
     <section className='py-[2.71rem] bg-white'>
       <div className='container flex justify-between'>

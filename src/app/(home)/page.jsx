@@ -1,5 +1,5 @@
-import {generateMetadataInit} from '@/lib'
-import getData from '@/lib/getData'
+// import {generateMetadataInit} from '@/lib'
+// import getData from '@/lib/getData'
 import HomeIndex from '@/sections/home'
 
 // export async function generateMetadata() {

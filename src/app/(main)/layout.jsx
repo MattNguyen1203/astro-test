@@ -1,12 +1,12 @@
-import NavPage from '../@nav/page'
-import StrengthPage from './@strength/page'
+import Nav from '@/layout/nav'
+import ListStrength from '@/components/liststrength'
 
-export default function MainLayout({children, nav}) {
+export default function MainLayout({children}) {
   return (
     <>
-      <NavPage />
+      <Nav />
       {children}
-      <StrengthPage />
+      <ListStrength />
     </>
   )
 }
