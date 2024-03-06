@@ -3,8 +3,8 @@ import MenuUser from '@/sections/account/components/menuuser'
 import Image from 'next/image'
 import {redirect} from 'next/navigation'
 
-export default async function InfoAccountPage() {
-  const {user} = await auth()
+export default function InfoAccountPage() {
+  const {user} = auth()
   if (!user?.email) return redirect('/dang-Nhap')
   return (
     <aside className='w-[21.30307rem] h-fit sticky top-[9.52rem] left-0'>
