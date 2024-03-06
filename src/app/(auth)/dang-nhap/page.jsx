@@ -1,6 +1,6 @@
 import {SignInIndex} from '@/sections/signin'
 
-export default function Login() {
+export default function SignInPage() {
   return (
     <div className='relative z-10 mt-[7.32rem] mx-auto w-[23rem]'>
       <span className='block font-normal text-center text-blue-900 h6'>

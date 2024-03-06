@@ -1,9 +1,10 @@
+import TitleAuth from '@/sections/auth/title'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function NavAuth({children, params, searchParams}) {
-  console.log('🚀 ~ NavAuth ~ searchParams:', searchParams)
-  console.log('🚀 ~ NavAuth ~ params:', params)
+export default function NavAuth({children}) {
+  console.log('🚀 ~ NavAuth ~ children:', children)
+
   return (
     <>
       <header className='fixed top-0 left-0 bg-[rgba(245,245,245,0.95)] h-[4.5388rem] w-full border-b-[2px] border-white backdrop-blur-[14px] flex items-center z-50'>
@@ -22,9 +23,7 @@ export default function NavAuth({children, params, searchParams}) {
             />
           </Link>
           <div className='h-[1.53734rem] w-[0.07321rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] mx-[1.76rem]'></div>
-          <span className='inline-block h6 font-medium bg-clip-text bg-[linear-gradient(180deg,#E0B181_0.72%,#BE9367_99.87%)]'>
-            Đăng Nhập
-          </span>
+          <TitleAuth />
         </nav>
       </header>
       <main className='mt-[4.5388rem] h-[44.3631rem] relative'>
