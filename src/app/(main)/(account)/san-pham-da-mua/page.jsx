@@ -1,4 +1,3 @@
-import CardProduct from '@/components/cardproduct'
 import SkeletonCardProduct from '@/components/cardproduct/SkeletonCardProduct'
 import PaginationIndex from '@/sections/account/components/pagination'
 
