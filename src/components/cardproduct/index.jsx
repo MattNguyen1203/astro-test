@@ -20,7 +20,7 @@ export default function CardProduct({item}) {
           {item?.sale || '- 10%'}
         </div>
       </picture>
-      <div className='p-[0.73206rem]'>
+      <div className='p-[0.73206rem] bg-white rounded-bl-[0.87848rem] rounded-br-[0.87848rem]'>
         <h2 className='font-medium line-clamp-2 text-greyscale-60 caption1 h-[2.1rem]'>
           {item?.title || 'Chưa có thông tin!'}
         </h2>

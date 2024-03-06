@@ -5,28 +5,60 @@ const listData = new Array(14).fill(0)
 export default function FlashVoucher() {
   return (
     <article className='w-full bg-linearFlash backdrop-blur-[5px] h-fit'>
-      <div className='container pt-[3.5rem] '>
+      <div className='container pt-[3.5rem] relative'>
+        <Image
+          src={'/home/circle-flash-voucher1.png'}
+          alt='logo astromazing circle'
+          width={72}
+          height={72}
+          className='absolute top-0 right-0 z-10 object-contain translate-x-1/2 -translate-y-1/2 size-[5.24597rem]'
+          quality={100}
+        />
         <div className='flex items-center justify-between pb-[2.05rem]'>
-          <Image
-            className='w-[32.91519rem] h-[1.87rem] flex-shrink-0 object-cover'
-            src={'/home/flash-voucher.svg'}
-            alt='flash voucher'
-            width={530}
-            height={30}
-          />
+          <div className='w-[32.91519rem] h-[1.87rem] relative'>
+            <Image
+              className='object-contain size-full'
+              src={'/home/flash-voucher.png'}
+              alt='flash voucher'
+              width={530}
+              height={30}
+              quality={100}
+            />
+            <Image
+              className='object-contain size-[7.5rem] absolute top-[45%] -translate-y-1/2 left-[1rem]'
+              src={'/home/electric.svg'}
+              alt='tia set'
+              width={80}
+              height={80}
+            />
+          </div>
           <div className='flex *:ml-[0.5rem]'>
-            <div className='size-[4.375rem] flex justify-center items-center bg-white rounded-[0.25rem] ml-0'>
-              <span className='text-[2.04978rem] leading-[1.2] font-bold bg-linearFlashText bg-clip-text text-transparent'>
+            <div className='w-[5.12445rem] h-[3.95315rem] flex justify-center items-center rounded-[0.29283rem] ml-0 shadow-[0px_1px_19px_0px_rgba(255,255,255,0.22)] relative'>
+              <Image
+                className='absolute top-0 left-0 size-full'
+                src={'/home/border-left-fl.svg'}
+                alt='border'
+                width={70}
+                height={54}
+              />
+              <span className='text-[2.04978rem] leading-[1.2] font-bold bg-linearFlashText bg-clip-text text-transparent relative z-10'>
                 22
               </span>
             </div>
-            <div className='size-[4.375rem] flex justify-center items-center bg-white rounded-[0.25rem]'>
+            <div className='w-[5.12445rem] h-[3.95315rem] flex justify-center items-center rounded-[0.29283rem] bg-white'>
               <span className='text-[2.04978rem] leading-[1.2] font-bold bg-linearFlashText bg-clip-text text-transparent'>
-                22
+                11
               </span>
             </div>
-            <div className='size-[4.375rem] flex justify-center items-center bg-white rounded-[0.25rem]'>
-              <span className='text-[2.04978rem] leading-[1.2] font-bold bg-linearFlashText bg-clip-text text-transparent'>
+            <div className='w-[5.12445rem] h-[3.95315rem] flex justify-center items-center rounded-[0.29283rem] relative '>
+              <Image
+                className='absolute top-0 left-0 size-full'
+                src={'/home/border-right-fl.svg'}
+                alt='border'
+                width={70}
+                height={54}
+              />
+              <span className='text-[2.04978rem] leading-[1.2] font-bold bg-linearFlashText bg-clip-text text-transparent relative z-10'>
                 22
               </span>
             </div>
@@ -36,8 +68,8 @@ export default function FlashVoucher() {
         <div className='mt-[7.91rem] flex h-[8.56515rem] relative'>
           <div className='bg-[#EEB357] size-full relative rounded-[1.1713rem]'>
             <Image
-              className='absolute -top-[1.24rem] -left-[0.66rem] size-[11.49341rem] object-cover'
-              src={'/home/circle-flash.svg'}
+              className='absolute -top-[4.24rem] -left-[3.66rem] size-[17.49341rem] object-cover '
+              src={'/home/circle-yellow.svg'}
               alt='ware'
               width={157}
               height={157}
@@ -68,13 +100,13 @@ export default function FlashVoucher() {
               height={118}
             />
             <Link
-              className='font-medium text-white h6'
+              className='relative z-10 font-medium text-white h6'
               href={'/dang-ky'}
             >
               ĐĂNG KÝ /
             </Link>
             <Link
-              className='ml-[0.3rem] flex items-center'
+              className='ml-[0.3rem] flex items-center relative z-10'
               href={'/dang-nhap'}
             >
               <span className='font-medium text-white h6 mr-[0.66rem] inline-block'>

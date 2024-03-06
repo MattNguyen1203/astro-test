@@ -1,4 +1,12 @@
+//import css global home page
 import './style.css'
+
+// import css swiper
+import 'swiper/css'
+import 'swiper/css/scrollbar'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/free-mode'
 
 import BannerStrength from './components/strength'
 import FlashVoucher from './components/flashvoucher'
@@ -36,13 +44,12 @@ export default function HomeIndex({viewport}) {
       <section className='mt-[5rem]'>
         <PreOder />
       </section>
-      <section>
+      <section className='mt-[4.39rem]'>
         <FeedBack />
       </section>
-      <section>
+      <section className='pb-[1.49rem]'>
         <TechnologyConner />
       </section>
-      <section className='h-screen'></section>
       {/* <div className='flex items-center justify-center w-full h-screen'>
         <DialogDemo />
         <TabInit />

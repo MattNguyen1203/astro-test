@@ -1,15 +1,24 @@
 'use client'
+
+import './style.css'
+
+import ICArrowRightWhite from '@/components/icon/ICArrowRightWhite'
 import Image from 'next/image'
 import Link from 'next/link'
+import {Pagination} from 'swiper/modules'
 import {Swiper, SwiperSlide} from 'swiper/react'
 export default function SlideTechnology() {
   return (
     <Swiper
-      id='technology_swiper'
       slidesPerView={'auto'}
       speed={500}
       grabCursor
-      className='size-full rounded-[0.87848rem]'
+      pagination={{
+        type: 'progressbar',
+      }}
+      modules={[Pagination]}
+      id='technology_swiper'
+      className='size-full '
     >
       {new Array(12).fill(0).map((_, index) => (
         <SwiperSlide
@@ -18,7 +27,11 @@ export default function SlideTechnology() {
         >
           <Link
             href={'/'}
-            className='size-full rounded-[0.58565rem] relative group !overflow-hidden block'
+            className={`${
+              index === 11
+                ? 'before:absolute before:size-full before:rounded-[0.58565rem] before:bg-[#D9D9D9] before:z-10 before:pointer-events-none before:opacity-40 hover:before:opacity-0 before:transition-all before:duration-200'
+                : ''
+            } w-full h-[30.38067rem] rounded-[0.58565rem] relative group !overflow-hidden block select-none`}
           >
             <Image
               className='absolute top-0 left-0 z-0 transition-all duration-300 size-full group-hover:scale-110'
@@ -61,6 +74,21 @@ export default function SlideTechnology() {
           </Link>
         </SwiperSlide>
       ))}
+      <SwiperSlide className='!w-[10.54rem] h-[30.38067rem]'>
+        <div className='size-full pr-[1.76rem] flex justify-end items-center select-none'>
+          <Link
+            href={'/'}
+            className='size-[7.61347rem] rounded-full bg-[#10273F] flex flex-col justify-center items-center'
+          >
+            <span className='sub2 font-semibold text-white block w-fit mb-[0.29rem]'>
+              XEM THÊM
+            </span>
+            <div className='size-[1.75695rem] flex justify-center items-center'>
+              <ICArrowRightWhite className='object-contain size-[1.5rem]' />
+            </div>
+          </Link>
+        </div>
+      </SwiperSlide>
     </Swiper>
   )
 }

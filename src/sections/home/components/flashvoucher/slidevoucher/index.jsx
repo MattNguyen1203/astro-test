@@ -1,5 +1,4 @@
 'use client'
-import 'swiper/css'
 import CardVoucher from '@/components/cardvoucher'
 
 import {Swiper, SwiperSlide} from 'swiper/react'

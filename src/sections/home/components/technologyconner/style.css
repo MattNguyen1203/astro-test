@@ -1,0 +1,13 @@
+#technology_swiper .swiper-pagination {
+  top: auto;
+  bottom: 0;
+  background: #ececec;
+  height: 0.21962rem;
+  width: 81.33236rem;
+  border-radius: 0.73206rem;
+  overflow: hidden;
+}
+
+#technology_swiper .swiper-pagination .swiper-pagination-progressbar-fill {
+  background: #ffdc00;
+}

@@ -59,7 +59,7 @@ export default function TechnologyConner() {
             GÓC CÔNG NGHỆ
           </h2>
         </div>
-        <div className='size-full overflow-hidden rounded-tl-[0.58565rem] rounded-bl-[0.58565rem]'>
+        <div className='size-full overflow-hidden rounded-tl-[0.58565rem] relative'>
           <SlideTechnology />
         </div>
       </div>
