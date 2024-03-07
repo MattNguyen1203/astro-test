@@ -8,6 +8,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/free-mode'
 
+// import components
 import BannerStrength from './components/strength'
 import FlashVoucher from './components/flashvoucher'
 import Accessory from './components/accessory'
@@ -15,11 +16,12 @@ import BannerHome from './components/banner'
 import PromotionSlide from './components/promotions'
 import FeedBack from './components/feedback'
 import TechnologyConner from './components/technologyconner'
-// import {DialogDemo} from './components/dialog'
-// import TabInit from './components/tabs'
+import {DialogProduct} from './components/dialog'
+import TabInit from './components/tabs'
 import ProductIndex from './components/productnew'
 import LevelUpYourTech from './components/levelup'
 import PreOder from './components/preoder'
+import SheetCart from '@/components/sheetcart'
 
 export default function HomeIndex({viewport}) {
   return (
@@ -50,10 +52,15 @@ export default function HomeIndex({viewport}) {
       <section className='pb-[1.49rem]'>
         <TechnologyConner />
       </section>
-      {/* <div className='flex items-center justify-center w-full h-screen'>
-        <DialogDemo />
+      <div className='flex items-center justify-center w-full h-screen'>
+        <DialogProduct>
+          <div className='text-2xl text-black mt-[10px] cursor-default'>
+            Edit Profile
+          </div>
+        </DialogProduct>
         <TabInit />
-      </div> */}
+        <SheetCart />
+      </div>
       {/* <IndexSWR />
       <div className='w-full h-screen bg-black'></div>
       <div className='right-0 top-0 size-[4rem] bg-black absolute'></div>

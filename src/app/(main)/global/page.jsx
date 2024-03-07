@@ -1,5 +1,7 @@
+import CardBill from '@/components/cardbill'
 import CardProduct from '@/components/cardproduct'
 import CardVoucher from '@/components/cardvoucher'
+import PopupProduct from '@/components/popupproduct'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -7,6 +9,9 @@ export default function GlobalPage() {
   return (
     <div className='w-full'>
       <div className='h-[15rem]'></div>
+      <div className='flex items-center justify-center w-full h-screen'>
+        <PopupProduct />
+      </div>
       <div className='container h-[77.28843rem] relative'>
         <div className='bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)] absolute w-[40.81091rem] h-[4.465rem] -top-[1.47rem] left-1/2 -translate-x-1/2 rounded-[1.1713rem] flex justify-center items-center'>
           <h2 className='font-bold h5 text-greyscale-80'>PHỤ KIỆN IPAD</h2>
@@ -73,6 +78,7 @@ export default function GlobalPage() {
           +12 voucher
         </button>
       </div>
+      <CardBill />
     </div>
   )
 }

@@ -22,7 +22,7 @@ export default function SlideAccessory() {
           key={index}
           className='!w-[17.64428rem] h-full pt-[1.17rem]'
         >
-          <div className='h-[28.2rem] w-full px-[0.44rem] flex items-center'>
+          <div className='size-full px-[0.44rem] flex items-start'>
             <CardProduct />
           </div>
         </SwiperSlide>

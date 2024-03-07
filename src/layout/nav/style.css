@@ -1,3 +1,7 @@
+#container_nav {
+  padding-right: var(--removed-body-scroll-bar-size);
+}
+
 #wrapper_nav #nav_down,
 #wrapper_nav #categories_nav,
 #wrapper_nav #cart_and_user,

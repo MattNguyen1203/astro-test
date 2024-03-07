@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import InputSearchNav from './InputSearchNav'
+import SheetCart from '@/components/sheetcart'
 
 export default function NavUp({user}) {
   return (
@@ -69,19 +70,18 @@ export default function NavUp({user}) {
         id='cart_and_user'
         className='flex items-center'
       >
-        <Link
-          href={'/gio-hang'}
-          className='size-[2.63543rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center mr-[1.17rem]'
-        >
-          <Image
-            className='flex-shrink-0 object-cover size-[1.31772rem]'
-            src={'/home/cart.svg'}
-            alt='icon cart'
-            width={18}
-            height={18}
-            priority
-          />
-        </Link>
+        <SheetCart>
+          <div className='size-[2.63543rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center mr-[1.17rem] cursor-pointer'>
+            <Image
+              className='flex-shrink-0 object-cover size-[1.31772rem]'
+              src={'/home/cart.svg'}
+              alt='icon cart'
+              width={18}
+              height={18}
+              priority
+            />
+          </div>
+        </SheetCart>
         <Link
           href={'/tai-khoan-ca-nhan'}
           className='size-[2.63543rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center mr-[0.44rem] overflow-hidden'
