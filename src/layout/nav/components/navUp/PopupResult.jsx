@@ -33,7 +33,7 @@ export default function PopupResult() {
           </li>
         ))}
       </ul>
-      <hr className='bg-[#E5E7EB] w-full h-[1.0.07321rem] mt-[1.32rem] mb-[1.76rem]' />
+      <hr className='bg-[#E5E7EB] w-full h-[0.07321rem] mt-[1.32rem] mb-[1.76rem]' />
       <span className='font-medium button text-greyscale-40 block mb-[1.46rem]'>
         Sản phẩm gợi ý
       </span>

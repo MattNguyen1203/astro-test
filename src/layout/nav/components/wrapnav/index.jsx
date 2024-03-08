@@ -2,11 +2,18 @@
 
 import useStore from '@/app/(store)/store'
 import useClickOutSide from '@/hooks/useClickOutSide'
+import {useEffect} from 'react'
 
 export default function WrapNav({children}) {
   const isFocusSearchNav = useStore((state) => state.isFocusSearchNav)
   const setIsFocusSearchNav = useStore((state) => state.setIsFocusSearchNav)
   const [sideRef, isOutSide] = useClickOutSide()
+
+  useEffect(() => {
+    if (isOutSide) {
+      setIsFocusSearchNav(false)
+    }
+  }, [isOutSide])
 
   return (
     <div

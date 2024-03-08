@@ -27,7 +27,7 @@ export default function Account({user}) {
         height={18}
         priority
       />
-      {user?.image && isOpen && !isOutSide && (
+      {isOpen && !isOutSide && (
         <div
           id='popup_account_nav'
           className={`${
