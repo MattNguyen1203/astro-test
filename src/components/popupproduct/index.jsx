@@ -1,36 +1,10 @@
-import Image from 'next/image'
 import TemVoucher from './TemVoucher'
+import SlideMultiple from '../slidemultiple'
 
 export default function PopupProduct() {
   return (
     <div className='px-[1.17rem] pt-[1.17rem] pb-[1.14rem] rounded-[0.87848rem] bg-elevation-20 w-fit h-fit flex'>
-      <div className='w-[21.81552rem] mr-[1.17rem]'>
-        <div className='bg-white w-[21.81552rem] h-[21.76764rem] rounded-[0.67818rem] overflow-hidden'>
-          <Image
-            className='object-cover size-full'
-            src={'/components/item-first.png'}
-            alt='item product'
-            width={300}
-            height={300}
-          />
-        </div>
-        <div className='grid grid-cols-5 mt-[0.5rem] gap-x-[0.4rem] h-[4.0399rem]'>
-          {new Array(5).fill(0).map((_, index) => (
-            <div
-              key={index}
-              className='bg-white size-full rounded-[0.45212rem]'
-            >
-              <Image
-                className='object-cover size-full rounde-[0.45212rem]'
-                src={'/components/item-first.png'}
-                alt='item product'
-                width={300}
-                height={300}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+      <SlideMultiple />
       <div className='w-[26.79356rem] p-[0.88rem] bg-white rounded-[0.87848rem] relative'>
         <svg
           xmlns='http://www.w3.org/2000/svg'

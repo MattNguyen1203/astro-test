@@ -1,3 +1,4 @@
+import PopupProduct from '@/components/popupproduct'
 import {Button} from '@/components/ui/button'
 import {
   Dialog,
@@ -21,7 +22,8 @@ export function DialogProduct({children}) {
         {/* </Button> */}
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
-        <DialogHeader>
+        <PopupProduct />
+        {/* <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
           <DialogDescription>
             Make changes to your profile here. Click save when you're done.
@@ -34,7 +36,7 @@ export function DialogProduct({children}) {
             voluptas perferendis at veritatis fugiat molestias nihil quos quia
             blanditiis, dolor unde!
           </p>
-        </div>
+        </div> */}
         {/* <DialogFooter>
           <Button type='submit'>Save changes</Button>
         </DialogFooter> */}

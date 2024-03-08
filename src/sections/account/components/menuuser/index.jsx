@@ -52,7 +52,7 @@ export default function MenuUser() {
             pathName.includes(e.href)
               ? 'bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)]'
               : ''
-          } w-full h-fit rounded-[0.58565rem]`}
+          } w-full h-fit rounded-[0.58565rem] block`}
         >
           <Link
             href={e.href}
