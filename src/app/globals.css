@@ -112,6 +112,11 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
+  .fl {
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: white;
+  }
 }
 
 *,

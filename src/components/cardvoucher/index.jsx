@@ -5,7 +5,7 @@ import {useState} from 'react'
 export default function CardVoucher({className = '', item}) {
   const [isCopy, setCopy] = useState(false)
   return (
-    <article className='w-[21.22987rem] h-[5.12rem] rounded-[0.58565rem] bg-elevation-20 flex hover:bg-brown-50 transition-all duration-200'>
+    <article className='w-[21.22987rem] h-[5.12rem] rounded-[0.58565rem] bg-elevation-20 flex hover:bg-brown-50 transition-all duration-200 select-none'>
       <div className='w-[5.12rem] h-full flex flex-col justify-center items-center bg-[linear-gradient(44deg,#FFF5E6_50.63%,#FFE4B9_106.58%)] rounded-tl-[0.58565rem] rounded-bl-[0.58565rem]'>
         <Image
           className='size-[2.34261rem]'
@@ -28,7 +28,11 @@ export default function CardVoucher({className = '', item}) {
       </div>
       <div className='flex items-center justify-center flex-1 size-full'>
         <button
-          onClick={() => setCopy(true)}
+          onClick={() => {
+            if (!isCopy) {
+              setCopy(true)
+            }
+          }}
           className={`${
             isCopy
               ? 'bg-blue-700'

@@ -1,3 +1,4 @@
+import BreadCrumb from '@/components/breadcrumb'
 import CardBill from '@/components/cardbill'
 import CardProduct from '@/components/cardproduct'
 import CardVoucher from '@/components/cardvoucher'
@@ -10,6 +11,7 @@ export default function GlobalPage() {
   return (
     <div className='w-full'>
       <div className='h-[15rem]'></div>
+      <BreadCrumb />
       <div className='flex items-center justify-center w-full h-screen'>
         <div className='flex flex-col w-fit h-fit'>
           <SlideMultiple />

@@ -113,7 +113,7 @@ export default function FlashVoucher() {
                 ĐĂNG NHẬP NGAY
               </span>
               <Image
-                className='size-[2.63543rem] object-contain'
+                className='size-[2.63543rem] object-contain brightness-0 invert'
                 src={'/home/touch-login.svg'}
                 alt='icon touch'
                 width={36}

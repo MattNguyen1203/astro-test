@@ -21,9 +21,13 @@ module.exports = {
       md: '768px',
       lg: '1024px',
       xl: '1367px',
-      maxmd: {max: '767px'},
-      maxlg: {max: '1023px'},
-      maxxl: {max: '1366px'},
+      '2xl': '1600px',
+      '3xl': '1800px',
+      xmd: {max: '767px'},
+      xlg: {max: '1023px'},
+      xxl: {max: '1366px'},
+      x2xl: {max: '1599px'},
+      x3xl: {max: '1799px'},
     },
     extend: {
       backgroundImage: {
@@ -36,6 +40,7 @@ module.exports = {
       },
       fontFamily: {
         svnGraphik: ['var(--font-svn-graphik)'],
+        workSans: ['var(--font-work-sans)'],
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -81,6 +86,7 @@ module.exports = {
         'blue-900': '#0A1827',
         'brain-900': '#1A1A1A',
         'greyscaletext-5-div': '#ECECEC',
+        'greyscale-10': '#C5C5C5',
         'greyscale-20': '#A9A9A9',
         'greyscale-30': '#828282',
         'greyscale-40': '#6A6A6A',
@@ -88,6 +94,7 @@ module.exports = {
         'greyscale-60': '#3F3F3F',
         'greyscale-80': '#262626',
         'elevation-20': '#F8F8F8',
+        'elevation-30': '#F0F0F0',
         'brown-50': '#F9F4F0',
         'brown-500': '#BE9367',
         'brown-600': '#AD865E',

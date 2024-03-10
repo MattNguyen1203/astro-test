@@ -10,12 +10,15 @@ export default function Accessory() {
     <section className='pt-[4.39rem] bg-elevation-20'>
       <div className='container flex py-[1.46rem] pr-[1.47rem] rounded-[1.1713rem] backdrop-blur-[5px] bg-blue-400'>
         <div className='px-[1.46rem] flex-1 flex flex-col'>
-          <div className='relative'>
+          <Link
+            href={'/'}
+            className='relative'
+          >
             <span className='font-semibold text-white h6'>
               Phụ kiện hay cho thiết bị của bạn
             </span>
-            <ICArrowRight className='absolute bottom-0 right-0' />
-          </div>
+            <ICArrowRight className='absolute bottom-[0.5rem] right-[1.6rem]' />
+          </Link>
           <CategoriesIndex />
         </div>
         <div className='w-[69.03367rem] h-[31.8448rem] rounded-[0.87848rem] bg-white overflow-hidden'>
