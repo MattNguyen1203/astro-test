@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className='w-full bg-elevation-20'>
+    <footer className='w-full overflow-x-hidden bg-elevation-20'>
       <div className='h-[4.46559rem] bg-[linear-gradient(0deg,#10273F_0%,#10273F_100%)] flex items-center'>
         <div className='container flex justify-between items-center pr-[0.95rem]'>
           <Social />

@@ -22,17 +22,23 @@ import ProductIndex from './components/productnew'
 import LevelUpYourTech from './components/levelup'
 import PreOder from './components/preoder'
 import SheetCart from '@/components/sheetcart'
+import CategoriesProduct from './components/categoriesproduct'
 
 export default function HomeIndex({viewport}) {
+  const isMobile = viewport === 'mobile'
   return (
     <main className='relative bg-elevation-20'>
-      <section className=' pt-[8rem]'>
-        <BannerHome viewport={viewport} />
-        <BannerStrength />
+      <section className='pt-[8rem] xmd:pt-[5.18rem]'>
+        <BannerHome
+          isMobile={isMobile}
+          viewport={viewport}
+        />
+        {!isMobile && <BannerStrength />}
       </section>
       <section>
-        <FlashVoucher />
-        <Accessory />
+        <FlashVoucher isMobile={isMobile} />
+        {isMobile && <CategoriesProduct />}
+        <Accessory isMobile={isMobile} />
       </section>
       <section>
         <PromotionSlide />

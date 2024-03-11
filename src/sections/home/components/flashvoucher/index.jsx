@@ -1,20 +1,23 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import VoucherSlide from './slidevoucher'
+import VoucherSlideRes from './slidevoucherres'
 const listData = new Array(14).fill(0)
-export default function FlashVoucher() {
+export default function FlashVoucher({isMobile}) {
   return (
-    <article className='w-full bg-linearFlash backdrop-blur-[5px] h-fit'>
-      <div className='container pt-[3.5rem] relative'>
-        <Image
-          src={'/home/circle-flash-voucher1.png'}
-          alt='logo astromazing circle'
-          width={72}
-          height={72}
-          className='absolute top-0 right-0 z-10 object-contain translate-x-1/2 -translate-y-1/2 size-[5.24597rem]'
-          quality={100}
-        />
-        <div className='flex items-center justify-between pb-[2.05rem]'>
+    <article className='w-full bg-[linear-gradient(180deg,#02315D_26.21%,rgba(246,187,145,0.55)_68.35%,rgba(255,255,255,0.00)_105.67%)] xmd:bg-[linear-gradient(180deg,#002C54_0%,#02315D_16.27%,#02315D_30.03%,rgba(92,100,112,0.83)_48.06%,rgba(246,187,145,0.55)_78.73%,rgba(255,255,255,0.00)_94.11%)] backdrop-blur-[5px] h-fit xmd:mt-[0.88rem] xmd:rounded-tl-[1.1713rem] xmd:rounded-tr-[1.1713rem]'>
+      <div className='container pt-[3.5rem] relative full-mb'>
+        {!isMobile && (
+          <Image
+            src={'/home/circle-flash-voucher1.png'}
+            alt='logo astromazing circle'
+            width={72}
+            height={72}
+            className='absolute top-0 right-0 z-10 object-contain translate-x-1/2 -translate-y-1/2 size-[5.24597rem]'
+            quality={100}
+          />
+        )}
+        <div className='flex items-center justify-between pb-[2.05rem] xmd:px-[0.55rem]'>
           <div className='w-[32.91519rem] h-[1.87rem] relative'>
             <Image
               className='object-contain size-full'
@@ -32,50 +35,56 @@ export default function FlashVoucher() {
               height={80}
             />
           </div>
-          <div className='flex *:ml-[0.5rem]'>
-            <div className='w-[5.12445rem] h-[3.95315rem] flex justify-center items-center rounded-[0.29283rem] ml-0 shadow-[0px_1px_19px_0px_rgba(255,255,255,0.22)] relative'>
+          <div className='flex *:ml-[0.5rem] xmd:*:ml-[0.26rem]'>
+            <div className='w-[5.12445rem] h-[3.95315rem] xmd:w-[2.63543rem] xmd:h-[2.04525rem] flex justify-center items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] xmd:shadow-[0px_0.447px_8.491px_0px_rgba(255,255,255,0.22)] ml-0 shadow-[0px_1px_19px_0px_rgba(255,255,255,0.22)] relative'>
               <Image
-                className='absolute top-0 left-0 size-full'
+                className='absolute top-0 left-0 size-full rounded-[0.29283rem] xmd:rounded-[0.58565rem]'
                 src={'/home/border-left-fl.svg'}
                 alt='border'
                 width={70}
                 height={54}
               />
-              <span className='text-[2.04978rem] leading-[1.2] font-bold bg-linearFlashText bg-clip-text text-transparent relative z-10'>
+              <span className='text-[2.04978rem] xmd:text-[1.1713rem] leading-[1.2] font-bold bg-[linear-gradient(99deg,#FFF0D8_-58.6%,#E99207_95.15%)] bg-clip-text text-transparent relative z-10'>
                 22
               </span>
             </div>
-            <div className='w-[5.12445rem] h-[3.95315rem] flex justify-center items-center rounded-[0.29283rem] bg-white'>
-              <span className='text-[2.04978rem] leading-[1.2] font-bold bg-linearFlashText bg-clip-text text-transparent'>
+            <div className='w-[5.12445rem] h-[3.95315rem] xmd:w-[2.63543rem] xmd:h-[2.04525rem] flex justify-center items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] xmd:shadow-[0px_0.447px_8.491px_0px_rgba(255,255,255,0.22)] bg-white'>
+              <span className='text-[2.04978rem] xmd:text-[1.1713rem] leading-[1.2] font-bold bg-[linear-gradient(99deg,#FFF0D8_-58.6%,#E99207_95.15%)] bg-clip-text text-transparent'>
                 11
               </span>
             </div>
-            <div className='w-[5.12445rem] h-[3.95315rem] flex justify-center items-center rounded-[0.29283rem] relative '>
+            <div className='w-[5.12445rem] h-[3.95315rem] xmd:w-[2.63543rem] xmd:h-[2.04525rem] flex justify-center items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] xmd:shadow-[0px_0.447px_8.491px_0px_rgba(255,255,255,0.22)] relative '>
               <Image
-                className='absolute top-0 left-0 size-full'
+                className='absolute top-0 left-0 size-full rounded-[0.29283rem] xmd:rounded-[0.58565rem]'
                 src={'/home/border-right-fl.svg'}
                 alt='border'
                 width={70}
                 height={54}
               />
-              <span className='text-[2.04978rem] leading-[1.2] font-bold bg-linearFlashText bg-clip-text text-transparent relative z-10'>
+              <span className='text-[2.04978rem] xmd:text-[1.1713rem] leading-[1.2] font-bold bg-[linear-gradient(99deg,#FFF0D8_-58.6%,#E99207_95.15%)] bg-clip-text text-transparent relative z-10'>
                 22
               </span>
             </div>
           </div>
         </div>
-        <VoucherSlide data={listData} />
-        <div className='mt-[7.91rem] flex h-[8.56515rem] relative'>
-          <div className='bg-[#EEB357] size-full relative rounded-[1.1713rem]'>
+        {isMobile ? (
+          <VoucherSlideRes data={listData} />
+        ) : (
+          <VoucherSlide data={listData} />
+        )}
+        <div className='mt-[7.91rem] xmd:mt-[1.46rem] flex h-[8.56515rem] relative'>
+          <div className='bg-[#EEB357] size-full relative rounded-[1.1713rem] xmd:rounded-[0.58565rem] xmd:w-[96%] xmd:mx-auto xmd:bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)]'>
+            {!isMobile && (
+              <Image
+                className='absolute -top-[4.24rem] -left-[3.66rem] size-[17.49341rem] object-cover '
+                src={'/home/circle-yellow.svg'}
+                alt='ware'
+                width={157}
+                height={157}
+              />
+            )}
             <Image
-              className='absolute -top-[4.24rem] -left-[3.66rem] size-[17.49341rem] object-cover '
-              src={'/home/circle-yellow.svg'}
-              alt='ware'
-              width={157}
-              height={157}
-            />
-            <Image
-              className='absolute bottom-0 left-[0.33rem] w-[9.39971rem] h-[15.66618rem]'
+              className='absolute bottom-0 left-[0.33rem] w-[9.39971rem] h-[15.66618rem] xmd:w-[4.1142rem] xmd:h-[6.85695rem] xmd:bottom-[0.76rem] xmd:left-auto xmd:right-[1.71rem] z-20'
               src={'/home/girl-voucher.png'}
               alt='girl voucher'
               width={130}
@@ -83,24 +92,28 @@ export default function FlashVoucher() {
             />
             <Link
               href={'/'}
-              className='w-[31.8448rem] absolute top-1/2 -translate-y-1/2 left-[12.08rem]'
+              className='w-[31.8448rem] absolute top-1/2 -translate-y-1/2 left-[12.08rem] xmd:w-fit xmd:top-[1.1rem] xmd:left-[1.68rem] xmd:translate-y-0'
             >
-              <h4 className='font-normal text-white sub1'>Voucher dành cho</h4>
-              <h3 className='font-medium text-white h5'>
+              <h4 className='font-normal text-white sub1 xmd:text-brown-800 xmd:caption2'>
+                Voucher dành cho
+              </h4>
+              <h3 className='font-medium text-white h5 xmd:text-greyscale-80 xmd:sub2'>
                 Khách hàng thân thiết
               </h3>
             </Link>
           </div>
-          <div className='h6 font-semibold w-[41.142rem] h-[8.56515rem] flex justify-center items-center text-white absolute right-0 top-0 '>
-            <Image
-              className='absolute top-0 left-0 z-0 object-cover size-full rounded-tr-[1.1713rem] rounded-br-[1.1713rem]'
-              src={'/home/bg-login.png'}
-              alt='background elip'
-              width={562}
-              height={118}
-            />
+          <div className='h6 font-semibold w-[41.142rem] h-[8.56515rem] xmd:h-[3.22108rem] xmd:left-1/2 xmd:-translate-x-1/2 flex justify-center items-center text-white absolute right-0 top-0 xmd:rounded-[0.58565rem] xmd:bg-blue-700 xmd:p-[0.88rem] xmd:top-auto xmd:bottom-[0.73rem] xmd:w-[calc(100%-(1.39rem*2))] xmd:justify-start'>
+            {!isMobile && (
+              <Image
+                className='absolute top-0 left-0 z-0 object-cover size-full rounded-tr-[1.1713rem] rounded-br-[1.1713rem]'
+                src={'/home/bg-login.png'}
+                alt='background elip'
+                width={562}
+                height={118}
+              />
+            )}
             <Link
-              className='relative z-10 font-medium text-white h6'
+              className='relative z-10 font-medium text-white h6 xmd:caption1'
               href={'/dang-ky'}
             >
               ĐĂNG KÝ /
@@ -109,16 +122,18 @@ export default function FlashVoucher() {
               className='ml-[0.3rem] flex items-center relative z-10'
               href={'/dang-nhap'}
             >
-              <span className='font-medium text-white h6 mr-[0.66rem] inline-block'>
+              <span className='font-medium text-white h6 xmd:caption1 mr-[0.66rem] inline-block'>
                 ĐĂNG NHẬP NGAY
               </span>
-              <Image
-                className='size-[2.63543rem] object-contain brightness-0 invert'
-                src={'/home/touch-login.svg'}
-                alt='icon touch'
-                width={36}
-                height={36}
-              />
+              {!isMobile && (
+                <Image
+                  className='size-[2.63543rem] object-contain brightness-0 invert'
+                  src={'/home/touch-login.svg'}
+                  alt='icon touch'
+                  width={36}
+                  height={36}
+                />
+              )}
             </Link>
           </div>
         </div>

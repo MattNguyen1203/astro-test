@@ -30,14 +30,6 @@ module.exports = {
       x3xl: {max: '1799px'},
     },
     extend: {
-      backgroundImage: {
-        linearSupport:
-          'linear-gradient(95deg, #FFF 0%, rgba(255, 255, 255, 0.79) 100%)',
-        linearFlash:
-          'linear-gradient(180deg, #02315D 26.21%, rgba(246, 187, 145, 0.55) 68.35%, rgba(255, 255, 255, 0.00) 105.67%)',
-        linearFlashText:
-          'linear-gradient(99deg, #FFF0D8 -58.6%, #E99207 95.15%)',
-      },
       fontFamily: {
         svnGraphik: ['var(--font-svn-graphik)'],
         workSans: ['var(--font-work-sans)'],
@@ -99,6 +91,7 @@ module.exports = {
         'brown-500': '#BE9367',
         'brown-600': '#AD865E',
         'brown-700': '#876849',
+        'brown-800': '#695139',
       },
       borderRadius: {
         lg: 'var(--radius)',

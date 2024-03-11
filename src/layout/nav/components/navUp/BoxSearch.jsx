@@ -26,7 +26,7 @@ const linkNavUp = [
   },
 ]
 
-export default function BoxSearch() {
+export default function BoxSearch({isMobile}) {
   const [isValue, setIsValue] = useState(false)
   const isFocusSearchNav = useStore((state) => state.isFocusSearchNav)
 
@@ -38,34 +38,37 @@ export default function BoxSearch() {
       <InputSearchNav
         setIsValue={setIsValue}
         isValue={isValue}
+        isMobile={isMobile}
       />
-      <ul
-        id='categories_nav'
-        className='flex ml-[0.58rem]'
-      >
-        {linkNavUp.map((e, index) => (
-          <li
-            key={index}
-            className={`${index === 2 ? 'relative group' : ''}`}
-          >
-            {index === 2 ? (
-              <>
-                <span className='caption1 font-medium text-blue-800 p-[0.88rem]'>
+      {!isMobile && (
+        <ul
+          id='categories_nav'
+          className='flex ml-[0.58rem]'
+        >
+          {linkNavUp.map((e, index) => (
+            <li
+              key={index}
+              className={`${index === 2 ? 'relative group' : ''}`}
+            >
+              {index === 2 ? (
+                <>
+                  <span className='caption1 font-medium text-blue-800 p-[0.88rem]'>
+                    {e.title}
+                  </span>
+                  <PopupStore />
+                </>
+              ) : (
+                <Link
+                  className='caption1 font-medium text-blue-800 p-[0.88rem]'
+                  href={e.href}
+                >
                   {e.title}
-                </span>
-                <PopupStore />
-              </>
-            ) : (
-              <Link
-                className='caption1 font-medium text-blue-800 p-[0.88rem]'
-                href={e.href}
-              >
-                {e.title}
-              </Link>
-            )}
-          </li>
-        ))}
-      </ul>
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
       {isValue && isFocusSearchNav && <PopupResult />}
     </div>
   )

@@ -4,7 +4,7 @@ import MenuUser from '@/sections/account/components/menuuser'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
 
-export default function Account({user}) {
+export default function Account({user, isMobile}) {
   const [isOpen, setIsOpen] = useState(false)
   const [sideRef, isOutSide] = useClickOutSide(false)
 
@@ -13,13 +13,14 @@ export default function Account({user}) {
       setIsOpen(false)
     }
   }, [isOutSide])
+
   return (
-    <div className='size-[2.63543rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center ml-[1.17rem] mr-[0.44rem] relative cursor-pointer'>
+    <div className='size-[2.63543rem] xmd:size-[2.34261rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center ml-[1.17rem] mr-[0.44rem] relative cursor-pointer'>
       <Image
         onClick={() => setIsOpen(!isOpen)}
         ref={sideRef}
         className={`${
-          user?.image ? 'size-full' : 'size-[1.31772rem]'
+          user?.image ? 'size-full' : 'size-[1.31772rem] xmd:size-[1.1713rem]'
         } flex-shrink-0 object-cover rounded-full `}
         src={user?.image || '/layout/nav/user.svg'}
         alt='icon user'

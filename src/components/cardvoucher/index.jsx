@@ -5,7 +5,9 @@ import {useState} from 'react'
 export default function CardVoucher({className = '', item}) {
   const [isCopy, setCopy] = useState(false)
   return (
-    <article className='w-[21.22987rem] h-[5.12rem] rounded-[0.58565rem] bg-elevation-20 flex hover:bg-brown-50 transition-all duration-200 select-none'>
+    <article
+      className={`${className} w-[21.22987rem] h-[5.12rem] xmd:w-[18.66764rem] xmd:h-[4.1rem] rounded-[0.58565rem] bg-elevation-20 xmd:bg-white flex hover:bg-brown-50 transition-all duration-200 select-none xmd:shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)]`}
+    >
       <div className='w-[5.12rem] h-full flex flex-col justify-center items-center bg-[linear-gradient(44deg,#FFF5E6_50.63%,#FFE4B9_106.58%)] rounded-tl-[0.58565rem] rounded-bl-[0.58565rem]'>
         <Image
           className='size-[2.34261rem]'

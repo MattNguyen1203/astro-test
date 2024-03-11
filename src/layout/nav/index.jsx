@@ -6,21 +6,26 @@ import NavDown from './components/navDown'
 import NavUp from './components/navUp'
 import WrapNav from './components/wrapnav'
 
-export default async function Nav() {
+export default async function Nav({isMobile}) {
   const session = await auth()
   return (
     <header
       id='container_nav'
-      className='fixed top-0 left-0 h-fit md:bg-white/95 z-[999] border-b-[2px] border-solid border-white md:backdrop-blur-[14px] w-full'
+      className='fixed top-0 left-0 h-fit md:bg-white/95 xmd:bg-white z-[999] border-b-[2px] border-solid border-white md:backdrop-blur-[14px] w-full xmd:h-[4.1rem] xmd:w-screen'
     >
       <WrapNav>
-        <NavUp user={{...session?.user}} />
-        <div
-          id='nav_down'
-          className='my-[0.8rem]'
-        >
-          <NavDown />
-        </div>
+        <NavUp
+          user={{...session?.user}}
+          isMobile={isMobile}
+        />
+        {!isMobile && (
+          <div
+            id='nav_down'
+            className='my-[0.8rem]'
+          >
+            <NavDown />
+          </div>
+        )}
       </WrapNav>
       <div
         id='overlay_search_nav'
