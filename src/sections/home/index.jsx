@@ -58,7 +58,7 @@ export default function HomeIndex({viewport}) {
       <section className='pb-[1.49rem]'>
         <TechnologyConner />
       </section>
-      <div className='flex items-center justify-center w-full h-screen'>
+      {/* <div className='flex items-center justify-center w-full h-screen'>
         <DialogProduct>
           <div className='text-2xl text-black mt-[10px] cursor-default'>
             Edit Profile
@@ -66,7 +66,7 @@ export default function HomeIndex({viewport}) {
         </DialogProduct>
         <TabInit />
         <SheetCart />
-      </div>
+      </div> */}
       {/* <IndexSWR />
       <div className='w-full h-screen bg-black'></div>
       <div className='right-0 top-0 size-[4rem] bg-black absolute'></div>
