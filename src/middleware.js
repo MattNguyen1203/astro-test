@@ -5,15 +5,15 @@ export function middleware(request) {
   if (url.pathname.includes('undefined')) {
     return NextResponse.redirect(new URL('/404', request.url))
   }
-  // if (url.pathname.includes('/san-pham')) {
-  //   return NextResponse.redirect(new URL('/', request.url))
-  // }
+  if (url.pathname.includes('/san-pham')) {
+    return NextResponse.redirect(new URL('/', request.url))
+  }
   // if (url.pathname.includes('/pre-order')) {
   //   return NextResponse.redirect(new URL('/', request.url))
   // }
-  // if (url.pathname.includes('/tra-cuu-don-hang')) {
-  //   return NextResponse.redirect(new URL('/', request.url))
-  // }
+  if (url.pathname.includes('/tra-cuu-don-hang')) {
+    return NextResponse.redirect(new URL('/', request.url))
+  }
   // if (url.pathname.includes('/flash-sale')) {
   //   return NextResponse.redirect(new URL('/', request.url))
   // }
