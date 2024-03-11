@@ -1,5 +1,5 @@
-import ProductPreOrder from '../preorder/components/productpreorder'
 import BannerFlashSale from './components/banner'
+import WrapperFlashSale from './components/wrapper'
 
 export default function IndexFlashSale() {
   return (

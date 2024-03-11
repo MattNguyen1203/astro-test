@@ -4,7 +4,7 @@ export default function BannerFlashSale() {
   return (
     <section className='relative'>
       <Image
-        className='w-full object-cover h-[41.28843rem]'
+        className='w-full object-cover h-[41.28843rem] 3xl:h-[56.28843rem]'
         src={'/flashsale/banner.jpg'}
         alt='banner'
         width={1400}
