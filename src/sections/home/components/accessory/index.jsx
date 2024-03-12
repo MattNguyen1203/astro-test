@@ -7,19 +7,42 @@ import Link from 'next/link'
 
 export default function Accessory({isMobile}) {
   return (
-    <section className='pt-[4.39rem] bg-elevation-20'>
-      <div className='container flex py-[1.46rem] pr-[1.47rem] rounded-[1.1713rem] backdrop-blur-[5px] bg-blue-400 xmd:full-mb'>
-        <div className='px-[1.46rem] flex-1 flex flex-col'>
+    <div className='pt-[4.39rem] md:bg-elevation-20 xmd:pt-[3rem]'>
+      <div className='container md:flex md:py-[1.46rem] md:pr-[1.47rem] rounded-[1.1713rem] backdrop-blur-[5px] md:bg-blue-400'>
+        <div className='md:px-[1.46rem] flex-1 flex flex-col'>
           <Link
             href={'/'}
-            className='relative'
+            className='relative xmd:flex xmd:justify-between xmd:px-[0.88rem] xmd:py-[0.73rem] xmd:rounded-[0.58565rem] xmd:bg-[#F4F4F4]'
           >
-            <span className='font-semibold text-white h6'>
-              Phụ kiện hay cho thiết bị của bạn
+            <span className='font-semibold text-white h6 xmd:sub2 xmd:text-greyscale-80'>
+              {isMobile
+                ? 'Tìm kiếm phụ kiện'
+                : 'Phụ kiện hay cho thiết bị của bạn'}
             </span>
-            <ICArrowRight className='absolute bottom-[0.5rem] right-[1.6rem]' />
+            {isMobile ? (
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='20'
+                height='20'
+                viewBox='0 0 20 20'
+                fill='none'
+                className='size-[1.46413rem]'
+              >
+                <path
+                  d='M1.66732 10.0013L18.334 10.0013M18.334 10.0013L11.6673 3.33464M18.334 10.0013L11.6673 16.668'
+                  stroke='#262626'
+                  strokeWidth='2'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+              </svg>
+            ) : (
+              <ICArrowRight className='absolute bottom-[0.5rem] right-[1.6rem]' />
+            )}
           </Link>
-          <CategoriesIndex />
+          <div className='relative w-full'>
+            <CategoriesIndex isMobile={isMobile} />
+          </div>
         </div>
         <div className='w-[69.03367rem] h-[31.8448rem] rounded-[0.87848rem] bg-white overflow-hidden'>
           <SlideAccessory />
@@ -36,6 +59,6 @@ export default function Accessory({isMobile}) {
           <ICArrowRight className='size-[1.1713rem] arrow-loop' />
         </Link>
       )}
-    </section>
+    </div>
   )
 }

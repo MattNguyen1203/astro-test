@@ -1,5 +1,11 @@
+'use client'
+import './style.css'
+
 import {Input} from '@/components/ui/input'
 import SocialProduct from './SocialProduct'
+import PopupCategories from './PopupCategories'
+import {useEffect, useState} from 'react'
+import useClickOutSide from '@/hooks/useClickOutSide'
 
 const arr = [
   {
@@ -17,12 +23,23 @@ const arr = [
 ]
 
 export default function Aside() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [indexSelect, setIndexSelect] = useState(1)
+  const [sideRef, isOutSide] = useClickOutSide()
+  useEffect(() => {
+    if (isOutSide) return setIsOpen(false)
+  }, [isOutSide])
+
   return (
-    <aside className='w-[16.17862rem] h-fit sticky top-[9.76rem] left-0'>
+    <aside className='w-[16.17862rem] h-fit sticky top-[9.76rem] left-0 z-[99]'>
       <div className='w-full rounded-[0.87848rem] bg-white shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] p-[0.88rem] h-fit'>
-        <div className='px-[0.88rem] bg-elevation-20 h-[3.51391rem] flex justify-between items-center rounded-[0.29283rem]'>
+        <div
+          ref={sideRef}
+          onClick={() => setIsOpen(!isOpen)}
+          className='px-[0.88rem] bg-elevation-20 h-[3.51391rem] flex justify-between items-center rounded-[0.29283rem] cursor-pointer relative'
+        >
           <span className='font-semibold sub2 text-greyscale-80 '>
-            Bút cảm ứng
+            Bút cảm ứng {indexSelect + 1}
           </span>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -40,6 +57,12 @@ export default function Aside() {
               strokeLinejoin='round'
             />
           </svg>
+          <PopupCategories
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            indexSelect={indexSelect}
+            setIndexSelect={setIndexSelect}
+          />
         </div>
         <hr className='w-full h-[0.07321rem] bg-[rgba(236,236,236,0.70)] my-[0.88rem]' />
         <span className='caption1 text-greyscale-80 font-semibold leading-[1.2] block pl-[0.15rem]'>

@@ -176,6 +176,7 @@ body {
   @media (max-width: 767px) {
     overflow-x: hidden !important;
   }
+  --radix-navigation-menu-viewport-width: 100%;
 }
 
 @media (max-width: 1367px) {

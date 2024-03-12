@@ -1,0 +1,36 @@
+#categories_mega_hover > div:first-child {
+  width: 100%;
+}
+
+#list_categories_mega_hover {
+  cursor: default;
+}
+
+#list_categories_mega_hover li {
+  width: 100%;
+  pointer-events: none;
+  margin: 0;
+  padding: 0 0.88rem;
+  cursor: default;
+}
+
+#list_categories_mega_hover li:hover {
+  background: transparent !important;
+}
+
+#list_categories_mega_hover li:hover > span {
+  background: white;
+}
+
+#list_categories_mega_hover li button {
+  pointer-events: all;
+}
+
+.popup_hover_categories_mega div {
+  width: 100%;
+}
+
+.popup_hover_categories_mega > div {
+  margin-top: 0;
+  border: none;
+}

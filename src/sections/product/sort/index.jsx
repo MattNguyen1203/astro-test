@@ -41,7 +41,7 @@ export default function Sort() {
     setIsOpen(false)
   }
   return (
-    <div className='h-[5.27086rem] rounded-[0.87848rem] bg-white shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] px-[1.17rem] flex items-center justify-between mb-[1.17rem]'>
+    <div className='h-[5.27086rem] rounded-[0.87848rem] bg-white shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] px-[1.17rem] flex items-center justify-between mb-[1.17rem] relative z-20'>
       <div className='w-fit'>
         <h2 className='sub2 font-medium text-greyscale-80 mb-[0.44rem]'>
           Bút cảm ứng cho iPad

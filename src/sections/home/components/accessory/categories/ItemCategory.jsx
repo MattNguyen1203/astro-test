@@ -1,8 +1,12 @@
 import Image from 'next/image'
 
-export default function ItemCategory() {
+export default function ItemCategory({index}) {
   return (
-    <div className='w-full px-[0.59rem] h-[3.51rem] rounded-[0.58565rem] border border-solid border-[rgba(193,212,231,0.10)] bg-[rgba(20,20,20,0.10)] relative backdrop-blur-[5px] flex items-center group hover:border-[#EEF8FF] hover:bg-[#EBF0F7] transition-all duration-300 hover:shadow-[3px_4px_3px_0px_rgba(22,53,86,0.29)_inset,6px_5px_3px_0px_rgba(3,30,59,0.02)_inset] select-none cursor-pointer'>
+    <div
+      className={`${
+        index ? 'mt-[0.88rem]' : ''
+      } w-full px-[0.59rem] h-[3.51rem] rounded-[0.58565rem] border border-solid border-[rgba(193,212,231,0.10)] bg-[rgba(20,20,20,0.10)] relative backdrop-blur-[5px] flex items-center group hover:border-[#EEF8FF] hover:bg-[#EBF0F7] transition-all duration-300 hover:shadow-[3px_4px_3px_0px_rgba(22,53,86,0.29)_inset,6px_5px_3px_0px_rgba(3,30,59,0.02)_inset] select-none cursor-pointer`}
+    >
       <Image
         className='size-[3.51391rem] object-contain'
         src={'/home/item-iphone14.png'}

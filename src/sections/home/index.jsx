@@ -27,8 +27,8 @@ import CategoriesProduct from './components/categoriesproduct'
 export default function HomeIndex({viewport}) {
   const isMobile = viewport === 'mobile'
   return (
-    <main className='relative bg-elevation-20'>
-      <section className='pt-[8rem] xmd:pt-[5.18rem]'>
+    <main className='relative bg-elevation-20 xmd:bg-white'>
+      <section className='pt-[8rem] xmd:pt-[5.18rem] xmd:bg-elevation-20'>
         <BannerHome
           isMobile={isMobile}
           viewport={viewport}
@@ -40,9 +40,11 @@ export default function HomeIndex({viewport}) {
         {isMobile && <CategoriesProduct />}
         <Accessory isMobile={isMobile} />
       </section>
-      <section>
-        <PromotionSlide />
-      </section>
+      {!isMobile && (
+        <section>
+          <PromotionSlide />
+        </section>
+      )}
       <section>
         <ProductIndex />
       </section>
