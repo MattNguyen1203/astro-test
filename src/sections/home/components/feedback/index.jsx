@@ -1,19 +1,18 @@
 import ICArrowRightWhite from '@/components/icon/ICArrowRightWhite'
-import {Icon} from '@radix-ui/react-select'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function FeedBack() {
+export default function FeedBack({isMobile}) {
   return (
-    <div className='relative w-full h-[77.5rem]'>
+    <div className='relative w-full h-[77.5rem] xmd:h-[67.13031rem]'>
       <Image
         className='z-0 object-fill'
-        src='/home/bg-feedback.png'
+        src={isMobile ? '/home/bg-feedback-res.jpg' : '/home/bg-feedback.png'}
         alt='feedback custormer'
         fill
         sizes='100vw'
       />
-      <div className='w-[29.3rem] h-[38.3rem] sticky top-[calc(100vh-38.3rem)] left-1/2 -translate-x-1/2 z-10'>
+      <div className='w-[29.3rem] h-[38.3rem] xmd:w-[23.38719rem] xmd:h-[31.68594rem] sticky top-[calc(100vh-38.3rem)] left-1/2 -translate-x-1/2 z-10 xmd:ml-[10rem] xmd:top-[calc(100vh-33rem)]'>
         <Image
           className='object-cover size-full'
           src={'/home/smart-phone.png'}

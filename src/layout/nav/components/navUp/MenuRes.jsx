@@ -9,6 +9,7 @@ export default function MenuRes() {
         alt='icon menu'
         width={16}
         height={16}
+        priority
       />
     </div>
   )

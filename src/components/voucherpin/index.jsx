@@ -22,6 +22,7 @@ export default function VoucherPin() {
           alt='icon voucher'
           width={22}
           height={22}
+          priority
         />
         <span className='text-white text-[0.87848rem] leading-[1.2] tracking-[0.00439rem] font-semibold inline-block ml-[0.44rem] w-fit'>
           VOUCHER

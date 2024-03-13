@@ -4,6 +4,7 @@ import {Toaster} from '@/components/ui/sonner'
 import localFont from 'next/font/local'
 import Footer from '@/layout/footer'
 import {Work_Sans} from 'next/font/google'
+import {headers} from 'next/headers'
 
 export const metadata = {
   title: 'Create Next App',
@@ -61,6 +62,12 @@ const svnGraphik = localFont({
 })
 
 export default function RootLayout({children}) {
+  const headersList = headers()
+  const userAgent = headersList.get('user-agent')
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      userAgent,
+    )
   return (
     <html lang='en'>
       <head></head>
@@ -69,7 +76,7 @@ export default function RootLayout({children}) {
         className={`${svnGraphik.className} ${svnGraphik.variable} ${workSans.variable}`}
       >
         {children}
-        <Footer />
+        <Footer isMobile={isMobile} />
         <Toaster />
       </body>
     </html>

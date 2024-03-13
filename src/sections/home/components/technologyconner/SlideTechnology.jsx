@@ -7,7 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {Pagination} from 'swiper/modules'
 import {Swiper, SwiperSlide} from 'swiper/react'
-export default function SlideTechnology() {
+export default function SlideTechnology({isMobile}) {
   return (
     <Swiper
       slidesPerView={'auto'}

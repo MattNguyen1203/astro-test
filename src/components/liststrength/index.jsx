@@ -32,8 +32,8 @@ export const listCardStrength = [
 ]
 export default function ListStrength() {
   return (
-    <section className='py-[2.71rem] bg-white'>
-      <div className='container flex justify-between'>
+    <section className='py-[2.71rem] xmd:py-[3.22rem] bg-white'>
+      <div className='container flex justify-between xmd:grid xmd:grid-cols-2 xmd:gap-[0.59rem]'>
         {listCardStrength.map((e, index) => (
           <CardStrength
             item={e}
