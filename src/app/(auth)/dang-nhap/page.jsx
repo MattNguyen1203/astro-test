@@ -1,4 +1,5 @@
 import {SignInIndex} from '@/sections/signin'
+import GoogleTest from '@/sections/signin/GoogleTest'
 
 export default function SignInPage() {
   return (
@@ -10,6 +11,7 @@ export default function SignInPage() {
         AstroMazing
       </h1>
       <SignInIndex />
+      <GoogleTest />
     </div>
   )
 }

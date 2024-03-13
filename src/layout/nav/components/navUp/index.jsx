@@ -17,7 +17,7 @@ export default function NavUp({user, isMobile}) {
         href='/'
       >
         <Image
-          className='object-cover size-full'
+          className='object-cover size-full xmd:object-contain'
           src={'/layout/nav/logo-nav.svg'}
           alt='logo astromazing'
           width={123}

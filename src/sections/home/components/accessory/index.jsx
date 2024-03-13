@@ -8,11 +8,11 @@ import Link from 'next/link'
 export default function Accessory({isMobile}) {
   return (
     <div className='pt-[4.39rem] md:bg-elevation-20 xmd:pt-[3rem]'>
-      <div className='container md:flex md:py-[1.46rem] md:pr-[1.47rem] rounded-[1.1713rem] backdrop-blur-[5px] md:bg-blue-400'>
+      <div className='container md:flex md:py-[1.46rem] md:pr-[1.47rem] rounded-[1.1713rem] backdrop-blur-[5px] md:bg-blue-400 xmd:full-mb'>
         <div className='md:px-[1.46rem] flex-1 flex flex-col'>
           <Link
             href={'/'}
-            className='relative xmd:flex xmd:justify-between xmd:px-[0.88rem] xmd:py-[0.73rem] xmd:rounded-[0.58565rem] xmd:bg-[#F4F4F4]'
+            className='relative xmd:flex xmd:justify-between xmd:px-[0.88rem] xmd:py-[0.73rem] xmd:rounded-[0.58565rem] xmd:bg-[#F4F4F4] xmd:container'
           >
             <span className='font-semibold text-white h6 xmd:sub2 xmd:text-greyscale-80'>
               {isMobile

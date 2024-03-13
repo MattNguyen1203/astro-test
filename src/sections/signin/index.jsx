@@ -18,6 +18,7 @@ import {
 import {Input} from '@/components/ui/input'
 import Link from 'next/link'
 import Image from 'next/image'
+import {signIn} from '@/auth'
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -94,9 +95,12 @@ export function SignInIndex() {
             >
               Đăng nhập
             </button>
-            <Link
+            <div
               className='size-[2.92826rem] flex justify-center items-center rounded-full bg-white shadow-[2.222px_2.222px_13.333px_0px_rgba(0,0,0,0.02),-3.333px_2.222px_22.222px_0px_rgba(0,0,0,0.04)] mr-[0.59rem]'
-              href={'/api/auth/signin/google'}
+              // href={'/api/auth/signin/google'}
+              onClick={async () => {
+                await signIn()
+              }}
             >
               <Image
                 src={'/auth/icon-gg.svg'}
@@ -105,7 +109,7 @@ export function SignInIndex() {
                 height={20}
                 priority
               />
-            </Link>
+            </div>
           </div>
         </form>
       </Form>
