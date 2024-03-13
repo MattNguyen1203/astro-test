@@ -40,11 +40,11 @@ export default function Accessory({isMobile}) {
               <ICArrowRight className='absolute bottom-[0.5rem] right-[1.6rem]' />
             )}
           </Link>
-          <div className='relative w-full'>
+          <div className='relative w-full xmd:overflow-x-auto xmd:h-[5.24rem] hidden-scrollbar z-10'>
             <CategoriesIndex isMobile={isMobile} />
           </div>
         </div>
-        <div className='w-[69.03367rem] h-[31.8448rem] rounded-[0.87848rem] bg-white overflow-hidden'>
+        <div className='md:w-[69.03367rem] h-[31.8448rem] xmd:h-[24.92rem] xmd:rounded-[0.87848rem] bg-white overflow-hidden relative xmd:top-[-1.17rem]'>
           <SlideAccessory />
         </div>
       </div>

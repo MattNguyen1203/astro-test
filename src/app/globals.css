@@ -190,11 +190,14 @@ body {
     margin-right: auto;
   }
 } */
-/* @media (max-width: 767px) {
-  .container {
-    min-width: 96% !important;
-    width: 96% !important;
-    margin-left: auto;
-    margin-right: auto;
+@media (max-width: 1023px) {
+  .hidden-scrollbar::-webkit-scrollbar {
+    -webkit-appearance: none;
+    display: none;
   }
-} */
+
+  .hidden-scrollbar::-webkit-scrollbar-thumb {
+    -webkit-appearance: none;
+    display: none;
+  }
+}

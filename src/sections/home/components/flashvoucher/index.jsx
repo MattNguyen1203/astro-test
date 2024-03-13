@@ -89,6 +89,7 @@ export default function FlashVoucher({isMobile}) {
               alt='girl voucher'
               width={130}
               height={215}
+              priority={isMobile ? true : false}
             />
             <Link
               href={'/'}

@@ -5,7 +5,7 @@ import {useRef, useState} from 'react'
 import NavigationCustom from '@/components/navigationcustom'
 import CardProduct from '@/components/cardproduct'
 
-export default function SlideProduct() {
+export default function SlideProduct({isMobile}) {
   const swiperRef = useRef(null)
   const [indexSlider, setIndexSlider] = useState(0)
 
@@ -20,39 +20,53 @@ export default function SlideProduct() {
     swiperRef.current?.slidePrev()
   }
   return (
-    <article className='h-[29.96rem] container relative'>
+    <article className='h-[29.96rem] xmd:h-[25.18rem] container xmd:full-mb relative'>
       <Swiper
-        slidesPerView={1}
-        spaceBetween={16}
+        breakpoints={{
+          0: {
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+          },
+          768: {
+            slidesPerView: 1,
+            spaceBetween: 16,
+          },
+        }}
         speed={1000}
         grabCursor
         onSlideChange={handleSlideChange}
         onBeforeInit={(swiper) => {
           swiperRef.current = swiper
         }}
-        className='h-full'
+        className='h-full xmd:!px-[0.295rem]'
       >
-        {new Array(3).fill(0).map((_, index) => (
+        {new Array(isMobile ? 8 : 3).fill(0).map((_, index) => (
           <SwiperSlide
             key={index}
-            className=''
+            className='xmd:!w-[13rem]'
           >
-            <div className='flex items-center size-full'>
-              <div className='grid grid-cols-5 gap-x-[0.88rem] h-[28.2rem]'>
-                {new Array(5).fill(0).map((_, idx) => (
-                  <CardProduct key={idx} />
-                ))}
-              </div>
+            <div className='flex items-center size-full xmd:px-[0.295rem]'>
+              {isMobile ? (
+                <CardProduct />
+              ) : (
+                <div className='grid grid-cols-5 gap-x-[0.88rem] h-[28.2rem]'>
+                  {new Array(5).fill(0).map((_, idx) => (
+                    <CardProduct key={idx} />
+                  ))}
+                </div>
+              )}
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-      <NavigationCustom
-        indexSlider={indexSlider}
-        length={3}
-        handlePrevSlide={handlePrevSlide}
-        handleNextSlide={handleNextSlide}
-      />
+      {!isMobile && (
+        <NavigationCustom
+          indexSlider={indexSlider}
+          length={3}
+          handlePrevSlide={handlePrevSlide}
+          handleNextSlide={handleNextSlide}
+        />
+      )}
     </article>
   )
 }

@@ -23,6 +23,7 @@ import LevelUpYourTech from './components/levelup'
 import PreOder from './components/preoder'
 import SheetCart from '@/components/sheetcart'
 import CategoriesProduct from './components/categoriesproduct'
+import ListStrength from '@/components/liststrength'
 
 export default function HomeIndex({viewport}) {
   const isMobile = viewport === 'mobile'
@@ -46,20 +47,27 @@ export default function HomeIndex({viewport}) {
         </section>
       )}
       <section>
-        <ProductIndex />
+        <ProductIndex isMobile={isMobile} />
       </section>
-      <section className='mt-[3.22rem]'>
-        <LevelUpYourTech />
+      <section className='mt-[3.22rem] xmd:mt-[1.17rem]'>
+        <LevelUpYourTech isMobile={isMobile} />
       </section>
-      <section className='mt-[5rem]'>
-        <PreOder />
-      </section>
+      {!isMobile && (
+        <section className='mt-[5rem]'>
+          <PreOder />
+        </section>
+      )}
       <section className='mt-[4.39rem]'>
-        <FeedBack />
+        <FeedBack isMobile={isMobile} />
       </section>
-      <section className='pb-[1.49rem]'>
-        <TechnologyConner />
+      <section className='md:pb-[1.49rem]'>
+        <TechnologyConner isMobile={isMobile} />
       </section>
+      {isMobile && (
+        <section>
+          <ListStrength />
+        </section>
+      )}
       {/* <div className='flex items-center justify-center w-full h-screen'>
         <DialogProduct>
           <div className='text-2xl text-black mt-[10px] cursor-default'>

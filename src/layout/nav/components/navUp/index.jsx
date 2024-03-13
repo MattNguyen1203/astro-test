@@ -30,7 +30,7 @@ export default function NavUp({user, isMobile}) {
         id='cart_and_user'
         className='flex items-center'
       >
-        <SheetCart>
+        <SheetCart isMobile={isMobile}>
           <div className='size-[2.63543rem] xmd:size-[2.34261rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center cursor-pointer'>
             <Image
               className='flex-shrink-0 object-cover size-[1.31772rem] xmd:w-[0.9287rem] xmd:h-auto'

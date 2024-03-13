@@ -2,7 +2,9 @@ import CardVoucher from '@/components/cardvoucher'
 
 export default function VoucherSlideRes({data, className = ''}) {
   return (
-    <div className={`${className} relative w-full overflow-x-auto h-[8.8rem]`}>
+    <div
+      className={`${className} relative w-full overflow-x-auto h-[8.8rem] hidden-scrollbar`}
+    >
       <div className='absolute top-0 left-0 w-fit px-[0.55rem] h-full flex flex-col justify-between'>
         {Array(2)
           .fill(0)

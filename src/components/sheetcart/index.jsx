@@ -13,20 +13,20 @@ import ICCheck from '../icon/ICCheck'
 import ICDelete from '../icon/ICDelete'
 import {ScrollArea} from '../ui/scroll-area'
 
-export default function SheetCart({children}) {
+export default function SheetCart({children, isMobile}) {
   const [isCheck, setIsCheck] = useState(false)
   return (
     <Sheet>
       <SheetTrigger>{children}</SheetTrigger>
       <SheetContent className='p-0 bg-white'>
         <SheetHeader>
-          <SheetTitle className='h-[3.80673rem] flex justify-start items-center px-[2.92rem] '>
+          <SheetTitle className='h-[3.80673rem] flex justify-start items-center px-[2.92rem] xmd:px-[0.88rem] xmd:border-b xmd:border-solid xmd:border-[#EFEFEF]'>
             GIỎ HÀNG:
           </SheetTitle>
-          <div className='w-full absolute top-[3.80673rem] left-0 bg-[#EFEFEF] h-[1px] !my-0' />
-          <div>
-            <div className='px-[2.92rem]'>
-              <div className='mt-[1.46rem] flex justify-between bg-[#F5F5F5] rounded-[0.58565rem] px-[1.17rem] py-[0.88rem] mb-[0.88rem]'>
+          <div className='w-full absolute top-[3.80673rem] left-0 bg-[#EFEFEF] h-[1px] !my-0 xmd:hidden' />
+          <div className='xmd:!m-0 h-full relative'>
+            <div className='px-[2.92rem] xmd:px-0'>
+              <div className='md:mt-[1.46rem] flex justify-between bg-[#F5F5F5] md:rounded-[0.58565rem] px-[1.17rem] py-[0.88rem] mb-[0.88rem]'>
                 <div
                   onClick={() => setIsCheck(!isCheck)}
                   className='flex items-center cursor-pointer w-fit'
@@ -55,10 +55,10 @@ export default function SheetCart({children}) {
               </div>
             </div>
 
-            <div className='pr-[1.42rem]'>
+            <div className='pr-[1.42rem] xmd:pr-[0.44rem]'>
               <ScrollArea
                 type='always'
-                className='w-full h-[calc(100vh-10.17rem-4.84rem)] pl-[2.92rem] pr-[1.5rem]'
+                className='w-full h-[calc(100vh-10.17rem-4.84rem)] xmd:h-[calc(100vh-10.17rem-3.6rem)] pl-[2.92rem] pr-[1.5rem] xmd:px-[0.88rem]'
               >
                 <div className='grid grid-cols-1 gap-y-[0.88rem]'>
                   <ItemCart />
@@ -73,7 +73,7 @@ export default function SheetCart({children}) {
                 </div>
               </ScrollArea>
             </div>
-            <div className='border-t border-solid border-[#EFEFEF] mt-auto h-[4.39239rem] px-[2.92rem] flex justify-between items-center'>
+            <div className='border-t border-solid border-[#EFEFEF] mt-auto h-[4.39239rem] xmd:h-[4.97804rem] px-[2.92rem] flex justify-between items-center xmd:absolute xmd:bottom-0 xmd:left-0 xmd:z-20'>
               <span className='text-[#6A6A6A] text-[1.02489rem] leading-[1.2] tracking-[0.01025rem]'>
                 TỔNG TIỀN HÀNG:
               </span>

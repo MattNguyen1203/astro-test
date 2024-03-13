@@ -15,14 +15,15 @@ export default function SlideAccessory() {
       }}
       slidesPerView={'auto'}
       modules={[Scrollbar, FreeMode]}
-      className='size-full !px-[0.73rem]'
+      className='size-full md:!px-[0.73rem] !px-[0.295rem]'
     >
       {new Array(16).fill(0).map((_, index) => (
         <SwiperSlide
+          bre
           key={index}
-          className='!w-[17.64428rem] h-full pt-[1.17rem]'
+          className='md:!w-[17.64428rem] !w-[13rem] h-full pt-[1.17rem]'
         >
-          <div className='size-full px-[0.44rem] flex items-start'>
+          <div className='size-full md:px-[0.44rem] px-[0.295rem] flex items-start'>
             <CardProduct />
           </div>
         </SwiperSlide>
