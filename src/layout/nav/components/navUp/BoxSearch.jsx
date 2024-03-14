@@ -29,11 +29,13 @@ const linkNavUp = [
 export default function BoxSearch({isMobile}) {
   const [isValue, setIsValue] = useState(false)
   const isFocusSearchNav = useStore((state) => state.isFocusSearchNav)
-
+  const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
   return (
     <div
       id='container_search_nav'
-      className='bg-blue-50 rounded-[6.5vw] p-[0.29rem] flex items-center h-[3.22108rem] w-fit relative'
+      className={`${
+        isOpenMegaMenuRes ? 'opacity-0 pointer-events-none' : 'opacity-100'
+      } transition-all duration-200 bg-blue-50 rounded-[7.5rem] p-[0.29rem] flex items-center h-[3.22108rem] w-fit relative`}
     >
       <InputSearchNav
         setIsValue={setIsValue}

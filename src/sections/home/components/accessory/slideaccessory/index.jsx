@@ -19,7 +19,6 @@ export default function SlideAccessory() {
     >
       {new Array(16).fill(0).map((_, index) => (
         <SwiperSlide
-          bre
           key={index}
           className='md:!w-[17.64428rem] !w-[13rem] h-full pt-[1.17rem]'
         >

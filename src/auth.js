@@ -1,8 +1,15 @@
 import NextAuth from 'next-auth'
 import Google from 'next-auth/providers/google'
 
-const config = {
-  providers: [Google],
+export const {
+  handlers: {GET, POST},
+  auth,
+  signIn,
+  signOut,
+} = NextAuth({
+  pages: {
+    signIn: '/dang-nhap',
+  },
   callbacks: {
     // authorized({request}) {
     //   const {pathname} = request.nextUrl
@@ -14,26 +21,22 @@ const config = {
     //   return token
     // },
     async signIn({user, account, profile, email, credentials}) {
-      // console.log('🚀 ~ signIn ~ user:', user)
-      // console.log('🚀 ~ signIn ~ account:', account)
-      // console.log('🚀 ~ signIn ~ profile:', profile)
-      // console.log('🚀 ~ signIn ~ email:', email)
-      // console.log('🚀 ~ signIn ~ credentials:', credentials)
+      console.log('🚀 ~ signIn ~ user:', user)
+      console.log('🚀 ~ signIn ~ account:', account)
+      console.log('🚀 ~ signIn ~ profile:', profile)
+      console.log('🚀 ~ signIn ~ email:', email)
+      console.log('🚀 ~ signIn ~ credentials:', credentials)
       if (user?.id || user?.name) {
         return true
       } else {
         return false
       }
     },
-    async redirect({url, baseUrl}) {
-      return baseUrl
-    },
   },
-}
-
-export const {
-  handlers: {GET, POST},
-  auth,
-  signIn,
-  signOut,
-} = NextAuth(config)
+  providers: [
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+  ],
+})

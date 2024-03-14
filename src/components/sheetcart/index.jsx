@@ -18,7 +18,7 @@ export default function SheetCart({children, isMobile}) {
   return (
     <Sheet>
       <SheetTrigger>{children}</SheetTrigger>
-      <SheetContent className='p-0 bg-white'>
+      <SheetContent className='p-0 bg-white xmd:data-[state=open]:duration-300'>
         <SheetHeader>
           <SheetTitle className='h-[3.80673rem] flex justify-start items-center px-[2.92rem] xmd:px-[0.88rem] xmd:border-b xmd:border-solid xmd:border-[#EFEFEF]'>
             GIỎ HÀNG:

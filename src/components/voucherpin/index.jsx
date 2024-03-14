@@ -9,8 +9,8 @@ export default function VoucherPin() {
   return (
     <div
       className={`${
-        isOpen ? 'translate-y-0 bottom-0' : 'translate-y-full bottom-[3.22rem]'
-      } h-[13.2rem] fixed z-[999] left-0 w-screen transition-all duration-300`}
+        isOpen ? 'translate-y-0 bottom-0' : 'translate-y-full bottom-[3.2rem]'
+      } h-[13.2rem] fixed z-[900] left-0 w-screen transition-all duration-300`}
     >
       <div
         onClick={() => setIsOpen(!isOpen)}
@@ -33,7 +33,7 @@ export default function VoucherPin() {
           } absolute top-1/2 -translate-y-1/2 right-[1.32rem] size-[1.1713rem] object-cover transition-all duration-100`}
         />
       </div>
-      <div className='flex items-center bg-white h-[calc(13.2rem-2.22rem)]'>
+      <div className='flex items-center bg-white h-[calc(13.2rem-3.22rem)]'>
         <VoucherSlideRes data={new Array(14).fill(0)} />
       </div>
     </div>

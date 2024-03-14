@@ -70,6 +70,9 @@
   .caption1 {
     @apply text-[0.87848rem] leading-[1.2] tracking-[0.00878rem];
   }
+  .caption3 {
+    @apply text-[0.58565rem] leading-[1.2];
+  }
   .sub1 {
     @apply text-[1.1713rem] leading-[1.2] tracking-[0.01464rem];
   }

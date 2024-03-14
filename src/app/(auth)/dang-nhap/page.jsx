@@ -11,7 +11,7 @@ export default function SignInPage() {
         AstroMazing
       </h1>
       <SignInIndex />
-      <GoogleTest />
+      {/* <GoogleTest /> */}
     </div>
   )
 }

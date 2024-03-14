@@ -18,22 +18,23 @@ export default function FlashVoucher({isMobile}) {
           />
         )}
         <div className='flex items-center justify-between pb-[2.05rem] xmd:px-[0.55rem]'>
-          <div className='w-[32.91519rem] h-[1.87rem] relative'>
+          <div className='relative flex w-fit'>
             <Image
-              className='object-contain size-full'
-              src={'/home/flash-voucher.png'}
-              alt='flash voucher'
-              width={530}
-              height={30}
-              quality={100}
-            />
-            <Image
-              className='object-contain size-[7.5rem] absolute top-[45%] -translate-y-1/2 left-[1rem]'
+              className='object-contain size-[10rem] absolute top-[45%] -translate-y-1/2 -left-[0.2rem] xmd:size-[5rem] xmd:-left-[0.2rem] pointer-events-none'
               src={'/home/electric.svg'}
               alt='tia set'
               width={80}
               height={80}
             />
+            <h2 className='text-[2.92826rem] font-bold text-white leading-[1.2] tracking-[0.23426rem] xmd:text-[1.1713rem] xmd:tracking-[0.0937rem] font-workSans fl mr-[1.6rem] xmd:mr-[1.2rem]'>
+              FL{' '}
+            </h2>
+            <h2 className='text-[2.92826rem] font-bold text-white leading-[1.2] tracking-[0.23426rem] xmd:text-[1.1713rem] xmd:tracking-[0.0937rem] font-workSans fl mr-[0.44rem] xmd:whitespace-nowrap'>
+              SH VOUCHER{' '}
+            </h2>
+            <h2 className='text-[2.92826rem] font-bold text-white leading-[1.2] tracking-[0.23426rem] xmd:text-[1.1713rem] xmd:tracking-[0.0937rem] font-workSans fl'>
+              12.12
+            </h2>
           </div>
           <div className='flex *:ml-[0.5rem] xmd:*:ml-[0.26rem]'>
             <div className='w-[5.12445rem] h-[3.95315rem] xmd:w-[2.63543rem] xmd:h-[2.04525rem] flex justify-center items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] xmd:shadow-[0px_0.447px_8.491px_0px_rgba(255,255,255,0.22)] ml-0 shadow-[0px_1px_19px_0px_rgba(255,255,255,0.22)] relative'>
