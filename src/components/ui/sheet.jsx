@@ -45,16 +45,21 @@ const sheetVariants = cva(
 )
 
 const SheetContent = React.forwardRef(
-  ({side = 'right', className, children, ...props}, ref) => (
+  (
+    {side = 'right', button = '', className, children, overlay, ...props},
+    ref,
+  ) => (
     <SheetPortal>
-      <SheetOverlay />
+      <SheetOverlay className={overlay} />
       <SheetPrimitive.Content
         ref={ref}
         className={cn(sheetVariants({side}), className)}
         {...props}
       >
         {children}
-        <SheetPrimitive.Close className='absolute right-[2.93rem] xmd:right-[0.88rem] top-[0.73rem] rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 disabled:pointer-events-none data-[state=open]:bg-secondary '>
+        <SheetPrimitive.Close
+          className={`${button} absolute right-[2.93rem] xmd:right-[0.88rem] top-[0.73rem] rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 disabled:pointer-events-none data-[state=open]:bg-secondary`}
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             width='32'

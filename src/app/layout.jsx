@@ -70,7 +70,12 @@ export default function RootLayout({children}) {
     )
   return (
     <html lang='en'>
-      <head></head>
+      <head>
+        <link
+          rel='canonical'
+          href={process.env.DOMAIN}
+        />
+      </head>
       <body
         suppressHydrationWarning={true}
         className={`${svnGraphik.className} ${svnGraphik.variable} ${workSans.variable}`}

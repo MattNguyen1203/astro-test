@@ -19,7 +19,7 @@ export default function WrapNav({children}) {
     <div
       ref={sideRef}
       id={isFocusSearchNav && !isOutSide ? 'wrapper_nav' : ''}
-      className='relative z-10 size-full'
+      className='relative z-30 size-full'
     >
       <div className='container relative'>
         {children}

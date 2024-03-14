@@ -10,6 +10,7 @@ export default function CategoriesIndex({isMobile}) {
           isMobile={isMobile}
         />
       ))}
+      <div className='w-[0.59rem] min-w-[0.59rem]'></div>
     </div>
   )
 }

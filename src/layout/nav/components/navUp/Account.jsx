@@ -1,4 +1,5 @@
 'use client'
+import useStore from '@/app/(store)/store'
 import useClickOutSide from '@/hooks/useClickOutSide'
 import MenuUser from '@/sections/account/components/menuuser'
 import Image from 'next/image'
@@ -7,6 +8,7 @@ import {useEffect, useState} from 'react'
 export default function Account({user, isMobile}) {
   const [isOpen, setIsOpen] = useState(false)
   const [sideRef, isOutSide] = useClickOutSide(false)
+  const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
 
   useEffect(() => {
     if (isOutSide) {
@@ -15,10 +17,14 @@ export default function Account({user, isMobile}) {
   }, [isOutSide])
 
   return (
-    <div className='size-[2.63543rem] xmd:size-[2.34261rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center ml-[1.17rem] mr-[0.44rem] relative cursor-pointer'>
+    <div
+      ref={sideRef}
+      className={`${
+        isOpenMegaMenuRes ? 'opacity-0 pointer-events-none' : 'opacity-100'
+      } size-[2.63543rem] xmd:size-[2.34261rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center ml-[1.17rem] mr-[0.44rem] relative cursor-pointer transition-all duration-200`}
+    >
       <Image
         onClick={() => setIsOpen(!isOpen)}
-        ref={sideRef}
         className={`${
           user?.image ? 'size-full' : 'size-[1.31772rem] xmd:size-[1.1713rem]'
         } flex-shrink-0 object-cover rounded-full `}

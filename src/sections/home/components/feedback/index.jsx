@@ -23,20 +23,20 @@ export default function FeedBack({isMobile}) {
         />
         <Link
           href={'/'}
-          className='flex items-center py-[0.63536rem] px-[1.27rem] rounded-[7.5rem] bg-white justify-center w-fit bottom-[14rem] left-[12.6rem] absolute z-50'
+          className='flex items-center py-[0.63536rem] px-[1.27rem] xmd:py-[0.51rem] xmd:px-[1.01rem] rounded-[7.5rem] bg-white justify-center w-fit bottom-[14rem] left-[12.6rem] absolute z-50 xmd:left-[10.4rem] xmd:bottom-[12rem]'
         >
-          <span className='text-[0.84714rem] tracking-[0.01061rem] leading-[1.2] font-bold text-greyscale-80 block w-fit mr-[0.64rem]'>
+          <span className='text-[0.84714rem] tracking-[0.01061rem] leading-[1.2] font-bold text-greyscale-80 block w-fit mr-[0.64rem] xmd:mr-[0.51rem] xmd:text-[0.67548rem] xmd:tracking-[0.00842rem]'>
             Xem tại Shopee
           </span>
           <Image
-            className='w-[1.4825rem] h-[1.64129rem] object-contain'
+            className='w-[1.4825rem] h-[1.64129rem] object-contain xmd:w-[1.18199rem] xmd:h-auto'
             src={'/home/icon-shoppe.svg'}
             alt='icon shoppe'
             width={23}
             height={23}
           />
         </Link>
-        <ICArrowRightWhite className='-rotate-90 absolute bottom-[8.5rem] left-[16.9rem] z-50 w-[2.64729rem] h-[4.07679rem]' />
+        <ICArrowRightWhite className='-rotate-90 absolute bottom-[8.5rem] left-[16.9rem] z-50 w-[2.64729rem] h-[4.07679rem] xmd:w-[2.45988rem] xmd:h-auto xmd:left-[13.5rem]' />
       </div>
       <div className='absolute z-20 w-full h-[25.69546rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.00)_42.61%,#FFF_100%)] bottom-0 left-0 pointer-events-none'></div>
     </div>

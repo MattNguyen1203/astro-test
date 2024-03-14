@@ -22,6 +22,7 @@ export default function VoucherSlideRes({data, className = ''}) {
                   <CardVoucher
                     className={idx === 0 ? '!ml-0' : 'ml-[0.59rem]'}
                     key={idx}
+                    isPriority={idx < 2 ? true : false}
                   />
                 ))}
             </div>

@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import SheetCart from '@/components/sheetcart'
 import BoxSearch from './BoxSearch'
 import Account from './Account'
 import MenuRes from './MenuRes'
+import Cart from './Cart'
 
 export default function NavUp({user, isMobile}) {
   return (
@@ -30,18 +30,7 @@ export default function NavUp({user, isMobile}) {
         id='cart_and_user'
         className='flex items-center'
       >
-        <SheetCart isMobile={isMobile}>
-          <div className='size-[2.63543rem] xmd:size-[2.34261rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center cursor-pointer'>
-            <Image
-              className='flex-shrink-0 object-cover size-[1.31772rem] xmd:w-[0.9287rem] xmd:h-auto'
-              src={'/home/cart.svg'}
-              alt='icon cart'
-              width={18}
-              height={18}
-              priority
-            />
-          </div>
-        </SheetCart>
+        <Cart isMobile={isMobile} />
         <Account
           user={user}
           isMobile={isMobile}
@@ -56,7 +45,7 @@ export default function NavUp({user, isMobile}) {
               </span>
             ) : (
               <Link
-                href={'/api/auth/signin'}
+                href={'/dang-nhap'}
                 className='font-normal caption1 text-greyscale-80 py-[0.44rem] pl-[0.44rem]'
               >
                 Đăng nhập

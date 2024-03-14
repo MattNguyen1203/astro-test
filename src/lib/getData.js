@@ -1,11 +1,10 @@
 export default async function getData(api, revalidate = 60) {
   const res = await fetch(`${process.env.API}${api}`, {
     method: 'GET',
-    mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
     },
-    next: { revalidate },
+    next: {revalidate},
     // next: { tags: ["products"] },
   })
   // The return value is *not* serialized

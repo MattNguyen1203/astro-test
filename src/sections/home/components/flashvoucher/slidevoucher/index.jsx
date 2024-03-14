@@ -17,7 +17,10 @@ export default function VoucherSlide({data}) {
           <SwiperSlide key={index}>
             <div className='grid grid-cols-4 grid-rows-2 gap-x-[0.79rem] gap-y-[1rem]'>
               {data.slice(index * 8, (index + 1) * 8).map((e, idx) => (
-                <CardVoucher key={idx} />
+                <CardVoucher
+                  key={idx}
+                  isPriority={index === 0 ? true : false}
+                />
               ))}
             </div>
           </SwiperSlide>

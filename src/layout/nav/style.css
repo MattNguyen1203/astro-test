@@ -88,3 +88,16 @@
     opacity: 1;
   }
 }
+@media (max-width: 767px) {
+  @keyframes popup_account_nav_open {
+    from {
+      transform: translate(-75%, 100%) scale(0.6);
+      transform-origin: center;
+      opacity: 0;
+    }
+    to {
+      transform: translate(-75%, 100%) scaleX(1);
+      opacity: 1;
+    }
+  }
+}
