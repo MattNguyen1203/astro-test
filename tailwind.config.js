@@ -85,6 +85,7 @@ module.exports = {
         'greyscale-50': '#454545',
         'greyscale-60': '#3F3F3F',
         'greyscale-80': '#262626',
+        'elevation-10': '#FAFAFA',
         'elevation-20': '#F8F8F8',
         'elevation-30': '#F0F0F0',
         'brown-50': '#F9F4F0',

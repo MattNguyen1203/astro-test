@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
   <g clip-path="url(#clip0_3950_24617)">
     <path d="M0 2.40015V9.60015C0 10.4402 0 10.86 0.16349 11.1809C0.3073 11.4632 0.536605 11.6929 0.818848 11.8367C1.1394 12 1.55925 12 2.39768 12H9.60232C10.4408 12 10.86 12 11.1805 11.8367C11.4628 11.6929 11.6929 11.4632 11.8367 11.1809C12 10.8604 12 10.4411 12 9.60268V2.39768C12 1.55925 12 1.1394 11.8367 0.818848C11.6929 0.536605 11.4628 0.3073 11.1805 0.16349C10.8597 0 10.4402 0 9.60015 0H2.40015C1.56007 0 1.13972 0 0.818848 0.16349C0.536605 0.3073 0.3073 0.536605 0.16349 0.818848C0 1.13972 0 1.56007 0 2.40015Z" fill="url(#paint0_linear_3950_24617)"/>
-    <path d="M4.2002 5.7002L5.6003 7.2002L8.4002 4.2002" stroke="url(#paint1_linear_3950_24617)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M4.2002 5.7002L5.6003 7.2002L8.4002 4.2002" stroke="url(#paint1_linear_3950_24617)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
   </g>
   <defs>
     <linearGradient id="paint0_linear_3950_24617" x1="0" y1="0" x2="13.3193" y2="1.70729" gradientUnits="userSpaceOnUse">

@@ -114,7 +114,7 @@
   }
 
   .fl {
-    -webkit-text-stroke-width: 2px;
+    -webkit-text-strokewidth: 2px;
     -webkit-text-stroke-color: white;
   }
 
@@ -201,4 +201,18 @@ body {
     margin-left: auto;
     margin-right: auto;
   }
+}
+.input-hidden {
+  border: none !important;
+  outline: none !important;
+}
+
+.input-hidden:focus {
+  border: none !important;
+  outline: none !important;
+}
+.input-hidden::-webkit-outer-spin-button,
+.input-hidden::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
