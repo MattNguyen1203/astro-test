@@ -9,198 +9,72 @@ import {Swiper, SwiperSlide} from 'swiper/react'
 import {FreeMode, Navigation, Thumbs} from 'swiper/modules'
 import {useState} from 'react'
 import Image from 'next/image'
+import ICArrowRight from '../icon/ICArrowRight'
+import ICChevron from '../icon/ICChevron'
 export default function SlideMultiple() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
+
+  let dataSlide = new Array(5).fill()
 
   return (
     <>
       <div className='w-[21.81552rem] mr-[1.17rem] select-none'>
-        <div className='bg-white w-[21.81552rem] h-[21.76764rem] rounded-[0.67818rem] overflow-hidden'>
+        <div className='relative bg-white w-[21.81552rem] h-[21.76764rem] rounded-[0.67818rem] overflow-hidden'>
           <Swiper
-            style={{
-              '--swiper-navigation-color': '#fff',
-              '--swiper-pagination-color': '#fff',
-            }}
             loop={true}
             spaceBetween={10}
-            navigation={true}
+            navigation={{
+              prevEl: '.productSlide-prev',
+              nextEl: '.productSlide-next',
+            }}
             thumbs={{swiper: thumbsSwiper}}
             modules={[FreeMode, Navigation, Thumbs]}
-            className='mySwiper2 size-full'
+            className='productSlideMain size-full'
           >
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-1.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-2.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-3.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-4.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-5.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-6.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-7.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-8.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-9.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-10.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
+            {dataSlide.map((item, index) => (
+              <SwiperSlide key={index}>
+                <Image
+                  src='/components/productImg.jpg'
+                  alt='items'
+                  width={500}
+                  height={500}
+                />
+              </SwiperSlide>
+            ))}
           </Swiper>
+          <div className='productSlide-prev absolute top-1/2 left-[0.56rem] z-10 flex items-center justify-center bg-white rounded-full p-[0.29rem] w-[1.7569rem] h-[1.7569rem] cursor-pointer shadow-[1px_2px_13px_0px_rgba(12,46,112,0.04),-4px_1px_18px_0px_rgba(12,46,112,0.04)]'>
+            <ICChevron />
+          </div>
+
+          <div className='productSlide-next absolute top-1/2 right-[0.56rem] z-10 flex rotate-180 items-center justify-center bg-white rounded-full p-[0.29rem] w-[1.7569rem] h-[1.7569rem] cursor-pointer shadow-[1px_2px_13px_0px_rgba(12,46,112,0.04),-4px_1px_18px_0px_rgba(12,46,112,0.04)]'>
+            <ICChevron />
+          </div>
         </div>
         <div className='w-full h-[4.0399rem] mt-[0.5rem]'>
           <Swiper
             onSwiper={setThumbsSwiper}
             loop={true}
-            spaceBetween={10}
+            spaceBetween={6}
             slidesPerView={4}
             freeMode={true}
             watchSlidesProgress={true}
             modules={[FreeMode, Navigation, Thumbs]}
-            className='mySwiper size-full'
+            className='productSlideThumb size-full'
           >
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-1.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-2.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-3.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-4.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-5.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-6.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-7.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-8.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-9.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src='https://swiperjs.com/demos/images/nature-10.jpg'
-                alt='items'
-                width={500}
-                height={500}
-              />
-            </SwiperSlide>
+            {dataSlide.map((item, index) => (
+              <SwiperSlide
+                className='bg-white overflow-hidden rounded-[0.46728rem]'
+                key={index}
+              >
+                <Image
+                  src='/components/productImg.jpg'
+                  alt='items'
+                  width={500}
+                  height={500}
+                  className='rounded-[0.46728rem] size-full'
+                />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
       </div>
