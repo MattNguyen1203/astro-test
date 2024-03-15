@@ -1,8 +1,8 @@
 import TemVoucher from './TemVoucher'
 import SlideMultiple from '../slidemultiple'
 import Variation from './Variation'
-import ChangeQuantity from './changeQuantity'
 import NamePrice from './NamePrice'
+import ChangeQuantity from './ChangeQuantity'
 
 export default function ProductInfo() {
   return (

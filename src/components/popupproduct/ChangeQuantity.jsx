@@ -1,8 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import React, {useState} from 'react'
-import {Input} from '@/components/ui/input'
+import {useState} from 'react'
 
 const ChangeQuantity = () => {
   const [inputVal, setInputVal] = useState(1)

@@ -1,14 +1,12 @@
 import SlideMultiple from '@/components/slidemultiple'
-import React from 'react'
 import SocialProduct from '../product/aside/SocialProduct'
 import BreadCrumb from '@/components/breadcrumb'
-import PopupProduct from '@/components/popupproduct'
 import NamePrice from '@/components/popupproduct/NamePrice'
 import Variation from '@/components/popupproduct/Variation'
 import TemVoucher from '@/components/popupproduct/TemVoucher'
-import ChangeQuantity from '@/components/popupproduct/ChangeQuantity'
 import Image from 'next/image'
 import CardVoucher from '@/components/cardvoucher'
+import ChangeQuantity from '@/components/popupproduct/ChangeQuantity'
 
 const ProductDetail = () => {
   return (
@@ -42,7 +40,7 @@ const ProductDetail = () => {
                   height={15}
                   className='w-[1.1713rem] h-[1.1713rem] object-contain mr-[0.59rem]'
                 />
-                <span className='caption1 font-semibold text-greyscale-80 uppercase'>
+                <span className='font-semibold uppercase caption1 text-greyscale-80'>
                   Thêm vào giỏ
                 </span>
               </button>
@@ -60,7 +58,7 @@ const ProductDetail = () => {
                   height={20}
                   className='w-[1.46413rem] h-[1.46413rem] object-contain mr-[0.59rem]'
                 />
-                <span className='caption2 font-semibold tracking-0 text-greyscale-80'>
+                <span className='font-semibold caption2 tracking-0 text-greyscale-80'>
                   7 Ngày miễn phí trả hàng
                 </span>
               </div>
@@ -73,7 +71,7 @@ const ProductDetail = () => {
                   height={20}
                   className='w-[1.46413rem] h-[1.46413rem] object-contain mr-[0.59rem]'
                 />
-                <span className='caption2 font-semibold tracking-0 text-greyscale-80'>
+                <span className='font-semibold caption2 tracking-0 text-greyscale-80'>
                   Hàng chính hãng 100%
                 </span>
               </div>
@@ -86,7 +84,7 @@ const ProductDetail = () => {
                   height={20}
                   className='w-[1.46413rem] h-[1.46413rem] object-contain mr-[0.59rem]'
                 />
-                <span className='caption2 font-semibold tracking-0 text-greyscale-80'>
+                <span className='font-semibold caption2 tracking-0 text-greyscale-80'>
                   Miễn phí vận chuyển
                 </span>
               </div>
@@ -99,7 +97,7 @@ const ProductDetail = () => {
                   height={20}
                   className='w-[1.46413rem] h-[1.46413rem] object-contain mr-[0.59rem]'
                 />
-                <span className='caption2 font-semibold tracking-0 text-greyscale-80'>
+                <span className='font-semibold caption2 tracking-0 text-greyscale-80'>
                   Hỗ trợ 24/7
                 </span>
               </div>
@@ -107,7 +105,7 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        <div className='col flex flex-col items-center'>
+        <div className='flex flex-col items-center col'>
           <div className='grid grid-cols-1 gap-y-[0.59rem]'>
             {new Array(4).fill(0).map((e, index) => (
               <CardVoucher key={index} />
