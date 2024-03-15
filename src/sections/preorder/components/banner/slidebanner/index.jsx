@@ -21,7 +21,7 @@ export default function SlideBannerPreOrder() {
     swiperRef.current?.slidePrev()
   }
   return (
-    <div className='relative z-10 mt-[4.75rem]'>
+    <div className='relative z-10'>
       <Swiper
         slidesPerView={'auto'}
         grabCursor

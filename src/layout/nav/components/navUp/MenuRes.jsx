@@ -14,7 +14,7 @@ export default function MenuRes() {
           onClick={() => setIsOpenMegaMenuRes(true)}
           className={`${
             isOpenMegaMenuRes ? 'opacity-0 pointer-events-none' : 'opacity-100'
-          } transition-all duration-200 size-[2.34261rem] flex justify-center items-center rounded-full`}
+          } transition-all duration-200 size-[2.34261rem] flex justify-center items-center rounded-full bg-elevation-10`}
         >
           <Image
             className='size-[1.1713rem] object-cover'

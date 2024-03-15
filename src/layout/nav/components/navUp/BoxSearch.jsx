@@ -35,7 +35,7 @@ export default function BoxSearch({isMobile}) {
       id='container_search_nav'
       className={`${
         isOpenMegaMenuRes ? 'opacity-0 pointer-events-none' : 'opacity-100'
-      } transition-all duration-200 bg-blue-50 rounded-[7.5rem] p-[0.29rem] flex items-center h-[3.22108rem] w-fit relative`}
+      } transition-all duration-200 bg-blue-50 xmd:bg-elevation-20 rounded-[7.5rem] md:p-[0.29rem] flex items-center h-[3.22108rem] xmd:h-[2.34261rem] w-fit relative xmd:-mr-[4.4rem]`}
     >
       <InputSearchNav
         setIsValue={setIsValue}

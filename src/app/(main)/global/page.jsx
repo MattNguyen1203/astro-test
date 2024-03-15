@@ -31,7 +31,7 @@ export default function GlobalPage() {
           fill
           sizes='87vw'
         />
-        <div className='relative z-10 mx-auto pt-[7.75rem] w-[69.91215rem]'>
+        <div className='relative z-10 mx-auto pt-[7.75rem] md:w-[69.91215rem] xmd:mt-[2.5rem]'>
           <div className='w-full grid grid-cols-4 grid-rows-2 gap-[1.17rem]'>
             {new Array(8).fill(0).map((e, index) => (
               <CardProduct key={index} />
