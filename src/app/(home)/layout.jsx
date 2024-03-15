@@ -3,6 +3,7 @@ import Nav from '@/layout/nav'
 import VoucherPin from '@/components/voucherpin'
 export default function HomeLayout({children}) {
   const headersList = headers()
+  const referer = headersList.get('referer')
   const userAgent = headersList.get('user-agent')
   const isMobile = /Android|webOS|iPhone|BlackBerry|IEMobile|Opera Mini/i.test(
     userAgent,
@@ -11,7 +12,10 @@ export default function HomeLayout({children}) {
 
   return (
     <>
-      <Nav isMobile={isMobile} />
+      <Nav
+        isMobile={isMobile}
+        referer={referer}
+      />
       {isMobile && <VoucherPin />}
       {children}
     </>

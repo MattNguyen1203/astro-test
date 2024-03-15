@@ -5,7 +5,7 @@ import Account from './Account'
 import MenuRes from './MenuRes'
 import Cart from './Cart'
 
-export default function NavUp({user, isMobile}) {
+export default function NavUp({user, isMobile, referer}) {
   return (
     <div
       id='nav_up'
@@ -36,7 +36,7 @@ export default function NavUp({user, isMobile}) {
           isMobile={isMobile}
         />
         {isMobile ? (
-          <MenuRes />
+          <MenuRes referer={referer} />
         ) : (
           <>
             {user?.name ? (

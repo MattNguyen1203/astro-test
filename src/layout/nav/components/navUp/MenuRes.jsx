@@ -3,13 +3,13 @@ import useStore from '@/app/(store)/store'
 import SheetMegaMenu from '@/components/sheetmegamenu'
 import Image from 'next/image'
 
-export default function MenuRes() {
+export default function MenuRes({referer}) {
   const setIsOpenMegaMenuRes = useStore((state) => state.setIsOpenMegaMenuRes)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
 
   return (
     <>
-      <SheetMegaMenu>
+      <SheetMegaMenu referer={referer}>
         <div
           onClick={() => setIsOpenMegaMenuRes(true)}
           className={`${

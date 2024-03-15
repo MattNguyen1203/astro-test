@@ -9,35 +9,35 @@ import ContentMegaMenu from './ContentMegaMenu'
 const listCategories = [
   {
     title: 'DANH MỤC SẢN PHẨM',
-    href: '/',
+    href: '/san-pham',
   },
   {
     title: 'TÀI KHOẢN',
-    href: '/',
+    href: '/tai-khoan-ca-nhan',
   },
   {
     title: 'FLASHSALE',
-    href: '/',
+    href: '/flash-sale',
   },
   {
     title: 'PREODER',
-    href: '/',
+    href: '/pre-order',
   },
   {
     title: 'GÓC CÔNG NGHỆ',
-    href: '/',
+    href: '/goc-cong-nghe',
   },
   {
     title: 'CỬA HÀNG',
-    href: '/',
+    href: '/cua-hang',
   },
   {
     title: 'CHÍNH SÁCH',
-    href: '/',
+    href: '/chinh-sach',
   },
 ]
 
-export default function SheetMegaMenu({children, isMobile}) {
+export default function SheetMegaMenu({children, isMobile, referer}) {
   const setIsOpenMegaMenuRes = useStore((state) => state.setIsOpenMegaMenuRes)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
 
@@ -53,15 +53,20 @@ export default function SheetMegaMenu({children, isMobile}) {
         button='xmd:top-[0.9rem]'
       >
         <aside className={`size-full pt-[4.1rem]`}>
-          <div className='bg-white size-full'>
+          <div className='bg-white pointer-events-auto size-full'>
             <div className='h-[3.66032rem] w-full bg-blue-800 relative overflow-x-auto hidden-scrollbar'>
               <ul className='absolute top-0 left-0 flex items-center h-full w-fit px-[0.15rem]'>
                 {listCategories.map((e, index) => (
                   <li key={index}>
                     <Link
                       href={e.href}
+                      onClick={() => {
+                        if (isOpenMegaMenuRes) {
+                          setIsOpenMegaMenuRes(false)
+                        }
+                      }}
                       className={`${
-                        index === 0
+                        referer?.includes(e.href)
                           ? 'bg-clip-text bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)]'
                           : 'text-greyscale-30'
                       } block p-[0.73rem] caption1 tracking-[0.00439rem] font-medium whitespace-nowrap `}

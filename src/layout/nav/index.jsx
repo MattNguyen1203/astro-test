@@ -6,9 +6,8 @@ import NavDown from './components/navDown'
 import NavUp from './components/navUp'
 import WrapNav from './components/wrapnav'
 
-export default async function Nav({isMobile}) {
+export default async function Nav({isMobile, referer}) {
   const session = await auth()
-  console.log('🚀 ~ Nav ~ session:', session)
   return (
     <header
       id='container_nav'
@@ -18,6 +17,7 @@ export default async function Nav({isMobile}) {
         <NavUp
           user={{...session?.user}}
           isMobile={isMobile}
+          referer={referer}
         />
         {!isMobile && (
           <div
