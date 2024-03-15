@@ -7,11 +7,7 @@ export default function HomeLayout({children}) {
   const isMobile = /Android|webOS|iPhone|BlackBerry|IEMobile|Opera Mini/i.test(
     userAgent,
   )
-  // const isMobile =
   //   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-  //     userAgent,
-  //   )
-  console.log('🚀 ~ HomeLayout ~ isMobile:', isMobile)
 
   return (
     <>

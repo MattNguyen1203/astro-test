@@ -6,6 +6,8 @@ import 'swiper/css/free-mode'
 
 import IndexPreOrder from '@/sections/preorder'
 
-export default function PreOrderPage() {
-  return <IndexPreOrder />
+export default function PreOrderPage({searchParams}) {
+  const {viewport} = searchParams
+  const isMobile = viewport?.includes('mobile')
+  return <IndexPreOrder isMobile={isMobile} />
 }

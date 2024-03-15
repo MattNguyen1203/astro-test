@@ -16,12 +16,9 @@ import BannerHome from './components/banner'
 import PromotionSlide from './components/promotions'
 import FeedBack from './components/feedback'
 import TechnologyConner from './components/technologyconner'
-import {DialogProduct} from './components/dialog'
-import TabInit from './components/tabs'
 import ProductIndex from './components/productnew'
 import LevelUpYourTech from './components/levelup'
 import PreOder from './components/preoder'
-import SheetCart from '@/components/sheetcart'
 import CategoriesProduct from './components/categoriesproduct'
 import ListStrength from '@/components/liststrength'
 
@@ -29,7 +26,7 @@ export default function HomeIndex({viewport}) {
   const isMobile = viewport === 'mobile'
   return (
     <main className='relative bg-elevation-20 xmd:bg-white'>
-      <section className='pt-[8rem] xmd:pt-[5.18rem] xmd:bg-elevation-20'>
+      <section className='pt-[8rem] xmd:pt-[4.1rem] xmd:bg-elevation-20'>
         <BannerHome
           isMobile={isMobile}
           viewport={viewport}
@@ -68,26 +65,6 @@ export default function HomeIndex({viewport}) {
           <ListStrength />
         </section>
       )}
-      {/* <div className='flex items-center justify-center w-full h-screen'>
-        <DialogProduct>
-          <div className='text-2xl text-black mt-[10px] cursor-default'>
-            Edit Profile
-          </div>
-        </DialogProduct>
-        <TabInit />
-        <SheetCart />
-      </div> */}
-      {/* <IndexSWR />
-      <div className='w-full h-screen bg-black'></div>
-      <div className='right-0 top-0 size-[4rem] bg-black absolute'></div>
-
-
-      <div className='container flex justify-center h-screen text-2xl text-black'>
-        <div>
-          <NavigationMenuDemo className='mt-[3rem]' />
-          <CarouselDemo />
-        </div>
-      </div> */}
     </main>
   )
 }

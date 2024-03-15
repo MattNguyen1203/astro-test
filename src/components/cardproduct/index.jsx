@@ -4,7 +4,7 @@ import Image from 'next/image'
 const arr = new Array(5).fill(0)
 export default function CardProduct({item}) {
   return (
-    <div className='w-full h-[28.2rem] xmd:h-[22.3rem] first:ml-0 rounded-[0.87848rem] md:border md:border-solid md:border-[#E5E7EB] group shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] md:hover:shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_32px_0px_rgba(12,46,112,0.08)] xmd:shadow-[0px_0px_10px_0px_rgba(12,46,112,0.08)] select-none'>
+    <div className='w-full h-[28.2rem] xmd:h-fit first:ml-0 rounded-[0.87848rem] md:border md:border-solid md:border-[#E5E7EB] group shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] md:hover:shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_32px_0px_rgba(12,46,112,0.08)] xmd:shadow-[0px_0px_10px_0px_rgba(12,46,112,0.08)] select-none'>
       <picture className='h-[16.82284rem] xmd:h-[12.00586rem] w-full rounded-tl-[0.87848rem] rounded-tr-[0.87848rem] overflow-hidden relative'>
         <Image
           className='object-cover size-full'

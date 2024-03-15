@@ -7,7 +7,7 @@ import MenuFooter from './components/menufooter'
 
 export default function Footer({isMobile}) {
   return (
-    <footer className='w-full overflow-x-hidden bg-elevation-20 xmd:bg-blue-800 xmd:rounded-tl-[0.87848rem] xmd:rounded-tr-[0.87848rem] xmd:pb-[3.22rem]'>
+    <footer className='w-full overflow-x-hidden bg-elevation-20 xmd:bg-blue-800 xmd:rounded-tl-[0.87848rem] xmd:rounded-tr-[0.87848rem] xmd:pb-[3.22rem] relative z-10'>
       <div className='md:h-[4.46559rem] md:bg-[linear-gradient(0deg,#10273F_0%,#10273F_100%)] flex items-center'>
         <div className='container flex justify-between items-center md:pr-[0.95rem] xmd:flex-col xmd:full-mb'>
           <Social isMobile={isMobile} />

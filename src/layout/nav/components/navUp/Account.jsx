@@ -21,7 +21,7 @@ export default function Account({user, isMobile}) {
       ref={sideRef}
       className={`${
         isOpenMegaMenuRes ? 'opacity-0 pointer-events-none' : 'opacity-100'
-      } size-[2.63543rem] xmd:size-[2.34261rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center ml-[1.17rem] mr-[0.44rem] relative cursor-pointer transition-all duration-200`}
+      } size-[2.63543rem] xmd:size-[2.34261rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center ml-[1.17rem] mr-[0.44rem] relative cursor-pointer transition-all duration-200 xmd:mx-[0.73rem]`}
     >
       <Image
         onClick={() => setIsOpen(!isOpen)}
