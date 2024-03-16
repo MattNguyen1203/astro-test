@@ -15,7 +15,7 @@ export default function BannerPreOrder({isMobile}) {
           priority
           quality={100}
         />
-        <div className='md:absolute md:-bottom-[7.94rem] md:left-1/2 md:-translate-x-1/2 container md:h-[25.62225rem] z-10 shadow-[0px_10px_10px_0px_rgba(0,0,0,0.15)] xmd:relative xmd:full-mb xmd:pt-[2.5rem]'>
+        <div className='md:absolute md:-bottom-[7.94rem] md:left-1/2 md:-translate-x-1/2 container md:h-[25.62225rem] z-10 shadow-[0px_10px_10px_0px_rgba(0,0,0,0.15)] xmd:relative xmd:full-mb xmd:pt-[2.5rem] '>
           {!isMobile && (
             <Image
               className='absolute top-0 left-0 object-cover size-full'
