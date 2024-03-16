@@ -1,9 +1,9 @@
-import { ProfileForm } from '@/sections/contact'
+import ContactIndex from '@/sections/contact'
 
-export default function page() {
+export default function ContactPage() {
   return (
-    <div className='items-center justify-center w-full h-screen'>
-      <ProfileForm />
+    <div className='items-center justify-center w-full'>
+      <ContactIndex />
     </div>
   )
 }
