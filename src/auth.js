@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth'
 import Google from 'next-auth/providers/google'
+import Credentials from 'next-auth/providers/credentials'
 
 export const {
   handlers: {GET, POST},
@@ -8,35 +9,83 @@ export const {
   signOut,
 } = NextAuth({
   pages: {
-    signIn: '/dang-nhap',
+    signIn: '/',
   },
   callbacks: {
-    // authorized({request}) {
-    //   const {pathname} = request.nextUrl
-    //   if (pathname === '/middleware-example') return !!auth
-    //   return true
-    // },
-    // jwt({token, trigger, session}) {
-    //   if (trigger === 'update') token.name = session.user.name
-    //   return token
-    // },
     async signIn({user, account, profile, email, credentials}) {
-      console.log('🚀 ~ signIn ~ user:', user)
-      console.log('🚀 ~ signIn ~ account:', account)
-      console.log('🚀 ~ signIn ~ profile:', profile)
-      console.log('🚀 ~ signIn ~ email:', email)
-      console.log('🚀 ~ signIn ~ credentials:', credentials)
-      if (user?.id || user?.name) {
-        return true
-      } else {
-        return false
-      }
+      // if (account?.provider !== 'credentials') return true
+      return true
     },
+    async jwt({token, account, profile, user}) {
+      // Chỉ thực hiện khi người dùng đăng nhập và có thông tin từ provider
+
+      // Khi người dùng đăng nhập bằng Google, lưu access token vào token
+      if (account?.provider === 'google') {
+        const res = await fetch(
+          process.env.API + '/custom/v1/customer/loginCustomer',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              token: account?.access_token,
+              // exp: account?.expires_at,
+              // name: profile?.name,
+              // email: profile?.email,
+              type: 'google',
+            }),
+          },
+        )
+        const data = await res.json()
+        // Lấy được token từ api, gán lại token đó vào accessToken của nextAuth, để bên dưới session có thể hứng được token
+        token.accessToken = data?.token
+      }
+
+      if (account?.provider === 'credentials') {
+        token.accessToken = user?.token
+      }
+
+      return token
+    },
+    async session({token, session}) {
+      session.accessToken = token?.accessToken
+      return session
+    },
+    // async redirect({url, baseUrl}) {
+    //   if (url) {
+    //     return `${baseUrl}${url}`
+    //   }
+    //   return baseUrl
+    // },
+  },
+  session: {
+    strategy: 'jwt',
   },
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    Credentials({
+      async authorize(credentials) {
+        const res = await fetch(
+          process.env.API + '/custom/v1/customer/loginCustomer',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              login: credentials?.email,
+              password: credentials?.password,
+              type: credentials?.type,
+            }),
+          },
+        )
+        const data = await res.json()
+        return data
+      },
     }),
   ],
 })
