@@ -8,6 +8,8 @@ import WrapNav from './components/wrapnav'
 
 export default async function Nav({isMobile, referer}) {
   const session = await auth()
+  console.log('🚀 ~ Nav ~ session:', session)
+
   return (
     <header
       id='container_nav'

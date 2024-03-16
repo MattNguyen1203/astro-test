@@ -5,6 +5,8 @@ import localFont from 'next/font/local'
 import Footer from '@/layout/footer'
 import {Work_Sans} from 'next/font/google'
 import {headers} from 'next/headers'
+import {SessionProvider} from 'next-auth/react'
+import {auth} from '@/auth'
 
 export const metadata = {
   title: 'Create Next App',
@@ -61,7 +63,8 @@ const svnGraphik = localFont({
   display: 'swap',
 })
 
-export default function RootLayout({children}) {
+export default async function RootLayout({children}) {
+  const session = await auth()
   const headersList = headers()
   const userAgent = headersList.get('user-agent')
   const isMobile =
@@ -80,9 +83,11 @@ export default function RootLayout({children}) {
         suppressHydrationWarning={true}
         className={`${svnGraphik.className} ${svnGraphik.variable} ${workSans.variable}`}
       >
-        {children}
-        <Footer isMobile={isMobile} />
-        <Toaster />
+        <SessionProvider session={session}>
+          {children}
+          <Footer isMobile={isMobile} />
+          <Toaster />
+        </SessionProvider>
       </body>
     </html>
   )

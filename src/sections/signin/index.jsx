@@ -19,27 +19,26 @@ import {Input} from '@/components/ui/input'
 import Link from 'next/link'
 import Image from 'next/image'
 import {signIn} from 'next-auth/react'
+import {loginForm} from '@/actions/loginForm'
 
 const formSchema = z.object({
-  username: z.string().min(2, {
+  email: z.string().email({message: 'Invalid email address.'}),
+  password: z.string().min(2, {
     message: 'Username must be at least 2 characters.',
   }),
-  email: z.string().email({message: 'Invalid email address.'}),
 })
 
 export function SignInIndex() {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
-      email: '',
+      email: 'duan@gmail.com',
+      password: 'admin@123',
     },
   })
 
   function onSubmit(values) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+    loginForm(values)
   }
 
   return (
@@ -51,10 +50,10 @@ export function SignInIndex() {
         >
           <FormField
             control={form.control}
-            name='username'
+            name='email'
             render={({field}) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input
                     placeholder='trinh van duc'
@@ -70,10 +69,10 @@ export function SignInIndex() {
           />
           <FormField
             control={form.control}
-            name='email'
+            name='password'
             render={({field}) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input
                     placeholder='finnit.th@gmail.com'
