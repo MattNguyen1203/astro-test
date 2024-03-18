@@ -11,7 +11,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {dataNav} from './dataNav'
 
-export default function NavDown() {
+export default function NavDown({categories}) {
   return (
     <NavigationMenu className='max-w-full'>
       <NavigationMenuList className='flex justify-between lg:min-w-[87.84773060029283rem] xl:min-w-[1200px]'>

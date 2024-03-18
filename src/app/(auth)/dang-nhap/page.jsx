@@ -1,4 +1,4 @@
-import {SignInIndex} from '@/sections/signin'
+import SignInIndex from '@/sections/signin'
 
 export default function SignInPage() {
   return (

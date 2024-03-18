@@ -5,11 +5,12 @@ import {auth} from '@/auth'
 import NavDown from './components/navDown'
 import NavUp from './components/navUp'
 import WrapNav from './components/wrapnav'
+import getData from '@/lib/getData'
 
 export default async function Nav({isMobile, referer}) {
   const session = await auth()
   console.log('🚀 ~ Nav ~ session:', session)
-
+  const categories = await getData('/custom/v1/category/category')
   return (
     <header
       id='container_nav'
@@ -26,7 +27,7 @@ export default async function Nav({isMobile, referer}) {
             id='nav_down'
             className='my-[0.8rem]'
           >
-            <NavDown />
+            <NavDown categories={categories} />
           </div>
         )}
       </WrapNav>

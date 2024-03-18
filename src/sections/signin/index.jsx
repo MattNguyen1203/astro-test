@@ -9,10 +9,8 @@ import * as z from 'zod'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form'
 import {Input} from '@/components/ui/input'
@@ -22,48 +20,58 @@ import {signIn} from 'next-auth/react'
 import {loginForm} from '@/actions/loginForm'
 
 const formSchema = z.object({
-  email: z.string().email({message: 'Invalid email address.'}),
-  password: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
+  email: z.string().email({message: 'Nhập đúng định dạng email!'}),
+  password: z
+    .string()
+    .min(6, {message: 'Mật khẩu phải có từ 6 kí tự trở lên!'}),
+  // .regex(/[a-z]/, {
+  //   message: 'Mật khẩu phải có ít nhất 1 chữ thường!',
+  // })
+  // .regex(/[A-Z]/, {
+  //   message: 'Mật khẩu phải có ít nhất 1 chữ hoa!',
+  // })
+  // .regex(/[0-9]/, {message: 'Mật khẩu phải có ít nhất 1 chữ số!'}),
 })
 
-export function SignInIndex() {
+export default function SignInIndex() {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: 'duan@gmail.com',
-      password: 'admin@123',
+      password: 'admin@1231',
+      // email: '',
+      // password: '',
     },
   })
 
+  const values = form.watch()
+
   function onSubmit(values) {
     loginForm(values)
+      .then((res) => console.log('res', res))
+      .catch((err) => console.log(err))
   }
 
   return (
-    <article>
+    <article className='mt-[1.98rem]'>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='space-y-8'
+          className='space-y-[0.88rem]'
         >
           <FormField
             control={form.control}
             name='email'
             render={({field}) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder='trinh van duc'
+                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik'
+                    placeholder='Nhập email/số điện thoại'
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
-                <FormMessage />
+                <FormMessage className='pl-[0.88rem] font-svnGraphik' />
               </FormItem>
             )}
           />
@@ -72,17 +80,14 @@ export function SignInIndex() {
             name='password'
             render={({field}) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder='finnit.th@gmail.com'
+                    className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
+                    placeholder='Mật khẩu'
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
-                <FormMessage />
+                <FormMessage className='pl-[0.88rem] font-svnGraphik' />
               </FormItem>
             )}
           />
