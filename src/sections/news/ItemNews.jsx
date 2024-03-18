@@ -3,13 +3,19 @@ import Link from 'next/link'
 
 export default function ItemNews({borderClass = '', isOption = false}) {
   return (
-    <article className={`${isOption ? 'h-fit' : 'h-[10.1757rem]'} w-full flex`}>
+    <article
+      className={`${
+        isOption
+          ? 'h-fit'
+          : 'h-[10.1757rem] xmd:h-[12.08rem] xmd:flex-col mr-[1.76rem] xmd:mr-[0.6rem]'
+      } w-full flex`}
+    >
       <Link
         href='/'
         className={`${
           isOption
-            ? 'w-[16.47145rem] rounded-[1.1713rem] mr-[0.88rem]'
-            : 'w-[10.1757rem] mr-[1.76rem] rounded-[0.87848rem] h-full'
+            ? 'w-[16.47145rem] xmd:w-[7.10102rem] xmd:h-[5.05124rem] rounded-[1.1713rem] mr-[0.88rem] xmd:mr-[0.6rem]'
+            : 'w-[10.1757rem] xmd:w-[11.27379rem] xmd:h-[6.89rem] rounded-[0.87848rem] h-full mr-[0.88rem]'
         } block relative flex-shrink-0 overflow-hidden`}
       >
         <Image
@@ -19,18 +25,18 @@ export default function ItemNews({borderClass = '', isOption = false}) {
           fill
         />
       </Link>
-      <div className='flex flex-col justify-between'>
+      <div className='flex xmd:mt-[0.6rem] h-full flex-col justify-between'>
         <h2
           className={`${
             isOption ? '' : 'h-[2.78184rem]'
-          } sub1 font-medium tracking-[0.01464rem] text-greyscale-80`}
+          } xmd:order-2 sub1 font-medium tracking-[0.01464rem] text-greyscale-80`}
         >
           Review bị màn hình đen: Nguyên nhân và cách khắc phục hiệu quả
         </h2>
         <p
           className={`${
             isOption ? 'my-[0.88rem]' : ''
-          } line-clamp-3 text-greyscale-30 body2 font-normal tracking-[0.00256rem]`}
+          } line-clamp-3 text-greyscale-30 body2 font-normal tracking-[0.00256rem] xmd:hidden`}
         >
           Mạng xã hội Facebook là môi trường tiềm năng để kinh doanh hay phát
           triển thương hiệu. Tuy nhiên, nhiều người vẫn chưa biết cách chạy
@@ -38,7 +44,11 @@ export default function ItemNews({borderClass = '', isOption = false}) {
           viết này,giới thiệu cho bạn các hình thức và phần mềm để chạy quảng
           cáo Facebook hiệu quả nhất. 
         </p>
-        <div className={`${isOption ? 'p-[0.59rem]' : ''} flex items-center`}>
+        <div
+          className={`${
+            isOption ? 'lg:p-[0.59rem] ' : ''
+          } xmd:order-1 xmd:mb-[0.29283rem] flex items-center`}
+        >
           <Image
             className='size-[1.02489rem] object-contain'
             src={'/home/calendar.svg'}
