@@ -15,3 +15,10 @@
 
 ## bắt truyền cả username lên khi đăng ký, username có cần phải là duy nhất?
 ## SĐT đang có thể đk cho nhiều tài khoản?
+## Sản phẩm combo đang là tích từ các các phẩm đơn gộp lại, hiển thị ra sao, sẽ không thể điều chỉnh sale giá riêng cho sản phẩm combo được, mà chỉ điểu chỉnh cho từng sản phẩm con
+## Nó sẽ thuộc category gì? Categories thì sẽ hiển thị những gì? api trả về có thể cộng từng sản phẩm trong combo và đưa ra ngoài không?
+## Attribute color :Trắng - #fff nên quy chuẩn lại để front-end hiển thị được
+## Phần giá của các sản phẩm khác màu mà khác nhau thì hiển thị như thế nào?
+## Có bao nhiêu variations thì đều phải điền hết?
+## Chưa có chỗ upvideo ở sản phẩm?
+## Sản phẩm mua kèm phù hợp ? "Cross-sells?

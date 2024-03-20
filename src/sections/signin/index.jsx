@@ -18,6 +18,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {signIn} from 'next-auth/react'
 import {loginForm} from '@/actions/loginForm'
+import {useEffect, useState, useTransition} from 'react'
+import BtnSubmit from '../auth/components/btnsubmit'
+import {PopupRegister} from '../auth/components/popup/PopupRegister'
 
 const formSchema = z.object({
   email: z.string().email({message: 'Nhập đúng định dạng email!'}),
@@ -33,7 +36,19 @@ const formSchema = z.object({
   // .regex(/[0-9]/, {message: 'Mật khẩu phải có ít nhất 1 chữ số!'}),
 })
 
-export default function SignInIndex() {
+export default function SignInIndex({status}) {
+  console.log('🚀 ~ SignInIndex ~ status:', status)
+  const [isPending, startTransition] = useTransition()
+  const [isFailed, setIsFailed] = useState(false)
+
+  useEffect(() => {
+    if (Number(status) === 401) {
+      !isFailed && setIsFailed(true)
+    } else {
+      isFailed && setIsFailed(false)
+    }
+  }, [status])
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,9 +62,11 @@ export default function SignInIndex() {
   const values = form.watch()
 
   function onSubmit(values) {
-    loginForm(values)
-      .then((res) => console.log('res', res))
-      .catch((err) => console.log(err))
+    startTransition(() => {
+      loginForm(values)
+      // .then((res) => console.log('res', res))
+      // .catch((err) => console.log('err', err))
+    })
   }
 
   return (
@@ -93,12 +110,10 @@ export default function SignInIndex() {
           />
 
           <div className='flex justify-between'>
-            <button
-              type='submit'
-              className='w-[15.666rem] h-[2.928rem] rounded-[0.58565rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] text-white caption1 font-semibold flex justify-center items-center'
-            >
-              Đăng nhập
-            </button>
+            <BtnSubmit
+              isPending={isPending}
+              title='Đăng nhập'
+            />
             <div
               className='size-[2.92826rem] flex justify-center items-center rounded-full bg-white shadow-[2.222px_2.222px_13.333px_0px_rgba(0,0,0,0.02),-3.333px_2.222px_22.222px_0px_rgba(0,0,0,0.04)] mr-[0.59rem] cursor-pointer'
               onClick={() => signIn('google', {callbackUrl: '/'})}
@@ -148,6 +163,11 @@ export default function SignInIndex() {
           Đăng ký
         </Link>
       </div>
+      <PopupRegister
+        isLogin={true}
+        isOpen={isFailed}
+        setIsSuccess={setIsFailed}
+      />
     </article>
   )
 }

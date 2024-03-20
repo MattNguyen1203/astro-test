@@ -17,6 +17,10 @@ import Image from 'next/image'
 import {signIn} from 'next-auth/react'
 import {signUpForm} from '@/actions/signUpForm'
 
+import {useState, useTransition} from 'react'
+import {PopupRegister} from '../auth/components/popup/PopupRegister'
+import BtnSubmit from '../auth/components/btnsubmit'
+
 const formSchema = z
   .object({
     email: z
@@ -49,6 +53,8 @@ const formSchema = z
   })
 
 export default function SignUpIndex() {
+  const [isPending, startTransition] = useTransition()
+  const [isSuccess, setIsSuccess] = useState(false)
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -62,13 +68,33 @@ export default function SignUpIndex() {
   const values = form.watch()
 
   function onSubmit(values) {
-    console.log('🚀 ~ onSubmit ~ values:', values)
-    signUpForm(values)
-      .then((res) => console.log('res', res))
-      .catch((err) => console.log(err))
-    // loginForm(values)
-    //   .then((res) => console.log('res', res))
-    //   .catch((err) => console.log(err))
+    startTransition(() => {
+      signUpForm(values)
+        .then((res) => {
+          if (res?.user_id) {
+            // handle register success
+            setIsSuccess(true)
+          } else {
+            setIsSuccess(true)
+            // handle register failed
+            const resFailed = JSON.parse(res)
+            if (resFailed.code === 'email_exists') {
+              form.setError('email', {
+                type: 'validate',
+                message: 'Email này đã tồn tại!',
+              })
+            } else {
+              form.setError('confirmPassword', {
+                type: 'validate',
+                message: resFailed?.message,
+              })
+            }
+          }
+        })
+        .catch((err) => {
+          throw new Error(err)
+        })
+    })
   }
 
   return (
@@ -85,6 +111,7 @@ export default function SignUpIndex() {
               <FormItem>
                 <FormControl>
                   <Input
+                    type='email'
                     className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik'
                     placeholder='Email của bạn *'
                     {...field}
@@ -120,6 +147,7 @@ export default function SignUpIndex() {
                   <Input
                     className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
                     placeholder='Mật khẩu *'
+                    type='password'
                     {...field}
                   />
                 </FormControl>
@@ -136,6 +164,7 @@ export default function SignUpIndex() {
                   <Input
                     className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
                     placeholder='Xác nhận mật khẩu *'
+                    type='password'
                     {...field}
                   />
                 </FormControl>
@@ -148,12 +177,10 @@ export default function SignUpIndex() {
           </span>
 
           <div className='flex justify-between'>
-            <button
-              type='submit'
-              className='w-[15.666rem] h-[2.928rem] rounded-[0.58565rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] text-white caption1 font-semibold flex justify-center items-center'
-            >
-              ĐĂNG KÝ
-            </button>
+            <BtnSubmit
+              isPending={isPending}
+              title='ĐĂNG KÝ'
+            />
             <div
               className='size-[2.92826rem] flex justify-center items-center rounded-full bg-white shadow-[2.222px_2.222px_13.333px_0px_rgba(0,0,0,0.02),-3.333px_2.222px_22.222px_0px_rgba(0,0,0,0.04)] mr-[0.59rem] cursor-pointer'
               onClick={() => signIn('google', {callbackUrl: '/'})}
@@ -181,6 +208,12 @@ export default function SignUpIndex() {
           Đăng nhập
         </Link>
       </div>
+
+      <PopupRegister
+        isOpen={isSuccess}
+        setIsSuccess={setIsSuccess}
+        isSignUp={true}
+      />
     </article>
   )
 }
