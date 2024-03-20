@@ -22,7 +22,7 @@ import PreOder from './components/preoder'
 import CategoriesProduct from './components/categoriesproduct'
 import ListStrength from '@/components/liststrength'
 
-export default function HomeIndex({viewport}) {
+export default function HomeIndex({viewport, products}) {
   const isMobile = viewport === 'mobile'
   return (
     <main className='relative bg-elevation-20 xmd:bg-white'>
@@ -36,7 +36,10 @@ export default function HomeIndex({viewport}) {
       <section>
         <FlashVoucher isMobile={isMobile} />
         {isMobile && <CategoriesProduct />}
-        <Accessory isMobile={isMobile} />
+        <Accessory
+          isMobile={isMobile}
+          products={products}
+        />
       </section>
       {!isMobile && (
         <section>

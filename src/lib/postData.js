@@ -5,7 +5,7 @@ export default async function postData(
     'Content-Type': 'application/json',
   },
 ) {
-  const res = await fetch(`${process.env.API}${api}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API}${api}`, {
     method: 'POST',
     headers,
     body,
@@ -14,7 +14,7 @@ export default async function postData(
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     // throw new Error('Failed to fetch data')
-    return null
+    return res.text()
   }
 
   return res.json()

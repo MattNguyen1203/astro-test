@@ -1,17 +1,17 @@
 import * as React from 'react'
-import { Slot } from '@radix-ui/react-slot'
-import { Controller, FormProvider, useFormContext } from 'react-hook-form'
+import {Slot} from '@radix-ui/react-slot'
+import {Controller, FormProvider, useFormContext} from 'react-hook-form'
 
-import { cn } from '@/lib/utils'
-import { Label } from '@/components/ui/label'
+import {cn} from '@/lib/utils'
+import {Label} from '@/components/ui/label'
 
 const Form = FormProvider
 
 const FormFieldContext = React.createContext({})
 
-const FormField = ({ ...props }) => {
+const FormField = ({...props}) => {
   return (
-    <FormFieldContext.Provider value={{ name: props.name }}>
+    <FormFieldContext.Provider value={{name: props.name}}>
       <Controller {...props} />
     </FormFieldContext.Provider>
   )
@@ -20,7 +20,7 @@ const FormField = ({ ...props }) => {
 const useFormField = () => {
   const fieldContext = React.useContext(FormFieldContext)
   const itemContext = React.useContext(FormItemContext)
-  const { getFieldState, formState } = useFormContext()
+  const {getFieldState, formState} = useFormContext()
 
   const fieldState = getFieldState(fieldContext.name, formState)
 
@@ -28,7 +28,7 @@ const useFormField = () => {
     throw new Error('useFormField should be used within <FormField>')
   }
 
-  const { id } = itemContext
+  const {id} = itemContext
 
   return {
     id,
@@ -42,14 +42,14 @@ const useFormField = () => {
 
 const FormItemContext = React.createContext({})
 
-const FormItem = React.forwardRef(({ className, ...props }, ref) => {
+const FormItem = React.forwardRef(({className, ...props}, ref) => {
   const id = React.useId()
 
   return (
-    <FormItemContext.Provider value={{ id }}>
+    <FormItemContext.Provider value={{id}}>
       <div
         ref={ref}
-        className={cn('space-y-2', className)}
+        className={cn(className)}
         {...props}
       />
     </FormItemContext.Provider>
@@ -57,8 +57,8 @@ const FormItem = React.forwardRef(({ className, ...props }, ref) => {
 })
 FormItem.displayName = 'FormItem'
 
-const FormLabel = React.forwardRef(({ className, ...props }, ref) => {
-  const { error, formItemId } = useFormField()
+const FormLabel = React.forwardRef(({className, ...props}, ref) => {
+  const {error, formItemId} = useFormField()
 
   return (
     <Label
@@ -71,14 +71,18 @@ const FormLabel = React.forwardRef(({ className, ...props }, ref) => {
 })
 FormLabel.displayName = 'FormLabel'
 
-const FormControl = React.forwardRef(({ ...props }, ref) => {
-  const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
+const FormControl = React.forwardRef(({...props}, ref) => {
+  const {error, formItemId, formDescriptionId, formMessageId} = useFormField()
 
   return (
     <Slot
       ref={ref}
       id={formItemId}
-      aria-describedby={!error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`}
+      aria-describedby={
+        !error
+          ? `${formDescriptionId}`
+          : `${formDescriptionId} ${formMessageId}`
+      }
       aria-invalid={!!error}
       {...props}
     />
@@ -86,8 +90,8 @@ const FormControl = React.forwardRef(({ ...props }, ref) => {
 })
 FormControl.displayName = 'FormControl'
 
-const FormDescription = React.forwardRef(({ className, ...props }, ref) => {
-  const { formDescriptionId } = useFormField()
+const FormDescription = React.forwardRef(({className, ...props}, ref) => {
+  const {formDescriptionId} = useFormField()
 
   return (
     <p
@@ -100,8 +104,8 @@ const FormDescription = React.forwardRef(({ className, ...props }, ref) => {
 })
 FormDescription.displayName = 'FormDescription'
 
-const FormMessage = React.forwardRef(({ className, children, ...props }, ref) => {
-  const { error, formMessageId } = useFormField()
+const FormMessage = React.forwardRef(({className, children, ...props}, ref) => {
+  const {error, formMessageId} = useFormField()
   const body = error ? String(error?.message) : children
 
   if (!body) {
@@ -121,4 +125,13 @@ const FormMessage = React.forwardRef(({ className, children, ...props }, ref) =>
 })
 FormMessage.displayName = 'FormMessage'
 
-export { useFormField, Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField }
+export {
+  useFormField,
+  Form,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+  FormField,
+}

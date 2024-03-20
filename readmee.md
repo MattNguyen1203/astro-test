@@ -11,3 +11,14 @@
   ## Những trường sdt và email phần tài khoản không thể thay đổi ?loading ... 
   ## Các voucher sau khi được sử dụng sẽ bị xoá đi? Các voucher ở các trang khác sẽ hiển thị đã sử dụng hay sẽ xoá đi? loading ...
   ## Khi thăng hạng thành viên có thông báo cho người dùng không? khi đơn hàng xác nhận thành công thì mới tăng điểm?loading...
+
+
+## bắt truyền cả username lên khi đăng ký, username có cần phải là duy nhất?
+## SĐT đang có thể đk cho nhiều tài khoản?
+## Sản phẩm combo đang là tích từ các các phẩm đơn gộp lại, hiển thị ra sao, sẽ không thể điều chỉnh sale giá riêng cho sản phẩm combo được, mà chỉ điểu chỉnh cho từng sản phẩm con
+## Nó sẽ thuộc category gì? Categories thì sẽ hiển thị những gì? api trả về có thể cộng từng sản phẩm trong combo và đưa ra ngoài không?
+## Attribute color :Trắng - #fff nên quy chuẩn lại để front-end hiển thị được
+## Phần giá của các sản phẩm khác màu mà khác nhau thì hiển thị như thế nào?
+## Có bao nhiêu variations thì đều phải điền hết?
+## Chưa có chỗ upvideo ở sản phẩm?
+## Sản phẩm mua kèm phù hợp ? "Cross-sells?

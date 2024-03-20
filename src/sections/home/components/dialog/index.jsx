@@ -10,9 +10,9 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 
-export function DialogProduct({children}) {
+export function DialogProduct({children, isOpen}) {
   return (
-    <Dialog>
+    <Dialog open={isOpen}>
       <DialogTrigger asChild>
         {/* <Button
           variant='outline'

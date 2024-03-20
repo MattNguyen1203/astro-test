@@ -1,6 +1,6 @@
-import {SignInIndex} from '@/sections/signin'
+import SignInIndex from '@/sections/signin'
 
-export default function SignInPage() {
+export default function SignInPage({searchParams}) {
   return (
     <div className='relative z-10 mt-[7.32rem] mx-auto w-[23rem]'>
       <span className='block font-normal text-center text-blue-900 h6'>
@@ -9,7 +9,7 @@ export default function SignInPage() {
       <h1 className='font-semibold text-center text-blue-900 h4'>
         AstroMazing
       </h1>
-      <SignInIndex />
+      <SignInIndex status={searchParams?.status} />
     </div>
   )
 }

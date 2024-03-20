@@ -6,7 +6,7 @@ import SlideAccessory from './slideaccessory'
 import Link from 'next/link'
 import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
 
-export default function Accessory({isMobile}) {
+export default function Accessory({isMobile, products}) {
   return (
     <div className='pt-[4.39rem] md:bg-elevation-20 xmd:pt-[3rem]'>
       <div className='container md:flex md:py-[1.46rem] md:pr-[1.47rem] rounded-[1.1713rem] backdrop-blur-[5px] md:bg-blue-400 xmd:full-mb'>
@@ -30,8 +30,8 @@ export default function Accessory({isMobile}) {
             <CategoriesIndex isMobile={isMobile} />
           </div>
         </div>
-        <div className='md:w-[69.03367rem] h-[31.8448rem] xmd:h-[25.92rem] xmd:rounded-[0.87848rem] bg-white overflow-hidden relative xmd:top-[-1.17rem]'>
-          <SlideAccessory />
+        <div className='md:w-[69.03367rem] h-[31.8448rem] xmd:h-[25.92rem] md:rounded-[0.87848rem] bg-white overflow-hidden relative xmd:top-[-1.17rem]'>
+          <SlideAccessory products={products} />
         </div>
       </div>
       {!isMobile && (

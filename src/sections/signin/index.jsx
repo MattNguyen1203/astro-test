@@ -9,10 +9,8 @@ import * as z from 'zod'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form'
 import {Input} from '@/components/ui/input'
@@ -20,50 +18,77 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {signIn} from 'next-auth/react'
 import {loginForm} from '@/actions/loginForm'
+import {useEffect, useState, useTransition} from 'react'
+import BtnSubmit from '../auth/components/btnsubmit'
+import {PopupRegister} from '../auth/components/popup/PopupRegister'
 
 const formSchema = z.object({
-  email: z.string().email({message: 'Invalid email address.'}),
-  password: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
+  email: z.string().email({message: 'Nhập đúng định dạng email!'}),
+  password: z
+    .string()
+    .min(6, {message: 'Mật khẩu phải có từ 6 kí tự trở lên!'}),
+  // .regex(/[a-z]/, {
+  //   message: 'Mật khẩu phải có ít nhất 1 chữ thường!',
+  // })
+  // .regex(/[A-Z]/, {
+  //   message: 'Mật khẩu phải có ít nhất 1 chữ hoa!',
+  // })
+  // .regex(/[0-9]/, {message: 'Mật khẩu phải có ít nhất 1 chữ số!'}),
 })
 
-export function SignInIndex() {
+export default function SignInIndex({status}) {
+  console.log('🚀 ~ SignInIndex ~ status:', status)
+  const [isPending, startTransition] = useTransition()
+  const [isFailed, setIsFailed] = useState(false)
+
+  useEffect(() => {
+    if (Number(status) === 401) {
+      !isFailed && setIsFailed(true)
+    } else {
+      isFailed && setIsFailed(false)
+    }
+  }, [status])
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: 'duan@gmail.com',
-      password: 'admin@123',
+      password: 'admin@1231',
+      // email: '',
+      // password: '',
     },
   })
 
+  const values = form.watch()
+
   function onSubmit(values) {
-    loginForm(values)
+    startTransition(() => {
+      loginForm(values)
+      // .then((res) => console.log('res', res))
+      // .catch((err) => console.log('err', err))
+    })
   }
 
   return (
-    <article>
+    <article className='mt-[1.98rem]'>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='space-y-8'
+          className='space-y-[0.88rem]'
         >
           <FormField
             control={form.control}
             name='email'
             render={({field}) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder='trinh van duc'
+                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik'
+                    placeholder='Nhập email/số điện thoại'
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
-                <FormMessage />
+                <FormMessage className='pl-[0.88rem] font-svnGraphik' />
               </FormItem>
             )}
           />
@@ -72,28 +97,23 @@ export function SignInIndex() {
             name='password'
             render={({field}) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder='finnit.th@gmail.com'
+                    className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
+                    placeholder='Mật khẩu'
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
-                <FormMessage />
+                <FormMessage className='pl-[0.88rem] font-svnGraphik' />
               </FormItem>
             )}
           />
 
           <div className='flex justify-between'>
-            <button
-              type='submit'
-              className='w-[15.666rem] h-[2.928rem] rounded-[0.58565rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] text-white caption1 font-semibold flex justify-center items-center'
-            >
-              Đăng nhập
-            </button>
+            <BtnSubmit
+              isPending={isPending}
+              title='Đăng nhập'
+            />
             <div
               className='size-[2.92826rem] flex justify-center items-center rounded-full bg-white shadow-[2.222px_2.222px_13.333px_0px_rgba(0,0,0,0.02),-3.333px_2.222px_22.222px_0px_rgba(0,0,0,0.04)] mr-[0.59rem] cursor-pointer'
               onClick={() => signIn('google', {callbackUrl: '/'})}
@@ -143,6 +163,11 @@ export function SignInIndex() {
           Đăng ký
         </Link>
       </div>
+      <PopupRegister
+        isLogin={true}
+        isOpen={isFailed}
+        setIsSuccess={setIsFailed}
+      />
     </article>
   )
 }

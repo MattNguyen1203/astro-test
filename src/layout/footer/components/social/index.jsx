@@ -75,10 +75,10 @@ export default function Social({isMobile}) {
             key={index}
             href={e.href}
             target='_blank'
-            className='flex size-[2.63543rem] xmd:size-[3.95315rem] xmd:justify-center xmd:items-center xmd:rounded-full xmd:bg-white first:ml-0'
+            className='flex size-[2.63543rem] xmd:size-[3.95315rem] xmd:justify-center xmd:items-center rounded-full xmd:bg-white xmd:first:ml-0 overflow-hidden'
           >
             <Image
-              className={`${e.size} flex-shrink-0 object-contain`}
+              className={`${e.size} flex-shrink-0 object-contain hover:scale-125 transition-all duration-200`}
               src={e.src}
               alt={e.alt}
               width={36}
