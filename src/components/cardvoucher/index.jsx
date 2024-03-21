@@ -42,9 +42,9 @@ export default function CardVoucher({
           }}
           className={`${
             isCopy
-              ? 'bg-blue-700'
+              ? 'bg-[linear-gradient(90deg,rgba(16,40,65,1)_100%,rgba(16,40,65,1)_100%)]'
               : 'bg-[linear-gradient(104deg,#E78C03_-3.95%,#FFB84F_106.72%)] xmd:bg-[linear-gradient(180deg,#E0B181_0.72%,#BE9367_99.87%)]'
-          } rounded-[0.30476rem] caption2 font-medium text-white w-[4.45649rem] xmd:w-[4.90483rem] h-[1.75695rem] xmd:h-[1.97657rem] flex justify-center items-center transition-all duration-200 xmd:text-[0.65886rem] xmd:tracking-[0.00329rem] xmd:font-semibold`}
+          } rounded-[0.30476rem] caption2 font-medium text-white w-[4.45649rem] xmd:w-[4.90483rem] h-[1.75695rem] xmd:h-[1.97657rem] flex justify-center items-center transition-all duration-1000 origin-right xmd:text-[0.65886rem] xmd:tracking-[0.00329rem] xmd:font-semibold relative`}
         >
           COPY MÃ
         </button>

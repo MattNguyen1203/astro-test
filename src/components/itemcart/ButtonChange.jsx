@@ -1,7 +1,30 @@
+'use client'
+
+import {useState} from 'react'
+import {toast} from 'sonner'
+
 export default function ButtonChange() {
+  const [count, setCount] = useState(1)
+
+  const handleDecre = () => {
+    if (count === 1) {
+      return toast.info('Số lượng sản phẩm đã giảm đến mức tối thiểu!', {
+        position: 'bottom-left',
+      })
+    } else {
+      setCount((prev) => prev - 1)
+    }
+  }
+
+  const handleIncre = () => {
+    setCount((prev) => prev + 1)
+  }
   return (
     <div className='flex items-center w-fit'>
-      <button className='size-[2.63543rem] rounded-[0.58565rem] bg-elevation-20 flex justify-center items-center group'>
+      <button
+        onClick={handleDecre}
+        className='size-[2.63543rem] rounded-[0.58565rem] bg-elevation-20 flex justify-center items-center group'
+      >
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='24'
@@ -21,10 +44,13 @@ export default function ButtonChange() {
       </button>
       <div className='w-[2.05rem] relative'>
         <span className='absolute font-semibold text-black -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 button'>
-          1
+          {count}
         </span>
       </div>
-      <button className='size-[2.63543rem] rounded-[0.58565rem] bg-elevation-20 flex justify-center items-center group'>
+      <button
+        onClick={handleIncre}
+        className='size-[2.63543rem] rounded-[0.58565rem] bg-elevation-20 flex justify-center items-center group'
+      >
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='24'

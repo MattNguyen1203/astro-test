@@ -22,3 +22,15 @@
 ## Có bao nhiêu variations thì đều phải điền hết?
 ## Chưa có chỗ upvideo ở sản phẩm?
 ## Sản phẩm mua kèm phù hợp ? "Cross-sells?
+## Từ giá thấp nhất "hiển thỉ combo"
+
+
+const promise = () => new Promise((resolve) => setTimeout(() => resolve({ name: 'Sonner' }), 2000));
+
+toast.promise(promise, {
+  loading: 'Loading...',
+  success: (data) => {
+    return `${data.name} toast has been added`;
+  },
+  error: 'Error',
+});
