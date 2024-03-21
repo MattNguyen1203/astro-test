@@ -97,6 +97,9 @@
   .giagoc {
     @apply text-[0.73206rem] leading-[1.2] tracking-[0.01464rem] line-through font-medium text-greyscale-30 text-start;
   }
+  .subContainer {
+    @apply w-full bg-white p-[1.17rem] rounded-[0.87848rem];
+  }
 
   .body2 {
     @apply text-[1.02489rem] leading-normal tracking-[0.00256rem];
