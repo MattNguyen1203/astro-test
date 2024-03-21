@@ -25,7 +25,10 @@ export default function SlideTechnology({isMobile}) {
           key={index}
           className='!w-[21.38063rem] pr-[0.59rem]'
         >
-          <ItemTechnology index={index} />
+          <ItemTechnology
+            className='md:h-[30.4rem]'
+            index={index}
+          />
         </SwiperSlide>
       ))}
       <SwiperSlide className='!w-[10.54rem] h-[30.38067rem]'>

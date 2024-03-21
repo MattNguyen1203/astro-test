@@ -1,6 +1,5 @@
 import './globals.css'
 
-import {Toaster} from '@/components/ui/sonner'
 import localFont from 'next/font/local'
 import Footer from '@/layout/footer'
 import {Work_Sans} from 'next/font/google'
@@ -86,7 +85,6 @@ export default async function RootLayout({children}) {
         <SessionProvider session={session}>
           {children}
           <Footer isMobile={isMobile} />
-          <Toaster />
         </SessionProvider>
       </body>
     </html>
