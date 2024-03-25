@@ -5,7 +5,8 @@ import ProductInfo from './ProductInfo'
 import {useState} from 'react'
 import {cn} from '@/lib/utils'
 
-export default function PopupProduct() {
+function PopupProduct(props) {
+  const {setIsOpen} = props
   const dataArr = [
     {src: '/components/productImg.jpg', key: '1'},
     {src: '/components/productImg.jpg', key: '2'},
@@ -15,8 +16,8 @@ export default function PopupProduct() {
   const [key, setKey] = useState('1')
 
   return (
-    <div className='relative'>
-      <div className='flex w-full h-[8.05rem] py-[0.87848rem] px-[1.75695rem]'>
+    <div className='relative bg-elevation-20 rounded-[0.87848rem]'>
+      <div className='flex w-full h-[8.05rem] py-[0.87848rem] px-[1.75695rem] bg-white rounded-[0.87848rem]'>
         {dataArr?.map((item, index) => {
           return (
             <Image
@@ -42,7 +43,9 @@ export default function PopupProduct() {
         width={12}
         height={12}
         className='w-[2.92826rem] h-[2.92826rem] object-contain absolute right-[-4rem] top-1/2 cursor-pointer'
+        onClick={() => setIsOpen(false)}
       />
     </div>
   )
 }
+export default PopupProduct
