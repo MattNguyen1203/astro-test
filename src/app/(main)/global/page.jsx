@@ -4,6 +4,7 @@ import CardProduct from '@/components/cardproduct'
 import CardVoucher from '@/components/cardvoucher'
 import PopupProduct from '@/components/popupproduct'
 import SlideMultiple from '@/components/slidemultiple'
+import FormPreOrder from '@/sections/preorderdetail/components/FormPreOrder'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -11,6 +12,9 @@ export default function GlobalPage() {
   return (
     <div className='w-full'>
       <div className='h-[15rem]'></div>
+      <div className='container'>
+        <FormPreOrder />
+      </div>
       <BreadCrumb />
       <div className='flex items-center justify-center w-full h-screen'>
         <div className='flex flex-col w-fit h-fit'>

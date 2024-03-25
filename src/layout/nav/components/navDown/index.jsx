@@ -29,6 +29,22 @@ export default function NavDown({categories}) {
               <span className='caption1 font-normal text-greyscale-80 inline-block ml-[0.59rem]'>
                 {e?.title}
               </span>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='17'
+                height='17'
+                viewBox='0 0 17 17'
+                fill='none'
+                className='siz-[1.1713rem]'
+              >
+                <path
+                  d='M10.7747 6.94238L8.10807 9.60905L5.44141 6.94238'
+                  stroke='#262626'
+                  strokeWidth='1.5'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+              </svg>
             </NavigationMenuTrigger>
             <NavigationMenuContent className='container xl:min-w-[1200px] h-fit p-[2.05rem] rounded-[0.87848rem] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.10),2px_4px_6px_0px_rgba(0,0,0,0.02)]'>
               <div className='flex justify-between'>

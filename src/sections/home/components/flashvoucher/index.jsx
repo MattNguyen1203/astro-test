@@ -2,6 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import VoucherSlide from './slidevoucher'
 import VoucherSlideRes from './slidevoucherres'
+import CountDown from './countdown'
+
 const listData = new Array(14).fill(0)
 export default function FlashVoucher({isMobile}) {
   return (
@@ -36,37 +38,7 @@ export default function FlashVoucher({isMobile}) {
               12.12
             </h2>
           </div>
-          <div className='flex *:ml-[0.5rem] xmd:*:ml-[0.26rem]'>
-            <div className='w-[5.12445rem] h-[3.95315rem] xmd:w-[2.63543rem] xmd:h-[2.04525rem] flex justify-center items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] xmd:shadow-[0px_0.447px_8.491px_0px_rgba(255,255,255,0.22)] ml-0 shadow-[0px_1px_19px_0px_rgba(255,255,255,0.22)] relative'>
-              <Image
-                className='absolute top-0 left-0 size-full rounded-[0.29283rem] xmd:rounded-[0.58565rem]'
-                src={'/home/border-left-fl.svg'}
-                alt='border'
-                width={70}
-                height={54}
-              />
-              <span className='text-[2.04978rem] xmd:text-[1.1713rem] leading-[1.2] font-bold bg-[linear-gradient(99deg,#FFF0D8_-58.6%,#E99207_95.15%)] bg-clip-text text-transparent relative z-10'>
-                22
-              </span>
-            </div>
-            <div className='w-[5.12445rem] h-[3.95315rem] xmd:w-[2.63543rem] xmd:h-[2.04525rem] flex justify-center items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] xmd:shadow-[0px_0.447px_8.491px_0px_rgba(255,255,255,0.22)] bg-white'>
-              <span className='text-[2.04978rem] xmd:text-[1.1713rem] leading-[1.2] font-bold bg-[linear-gradient(99deg,#FFF0D8_-58.6%,#E99207_95.15%)] bg-clip-text text-transparent'>
-                11
-              </span>
-            </div>
-            <div className='w-[5.12445rem] h-[3.95315rem] xmd:w-[2.63543rem] xmd:h-[2.04525rem] flex justify-center items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] xmd:shadow-[0px_0.447px_8.491px_0px_rgba(255,255,255,0.22)] relative '>
-              <Image
-                className='absolute top-0 left-0 size-full rounded-[0.29283rem] xmd:rounded-[0.58565rem]'
-                src={'/home/border-right-fl.svg'}
-                alt='border'
-                width={70}
-                height={54}
-              />
-              <span className='text-[2.04978rem] xmd:text-[1.1713rem] leading-[1.2] font-bold bg-[linear-gradient(99deg,#FFF0D8_-58.6%,#E99207_95.15%)] bg-clip-text text-transparent relative z-10'>
-                22
-              </span>
-            </div>
-          </div>
+          <CountDown />
         </div>
         {isMobile ? (
           <VoucherSlideRes data={listData} />

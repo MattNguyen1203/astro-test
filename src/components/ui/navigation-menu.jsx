@@ -1,12 +1,11 @@
 import * as React from 'react'
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu'
 import {cva} from 'class-variance-authority'
-import {ChevronDown} from 'lucide-react'
 
 import {cn} from '@/lib/utils'
 
 const NavigationMenu = React.forwardRef(
-  ({className, viewPort, children, ...props}, ref) => (
+  ({className, viewPort, viewPortChild, children, ...props}, ref) => (
     <NavigationMenuPrimitive.Root
       ref={ref}
       className={cn(
@@ -16,7 +15,10 @@ const NavigationMenu = React.forwardRef(
       {...props}
     >
       {children}
-      <NavigationMenuViewport viewPort={viewPort} />
+      <NavigationMenuViewport
+        viewPort={viewPort}
+        viewPortChild={viewPortChild}
+      />
     </NavigationMenuPrimitive.Root>
   ),
 )
@@ -68,7 +70,7 @@ NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName
 const NavigationMenuLink = NavigationMenuPrimitive.Link
 
 const NavigationMenuViewport = React.forwardRef(
-  ({className, viewPort, ...props}, ref) => (
+  ({className, viewPort = '', viewPortChild = '', ...props}, ref) => (
     <div
       className={cn(
         'absolute left-0 top-full flex justify-center rounded-[0.87848rem]',
@@ -79,6 +81,7 @@ const NavigationMenuViewport = React.forwardRef(
         className={cn(
           'origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden border bg-popover text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)] rounded-[0.87848rem]',
           className,
+          viewPortChild,
         )}
         ref={ref}
         {...props}

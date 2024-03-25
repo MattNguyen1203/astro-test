@@ -60,7 +60,7 @@ export default function SheetCart({children, isMobile}) {
               </div>
               <div className='flex cursor-pointer items w-fit pl-[0.5rem]'>
                 <ICDelete className='w-[0.83272rem] h-auto' />
-                <span className='w-fit ml-[0.46rem] leading-[1.2] tracking-[0.00878rem] font-semibold text-[0.87848rem] text-[#262626] block translate-y-[22.5%]'>
+                <span className='w-fit ml-[0.46rem] leading-[1.2] tracking-[0.00878rem] font-semibold text-[0.87848rem] text-[#262626] block translate-y-[22.5%] select-none'>
                   Xoá
                 </span>
               </div>

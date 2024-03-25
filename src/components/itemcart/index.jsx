@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import ButtonChange from './ButtonChange'
 import BoxCheck from '../sheetcart/BoxCheck'
+import TemVoucher from '../popupproduct/TemVoucher'
+import Variantion from './Variantion'
 
 export default function ItemCart({cart, setCart, index}) {
   return (
@@ -19,7 +21,7 @@ export default function ItemCart({cart, setCart, index}) {
           height={24}
         />
       </div>
-      <div className='w-[6.44217rem] bg-white rounded-[0.48023rem] overflow-hidden'>
+      <div className='w-[6.44217rem] bg-white rounded-[0.48023rem] overflow-hidden flex-shrink-0'>
         <Image
           className='object-contain size-full'
           src={'/home/item-product.jpg'}
@@ -28,10 +30,25 @@ export default function ItemCart({cart, setCart, index}) {
           height={82}
         />
       </div>
-      <div className='pl-[0.88rem]'>
-        <h2>Bút cảm ứng AstroMazing Pencil GD cho iPad</h2>
+      <div className='pl-[0.88rem] flex flex-col justify-center'>
+        <div>
+          <h2 className='font-medium line-clamp-1 caption1 text-greyscale-40'>
+            Bút cảm ứng AstroMazing Pencil GD cho iPad
+          </h2>
+          <TemVoucher className='mt-[0.44rem]' />
+        </div>
+        <div className='relative flex w-full mt-auto'>
+          <Variantion className='mr-[0.59rem]' />
+          <Variantion />
+        </div>
       </div>
-      <div>
+      <div className='flex flex-col justify-between'>
+        <div className='flex flex-col items-center'>
+          <span className='font-semibold text-blue-600 sub2'>65.000đ</span>
+          <span className='font-normal line-through giagoc text-greyscale-40'>
+            130.000đ
+          </span>
+        </div>
         <ButtonChange />
       </div>
     </article>

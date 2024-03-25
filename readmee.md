@@ -34,3 +34,37 @@ toast.promise(promise, {
   },
   error: 'Error',
 });
+
+
+
+
+## Hiện tại:
+## Danh mục	Domain/ten-danh-muc 
+## Danh mục con 	Domain/ten-danh-muc-con 
+## Sản phẩm 	Domain/ten-san-pham 
+## Bài viết 	Domain/ten-bai-viet 
+
+
+## Về logic
+- Nó sẽ là /[slug].html
+- Thì sẽ phải check slug xem nó thuộc 1 trong 4 thằng ở trên
+- Đồng nghĩa với việc sẽ phải call "4" api trong 1 page để kiểm tra
+- Thời gian code sẽ tăng lên "x3" lần, sẽ phải check rất cực và generate Static params "cực khó"
+- Code phần này ít nhất sẽ phải check để trả về giao diện tương ứng theo slug (ít nhất 3 giao diện)
+- Về "perfomace" chắc chắn sẽ không tốt
+
+
+## Đề xuất: ( Bên cellphones cũng đang làm như thế này)
+## Danh mục:	Domain/danh-muc 
+## Danh mục con: 	Domain/danh-muc/ten-danh-muc-con 
+## Sản phẩm: 	Domain/ten-san-pham
+## Tin tức:	Domain/tin-tuc
+## danh mục:	Domain/tin-tuc/thi-truong
+## Bài viết: 	Domain/tin-tuc/ten-bai-viet
+
+## Ưu điểm của đề xuất mới:
+## Code sẽ đỡ được về logic và thời gian
+## Perfomance tăng lên
+## Chỉ call 1 api
+## Vẫn giữ được SEO
+## SEO chi tiết sản phẩm "!IMPORTANT "
