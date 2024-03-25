@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useRef, useEffect, memo} from 'react'
 
-const ShowMore = ({children, maxHeight = 100, textClass, iconProp}) => {
+const ShowMore = memo(({children, maxHeight = 100, textClass, iconProp}) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [showButton, setShowButton] = useState(false)
   const contentRef = useRef(null)
@@ -14,10 +14,9 @@ const ShowMore = ({children, maxHeight = 100, textClass, iconProp}) => {
     } else {
       setShowButton(false)
     }
-  }, [children, maxHeight, contentRef]) // Depend on children and maxHeight, recalculate when they change
+  }, [maxHeight, contentRef])
 
   const toggleExpand = () => setIsExpanded(!isExpanded)
-
   return (
     <>
       <div
@@ -53,6 +52,6 @@ const ShowMore = ({children, maxHeight = 100, textClass, iconProp}) => {
       )}
     </>
   )
-}
+})
 
 export default ShowMore

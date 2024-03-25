@@ -10,22 +10,6 @@ export default function ProductInfo() {
       <SlideMultiple />
       <div className='w-[28.25769rem] relative'>
         <div className='bg-white rounded-[0.87848rem] p-[0.88rem]'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='32'
-            height='32'
-            viewBox='0 0 32 32'
-            fill='none'
-            className='size-[2.34261rem] absolute top-[0.37rem] right-[0.29rem] cursor-pointer'
-          >
-            <path
-              d='M21.3327 21.3336L15.9994 16.0003M15.9994 16.0003L10.666 10.667M15.9994 16.0003L21.3327 10.667M15.9994 16.0003L10.666 21.3337'
-              stroke='#262626'
-              strokeWidth='2.66667'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            />
-          </svg>
           <NamePrice />
           <TemVoucher />
           <Variation />
