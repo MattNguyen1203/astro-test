@@ -20,12 +20,13 @@ export default function PopupCategories({
       {isOpen && (
         <div className='absolute -bottom-[0.6rem] left-0 translate-y-full bg-white w-[19.03367rem] rounded-[0.58565rem] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.10)] z-50'>
           <NavigationMenu
-            viewPort='top-0 left-auto -right-[0.5rem] translate-x-full w-[54.75842rem] popup_hover_categories_mega'
-            className='justify-start w-full max-w-full'
+            viewPortChild='!h-full'
+            viewPort='top-0 left-auto right-[0.6rem] translate-x-full w-[54.75842rem] !h-full popup_hover_categories_mega'
+            className='justify-start w-full h-full max-w-full min-h-full'
             id='categories_mega_hover'
           >
             <NavigationMenuList
-              className='flex flex-col w-full py-[0.88rem]'
+              className='flex flex-col w-full py-[0.88rem] h-full max-w-full'
               id='list_categories_mega_hover'
             >
               {Array(7)
@@ -85,7 +86,6 @@ export default function PopupCategories({
                         </svg>
                       </div>
                     </NavigationMenuTrigger>
-                    {/* <NavigationMenuViewport className='top-0 right-0 translate-x-full'> */}
                     <NavigationMenuContent className='w-[54.75842rem] rounded-[1.75695rem] p-[1.46rem]'>
                       <div className='flex justify-between'>
                         {Array(4)
@@ -119,9 +119,14 @@ export default function PopupCategories({
                           ))}
                       </div>
                     </NavigationMenuContent>
-                    {/* </NavigationMenuViewport> */}
                   </NavigationMenuItem>
                 ))}
+              <div className='w-full h-fit px-[0.8rem] pt-[0.88rem]'>
+                <hr className='w-full bg-[#ECECECB2] h-[0.07321rem] mb-[0.88rem]' />
+                <button className='font-semibold caption1 text-greyscale-80 h-[2.92826rem] w-full flex justify-center items-center hover:bg-elevation-20'>
+                  Tất cả sản phẩm
+                </button>
+              </div>
             </NavigationMenuList>
           </NavigationMenu>
         </div>

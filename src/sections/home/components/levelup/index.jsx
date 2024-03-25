@@ -1,9 +1,13 @@
+'use client'
 import Image from 'next/image'
 import CategoryProduct from '../productnew/CategoryProduct'
 import CategoryProductRes from '../productnew/CategoryProductRes'
 import SlideProduct from '../productnew/SlideProduct'
+import TabCategories from './TabCategories'
+import {useState} from 'react'
 
 export default function LevelUpYourTech({isMobile}) {
+  const [indexCategory, setIndexCategory] = useState(0)
   return (
     <>
       {isMobile ? (
@@ -26,7 +30,12 @@ export default function LevelUpYourTech({isMobile}) {
         <CategoryProduct
           title='LEVEL UP YOUR TECH'
           href='/'
-        />
+        >
+          <TabCategories
+            setIndexCategory={setIndexCategory}
+            indexCategory={indexCategory}
+          />
+        </CategoryProduct>
       )}
       <SlideProduct isMobile={isMobile} />
     </>

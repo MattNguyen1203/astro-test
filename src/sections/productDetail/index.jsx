@@ -9,7 +9,6 @@ import Image from 'next/image'
 import CardVoucher from '@/components/cardvoucher'
 import ChangeQuantity from '@/components/popupproduct/ChangeQuantity'
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
-import {useEffect, useRef} from 'react'
 import ShowMore from '@/components/showmore'
 
 const detailPrd = [
