@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function BreadCrumb() {
   return (
-    <div className='flex w-fit'>
+    <div className='flex w-fit xmd:max-w-full overflow-hidden'>
       <Link
         href={'/'}
         className='flex items-center w-fit'
@@ -48,7 +48,7 @@ export default function BreadCrumb() {
           Flashsale
         </span>
       </Link>
-      <div className='flex items-center w-fit'>
+      <div className='flex items-center w-fit xmd:line-clamp-1 xmd:max-w-[10rem]'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='16'

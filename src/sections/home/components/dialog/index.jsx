@@ -10,9 +10,12 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 
-export function DialogProduct({children, isOpen}) {
+export function DialogProduct({children, isOpen, setIsOpen}) {
   return (
-    <Dialog open={isOpen}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={setIsOpen}
+    >
       <DialogTrigger asChild>
         {/* <Button
           variant='outline'
@@ -21,8 +24,8 @@ export function DialogProduct({children, isOpen}) {
         {children}
         {/* </Button> */}
       </DialogTrigger>
-      <DialogContent className='sm:max-w-[425px]'>
-        <PopupProduct />
+      <DialogContent className='sm:max-w-[425px] p-0 rounded-[0.8rem]'>
+        <PopupProduct setIsOpen={setIsOpen} />
         {/* <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
           <DialogDescription>

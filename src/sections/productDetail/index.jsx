@@ -9,8 +9,10 @@ import Image from 'next/image'
 import CardVoucher from '@/components/cardvoucher'
 import ChangeQuantity from '@/components/popupproduct/ChangeQuantity'
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
-import {useEffect, useRef} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import ShowMore from '@/components/showmore'
+import ItemProduct from './itemProduct'
+import {cn} from '@/lib/utils'
 
 const detailPrd = [
   {
@@ -50,28 +52,31 @@ const prdOther = [
 ]
 
 const ProductDetail = () => {
+  const fakeData = new Array(3).fill(0)
+
   return (
     <div className='container mt-[8.1rem] bg-elevation-10 relative'>
       <div className='py-[1.76rem]'>
         <BreadCrumb />
       </div>
-      <div className='flex justify-between'>
+      <div className='flex justify-between xmd:flex-col'>
         <div className='col'>
           <SlideMultiple />
-          <div className='sub2 font-medium tracking-[0.01025rem] mt-[1.32rem] mb-[0.59rem] text-greyscale-30'>
+          <div className='xmd:hidden sub2 font-medium tracking-[0.01025rem] mt-[1.32rem] mb-[0.59rem] text-greyscale-30'>
             Ghé thăm gian hàng tại:
           </div>
-
-          <SocialProduct />
+          <div className='xmd:hidden'>
+            <SocialProduct />
+          </div>
         </div>
 
-        <div className='col w-[43.48rem] pr-[0.92rem]'>
+        <div className='col w-[43.48rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[6.6rem]'>
           <div className='subContainer'>
             <NamePrice />
             <TemVoucher />
             <Variation />
 
-            <div className='border-y border-[rgba(236,236,236,0.70)] py-[1.46rem] flex items-center my-[1.46rem]'>
+            <div className='border-y xmd:border-none border-[rgba(236,236,236,0.70)] py-[1.46rem] xmd:py-0 flex items-center my-[1.46rem] xmd:mb-0'>
               <ChangeQuantity />
               <button className='flex items-center justify-center w-[11rem] h-[2.9282rem] rounded-[0.58565rem] border-2 border-solid border-[#102841] px-[1.17rem] py-[0.73rem] mx-[0.88rem]'>
                 <Image
@@ -90,7 +95,7 @@ const ProductDetail = () => {
               </button>
             </div>
 
-            <div className='flex justify-between'>
+            <div className='flex justify-between xmd:hidden'>
               <div className='flex items-center'>
                 <Image
                   src={'/components/productIcon1.svg'}
@@ -170,7 +175,7 @@ const ProductDetail = () => {
 
           <Tabs
             defaultValue={prdOther && prdOther[0].key}
-            className='bg-white p-[1.17rem] rounded-[0.87848rem] mb-[0.88rem]'
+            className='bg-white p-[1.17rem] rounded-[0.87848rem] mb-[0.88rem] xmd:hidden'
           >
             <TabsList className='bg-transparent pb-[1.17rem] mb-[1.17rem] border-b border-[#ECECECB2] w-full justify-start h-fit'>
               {prdOther?.map((info, index) => {
@@ -214,10 +219,21 @@ const ProductDetail = () => {
             <div className='sub2 font-medium mb-[0.88rem]'>
               Sản phẩm mua kèm phù hợp:
             </div>
+            {fakeData.map((item, index) => (
+              <div
+                key={index}
+                className={cn(
+                  index === fakeData?.length - 1 ? '' : 'mb-[0.88rem]',
+                )}
+              >
+                {' '}
+                <ItemProduct />
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className='flex flex-col items-center col'>
+        <div className='flex flex-col items-center col h-full sticky top-[9rem]'>
           <div className='grid grid-cols-1 gap-y-[0.59rem]'>
             {new Array(4).fill(0).map((e, index) => (
               <CardVoucher key={index} />
@@ -228,8 +244,6 @@ const ProductDetail = () => {
           </button>
         </div>
       </div>
-
-      {/* <PopupProduct /> */}
     </div>
   )
 }
