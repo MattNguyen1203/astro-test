@@ -9,20 +9,15 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import {useForm} from 'react-hook-form'
 import * as z from 'zod'
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form'
+import {Form, FormControl, FormField, FormItem} from '@/components/ui/form'
 import {Input} from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+
+import {useState} from 'react'
+import PopupProvince from './PopupProvince'
+import PopupDistrict from './PopupDistrict'
+import PopupCommune from './PopupCommune'
+import {Textarea} from '@/components/ui/textarea'
+import FormUseVoucher from './FormUseVoucher'
 
 const formSchema = z.object({
   email: z.string().email({message: 'Nhập đúng định dạng email!'}),
@@ -39,6 +34,11 @@ const formSchema = z.object({
 })
 
 export default function PaymentIndex({province, district, commune}) {
+  const [valueProvince, setValueProvince] = useState(null)
+  const [idProvince, setIdProvince] = useState(null)
+  const [valueDistrict, setValueDistrict] = useState(null)
+  const [idDistrict, setIdDistrict] = useState(null)
+  const [valueCommune, setValueCommune] = useState(null)
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,6 +48,7 @@ export default function PaymentIndex({province, district, commune}) {
       address: '',
       street: '',
       note: '',
+      password: '',
     },
   })
 
@@ -58,7 +59,7 @@ export default function PaymentIndex({province, district, commune}) {
   }
   return (
     <section className='container relative flex justify-between'>
-      <article className='w-[50.88rem] h-fit sticky top-[9.76rem] left-0'>
+      <article className='w-[50.88rem] h-fit sticky top-[9.76rem] left-0 space-y-[0.88rem]'>
         <div className='bg-white rounded-[0.58565rem] p-[1.76rem]'>
           <Form {...form}>
             <form
@@ -110,25 +111,73 @@ export default function PaymentIndex({province, district, commune}) {
                   </FormItem>
                 )}
               />
-              <div>
-                <Select>
-                  <SelectTrigger className='w-full bg-elevation-20 rounded-[0.43924rem]'>
-                    <SelectValue placeholder='Tỉnh/ Thành phố *' />
-                  </SelectTrigger>
-                  <SelectContent className='z-[999999]'>
-                    <ScrollArea type='always'>
-                      <SelectGroup>
-                        <SelectLabel>Tỉnh/ Thành phố *</SelectLabel>
-                        <SelectItem value='apple'>Apple</SelectItem>
-                        <SelectItem value='banana'>Banana</SelectItem>
-                        <SelectItem value='blueberry'>Blueberry</SelectItem>
-                        <SelectItem value='grapes'>Grapes</SelectItem>
-                        <SelectItem value='pineapple'>Pineapple</SelectItem>
-                      </SelectGroup>
-                    </ScrollArea>
-                  </SelectContent>
-                </Select>
+              <div className='flex space-x-[0.88rem]'>
+                <PopupProvince
+                  province={province}
+                  valueProvince={valueProvince}
+                  setValueProvince={setValueProvince}
+                  setIdProvince={setIdProvince}
+                />
+                <PopupDistrict
+                  district={district?.filter(
+                    (e) => e?.idProvince === idProvince,
+                  )}
+                  valueDistrict={valueDistrict}
+                  setValueDistrict={setValueDistrict}
+                  setIdDistrict={setIdDistrict}
+                  idProvince={idProvince}
+                />
+                <PopupCommune
+                  commune={commune?.filter((e) => e?.idDistrict === idDistrict)}
+                  valueCommune={valueCommune}
+                  setValueCommune={setValueCommune}
+                  idDistrict={idDistrict}
+                />
               </div>
+              <FormField
+                control={form.control}
+                name='street'
+                render={({field}) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
+                        placeholder='Số nhà, tên đường *'
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='note'
+                render={({field}) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder='Ghi chú cho giao hàng (tùy chọn)'
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='password'
+                render={({field}) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
+                        placeholder='Tạo mật khẩu để theo dõi đơn hàng *'
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
             </form>
           </Form>
         </div>
@@ -170,8 +219,11 @@ export default function PaymentIndex({province, district, commune}) {
               Tự động áp dụng Voucher có giá trị cao nhất
             </p>
           </div>
-          <div className=''>
-            <span>Hoặc nhập mã Voucher</span>
+          <div>
+            <span className='inline-block mb-[0.59rem]'>
+              Hoặc nhập mã Voucher
+            </span>
+            <FormUseVoucher />
           </div>
         </div>
         <div className='bg-white rounded-[0.58565rem] p-[1.76rem]'>
@@ -274,13 +326,13 @@ export default function PaymentIndex({province, district, commune}) {
             className='grid grid-cols-2 gap-[0.59rem] mt-[1.17rem]'
           >
             <Label
-              htmlFor='r1'
+              htmlFor='in'
               className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer'
             >
               <RadioGroupItem
                 className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
-                value='cod'
-                id='r1'
+                value='in'
+                id='in'
               />
               <Image
                 className='w-[1.46413rem] h-auto object-contain block ml-[0.88rem] mr-[0.44rem]'
@@ -294,13 +346,13 @@ export default function PaymentIndex({province, district, commune}) {
               </span>
             </Label>
             <Label
-              htmlFor='r2'
+              htmlFor='out'
               className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer'
             >
               <RadioGroupItem
                 className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
-                value='ck'
-                id='r2'
+                value='out'
+                id='out'
               />
               <Image
                 className='w-[1.46413rem] h-auto object-contain block ml-[0.88rem] mr-[0.44rem]'
@@ -426,7 +478,11 @@ export default function PaymentIndex({province, district, commune}) {
             <span className='sub1 font-bold text-[#D48E43]'>225.000đ</span>
           </div>
         </div>
-        <button className='flex items-center justify-center w-full text-white bg-blue-700 rounded-[0.58565rem] mt-[1.64rem] h-[2.92826rem] caption1 font-semibold'>
+        <button
+          type='submit'
+          className='flex items-center justify-center w-full text-white bg-blue-700 rounded-[0.58565rem] mt-[1.64rem] h-[2.92826rem] caption1 font-semibold'
+          onClick={form.handleSubmit(onSubmit)}
+        >
           THANH TOÁN NGAY
         </button>
       </aside>
