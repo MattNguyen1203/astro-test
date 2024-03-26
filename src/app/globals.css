@@ -68,7 +68,7 @@
 
 @layer components {
   .caption {
-    @apply text-[0.87848rem] leading-[1.2] tracking-[0.00878rem];
+    @apply text-[0.87848rem] leading-[1.2] tracking-[0.00439rem];
   }
   .caption1 {
     @apply text-[0.87848rem] leading-[1.2] tracking-[0.00878rem];
