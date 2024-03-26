@@ -16,8 +16,8 @@ function PopupProduct(props) {
   const [key, setKey] = useState('1')
 
   return (
-    <div className='relative bg-elevation-20 rounded-[0.87848rem]'>
-      <div className='flex w-full h-[8.05rem] py-[0.87848rem] px-[1.75695rem] bg-white rounded-[0.87848rem]'>
+    <div className='relative bg-elevation-20 rounded-[0.87848rem] xmd:w-screen xmd:h-[35rem] overflow-y-scroll'>
+      <div className='flex xmd:hidden w-full h-[8.05rem] py-[0.87848rem] px-[1.75695rem] bg-white rounded-[0.87848rem]'>
         {dataArr?.map((item, index) => {
           return (
             <Image
@@ -42,7 +42,7 @@ function PopupProduct(props) {
         alt='close icon'
         width={12}
         height={12}
-        className='w-[2.92826rem] h-[2.92826rem] object-contain absolute right-[-4rem] top-1/2 cursor-pointer'
+        className='w-[2.92826rem] h-[2.92826rem] object-contain absolute right-[-4rem] top-1/2 cursor-pointer xmd:hidden'
         onClick={() => setIsOpen(false)}
       />
     </div>
