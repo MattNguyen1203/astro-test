@@ -2,10 +2,10 @@ import Link from 'next/link'
 
 export default function BreadCrumb() {
   return (
-    <div className='flex w-fit xmd:max-w-full overflow-hidden'>
+    <div className='flex w-fit xmd:max-w-full xmd:w-full overflow-hidden'>
       <Link
         href={'/'}
-        className='flex items-center w-fit'
+        className='flex items-center w-fit xmd:w-[6rem]'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -26,7 +26,7 @@ export default function BreadCrumb() {
       </Link>
       <Link
         href={'/flash-sale'}
-        className='flex items-center w-fit mx-[0.29rem]'
+        className='flex items-center w-fit mx-[0.29rem] xmd:max-w-[6rem] relative xmd:pl-[1rem] xmd:h-[1.1713rem]'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -34,7 +34,7 @@ export default function BreadCrumb() {
           height='16'
           viewBox='0 0 16 16'
           fill='none'
-          className='size-[1.1713rem] mr-[0.29rem]'
+          className='size-[1.1713rem] mr-[0.29rem] xmd:absolute xmd:top-1/2 xmd:left-0 xmd:-translate-y-1/2 '
         >
           <path
             d='M6.66602 5.33398L9.33268 8.00065L6.66602 10.6673'
@@ -44,18 +44,18 @@ export default function BreadCrumb() {
             strokeLinejoin='round'
           />
         </svg>
-        <span className='font-normal caption1 text-greyscale-10'>
+        <span className='font-normal caption1 text-greyscale-10 align-middle xmd:line-clamp-1'>
           Flashsale
         </span>
       </Link>
-      <div className='flex items-center w-fit xmd:line-clamp-1 xmd:max-w-[10rem]'>
+      <div className='flex items-center w-fit xmd:max-w-[10rem] xmd:relative xmd:pl-[1rem]'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='16'
           height='16'
           viewBox='0 0 16 16'
           fill='none'
-          className='size-[1.1713rem] mr-[0.29rem]'
+          className='size-[1.1713rem] mr-[0.29rem] xmd:absolute xmd:top-1/2 xmd:left-0 xmd:-translate-y-1/2'
         >
           <path
             d='M6.66602 5.33398L9.33268 8.00065L6.66602 10.6673'
@@ -65,7 +65,7 @@ export default function BreadCrumb() {
             strokeLinejoin='round'
           />
         </svg>
-        <h1 className='font-normal caption1 text-greyscale-80'>
+        <h1 className='font-normal caption1 text-greyscale-80 xmd:line-clamp-1'>
           Combo [Pencil Pro] Bút cảm ứng Stylus AstroMazing Pencil 2 Pro dành
           cho iPad Pro
         </h1>
