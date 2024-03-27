@@ -212,6 +212,9 @@ body {
     -webkit-appearance: none;
     display: none;
   }
+  .subContainer {
+    border-radius: 0;
+  }
 }
 .input-hidden {
   border: none !important;

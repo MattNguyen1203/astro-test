@@ -18,14 +18,25 @@ export default function SlideMultiple() {
 
   return (
     <>
-      <div className='w-[21.81552rem] mr-[1.17rem] select-none xmd:w-full xmd:mr-0'>
-        <div className='relative bg-white w-full h-[21.76764rem] xmd:h-[18.59444rem] rounded-[0.67818rem] overflow-hidden'>
+      <div className='w-[21.81552rem] mr-[1.17rem] select-none xmd:w-full xmd:mr-0 overflow-hidden xmd:px-[0.73rem]'>
+        <div className='relative bg-white w-full h-[21.76764rem] xmd:h-[18.59444rem] rounded-[0.67818rem] xmd:rounded-0 overflow-hidden'>
           <Swiper
             loop={true}
+            slidesPerView={1.5}
             spaceBetween={10}
             navigation={{
               prevEl: '.productSlide-prev',
               nextEl: '.productSlide-next',
+            }}
+            breakpoints={{
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 10,
+              },
+              1024: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
             }}
             thumbs={{swiper: thumbsSwiper}}
             modules={[FreeMode, Navigation, Thumbs]}
@@ -38,7 +49,7 @@ export default function SlideMultiple() {
                   alt='items'
                   width={500}
                   height={500}
-                  className='w-full h-full object-cover'
+                  className='w-full h-full object-cover xmd:border xmd:border-[#ECECEC] xmd:rounded-[0.5rem]'
                 />
               </SwiperSlide>
             ))}

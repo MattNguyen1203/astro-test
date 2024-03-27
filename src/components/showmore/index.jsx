@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React, {useState, useRef, useEffect, memo} from 'react'
 
-const ShowMore = memo(({children, maxHeight = 100, textClass, iconProp}) => {
+const ShowMore = ({children, maxHeight = 100, textClass, iconProp}) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [showButton, setShowButton] = useState(false)
   const contentRef = useRef(null)
@@ -9,12 +9,19 @@ const ShowMore = memo(({children, maxHeight = 100, textClass, iconProp}) => {
   // Effect to determine whether to show the "Show More" button
   useEffect(() => {
     const contentHeight = contentRef.current.scrollHeight
+    console.log('children', children)
+    console.log('contentHeight', contentHeight)
+    console.log('maxHeight', maxHeight)
+
     if (contentHeight > maxHeight) {
       setShowButton(true)
     } else {
       setShowButton(false)
     }
+    console.log('showButton', showButton)
+    console.log('---------------------')
   }, [maxHeight, contentRef])
+  console.log('showButton', showButton)
 
   const toggleExpand = () => setIsExpanded(!isExpanded)
   return (
@@ -52,6 +59,6 @@ const ShowMore = memo(({children, maxHeight = 100, textClass, iconProp}) => {
       )}
     </>
   )
-})
+}
 
 export default ShowMore

@@ -13,6 +13,8 @@ import {useEffect, useRef, useState} from 'react'
 import ShowMore from '@/components/showmore'
 import ItemProduct from './itemProduct'
 import {cn} from '@/lib/utils'
+import AddToCartBtn from './addToCartBtn'
+import AccordionInfo from './Accordion'
 
 const detailPrd = [
   {
@@ -55,8 +57,8 @@ const ProductDetail = () => {
   const fakeData = new Array(3).fill(0)
 
   return (
-    <div className='container mt-[8.1rem] bg-elevation-10 relative'>
-      <div className='py-[1.76rem]'>
+    <div className='container mt-[8.1rem] bg-elevation-10 relative xmd:w-full'>
+      <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:bg-white'>
         <BreadCrumb />
       </div>
       <div className='flex justify-between xmd:flex-col'>
@@ -71,28 +73,26 @@ const ProductDetail = () => {
         </div>
 
         <div className='col w-[43.48rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[6.6rem]'>
-          <div className='subContainer'>
+          <div className='subContainer xmd:rounded-0'>
             <NamePrice />
             <TemVoucher />
             <Variation />
 
-            <div className='border-y xmd:border-none border-[rgba(236,236,236,0.70)] py-[1.46rem] xmd:py-0 flex items-center my-[1.46rem] xmd:mb-0'>
+            <div className='border-y xmd:border-none border-[rgba(236,236,236,0.70)] py-[1.46rem] xmd:py-0 flex items-center my-[1.46rem] xmd:mb-0 xmd:flex-col xmd:justify-start xmd:items-start'>
               <ChangeQuantity />
-              <button className='flex items-center justify-center w-[11rem] h-[2.9282rem] rounded-[0.58565rem] border-2 border-solid border-[#102841] px-[1.17rem] py-[0.73rem] mx-[0.88rem]'>
-                <Image
-                  src='/components/btnCartIcon.svg'
-                  alt='button cart icon'
-                  width={15}
-                  height={15}
-                  className='w-[1.1713rem] h-[1.1713rem] object-contain mr-[0.59rem]'
+              <div className='flex xmd:flex-row-reverse h-[2.9282rem] xmd:h-[3.22108rem]'>
+                <AddToCartBtn
+                  className={{
+                    wrapper:
+                      'xmd:w-[3.22108rem] xmd:ml-[0.59rem] xmd:p-[0.58565rem] xmd:border-0 xmd:bg-blue-50 xmd:mr-0',
+                    text: 'xmd:hidden',
+                    img: 'xmd:size-[2rem]',
+                  }}
                 />
-                <span className='font-semibold uppercase caption1 text-greyscale-80'>
-                  Thêm vào giỏ
-                </span>
-              </button>
-              <button className='caption1 font-semibold text-white flex items-center justify-center w-[10.688rem] h-[2.9282rem] rounded-[0.58565rem] bg-[#102841] px-[1.17rem] py-[0.73rem] uppercase'>
-                Mua ngay
-              </button>
+                <button className='caption1 font-semibold text-white flex items-center justify-center w-[10.688rem] xmd:w-[21.3rem] h-full rounded-[0.58565rem] bg-[#102841] px-[1.17rem] py-[0.73rem] uppercase'>
+                  Mua ngay
+                </button>
+              </div>
             </div>
 
             <div className='flex justify-between xmd:hidden'>
@@ -172,7 +172,6 @@ const ProductDetail = () => {
           </div>
 
           {/* thông tin khác */}
-
           <Tabs
             defaultValue={prdOther && prdOther[0].key}
             className='bg-white p-[1.17rem] rounded-[0.87848rem] mb-[0.88rem] xmd:hidden'
@@ -213,6 +212,10 @@ const ProductDetail = () => {
             })}
           </Tabs>
 
+          <div className='px-[0.73rem]'>
+            <AccordionInfo data={prdOther} />
+          </div>
+
           {/* sản phẩm mua kèm */}
 
           <div className='subContainer'>
@@ -223,17 +226,37 @@ const ProductDetail = () => {
               <div
                 key={index}
                 className={cn(
-                  index === fakeData?.length - 1 ? '' : 'mb-[0.88rem]',
+                  index === fakeData?.length - 1
+                    ? ''
+                    : 'mb-[0.88rem] xmd:mb-[1.17rem]',
                 )}
               >
-                {' '}
                 <ItemProduct />
               </div>
             ))}
+
+            <div className='flex items-center justify-between mt-[1.17rem]'>
+              <div className='flex items-center xmd:flex-col xmd:items-start'>
+                <span className='sub1 font-bold xmd:font-semibold text-greyscale-20 xmd:text-greyscale-50 mr-[0.59rem] xmd:mr-0 xmd:mb-[0.3rem]'>
+                  Tổng cộng:
+                </span>
+                <span className='h6 text-[#D48E43] font-bold xmd:font-semibold'>
+                  195.000đ
+                </span>
+              </div>
+
+              <AddToCartBtn
+                className={{
+                  wrapper: 'text-greyscale-20 w-[12rem] mx-0',
+                  text: 'flex ml-[0.59rem]',
+                  img: 'smd:size-[1.1713rem]',
+                }}
+              />
+            </div>
           </div>
         </div>
 
-        <div className='flex flex-col items-center col h-full sticky top-[9rem]'>
+        <div className='flex flex-col items-center col h-full sticky top-[9rem] xmd:hidden'>
           <div className='grid grid-cols-1 gap-y-[0.59rem]'>
             {new Array(4).fill(0).map((e, index) => (
               <CardVoucher key={index} />
