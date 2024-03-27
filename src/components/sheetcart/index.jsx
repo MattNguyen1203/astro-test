@@ -12,9 +12,36 @@ import {ScrollArea} from '../ui/scroll-area'
 import ICBoxCheck from '../icon/ICBoxCheck'
 import ICCheck from '../icon/ICCheck'
 import {Toaster} from '../ui/sonner'
+import useSWR from 'swr'
 
-export default function SheetCart({children, isMobile}) {
+export default function SheetCart({children, isMobile, session}) {
+  console.log('🚀 ~ SheetCart ~ session:', session)
   const [cart, setCart] = useState([])
+
+  const fetcher = (url) =>
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${session?.accessToken}`,
+      },
+    }).then((res) => res.json())
+
+  // process.env.NEXT_PUBLIC_API + '/wc/store/v1/cart'
+  const {
+    data: dataItemCart,
+    isLoading,
+    error,
+  } = useSWR(
+    session?.accessToken
+      ? process.env.NEXT_PUBLIC_API + '/wc/store/v1/cart'
+      : null,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    },
+  )
+  console.log('🚀 ~ SheetCart ~ dataItemCart:', dataItemCart)
 
   const handleCart = () => {
     if (cart?.length === 10) {

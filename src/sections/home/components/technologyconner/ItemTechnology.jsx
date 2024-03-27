@@ -7,6 +7,7 @@ export default function ItemTechnology({
   index = '',
   widthHeightImg = '',
   mbCard,
+  priority = false,
 }) {
   return (
     <Link
@@ -25,6 +26,7 @@ export default function ItemTechnology({
           src='/home/item-post-tech.jpg'
           alt='item post tech'
           fill
+          priority={priority}
         />
       </div>
       <div
@@ -36,6 +38,7 @@ export default function ItemTechnology({
               className='size-[1.02489rem] object-contain'
               src={'/home/calendar.svg'}
               alt='icon calendar'
+              priority={priority}
               width={16}
               height={16}
             />
@@ -49,6 +52,7 @@ export default function ItemTechnology({
               className='size-[1.02489rem] object-contain'
               src={'/home/calendar.svg'}
               alt='icon calendar'
+              priority={priority}
               width={16}
               height={16}
             />

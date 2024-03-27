@@ -5,7 +5,7 @@ import Account from './Account'
 import MenuRes from './MenuRes'
 import Cart from './Cart'
 
-export default function NavUp({user, isMobile, referer}) {
+export default function NavUp({session, isMobile, referer}) {
   return (
     <div
       id='nav_up'
@@ -30,18 +30,21 @@ export default function NavUp({user, isMobile, referer}) {
         id='cart_and_user'
         className='flex items-center'
       >
-        <Cart isMobile={isMobile} />
+        <Cart
+          session={session}
+          isMobile={isMobile}
+        />
         <Account
-          user={user}
+          user={session?.user}
           isMobile={isMobile}
         />
         {isMobile ? (
           <MenuRes referer={referer} />
         ) : (
           <>
-            {user?.name ? (
+            {session?.user?.name ? (
               <span className='font-normal caption1 text-greyscale-80 py-[0.44rem] pl-[0.44rem]'>
-                {user?.name}
+                {session?.user?.name}
               </span>
             ) : (
               <Link

@@ -3,11 +3,14 @@ import useStore from '@/app/(store)/store'
 import SheetCart from '@/components/sheetcart'
 import Image from 'next/image'
 
-export default function Cart({isMobile}) {
+export default function Cart({isMobile, session}) {
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
 
   return (
-    <SheetCart isMobile={isMobile}>
+    <SheetCart
+      isMobile={isMobile}
+      session={session}
+    >
       <div
         className={`${
           isOpenMegaMenuRes ? 'opacity-0 pointer-events-none' : 'opacity-100'

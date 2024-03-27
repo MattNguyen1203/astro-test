@@ -3,28 +3,32 @@ import ItemNews from '../ItemNews'
 import Image from 'next/image'
 import MenuNews from '../MenuNews'
 
-export default function AllNews() {
+export default function AllNews({posts}) {
+  console.log('🚀 ~ AllNews ~ posts:', posts)
   return (
     <section className='container relative flex xmd:flex-col xmd:items-center w-full h-fit mt-[3.51rem] justify-between lg:pb-[6.59rem]'>
       <div className='flex flex-col lg:w-[62.4451rem] xmd:ml-[0.6rem] xmd:mb-[1.76rem]'>
         <div className='h-[4.97804rem] xmd:h-[6.3rem] bg-white rounded-[0.87848rem] flex xmd:flex-col justify-between xmd:justify-between items-center xmd:items-start lg:px-[1.76rem] mb-[0.88rem] xmd:mb-[1.76rem]'>
-          <h2 className='font-semibold text-blue-700 h5'>Tin tức</h2>
+          <h2 className='font-semibold text-blue-700 h5 whitespace-nowrap'>
+            Tin tức
+          </h2>
           <MenuNews arr={4} />
         </div>
         <div className='w-full bg-white lg:p-[1.76rem] rounded-[0.87848rem]'>
-          {Array(6)
-            .fill(0)
-            .map((_, index) => (
-              <Fragment key={index}>
-                <ItemNews isOption={true} />
-                {index !== 5 && (
-                  <hr className='w-full my-[1.76rem] h-[0.07rem] bg-[#EBF0F7]' />
-                )}
-              </Fragment>
-            ))}
+          {posts?.item?.map((item, index) => (
+            <Fragment key={index}>
+              <ItemNews
+                isOption={true}
+                item={item}
+              />
+              {index !== posts?.countItem - 1 && (
+                <hr className='w-full my-[1.76rem] h-[0.07rem] bg-[#EBF0F7]' />
+              )}
+            </Fragment>
+          ))}
         </div>
       </div>
-      <aside className='w-[22.47438rem] xmd:w-full sticky top-[9.76rem] left-0 flex-shrink-0 xmd:flex xmd:flex-col xmd:items-center'>
+      <aside className='w-[22.47438rem] xmd:w-full sticky top-[9.76rem] left-0 flex-shrink-0 xmd:flex xmd:flex-col xmd:items-center h-fit'>
         <div className='flex flex-col items-start w-[22.47438rem] xmd:w-[26.28111rem] mb-[1.17rem]'>
           <div className='mb-[0.87848rem] flex w-full items-center py-[0.58565rem] pr-[1.1713rem] pl-[1.1713rem] rounded-[0.87848rem] bg-[#17395C]'>
             <div className='flex items-center w-[20.57101rem]'>
@@ -34,7 +38,7 @@ export default function AllNews() {
             </div>
           </div>
           <div className='mb-[0.87848rem] w-full flex py-[0.58565rem] pr-[1.1713rem] pl-[1.1713rem] rounded-[0.87848rem] bg-[rgba(232,235,239,0.60)]'>
-            <div className='flex justify-between w-full items-center'>
+            <div className='flex items-center justify-between w-full'>
               <div className='flex items-center'>
                 <div className='w-[2.63543rem] h-[2.63543rem] flex justify-center items-center mr-[0.43924rem] relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)]'>
                   <div className='w-full h-full rounded-[0.51245rem] bg-[#4B6FBE] absolute inset-0'></div>
@@ -66,7 +70,7 @@ export default function AllNews() {
             </div>
           </div>
           <div className='mb-[0.87848rem] w-full flex py-[0.58565rem] pr-[1.1713rem] pl-[1.1713rem] rounded-[0.87848rem] bg-[rgba(232,235,239,0.60)]'>
-            <div className='flex justify-between w-full items-center'>
+            <div className='flex items-center justify-between w-full'>
               <div className='flex items-center'>
                 <div className='w-[2.63543rem] h-[2.63543rem] flex justify-center items-center mr-[0.43924rem] relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)]'>
                   <div className='w-full h-full rounded-[0.51245rem] absolute inset-0 bg-gradient-to-t to-[#2C5BB7] from-[#1B2852]'></div>
@@ -95,26 +99,26 @@ export default function AllNews() {
                           y2='8.41098'
                           gradientUnits='userSpaceOnUse'
                         >
-                          <stop stop-color='#F8B500' />
+                          <stop stopColor='#F8B500' />
                           <stop
                             offset='0.33'
-                            stop-color='#EF7C00'
+                            stopColor='#EF7C00'
                           />
                           <stop
                             offset='0.56'
-                            stop-color='#E7336F'
+                            stopColor='#E7336F'
                           />
                           <stop
                             offset='0.78'
-                            stop-color='#D14492'
+                            stopColor='#D14492'
                           />
                           <stop
                             offset='0.93'
-                            stop-color='#B64F98'
+                            stopColor='#B64F98'
                           />
                           <stop
                             offset='1'
-                            stop-color='#AD529B'
+                            stopColor='#AD529B'
                           />
                         </linearGradient>
                         <clipPath id='clip0_78_55206'>
@@ -141,7 +145,7 @@ export default function AllNews() {
             </div>
           </div>
           <div className='mb-[0.87848rem] w-full flex py-[0.58565rem] pr-[1.1713rem] pl-[1.1713rem] rounded-[0.87848rem] bg-[rgba(232,235,239,0.60)]'>
-            <div className='flex justify-between w-full items-center'>
+            <div className='flex items-center justify-between w-full'>
               <div className='flex items-center'>
                 <div className='w-[2.63543rem] h-[2.63543rem] flex justify-center items-center mr-[0.43924rem] relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)]'>
                   <div className='w-full h-full rounded-[0.51245rem] bg-gradient-to-t to-[#EEF8FF] from-[rgba(255,245,237,0.90)] absolute inset-0'></div>
@@ -215,7 +219,7 @@ export default function AllNews() {
                 />
               </div>
               <div className='flex flex-col items-start flex-1'>
-                <p className='body2 font-normal text-ellipsis overflow-hidden text-greyscale-60 flex-1'>
+                <p className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
                   Bút cảm ứng AstroMazing Pencil GD cho iPad
                 </p>
                 <p className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
@@ -234,7 +238,7 @@ export default function AllNews() {
                 />
               </div>
               <div className='flex flex-col items-start flex-1'>
-                <p className='body2 font-normal text-ellipsis overflow-hidden text-greyscale-60 flex-1'>
+                <p className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
                   Bút cảm ứng AstroMazing Pencil GD cho iPad
                 </p>
                 <p className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
@@ -253,7 +257,7 @@ export default function AllNews() {
                 />
               </div>
               <div className='flex flex-col items-start flex-1'>
-                <p className='body2 font-normal text-ellipsis overflow-hidden text-greyscale-60 flex-1'>
+                <p className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
                   Bút cảm ứng AstroMazing Pencil GD cho iPad
                 </p>
                 <p className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
@@ -272,7 +276,7 @@ export default function AllNews() {
                 />
               </div>
               <div className='flex flex-col items-start flex-1'>
-                <p className='body2 font-normal text-ellipsis overflow-hidden text-greyscale-60 flex-1'>
+                <p className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
                   Bút cảm ứng AstroMazing Pencil GD cho iPad
                 </p>
                 <p className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
@@ -291,7 +295,7 @@ export default function AllNews() {
                 />
               </div>
               <div className='flex flex-col items-start flex-1'>
-                <p className='body2 font-normal text-ellipsis overflow-hidden text-greyscale-60 flex-1'>
+                <p className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
                   Bút cảm ứng AstroMazing Pencil GD cho iPad
                 </p>
                 <p className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
@@ -300,8 +304,8 @@ export default function AllNews() {
               </div>
             </li>
             <button className='flex h-[2.63543rem] justify-center py-[0.80527rem] px-[1.46413rem] rounded-[7.32064rem] bg-[#F2F2F2]'>
-              <div className='flex justify-center items-center'>
-                <p className='caption font-semibold text-greyscale-80'>
+              <div className='flex items-center justify-center'>
+                <p className='font-semibold caption text-greyscale-80'>
                   XEM THÊM
                 </p>
               </div>

@@ -37,7 +37,6 @@ const formSchema = z.object({
 })
 
 export default function SignInIndex({status}) {
-  console.log('🚀 ~ SignInIndex ~ status:', status)
   const [isPending, startTransition] = useTransition()
   const [isFailed, setIsFailed] = useState(false)
 
