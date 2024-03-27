@@ -36,7 +36,7 @@ export default function Accessory({isMobile, products}) {
       </div>
       {!isMobile && (
         <Link
-          href={'/'}
+          href={'/phu-kien'}
           className='flex items-center mx-auto w-fit px-[1.76rem] h-[3.51391rem] rounded-[0.58565rem] border border-solid border-blue-800 mt-[2.34rem] group hover:bg-blue-800 transition-all duration-300'
         >
           <span className='font-semibold button text-blue-800 inline-block w-fit mr-[0.59rem] transition-all duration-300 group-hover:text-white'>
