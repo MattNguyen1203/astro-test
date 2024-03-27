@@ -54,7 +54,6 @@ export default function FormPreOrder() {
   const values = form.watch()
 
   function onSubmit(values) {
-    console.log('🚀 ~ onSubmit ~ values:', values)
     // startTransition(() => {
     // })
   }

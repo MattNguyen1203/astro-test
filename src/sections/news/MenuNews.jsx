@@ -1,7 +1,7 @@
 export default function MenuNews({arr}) {
   return (
-    <div className='relative w-full h-full overflow-hidden'>
-      <div className='flex xmd:absolute top-0 left-0 xmd:w-full xmd:overflow-auto hidden-scrollbar'>
+    <div className='relative flex items-center justify-end overflow-hidden size-full'>
+      <div className='flex xmd:top-0 xmd:left-0 xmd:absolute xmd:w-full xmd:overflow-auto hidden-scrollbar '>
         {Array(arr)
           .fill(0)
           .map((_, index) => (
