@@ -12,27 +12,27 @@ const menuOptions = [
   },
   {
     title: 'Đơn hàng',
-    src: '/layout/nav/user.svg',
+    src: '/layout/nav/bill.svg',
     href: '/don-hang',
   },
   {
     title: 'Sản phẩm yêu thích',
-    src: '/layout/nav/user.svg',
+    src: '/layout/nav/product-like.svg',
     href: '/san-pham-yeu-thich',
   },
   {
     title: 'Voucher của bạn',
-    src: '/layout/nav/user.svg',
+    src: '/layout/nav/ticket.svg',
     href: '/voucher',
   },
   {
     title: 'Sản phẩm đã mua',
-    src: '/layout/nav/user.svg',
+    src: '/layout/nav/folder.svg',
     href: '/san-pham-da-mua',
   },
   {
     title: 'Khách hàng thân thiết',
-    src: '/layout/nav/user.svg',
+    src: '/layout/nav/star.svg',
     href: '/khach-hang-than-thiet',
   },
 ]
@@ -79,7 +79,7 @@ export default function MenuUser() {
         <button className='flex items-center px-[0.88rem] py-[0.73rem]'>
           <Image
             className='size-[1.02489rem] object-contain'
-            src={'/layout/nav/user.svg'}
+            src={'/layout/nav/log-out.svg'}
             alt={'Đăng xuất'}
             width={14}
             height={14}

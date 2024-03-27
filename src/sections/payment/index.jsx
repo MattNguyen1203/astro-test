@@ -54,9 +54,7 @@ export default function PaymentIndex({province, district, commune}) {
 
   const values = form.watch()
 
-  function onSubmit(values) {
-    console.log('🚀 ~ onSubmit ~ values:', values)
-  }
+  function onSubmit(values) {}
   return (
     <section className='container relative flex justify-between'>
       <article className='w-[50.88rem] h-fit sticky top-[9.76rem] left-0 space-y-[0.88rem]'>

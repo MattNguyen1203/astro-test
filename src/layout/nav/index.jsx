@@ -9,7 +9,6 @@ import getData from '@/lib/getData'
 
 export default async function Nav({isMobile, referer}) {
   const session = await auth()
-  console.log('🚀 ~ Nav ~ session:', session)
   const categories = await getData('/custom/v1/category/category')
   return (
     <header
@@ -18,9 +17,9 @@ export default async function Nav({isMobile, referer}) {
     >
       <WrapNav isMobile={isMobile}>
         <NavUp
-          user={{...session?.user}}
           isMobile={isMobile}
           referer={referer}
+          session={session}
         />
         {!isMobile && (
           <div

@@ -5,7 +5,6 @@ import {FreeMode, Scrollbar} from 'swiper/modules'
 import {SwiperSlide, Swiper} from 'swiper/react'
 
 export default function SlideAccessory({products}) {
-  console.log('🚀 ~ SlideAccessory ~ products:', products)
   return (
     <Swiper
       id='accessory_swiper'

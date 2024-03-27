@@ -1,19 +1,27 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import {zodResolver} from '@hookform/resolvers/zod'
+import {useForm} from 'react-hook-form'
 import * as z from 'zod'
 
-import { Button } from '@/components/ui/button'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+import {Button} from '@/components/ui/button'
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import {Input} from '@/components/ui/input'
 
 const formSchema = z.object({
   username: z.string().min(2, {
     message: 'Username must be at least 2 characters.',
   }),
-  email: z.string().email({ message: 'Invalid email address.' }),
-  job: z.string().min(1, { message: 'Job is required' }),
+  email: z.string().email({message: 'Invalid email address.'}),
+  job: z.string().min(1, {message: 'Job is required'}),
 })
 
 export function ProfileForm() {
@@ -29,7 +37,6 @@ export function ProfileForm() {
   function onSubmit(values) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values)
   }
 
   return (
@@ -41,7 +48,7 @@ export function ProfileForm() {
         <FormField
           control={form.control}
           name='username'
-          render={({ field }) => (
+          render={({field}) => (
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
@@ -50,7 +57,9 @@ export function ProfileForm() {
                   {...field}
                 />
               </FormControl>
-              <FormDescription>This is your public display name.</FormDescription>
+              <FormDescription>
+                This is your public display name.
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -58,7 +67,7 @@ export function ProfileForm() {
         <FormField
           control={form.control}
           name='email'
-          render={({ field }) => (
+          render={({field}) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
@@ -67,7 +76,9 @@ export function ProfileForm() {
                   {...field}
                 />
               </FormControl>
-              <FormDescription>This is your public display name.</FormDescription>
+              <FormDescription>
+                This is your public display name.
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -75,7 +86,7 @@ export function ProfileForm() {
         <FormField
           control={form.control}
           name='job'
-          render={({ field }) => (
+          render={({field}) => (
             <FormItem>
               <FormLabel>Job</FormLabel>
               <FormControl>
@@ -84,7 +95,9 @@ export function ProfileForm() {
                   {...field}
                 />
               </FormControl>
-              <FormDescription>This is your public display name.</FormDescription>
+              <FormDescription>
+                This is your public display name.
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}

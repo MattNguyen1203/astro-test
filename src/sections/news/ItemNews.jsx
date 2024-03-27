@@ -1,7 +1,15 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function ItemNews({borderClass = '', isOption = false}) {
+export default function ItemNews({borderClass = '', isOption = false, item}) {
+  function convertDateFormat(dateTimeStr) {
+    const dateTime = new Date(dateTimeStr)
+    const day = dateTime.getDate().toString().padStart(2, '0') // Thêm số 0 nếu cần thiết để ngày có 2 chữ số
+    const month = (dateTime.getMonth() + 1).toString().padStart(2, '0') // Tháng được trả lại từ 0-11
+    const year = dateTime.getFullYear()
+
+    return `${day}/${month}/${year}`
+  }
   return (
     <article
       className={`${
@@ -11,7 +19,7 @@ export default function ItemNews({borderClass = '', isOption = false}) {
       } w-full flex`}
     >
       <Link
-        href='/'
+        href={`/tin-tuc/${item?.post_slug}`}
         className={`${
           isOption
             ? 'w-[16.47145rem] xmd:w-[7.10102rem] xmd:h-[5.05124rem] rounded-[1.1713rem] mr-[0.88rem] xmd:mr-[0.6rem]'
@@ -20,8 +28,8 @@ export default function ItemNews({borderClass = '', isOption = false}) {
       >
         <Image
           className='object-cover size-full'
-          src={'/news/item-tech.jpg'}
-          alt='banner tin tuc'
+          src={item?.thumbnail_url || '/news/item-tech.jpg'}
+          alt={item?.title}
           fill
         />
       </Link>
@@ -31,18 +39,15 @@ export default function ItemNews({borderClass = '', isOption = false}) {
             isOption ? '' : 'h-[2.78184rem]'
           } xmd:order-2 sub1 font-medium tracking-[0.01464rem] text-greyscale-80`}
         >
-          Review bị màn hình đen: Nguyên nhân và cách khắc phục hiệu quả
+          {item?.title}
         </h2>
         <p
           className={`${
             isOption ? 'my-[0.88rem]' : ''
-          } line-clamp-3 text-greyscale-30 body2 font-normal tracking-[0.00256rem] xmd:hidden`}
+          } line-clamp-3 text-greyscale-30 body2 font-normal tracking-[0.00256rem] xmd:hidden h-[4.612rem]`}
         >
-          Mạng xã hội Facebook là môi trường tiềm năng để kinh doanh hay phát
-          triển thương hiệu. Tuy nhiên, nhiều người vẫn chưa biết cách chạy
-          quảng cáo Facebook để quảng bá sản phẩm và dịch vụ của mình. Trong bài
-          viết này,giới thiệu cho bạn các hình thức và phần mềm để chạy quảng
-          cáo Facebook hiệu quả nhất. 
+          {item?.post_excerpt ||
+            'Mạng xã hội Facebook là môi trường tiềm năng để kinh doanh hay phát triển thương hiệu. Tuy nhiên, nhiều người vẫn chưa biết cách chạy quảng cáo Facebook để quảng bá sản phẩm và dịch vụ của mình. Trong bài viết này,giới thiệu cho bạn các hình thức và phần mềm để chạy quảng cáo Facebook hiệu quả nhất.'}
         </p>
         <div
           className={`${
@@ -61,7 +66,7 @@ export default function ItemNews({borderClass = '', isOption = false}) {
               isOption ? 'ml-[0.29rem]' : 'ml-[0.59rem]'
             } text-[0.87848rem] text-greyscale-80 font-medium block w-fit tracking-[0.00439rem] leading-[1.2]`}
           >
-            12/12/2023
+            {convertDateFormat(item?.post_date)}
           </span>
         </div>
       </div>

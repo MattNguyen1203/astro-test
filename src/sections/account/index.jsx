@@ -16,21 +16,21 @@ import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group'
 import {Label} from '@/components/ui/label'
 import BtnSubmit from '../auth/components/btnsubmit'
 import {useState} from 'react'
+import {DialogAvatar} from './components/dialogavatar'
 
 const formSchema = z.object({
   voucher: z.string().min(1, {message: 'Bạn chưa nhập Voucher!'}),
 })
 export default function IndexAccount() {
   const [isEdit, setIsEdit] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       voucher: '',
     },
   })
-  function onSubmit(values) {
-    console.log('🚀 ~ onSubmit ~ values:', values)
-  }
+  function onSubmit(values) {}
 
   const renderArrayDate = (start, end, before = '') => {
     const arr = []
@@ -103,15 +103,26 @@ export default function IndexAccount() {
                     )}
                   />
                 </div>
-                <div className='size-[8.63836rem]'>
-                  <Image
-                    className='object-cover cursor-pointer size-full'
-                    src={'/account/avatar-edit.svg'}
-                    alt='icon avatar default'
-                    width={120}
-                    height={120}
-                  />
-                </div>
+                <DialogAvatar
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                >
+                  <div
+                    onClick={() => {
+                      setIsEdit(true)
+                      setIsOpen(true)
+                    }}
+                    className='size-[8.63836rem]'
+                  >
+                    <Image
+                      className='object-cover cursor-pointer size-full'
+                      src={'/account/avatar-edit.svg'}
+                      alt='icon avatar default'
+                      width={120}
+                      height={120}
+                    />
+                  </div>
+                </DialogAvatar>
               </div>
               <div>
                 <FormField

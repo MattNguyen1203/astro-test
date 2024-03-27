@@ -22,9 +22,7 @@ export default function FormUseVoucher() {
       voucher: '',
     },
   })
-  function onSubmit(values) {
-    console.log('🚀 ~ onSubmit ~ values:', values)
-  }
+  function onSubmit(values) {}
   return (
     <Form {...form}>
       <form

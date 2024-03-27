@@ -104,6 +104,9 @@
     @apply w-full bg-white p-[1.17rem] rounded-[0.87848rem];
   }
 
+  .body1 {
+    @apply text-[1.1713rem] tracking-[0.00586rem] leading-normal;
+  }
   .body2 {
     @apply text-[1.02489rem] leading-normal tracking-[0.00256rem];
   }
