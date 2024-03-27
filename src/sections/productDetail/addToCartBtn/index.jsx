@@ -6,7 +6,7 @@ const AddToCartBtn = ({className}) => {
   return (
     <button
       className={cn(
-        'flex items-center justify-center w-[11rem] h-full rounded-[0.58565rem] border-2 border-solid border-[#102841] px-[1.17rem] py-[0.73rem] mx-[0.88rem] ',
+        'flex items-center justify-center w-[11rem] h-full rounded-[0.58565rem] border-2 border-solid border-[#102841] hover:border-[#FFF0D8] relative before:size-full before:absolute before:top-0 before:left-0 px-[1.17rem] py-[0.73rem] mx-[0.88rem] ',
         className?.wrapper,
       )}
     >

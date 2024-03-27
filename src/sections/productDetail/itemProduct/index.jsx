@@ -87,16 +87,20 @@ const ItemProduct = (props) => {
           isOpen={isOpen}
           setIsOpen={setIsOpen}
         >
-          <div
-            className='size-fit p-[0.66rem] bg-elevation-20 rounded-full flex items-center justify-center cursor-pointer'
-            // onClick={() => setIsOpen(true)}
-          >
+          <div className='size-fit transition-all duration-300 p-[0.66rem] bg-elevation-20 hover:bg-[linear-gradient(151deg,#17395C_-0.57%,rgba(35,101,170,0.89)_57.41%)] rounded-full flex items-center justify-center cursor-pointer group'>
             <Image
               src={'/components/edit.svg'}
               alt=''
               width={15}
               height={15}
-              className='size-[1.19524rem]'
+              className='size-[1.19524rem] group-hover:hidden'
+            />
+            <Image
+              src={'/components/edit2.svg'}
+              alt=''
+              width={15}
+              height={15}
+              className='size-[1.19524rem] hidden group-hover:block'
             />
           </div>
         </DialogProduct>

@@ -1,9 +1,11 @@
 import ProductDetail from '@/sections/productDetail'
 
 const page = ({searchParams}) => {
+  const {viewport} = searchParams
+  const isMobile = viewport.includes('mobile')
   return (
     <main className='bg-elevation-20'>
-      <ProductDetail />
+      <ProductDetail isMobile={isMobile} />
     </main>
   )
 }

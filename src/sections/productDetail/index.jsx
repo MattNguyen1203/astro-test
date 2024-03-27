@@ -15,6 +15,7 @@ import ItemProduct from './itemProduct'
 import {cn} from '@/lib/utils'
 import AddToCartBtn from './addToCartBtn'
 import AccordionInfo from './Accordion'
+import WishListIcon from './Wishlist'
 
 const detailPrd = [
   {
@@ -34,34 +35,34 @@ const detailPrd = [
 const prdOther = [
   {
     key: 'highlight',
-    label: 'ĐẶC ĐIỂM NỔI BẬT',
+    label: 'Đặc điểm nổi bật',
     content: `<img src="${'/product/draft.jpg'}" alt=""/><div>Với xu hướng công nghệ phát triển như hiện nay, chuột và bàn phím là những phụ kiện không thể thiếu đối với những tín đồ công nghệ. Hiểu được vấn đề này, nhà Astro đem đến cho bạn một chiếc bàn phím sử dụng bluetooth 3.0 tích hợp chế độ tiết kiệm pin và chuột không dây siêu êm với vẻ ngoài nhỏ nhắn, gọn gàng. Cùng tham khảo ngay mẫu sản phẩm combo chuột và bàn phím AstroMazing bluetooth size mini cho các thiết bị điện tử sau đây nhé!</div>`,
   },
 
   {
     key: 'detail',
-    label: 'THÔNG TIN CHI TIẾT',
+    label: 'Thông tin chi tiết',
     content:
       '<div>Với xu hướng công nghệ phát triển như hiện nay, chuột và bàn phím là những phụ kiện không thể thiếu đối với những tín đồ công nghệ. Hiểu được vấn đề này, nhà Astro đem đến cho bạn một chiếc bàn phím sử dụng bluetooth 3.0 tích hợp chế độ tiết kiệm pin và chuột không dây siêu êm với vẻ ngoài nhỏ nhắn, gọn gàng. Cùng tham khảo ngay mẫu sản phẩm combo chuột và bàn phím AstroMazing bluetooth size mini cho các thiết bị điện tử sau đây nhé!</div>',
   },
 
   {
     key: 'warranty',
-    label: 'CÁCH SỬ DỤNG & BẢO HÀNH',
+    label: 'Cách sử dụng & bảo hành',
     content:
       '<div>Với xu hướng công nghệ phát triển như hiện nay, chuột và bàn phím là những phụ kiện không thể thiếu đối với những tín đồ công nghệ. Hiểu được vấn đề này, nhà Astro đem đến cho bạn một chiếc bàn phím sử dụng bluetooth 3.0 tích hợp chế độ tiết kiệm pin và chuột không dây siêu êm với vẻ ngoài nhỏ nhắn, gọn gàng. Cùng tham khảo ngay mẫu sản phẩm combo chuột và bàn phím AstroMazing bluetooth size mini cho các thiết bị điện tử sau đây nhé!</div>',
   },
 ]
 
-const ProductDetail = () => {
+const ProductDetail = ({isMobile}) => {
   const fakeData = new Array(3).fill(0)
 
   return (
     <div className='container mt-[8.1rem] bg-elevation-10 relative xmd:w-full'>
-      <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:bg-white'>
+      <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
         <BreadCrumb />
       </div>
-      <div className='flex justify-between xmd:flex-col'>
+      <div className='relative flex justify-between xmd:flex-col'>
         <div className='col'>
           <SlideMultiple />
           <div className='xmd:hidden sub2 font-medium tracking-[0.01025rem] mt-[1.32rem] mb-[0.59rem] text-greyscale-30'>
@@ -72,12 +73,14 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        <div className='col w-[43.48rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[6.6rem]'>
-          <div className='subContainer xmd:rounded-0'>
+        <div className='col w-[43.48rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[6.6rem] xmd:mb-[1.17rem]'>
+          <div className='subContainer xmd:rounded-0 md:relative'>
             <NamePrice />
             <TemVoucher />
             <Variation />
-
+            <div className='absolute top-[1.17rem] right-[1.17rem] z-10'>
+              <WishListIcon />
+            </div>
             <div className='border-y xmd:border-none border-[rgba(236,236,236,0.70)] py-[1.46rem] xmd:py-0 flex items-center my-[1.46rem] xmd:mb-0 xmd:flex-col xmd:justify-start xmd:items-start'>
               <ChangeQuantity />
               <div className='flex xmd:flex-row-reverse h-[2.9282rem] xmd:h-[3.22108rem]'>
@@ -172,49 +175,54 @@ const ProductDetail = () => {
           </div>
 
           {/* thông tin khác */}
-          <Tabs
-            defaultValue={prdOther && prdOther[0].key}
-            className='bg-white p-[1.17rem] rounded-[0.87848rem] mb-[0.88rem] xmd:hidden'
-          >
-            <TabsList className='bg-transparent pb-[1.17rem] mb-[1.17rem] border-b border-[#ECECECB2] w-full justify-start h-fit'>
+
+          {isMobile ? (
+            <div className='px-[0.73rem] bg-white mb-[1.17rem]'>
+              <AccordionInfo data={prdOther} />
+            </div>
+          ) : (
+            <Tabs
+              defaultValue={prdOther && prdOther[0].key}
+              className='bg-white p-[1.17rem] rounded-[0.87848rem] mb-[0.88rem] xmd:hidden'
+            >
+              <TabsList className='bg-transparent pb-[1.17rem] mb-[1.17rem] border-b border-[#ECECECB2] w-full justify-start h-fit'>
+                {prdOther?.map((info, index) => {
+                  return (
+                    <TabsTrigger
+                      value={info.key}
+                      key={info.key}
+                      className='cation1 font-semibold px-[1.02rem] py-[0.59rem] rounded-[0.58565rem] bg-elevation-20 text-greyscale-20 mr-[0.59rem] !shadow-none data-[state=active]:bg-[linear-gradient(44deg,#FFF0D8_50.63%,#FFD797_106.58%)] data-[state=active]:text-greyscale-80 uppercase'
+                    >
+                      {info.label}
+                    </TabsTrigger>
+                  )
+                })}
+              </TabsList>
+
               {prdOther?.map((info, index) => {
                 return (
-                  <TabsTrigger
+                  <TabsContent
                     value={info.key}
                     key={info.key}
-                    className='cation1 font-semibold px-[1.02rem] py-[0.59rem] rounded-[0.58565rem] bg-elevation-20 text-greyscale-20 mr-[0.59rem] !shadow-none data-[state=active]:bg-[linear-gradient(44deg,#FFF0D8_50.63%,#FFD797_106.58%)] data-[state=active]:text-greyscale-80'
+                    className='sub2 relative w-full pb-[3.5rem]'
                   >
-                    {info.label}
-                  </TabsTrigger>
+                    <ShowMore
+                      maxHeight={200}
+                      textClass='sub2 text-greyscale-30 font-medium mr-0.29rem'
+                      iconProp={{
+                        className: 'w-[1.1713rem] h-[1.1713rem] object-contain',
+                        url: '/product/arrow.svg',
+                      }}
+                    >
+                      <div
+                        dangerouslySetInnerHTML={{__html: info.content}}
+                      ></div>
+                    </ShowMore>
+                  </TabsContent>
                 )
               })}
-            </TabsList>
-
-            {prdOther?.map((info, index) => {
-              return (
-                <TabsContent
-                  value={info.key}
-                  key={info.key}
-                  className='sub2 relative w-full pb-[3.5rem]'
-                >
-                  <ShowMore
-                    maxHeight={200}
-                    textClass='sub2 text-greyscale-30 font-medium mr-0.29rem'
-                    iconProp={{
-                      className: 'w-[1.1713rem] h-[1.1713rem] object-contain',
-                      url: '/product/arrow.svg',
-                    }}
-                  >
-                    <div dangerouslySetInnerHTML={{__html: info.content}}></div>
-                  </ShowMore>
-                </TabsContent>
-              )
-            })}
-          </Tabs>
-
-          <div className='px-[0.73rem]'>
-            <AccordionInfo data={prdOther} />
-          </div>
+            </Tabs>
+          )}
 
           {/* sản phẩm mua kèm */}
 

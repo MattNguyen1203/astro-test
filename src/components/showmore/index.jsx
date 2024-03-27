@@ -1,27 +1,34 @@
+import {cn} from '@/lib/utils'
 import Image from 'next/image'
 import React, {useState, useRef, useEffect, memo} from 'react'
 
-const ShowMore = ({children, maxHeight = 100, textClass, iconProp}) => {
+const ShowMore = ({
+  children,
+  maxHeight = 100,
+  textClass,
+  iconProp,
+  wrapperClass,
+}) => {
+  // API:{
+  //   maxHeight={200}
+  //   textClass='sub2 text-greyscale-30 font-medium mr-0.29rem'
+  //   iconProp={{
+  //     className: 'w-[1.1713rem] h-[1.1713rem] object-contain',
+  //     url: '/product/arrow.svg',
+  //   }}
+  //   wrapperClass='bg-transparent relative'
+
+  // }
   const [isExpanded, setIsExpanded] = useState(false)
   const [showButton, setShowButton] = useState(false)
   const contentRef = useRef(null)
 
-  // Effect to determine whether to show the "Show More" button
   useEffect(() => {
-    const contentHeight = contentRef.current.scrollHeight
-    console.log('children', children)
-    console.log('contentHeight', contentHeight)
-    console.log('maxHeight', maxHeight)
-
-    if (contentHeight > maxHeight) {
-      setShowButton(true)
-    } else {
-      setShowButton(false)
-    }
-    console.log('showButton', showButton)
-    console.log('---------------------')
-  }, [maxHeight, contentRef])
-  console.log('showButton', showButton)
+    setTimeout(() => {
+      const contentHeight = contentRef.current.scrollHeight
+      setShowButton(contentHeight > maxHeight)
+    }, 500)
+  }, [maxHeight, children])
 
   const toggleExpand = () => setIsExpanded(!isExpanded)
   return (
@@ -39,7 +46,12 @@ const ShowMore = ({children, maxHeight = 100, textClass, iconProp}) => {
         {children}
       </div>
       {showButton && (
-        <div className='w-full h-[3.5rem] bg-white absolute flex justify-center items-center bottom-0 left-1/2 -translate-x-1/2'>
+        <div
+          className={cn(
+            'w-full h-[3.5rem] bg-white absolute flex justify-center items-center bottom-0 left-1/2 -translate-x-1/2',
+            wrapperClass,
+          )}
+        >
           <div
             className='flex items-center justify-center cursor-pointer'
             onClick={toggleExpand}

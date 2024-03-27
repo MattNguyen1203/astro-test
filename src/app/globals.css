@@ -107,6 +107,10 @@
   .body2 {
     @apply text-[1.02489rem] leading-normal tracking-[0.00256rem];
   }
+  .caption4 {
+    @apply text-[1.31772rem] leading-[1.2] tracking-[0.01318rem];
+  }
+
   .bg-clip-text {
     background-clip: text;
     -webkit-background-clip: text;
