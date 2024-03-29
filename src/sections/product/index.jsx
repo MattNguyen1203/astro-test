@@ -3,8 +3,10 @@ import Image from 'next/image'
 import Sort from './sort'
 import GridProduct from './gridproduct'
 import Aside from './aside'
+import PaginationIndex from '../account/components/pagination'
 
-export default function IndexProduct() {
+export default function IndexProduct({products, categories, isMobile}) {
+  const pageCount = Math.ceil(Number(products?.count / 16))
   return (
     <main className='bg-elevation-20 pt-[8rem]'>
       <section className='container'>
@@ -16,7 +18,7 @@ export default function IndexProduct() {
             className='size-full object-cover rounded-[0.58565rem]'
             src={'/product/banner.jpg'}
             alt='banner'
-            width={1200}
+            width={isMobile ? 420 : 1200}
             height={300}
             quality={100}
             priority
@@ -24,10 +26,18 @@ export default function IndexProduct() {
         </div>
       </section>
       <section className='container relative flex justify-between pb-[4.39rem]'>
-        <Aside />
+        <Aside categories={categories} />
         <div className='w-[69.91215rem]'>
           <Sort />
-          <GridProduct />
+          <GridProduct
+            products={products}
+            priority={true}
+            indexPriority={8}
+          />
+          {pageCount > 1 && <PaginationIndex pageCount={pageCount} />}
+          <div className='flex justify-center mt-[2.34rem]'>
+            <PaginationIndex pageCount={pageCount} />
+          </div>
         </div>
       </section>
     </main>

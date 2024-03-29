@@ -22,7 +22,7 @@ const arr = [
   },
 ]
 
-export default function Aside() {
+export default function Aside({categories}) {
   const [isOpen, setIsOpen] = useState(false)
   const [indexSelect, setIndexSelect] = useState(1)
   const [sideRef, isOutSide] = useClickOutSide()
@@ -115,7 +115,7 @@ export default function Aside() {
         <span className='font-medium text-greyscale-30 block pl-[0.59rem]'>
           Ghé thăm gian hàng tại:
         </span>
-        <SocialProduct />
+        <SocialProduct priority={true} />
       </div>
     </aside>
   )
