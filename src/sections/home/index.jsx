@@ -14,13 +14,22 @@ import FlashVoucher from './components/flashvoucher'
 import Accessory from './components/accessory'
 import BannerHome from './components/banner'
 import PromotionSlide from './components/promotions'
-import FeedBack from './components/feedback'
-import TechnologyConner from './components/technologyconner'
-import ProductIndex from './components/productnew'
-import LevelUpYourTech from './components/levelup'
-import PreOder from './components/preoder'
 import CategoriesProduct from './components/categoriesproduct'
-import ListStrength from '@/components/liststrength'
+
+// import ProductIndex from './components/productnew'
+// import LevelUpYourTech from './components/levelup'
+// import PreOder from './components/preoder'
+// import FeedBack from './components/feedback'
+// import TechnologyConner from './components/technologyconner'
+// import ListStrength from '@/components/liststrength'
+
+import dynamic from 'next/dynamic'
+const ProductIndex = dynamic(() => import('./components/productnew'))
+const LevelUpYourTech = dynamic(() => import('./components/levelup'))
+const PreOder = dynamic(() => import('./components/preoder'))
+const FeedBack = dynamic(() => import('./components/feedback'))
+const TechnologyConner = dynamic(() => import('./components/technologyconner'))
+const ListStrength = dynamic(() => import('@/components/liststrength'))
 
 export default function HomeIndex({viewport, products}) {
   const isMobile = viewport === 'mobile'
