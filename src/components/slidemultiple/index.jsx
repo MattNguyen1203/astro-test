@@ -9,7 +9,6 @@ import {Swiper, SwiperSlide} from 'swiper/react'
 import {FreeMode, Navigation, Thumbs} from 'swiper/modules'
 import {useState} from 'react'
 import Image from 'next/image'
-import ICArrowRight from '../icon/ICArrowRight'
 import ICChevron from '../icon/ICChevron'
 export default function SlideMultiple() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null)

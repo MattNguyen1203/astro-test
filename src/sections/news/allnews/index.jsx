@@ -1,10 +1,14 @@
+'use client'
 import {Fragment} from 'react'
 import ItemNews from '../ItemNews'
 import Image from 'next/image'
 import MenuNews from '../MenuNews'
+import PaginationIndex from '@/sections/account/components/pagination'
+import {useSearchParams} from 'next/navigation'
 
 export default function AllNews({posts}) {
-  console.log('🚀 ~ AllNews ~ posts:', posts)
+  const searchParams = useSearchParams()
+
   return (
     <section className='container relative flex xmd:flex-col xmd:items-center w-full h-fit mt-[3.51rem] justify-between lg:pb-[6.59rem]'>
       <div className='flex flex-col lg:w-[62.4451rem] xmd:ml-[0.6rem] xmd:mb-[1.76rem]'>
@@ -21,11 +25,17 @@ export default function AllNews({posts}) {
                 isOption={true}
                 item={item}
               />
-              {index !== posts?.countItem - 1 && (
+              {index !== posts?.item?.length - 1 && (
                 <hr className='w-full my-[1.76rem] h-[0.07rem] bg-[#EBF0F7]' />
               )}
             </Fragment>
           ))}
+          <div className='mt-[2.34rem] flex justify-center'>
+            <PaginationIndex
+              pageCount={Math.ceil(posts?.countItem / 6)}
+              pageRangeDisplayed={5}
+            />
+          </div>
         </div>
       </div>
       <aside className='w-[22.47438rem] xmd:w-full sticky top-[9.76rem] left-0 flex-shrink-0 xmd:flex xmd:flex-col xmd:items-center h-fit'>

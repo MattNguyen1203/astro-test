@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export default function ItemTechnology({
+  post,
   className = '',
   boxClass = '',
   index = '',
@@ -22,9 +23,9 @@ export default function ItemTechnology({
         className={`relative size-full ${widthHeightImg} overflow-hidden xmd:rounded-[1.1713rem] xmd:mb-[0.58rem]`}
       >
         <Image
-          className='absolute top-0 left-0 z-0 transition-all duration-300 size-full group-hover:scale-110 xmd:rounded-[1.1713rem]'
-          src='/home/item-post-tech.jpg'
-          alt='item post tech'
+          className='absolute top-0 left-0 z-0 transition-all duration-300 size-full group-hover:scale-110 xmd:rounded-[1.1713rem] object-cover'
+          src={post?.thumbnail_url || '/home/item-post-tech.jpg'}
+          alt={post?.title || 'item post tech'}
           fill
           priority={priority}
         />

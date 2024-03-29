@@ -52,13 +52,13 @@ export default function GridAccessory({isMobile}) {
       </div>
       {!isMobile && (
         <aside className='w-[6rem] h-[19.69253rem] sticky top-[9.76rem] left-0 p-[0.29rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] rounded-[0.87848rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] mt-[4.47rem]'>
-          <div className='caption1 font-semibold tracking-[0.00439rem] text-greyscale-80 px-[0.51rem] flex items-center text-center rounded-[0.58565rem] bg-white h-[5.27086rem]'>
+          <div className='caption1 font-semibold tracking-[0.00439rem] text-greyscale-80 px-[0.51rem] flex items-center text-center rounded-[0.58565rem] bg-white h-[5.27086rem] cursor-pointer'>
             Sản phẩm mới nhất
           </div>
-          <div className='caption1 font-semibold tracking-[0.00439rem] text-greyscale-80 px-[0.51rem] flex items-center text-center rounded-[0.58565rem] bg-white h-[5.27086rem] my-[0.29rem]'>
+          <div className='caption1 font-semibold tracking-[0.00439rem] text-greyscale-80 px-[0.51rem] flex items-center text-center rounded-[0.58565rem] bg-white h-[5.27086rem] cursor-pointer my-[0.29rem]'>
             Sản phẩm mới nhất
           </div>
-          <div className='caption1 font-semibold tracking-[0.00439rem] text-greyscale-80 px-[0.51rem] flex items-center text-center rounded-[0.58565rem] bg-white h-[5.27086rem]'>
+          <div className='caption1 font-semibold tracking-[0.00439rem] text-greyscale-80 px-[0.51rem] flex items-center text-center rounded-[0.58565rem] bg-white h-[5.27086rem] cursor-pointer'>
             Sản phẩm mới nhất
           </div>
         </aside>

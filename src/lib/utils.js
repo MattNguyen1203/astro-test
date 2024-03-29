@@ -89,3 +89,6 @@ export function formatToVND(price) {
   formattedNumber += 'đ'
   return formattedNumber.replaceAll(',', '.')
 }
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
+export {fetcher}

@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function BreadCrumb() {
   return (
-    <div className='flex w-fit xmd:max-w-full xmd:w-full overflow-hidden'>
+    <div className='flex overflow-hidden w-fit xmd:max-w-full xmd:w-full'>
       <Link
         href={'/'}
         className='flex items-center w-fit xmd:w-[6rem]'
@@ -44,7 +44,7 @@ export default function BreadCrumb() {
             strokeLinejoin='round'
           />
         </svg>
-        <span className='font-normal caption1 text-greyscale-10 align-middle xmd:line-clamp-1'>
+        <span className='font-normal align-middle caption1 text-greyscale-10 xmd:line-clamp-1'>
           Flashsale
         </span>
       </Link>

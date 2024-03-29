@@ -65,7 +65,7 @@ export default function FlashVoucher({isMobile}) {
               priority={isMobile ? true : false}
             />
             <Link
-              href={'/'}
+              href={'/khach-hang-than-thiet'}
               className='w-[31.8448rem] absolute top-1/2 -translate-y-1/2 left-[12.08rem] xmd:w-fit xmd:top-[1.1rem] xmd:left-[1.68rem] xmd:translate-y-0'
             >
               <h4 className='font-normal text-white sub1 xmd:text-brown-800 xmd:caption2'>
