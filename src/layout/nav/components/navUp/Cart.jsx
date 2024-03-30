@@ -1,7 +1,10 @@
 'use client'
 import useStore from '@/app/(store)/store'
-import SheetCart from '@/components/sheetcart'
+// import SheetCart from '@/components/sheetcart'
 import Image from 'next/image'
+
+import dynamic from 'next/dynamic'
+const SheetCart = dynamic(() => import('@/components/sheetcart'))
 
 export default function Cart({isMobile, session}) {
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)

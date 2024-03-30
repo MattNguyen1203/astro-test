@@ -1,7 +1,9 @@
 'use client'
 import useStore from '@/app/(store)/store'
-import SheetMegaMenu from '@/components/sheetmegamenu'
+// import SheetMegaMenu from '@/components/sheetmegamenu'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
+const SheetMegaMenu = dynamic(() => import('@/components/sheetmegamenu'))
 
 export default function MenuRes({referer}) {
   const setIsOpenMegaMenuRes = useStore((state) => state.setIsOpenMegaMenuRes)

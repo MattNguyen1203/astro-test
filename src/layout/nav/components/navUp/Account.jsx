@@ -1,9 +1,12 @@
 'use client'
 import useStore from '@/app/(store)/store'
 import useClickOutSide from '@/hooks/useClickOutSide'
-import MenuUser from '@/sections/account/components/menuuser'
+// import MenuUser from '@/sections/account/components/menuuser'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
+
+import dynamic from 'next/dynamic'
+const MenuUser = dynamic(() => import('@/sections/account/components/menuuser'))
 
 export default function Account({user, isMobile}) {
   const [isOpen, setIsOpen] = useState(false)
