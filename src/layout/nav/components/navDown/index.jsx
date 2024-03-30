@@ -1,15 +1,44 @@
 'use client'
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu'
+// import {
+//   NavigationMenu,
+//   NavigationMenuContent,
+//   NavigationMenuIndicator,
+//   NavigationMenuItem,
+//   NavigationMenuList,
+//   NavigationMenuTrigger,
+// } from '@/components/ui/navigation-menu'
 import Image from 'next/image'
 import Link from 'next/link'
 import {dataNav} from './dataNav'
+import dynamic from 'next/dynamic'
+const NavigationMenu = dynamic(() =>
+  import('@/components/ui/navigation-menu').then((mod) => mod.NavigationMenu),
+)
+const NavigationMenuContent = dynamic(() =>
+  import('@/components/ui/navigation-menu').then(
+    (mod) => mod.NavigationMenuContent,
+  ),
+)
+const NavigationMenuIndicator = dynamic(() =>
+  import('@/components/ui/navigation-menu').then(
+    (mod) => mod.NavigationMenuIndicator,
+  ),
+)
+const NavigationMenuItem = dynamic(() =>
+  import('@/components/ui/navigation-menu').then(
+    (mod) => mod.NavigationMenuItem,
+  ),
+)
+const NavigationMenuList = dynamic(() =>
+  import('@/components/ui/navigation-menu').then(
+    (mod) => mod.NavigationMenuList,
+  ),
+)
+const NavigationMenuTrigger = dynamic(() =>
+  import('@/components/ui/navigation-menu').then(
+    (mod) => mod.NavigationMenuTrigger,
+  ),
+)
 
 export default function NavDown({categories}) {
   return (

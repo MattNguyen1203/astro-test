@@ -1,11 +1,11 @@
 'use client'
 
-import * as React from 'react'
 import * as SliderPrimitive from '@radix-ui/react-slider'
 
 import {cn} from '@/lib/utils'
+import {forwardRef} from 'react'
 
-const Slider = React.forwardRef(({className, ...props}, ref) => (
+const Slider = forwardRef(({className, ...props}, ref) => (
   <SliderPrimitive.Root
     ref={ref}
     className={cn(

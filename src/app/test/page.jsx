@@ -1,6 +1,5 @@
 'use client'
 
-import * as React from 'react'
 import {Check, ChevronsUpDown} from 'lucide-react'
 
 import {cn} from '@/lib/utils'
@@ -13,6 +12,7 @@ import {
   CommandItem,
 } from '@/components/ui/command'
 import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover'
+import {useState} from 'react'
 
 const frameworks = [
   {
@@ -38,8 +38,8 @@ const frameworks = [
 ]
 
 export default function page() {
-  const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState('')
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState('')
 
   return (
     <Popover
