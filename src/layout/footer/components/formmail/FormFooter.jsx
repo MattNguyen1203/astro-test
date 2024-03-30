@@ -8,8 +8,13 @@ import {Form, FormControl, FormField, FormItem} from '@/components/ui/form'
 import {Input} from '@/components/ui/input'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
-import {Toaster} from '@/components/ui/sonner'
+// import {Toaster} from '@/components/ui/sonner'
 import {toast} from 'sonner'
+
+import dynamic from 'next/dynamic'
+const Toaster = dynamic(() =>
+  import('@/components/ui/sonner').then((mod) => mod.Toaster),
+)
 
 const formSchema = z.object({
   email: z

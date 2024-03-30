@@ -1,7 +1,12 @@
 import {formatToVND, handlePercentSale, renderPriceProduct} from '@/lib/utils'
-import {DialogProduct} from '@/sections/home/components/dialog'
+// import {DialogProduct} from '@/sections/home/components/dialog'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import dynamic from 'next/dynamic'
+const DialogProduct = dynamic(() =>
+  import('@/sections/home/components/dialog').then((mod) => mod.DialogProduct),
+)
 
 export default function CardProduct({product, priority = false}) {
   const percentSale = handlePercentSale(product)
