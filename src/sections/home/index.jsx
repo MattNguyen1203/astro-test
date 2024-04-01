@@ -14,12 +14,13 @@ import FlashVoucher from './components/flashvoucher'
 import Accessory from './components/accessory'
 import BannerHome from './components/banner'
 import PromotionSlide from './components/promotions'
-import FeedBack from './components/feedback'
-import TechnologyConner from './components/technologyconner'
+import CategoriesProduct from './components/categoriesproduct'
+
 import ProductIndex from './components/productnew'
 import LevelUpYourTech from './components/levelup'
 import PreOder from './components/preoder'
-import CategoriesProduct from './components/categoriesproduct'
+import FeedBack from './components/feedback'
+import TechnologyConner from './components/technologyconner'
 import ListStrength from '@/components/liststrength'
 
 export default function HomeIndex({viewport, products}) {

@@ -14,34 +14,32 @@ import ICCheck from '../icon/ICCheck'
 import {Toaster} from '../ui/sonner'
 import useSWR from 'swr'
 
-export default function SheetCart({children, isMobile, session}) {
-  console.log('🚀 ~ SheetCart ~ session:', session)
+export default function SheetCart({children, isMobile = false, session}) {
   const [cart, setCart] = useState([])
 
-  const fetcher = (url) =>
-    fetch(url, {
-      headers: {
-        Authorization: `Bearer ${session?.accessToken}`,
-      },
-    }).then((res) => res.json())
+  // const fetcher = (url) =>
+  //   fetch(url, {
+  //     headers: {
+  //       Authorization: `Bearer ${session?.accessToken}`,
+  //     },
+  //   }).then((res) => res.json())
 
-  // process.env.NEXT_PUBLIC_API + '/wc/store/v1/cart'
-  const {
-    data: dataItemCart,
-    isLoading,
-    error,
-  } = useSWR(
-    session?.accessToken
-      ? process.env.NEXT_PUBLIC_API + '/wc/store/v1/cart'
-      : null,
-    fetcher,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    },
-  )
-  console.log('🚀 ~ SheetCart ~ dataItemCart:', dataItemCart)
+  // // process.env.NEXT_PUBLIC_API + '/wc/store/v1/cart'
+  // const {
+  //   data: dataItemCart,
+  //   isLoading,
+  //   error,
+  // } = useSWR(
+  //   session?.accessToken
+  //     ? process.env.NEXT_PUBLIC_API + '/wc/store/v1/cart'
+  //     : null,
+  //   fetcher,
+  //   {
+  //     revalidateIfStale: false,
+  //     revalidateOnFocus: false,
+  //     revalidateOnReconnect: false,
+  //   },
+  // )
 
   const handleCart = () => {
     if (cart?.length === 10) {
@@ -58,7 +56,7 @@ export default function SheetCart({children, isMobile, session}) {
   return (
     <Sheet>
       <SheetTrigger>{children}</SheetTrigger>
-      <SheetContent className='p-0 bg-white xmd:data-[state=open]:duration-300'>
+      <SheetContent className='p-0 bg-white xmd:data-[state=open]:duration-200'>
         <SheetTitle className='h-[3.80673rem] flex justify-start items-center px-[2.92rem] xmd:px-[0.88rem] xmd:border-b xmd:border-solid xmd:border-[#EFEFEF]'>
           GIỎ HÀNG:
         </SheetTitle>
@@ -108,12 +106,13 @@ export default function SheetCart({children, isMobile, session}) {
                       index={index}
                       setCart={setCart}
                       cart={cart}
+                      isMobile={isMobile}
                     />
                   ))}
               </div>
             </ScrollArea>
           </div>
-          <div className='border-t border-solid border-[#EFEFEF] mt-auto h-[4.39239rem] xmd:h-[4.97804rem] px-[2.92rem] flex justify-between items-center xmd:absolute xmd:bottom-0 xmd:left-0 xmd:z-20'>
+          <div className='border-t border-solid border-[#EFEFEF] mt-auto h-[4.39239rem] xmd:h-[4.97804rem] px-[2.92rem] flex justify-between items-center xmd:absolute xmd:bottom-auto xmd:left-0 xmd:z-20'>
             <span className='text-[#6A6A6A] text-[1.02489rem] leading-[1.2] tracking-[0.01025rem]'>
               TỔNG TIỀN HÀNG:
             </span>

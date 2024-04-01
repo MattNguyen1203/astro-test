@@ -4,8 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Progress from '../progress'
 
-const arr = new Array(5).fill(0)
-export default function CardProduct({product}) {
+export default function CardProduct({product, priority = false}) {
   const percentSale = handlePercentSale(product)
   const price = renderPriceProduct(product)
   return (
@@ -18,8 +17,10 @@ export default function CardProduct({product}) {
           className='object-cover size-full'
           src={product?.featuredImage?.url || '/home/item-product.jpg'}
           alt={product?.featuredImage?.alt || product?.name || 'ảnh sản phẩm'}
+
           width={230}
           height={230}
+          priority={priority}
         />
         {percentSale && (
           <div className='bg-[linear-gradient(104deg,#E88B00_-3.95%,#CE7B00_106.72%)] w-[2.78184rem] h-[1.02489rem] rounded-full caption2 font-semibold text-white absolute top-[0.88rem] left-[0.88rem] xmd:top-[0.44rem] xmd:left-[0.44rem] z-10 flex justify-center items-start tracking-normal md:pt-[0.15rem] xmd:tracking-normal pt-[0.07rem]'>
@@ -27,7 +28,7 @@ export default function CardProduct({product}) {
           </div>
         )}
       </Link>
-      <div className='p-[0.73206rem] xmd:p-[0.44rem] bg-white rounded-bl-[0.87848rem] rounded-br-[0.87848rem] md:border md:border-solid md:border-[#E5E7EB] border-t-0 '>
+      <div className='p-[0.73206rem] xmd:p-[0.44rem] bg-white rounded-bl-[0.87848rem] rounded-br-[0.87848rem]'>
         <Link
           href={product?.slug || '/'}
           className='block w-full h-fit'
@@ -38,14 +39,14 @@ export default function CardProduct({product}) {
         </Link>
         {/* {false && <Progress />} */}
         <ul className='mt-[0.4rem] flex flex-wrap *:mt-[0.29rem] *:ml-[0.29rem] *:px-[0.58565rem] *:py-[0.29283rem] *:rounded-[7.5rem] *:bg-[#F6F6F6] md:min-h-[3.51rem] md:*:h-fit md:*:whitespace-nowrap'>
-          {arr?.slice(0, 4).map((e, index) => (
+          {product?.categories?.slice(0, 4).map((category, index) => (
             <li
               key={index}
               className='font-normal first:ml-0 caption1 text-greyscale-40'
             >
-              {index === 3 && arr.length > 4
-                ? `+${arr.length - 3}`
-                : `iPad gen ${arr.length}`}
+              {index === 3 && product?.categories?.length > 4
+                ? `+${product?.categories?.length - 3}`
+                : category}
             </li>
           ))}
         </ul>

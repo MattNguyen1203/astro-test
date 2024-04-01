@@ -33,6 +33,9 @@ export default function WatchReview({isMobile}) {
           centeredSlides={true}
           loop={true}
           grabCursor={true}
+          slideToClickedSlide={true}
+          loopAdditionalSlides={5}
+          speed={1000}
           // onSlideChange={handleSlideChange}
           breakpoints={{
             0: {

@@ -1,43 +1,19 @@
-'use client'
-import Image from 'next/image'
-import CategoryProduct from '../productnew/CategoryProduct'
-import CategoryProductRes from '../productnew/CategoryProductRes'
-import SlideProduct from '../productnew/SlideProduct'
-import TabCategories from './TabCategories'
-import {useState} from 'react'
+import getData from '@/lib/getData'
+import BoxLevelUpYourTech from './BoxLevelUpYourTech'
+import {slugAccessory} from '@/lib/constants'
 
-export default function LevelUpYourTech({isMobile}) {
-  const [indexCategory, setIndexCategory] = useState(0)
+export default async function LevelUpYourTech({isMobile}) {
+  const data = (await getData('/okhub/v1/category/category')) || []
+  const categories = data?.find((e) => e?.slug === slugAccessory)?.children
+  const productCategory = await getData(
+    `/okhub/v1/product/productByCategory/${categories[0]?.slug}`,
+  )
+
   return (
-    <>
-      {isMobile ? (
-        <div className='h-[13.6896rem] rounded-[0.87848rem] overflow-hidden relative container'>
-          <Image
-            className='object-cover size-full'
-            src={'/home/banner-level-up.jpg'}
-            alt='banner level up'
-            width={360}
-            height={180}
-          />
-          <div className='absolute px-[0.88rem] left-0 bottom-[0.88rem] z-10 w-full'>
-            <CategoryProductRes
-              title='LEVEL UP YOUR TECH'
-              href='/'
-            />
-          </div>
-        </div>
-      ) : (
-        <CategoryProduct
-          title='LEVEL UP YOUR TECH'
-          href='/'
-        >
-          <TabCategories
-            setIndexCategory={setIndexCategory}
-            indexCategory={indexCategory}
-          />
-        </CategoryProduct>
-      )}
-      <SlideProduct isMobile={isMobile} />
-    </>
+    <BoxLevelUpYourTech
+      categories={categories}
+      data={productCategory}
+      isMobile={isMobile}
+    />
   )
 }

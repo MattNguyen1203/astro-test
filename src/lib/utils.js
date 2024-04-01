@@ -96,3 +96,6 @@ export function formatToShortVND(price) {
   formattedNumber = 'đ' + formattedNumber + 'k'
   return formattedNumber
 }
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
+export {fetcher}
+

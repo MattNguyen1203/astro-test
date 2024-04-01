@@ -27,7 +27,7 @@ const listSocial = [
     className: 'size-[1.61054rem]',
   },
 ]
-export default function SocialProduct() {
+export default function SocialProduct({priority}) {
   return (
     <ul className='flex mt-[0.59rem]'>
       {listSocial.map((e, index) => (
@@ -46,6 +46,7 @@ export default function SocialProduct() {
               alt={e.alt}
               width={30}
               height={30}
+              priority={priority}
             />
           </Link>
         </li>

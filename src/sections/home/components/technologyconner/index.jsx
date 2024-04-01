@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import SlideTechnology from './SlideTechnology'
+import getData from '@/lib/getData'
 const listSocial = [
   {
     title: 'Facebook',
@@ -22,7 +23,8 @@ const listSocial = [
   },
 ]
 
-export default function TechnologyConner({isMobile}) {
+export default async function TechnologyConner({isMobile}) {
+  const posts = await getData('/custom/v1/post/postsByCategory/goc-cong-nghe')
   return (
     <div className='md:bg-elevation-20 pt-[4.39rem]'>
       <span className='block font-medium text-center text-blue-600 h6 xmd:sub1 xmd:tracking-[0.01464rem]'>
@@ -60,7 +62,10 @@ export default function TechnologyConner({isMobile}) {
           </h2>
         </div>
         <div className='size-full overflow-hidden rounded-tl-[0.58565rem] relative'>
-          <SlideTechnology isMobile={isMobile} />
+          <SlideTechnology
+            isMobile={isMobile}
+            posts={posts}
+          />
         </div>
       </div>
     </div>

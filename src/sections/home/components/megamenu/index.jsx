@@ -1,9 +1,8 @@
 'use client'
 
-import * as React from 'react'
 import Link from 'next/link'
 
-import { cn } from '@/lib/utils'
+import {cn} from '@/lib/utils'
 // import { Icons } from "@/components/icons";
 import {
   NavigationMenu,
@@ -15,17 +14,20 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
+import {forwardRef} from 'react'
 
 const components = [
   {
     title: 'Alert Dialog',
     href: '/docs/primitives/alert-dialog',
-    description: 'A modal dialog that interrupts the user with important content and expects a response.',
+    description:
+      'A modal dialog that interrupts the user with important content and expects a response.',
   },
   {
     title: 'Hover Card',
     href: '/docs/primitives/hover-card',
-    description: 'For sighted users to preview content available behind a link.',
+    description:
+      'For sighted users to preview content available behind a link.',
   },
   {
     title: 'Progress',
@@ -41,7 +43,8 @@ const components = [
   {
     title: 'Tabs',
     href: '/docs/primitives/tabs',
-    description: 'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
+    description:
+      'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
   },
   {
     title: 'Tooltip',
@@ -66,9 +69,12 @@ export function NavigationMenuDemo() {
                     href='/'
                   >
                     <div className='w-6 h-6 bg-black' />
-                    <div className='mt-4 mb-2 text-lg font-medium'>shadcn/ui</div>
+                    <div className='mt-4 mb-2 text-lg font-medium'>
+                      shadcn/ui
+                    </div>
                     <p className='text-sm leading-tight text-muted-foreground'>
-                      Beautifully designed components built with Radix UI and Tailwind CSS.
+                      Beautifully designed components built with Radix UI and
+                      Tailwind CSS.
                     </p>
                   </a>
                 </NavigationMenuLink>
@@ -116,7 +122,9 @@ export function NavigationMenuDemo() {
             legacyBehavior
             passHref
           >
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>Documentation</NavigationMenuLink>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Documentation
+            </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuIndicator className='NavigationMenuIndicator'>
@@ -127,7 +135,7 @@ export function NavigationMenuDemo() {
   )
 }
 
-const ListItem = React.forwardRef(({ className, title, children, ...props }, ref) => {
+const ListItem = forwardRef(({className, title, children, ...props}, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
@@ -140,7 +148,9 @@ const ListItem = React.forwardRef(({ className, title, children, ...props }, ref
           {...props}
         >
           <div className='text-sm font-medium leading-none'>{title}</div>
-          <p className='text-sm leading-snug line-clamp-2 text-muted-foreground'>{children}</p>
+          <p className='text-sm leading-snug line-clamp-2 text-muted-foreground'>
+            {children}
+          </p>
         </a>
       </NavigationMenuLink>
     </li>
