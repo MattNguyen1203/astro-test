@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default function BreadCrumb() {
+export default function BreadCrumb({category, categorySlg, name}) {
   return (
     <div className='flex overflow-hidden w-fit xmd:max-w-full xmd:w-full'>
       <Link
@@ -25,7 +25,7 @@ export default function BreadCrumb() {
         </span>
       </Link>
       <Link
-        href={'/flash-sale'}
+        href={categorySlg || ''}
         className='flex items-center w-fit mx-[0.29rem] xmd:max-w-[6rem] relative xmd:pl-[1rem] xmd:h-[1.1713rem]'
       >
         <svg
@@ -44,8 +44,8 @@ export default function BreadCrumb() {
             strokeLinejoin='round'
           />
         </svg>
-        <span className='font-normal align-middle caption1 text-greyscale-10 xmd:line-clamp-1'>
-          Flashsale
+       <span className='capitalize font-normal caption1 text-greyscale-10 align-middle xmd:line-clamp-1'>
+          {category || ''}
         </span>
       </Link>
       <div className='flex items-center w-fit xmd:max-w-[10rem] xmd:relative xmd:pl-[1rem]'>
@@ -65,9 +65,8 @@ export default function BreadCrumb() {
             strokeLinejoin='round'
           />
         </svg>
-        <h1 className='font-normal caption1 text-greyscale-80 xmd:line-clamp-1'>
-          Combo [Pencil Pro] Bút cảm ứng Stylus AstroMazing Pencil 2 Pro dành
-          cho iPad Pro
+        <h1 className='capitalize font-normal caption1 text-greyscale-80 xmd:line-clamp-1'>
+          {name || ''}
         </h1>
       </div>
     </div>

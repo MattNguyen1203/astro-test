@@ -90,5 +90,12 @@ export function formatToVND(price) {
   return formattedNumber.replaceAll(',', '.')
 }
 
+export function formatToShortVND(price) {
+  if (!price) return null
+  let formattedNumber = Number(price) / 1000
+  formattedNumber = 'đ' + formattedNumber + 'k'
+  return formattedNumber
+}
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export {fetcher}
+

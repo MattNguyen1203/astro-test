@@ -2,6 +2,7 @@ import {formatToVND, handlePercentSale, renderPriceProduct} from '@/lib/utils'
 import {DialogProduct} from '@/sections/home/components/dialog'
 import Image from 'next/image'
 import Link from 'next/link'
+import Progress from '../progress'
 
 export default function CardProduct({product, priority = false}) {
   const percentSale = handlePercentSale(product)
@@ -15,7 +16,8 @@ export default function CardProduct({product, priority = false}) {
         <Image
           className='object-cover size-full'
           src={product?.featuredImage?.url || '/home/item-product.jpg'}
-          alt={product?.featuredImage?.alt}
+          alt={product?.featuredImage?.alt || product?.name || 'ảnh sản phẩm'}
+
           width={230}
           height={230}
           priority={priority}
@@ -35,23 +37,7 @@ export default function CardProduct({product, priority = false}) {
             {product?.name || 'Chưa có thông tin!'}
           </h2>
         </Link>
-        {/* {false && (
-          <div className='mt-[0.88rem] h-[1.76rem] rounded-[0.3rem] bg-[#10273F] relative overflow-hidden'>
-            <div className='w-[40%] bg-[linear-gradient(99deg,#FFD99E_-58.6%,#E99207_95.15%)] h-full'></div>
-            <div className='absolute top-0 left-0 flex items-center justify-center size-full'>
-              <Image
-                className='size-[1.1713rem] object-contain'
-                src='/home/ts-white.svg'
-                alt='icon tia set'
-                width={16}
-                height={16}
-              />
-              <span className='font-semibold text-white caption1 inline-block ml-[0.29rem]'>
-                Đã bán 35 sản phẩm
-              </span>
-            </div>
-          </div>
-        )} */}
+        {/* {false && <Progress />} */}
         <ul className='mt-[0.4rem] flex flex-wrap *:mt-[0.29rem] *:ml-[0.29rem] *:px-[0.58565rem] *:py-[0.29283rem] *:rounded-[7.5rem] *:bg-[#F6F6F6] md:min-h-[3.51rem] md:*:h-fit md:*:whitespace-nowrap'>
           {product?.categories?.slice(0, 4).map((category, index) => (
             <li

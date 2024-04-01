@@ -66,7 +66,7 @@ export default function SlideMultiple() {
             onSwiper={setThumbsSwiper}
             loop={true}
             spaceBetween={6}
-            slidesPerView={4}
+            slidesPerView={5}
             freeMode={true}
             watchSlidesProgress={true}
             modules={[FreeMode, Navigation, Thumbs]}

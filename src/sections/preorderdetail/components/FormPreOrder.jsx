@@ -59,9 +59,11 @@ export default function FormPreOrder() {
   }
 
   return (
-    <article className='mt-[1.76rem] w-[52.2694rem] bg-white p-[1.24rem]'>
-      <h3>THÔNG TIN ĐẶT SẢN PHẨM:</h3>
-      <div className='flex items-center mt-[1.46rem] mb-[0.88rem]'>
+    <article className='mt-[1.76rem] bg-white p-[1.24rem] w-full'>
+      <h3 className='sub2 font-medium text-greyscale-80 xmd:mb-[1.17rem]'>
+        THÔNG TIN ĐẶT SẢN PHẨM:
+      </h3>
+      <div className='flex items-center mt-[1.46rem] mb-[0.88rem] xmd:hidden'>
         <div className='size-[5.27086rem] flex-shrink-0 mr-[0.88rem] rounded-[0.3631rem] overflow-hidden'>
           <Image
             className='object-contain size-full'
@@ -81,12 +83,12 @@ export default function FormPreOrder() {
           onSubmit={form.handleSubmit(onSubmit)}
           className='space-y-[0.88rem]'
         >
-          <div className='grid grid-cols-3 gap-[0.88rem]'>
+          <div className='grid grid-cols-3 gap-[0.88rem] xmd:gap-0 xmd:flex xmd:flex-wrap space-y-[0.88rem]'>
             <FormField
               control={form.control}
               name='name'
               render={({field}) => (
-                <FormItem>
+                <FormItem className='xmd:w-full'>
                   <FormControl>
                     <Input
                       type='text'
@@ -103,7 +105,7 @@ export default function FormPreOrder() {
               control={form.control}
               name='email'
               render={({field}) => (
-                <FormItem>
+                <FormItem className='xmd:w-[11.22rem]'>
                   <FormControl>
                     <Input
                       type='email'
@@ -120,7 +122,7 @@ export default function FormPreOrder() {
               control={form.control}
               name='phone'
               render={({field}) => (
-                <FormItem>
+                <FormItem className='xmd:w-1/2  xmd:ml-[0.88rem]'>
                   <FormControl>
                     <Input
                       className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
@@ -134,7 +136,7 @@ export default function FormPreOrder() {
               )}
             />
           </div>
-          <div className='w-full'>
+          <div className='w-full xmd:h-[3.22rem]'>
             <SelectOptions form={form} />
           </div>
           <div className='w-full'>

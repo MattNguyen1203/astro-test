@@ -1,5 +1,5 @@
 import getData from '@/lib/getData'
-import ProductDetail from '@/sections/productDetail'
+import ComboDetail from '@/sections/productDetail/ComboDetail'
 
 const ProductDetailPage = async ({searchParams, params: {slug}}) => {
   const {viewport} = searchParams
@@ -13,7 +13,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
 
   return (
     <main className='bg-elevation-20'>
-      <ProductDetail
+      <ComboDetail
         isMobile={isMobile}
         data={dataProductDetail}
         voucher={dataProductVoucher}
