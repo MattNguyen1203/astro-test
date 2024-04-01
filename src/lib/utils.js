@@ -89,3 +89,10 @@ export function formatToVND(price) {
   formattedNumber += 'đ'
   return formattedNumber.replaceAll(',', '.')
 }
+
+export function formatToShortVND(price) {
+  if (!price) return null
+  let formattedNumber = Number(price) / 1000
+  formattedNumber = 'đ' + formattedNumber + 'k'
+  return formattedNumber
+}

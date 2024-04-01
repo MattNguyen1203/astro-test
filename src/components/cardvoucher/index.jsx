@@ -1,4 +1,5 @@
 'use client'
+import {formatToShortVND, formatToVND} from '@/lib/utils'
 import Image from 'next/image'
 import {useState} from 'react'
 
@@ -8,6 +9,7 @@ export default function CardVoucher({
   isPriority = false,
 }) {
   const [isCopy, setCopy] = useState(false)
+
   return (
     <article
       className={`${className} w-[21.22987rem] h-[5.12rem] xmd:w-[18.66764rem] xmd:h-[4.1rem] rounded-[0.58565rem] bg-elevation-20 xmd:bg-white flex md:hover:bg-brown-50 transition-all duration-200 select-none xmd:shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)]`}
@@ -27,10 +29,15 @@ export default function CardVoucher({
       </div>
       <div className='w-[9.6rem] xmd:w-[9.0776rem] h-full py-[0.59rem] px-[0.88rem] xmd:p-[0.59rem] flex flex-col justify-center'>
         <h3 className='font-medium button text-greyscale-80 mb-[0.29rem] xmd:mb-[0.15rem] xmd:caption xmd:font-semibold xmd:tracking-[0.00439rem] xmd:text-greyscale-60'>
-          Giảm 15%
+          Giảm{' '}
+          {item?.type === 'fixed_product'
+            ? formatToVND(item?.amount)
+            : item?.amount + '%'}
         </h3>
         <p className='font-normal caption2 tracking-[0.00732rem] text-greyscale-40 xmd:tracking-normal xmd:text-greyscale-30'>
-          Đơn Tối thiểu đ500k <br /> Giảm Tối đa đ30K
+          Đơn Tối thiểu {formatToShortVND(item?.maximum_amount)}
+          <br />
+          Giảm Tối đa {formatToShortVND(item?.minimum_amount)}
         </p>
       </div>
       <div className='flex items-center flex-1 md:justify-center size-full'>
@@ -38,6 +45,8 @@ export default function CardVoucher({
           onClick={() => {
             if (!isCopy) {
               setCopy(true)
+              const couponCode = item?.code?.toString()
+              navigator.clipboard.writeText(couponCode)
             }
           }}
           className={`${

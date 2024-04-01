@@ -1,3 +1,5 @@
+'use client'
+
 import {cn} from '@/lib/utils'
 import Image from 'next/image'
 import React, {useState, useRef, useEffect, memo} from 'react'
@@ -24,10 +26,22 @@ const ShowMore = ({
   const contentRef = useRef(null)
 
   useEffect(() => {
-    setTimeout(() => {
-      const contentHeight = contentRef.current.scrollHeight
+    const handleResize = () => {
+      const contentHeight = contentRef.current?.scrollHeight
       setShowButton(contentHeight > maxHeight)
-    }, 500)
+    }
+
+    // Initial check
+    handleResize()
+
+    // Set up a resize observer to listen for content size changes
+    const observer = new ResizeObserver(handleResize)
+    if (contentRef.current) {
+      observer.observe(contentRef.current)
+    }
+
+    // Cleanup observer on component unmount
+    return () => observer.disconnect()
   }, [maxHeight, children])
 
   const toggleExpand = () => setIsExpanded(!isExpanded)

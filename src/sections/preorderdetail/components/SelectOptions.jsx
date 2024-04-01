@@ -18,12 +18,12 @@ export default function SelectOptions({className = '', form}) {
   }, [])
 
   return (
-    <div className={`${className} w-full h-fit`}>
-      <Select>
-        <SelectTrigger className='w-full bg-elevation-20 rounded-[0.43924rem]'>
+    <div className={`${className} w-full h-full`}>
+      <Select className='h-full'>
+        <SelectTrigger className='w-full h-full bg-elevation-20 rounded-[0.43924rem]'>
           <SelectValue placeholder={`Màu sắc: ${color}, Dòng máy: ${brand}`} />
         </SelectTrigger>
-        <SelectContent className='z-[999999]'>
+        <SelectContent className='z-[999999] max-w-full xmd:p-[1rem]'>
           <Variation />
         </SelectContent>
       </Select>

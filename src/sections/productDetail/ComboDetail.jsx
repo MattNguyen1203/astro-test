@@ -2,19 +2,21 @@
 import SlideMultiple from '@/components/slidemultiple'
 import SocialProduct from '../product/aside/SocialProduct'
 import BreadCrumb from '@/components/breadcrumb'
-import Variation from '@/components/popupproduct/Variation'
 import TemVoucher from '@/components/popupproduct/TemVoucher'
+import CardVoucher from '@/components/cardvoucher'
 import ChangeQuantity from '@/components/popupproduct/ChangeQuantity'
-import ItemProduct from './itemProduct/Crosssell'
+import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
+import ShowMore from '@/components/showmore'
 import {cn} from '@/lib/utils'
 import AddToCartBtn from './addToCartBtn'
+import AccordionInfo from './Accordion'
 import WishListIcon from './Wishlist'
 import ProductPrice from '@/components/popupproduct/Price'
 import SubInfo from './SubInfo/SubInfo'
+import ComboItem from './itemProduct/ComboItem'
 import TechnicalInfo from './SubInfo/TechnicalInfo'
-import VoucherList from './VoucherList'
 import TabInfo from './SubInfo/TabInfo'
-import {useEffect, useState} from 'react'
+import VoucherList from './VoucherList'
 
 const prdOther = [
   {
@@ -38,16 +40,16 @@ const prdOther = [
   },
 ]
 
-const ProductDetail = ({isMobile, data, voucher}) => {
+const ComboDetail = ({isMobile, data, voucher}) => {
   const fakeData = new Array(3).fill(0)
 
   return (
     <div className='container mt-[8.1rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
         <BreadCrumb
-          category='sản phẩm'
+          category='combo'
           name={data?.name}
-          categorySlg='/san-pham'
+          categorySlg=''
         />
       </div>
       <div className='relative flex justify-between xmd:flex-col'>
@@ -63,26 +65,43 @@ const ProductDetail = ({isMobile, data, voucher}) => {
           </div>
         </div>
 
-        <div className='col w-[43.48rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[6.6rem] xmd:mb-[1.17rem]'>
-          <div className='subContainer xmd:rounded-0 md:relative'>
+        <div className='col w-[43.48rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[6.6rem] xmd:mb-[1.17rem] '>
+          <div className='xmd:flex xmd:flex-col w-full xmd:rounded-0 md:relative bg-white subContainer'>
             <h2 className='md:w-[38rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'>
               {data?.name}
             </h2>
+
+            {/* sản phẩm trong combo */}
+            <div className='mb-[1.46rem] xmd:mb-0 xmd:mt-[1.46rem] xmd:order-2'>
+              <div className='xmd:hidden caption1 mb-[0.88rem] text-greyscale-40'>
+                Sản phẩm trong combo:
+              </div>
+              {data?.grouped_products?.map((item, index) => (
+                <div
+                  key={item.id}
+                  className={cn(
+                    index === fakeData?.length - 1
+                      ? ''
+                      : 'mb-[0.88rem] xmd:mb-[1.17rem]',
+                  )}
+                >
+                  <ComboItem data={item} />
+                </div>
+              ))}
+            </div>
             <ProductPrice
               regularPrice={data?.regular_price}
               price={data?.price || 0}
             />
-
             <TemVoucher
               regularPrice={data?.regular_price}
               price={data?.price || 0}
             />
 
-            {data?.type === 'variable' && <Variation />}
             <div className='absolute top-[1.17rem] right-[1.17rem] z-10'>
               <WishListIcon />
             </div>
-            <div className='border-y xmd:border-none border-[rgba(236,236,236,0.70)] py-[1.46rem] xmd:py-0 flex items-center my-[1.46rem] xmd:mb-0 xmd:flex-col xmd:justify-start xmd:items-start'>
+            <div className='xmd:order-2 border-b xmd:border-none border-[rgba(236,236,236,0.70)] pb-[1.46rem] xmd:py-0 flex items-center my-[1.46rem] xmd:mb-0 xmd:flex-col xmd:justify-start xmd:items-start'>
               <ChangeQuantity />
               <div className='flex xmd:flex-row-reverse h-[2.9282rem] xmd:h-[3.22108rem]'>
                 <AddToCartBtn
@@ -103,7 +122,7 @@ const ProductDetail = ({isMobile, data, voucher}) => {
           </div>
 
           {/* thông tin kĩ thuật */}
-          <div className='subContainer mt-[0.88rem] mb-[1.46rem]'>
+          <div className='subContainer mt-[0.88rem] mb-[1.46rem] xmd:my-[1.17rem]'>
             <TechnicalInfo />
           </div>
 
@@ -112,48 +131,9 @@ const ProductDetail = ({isMobile, data, voucher}) => {
             info={prdOther}
             isMobile={isMobile}
           />
-
-          {/* sản phẩm mua kèm */}
-
-          <div className='subContainer'>
-            <div className='sub2 font-medium mb-[0.88rem]'>
-              Sản phẩm mua kèm phù hợp:
-            </div>
-            {fakeData.map((item, index) => (
-              <div
-                key={index}
-                className={cn(
-                  index === fakeData?.length - 1
-                    ? ''
-                    : 'mb-[0.88rem] xmd:mb-[1.17rem]',
-                )}
-              >
-                <ItemProduct />
-              </div>
-            ))}
-
-            <div className='flex items-center justify-between mt-[1.17rem]'>
-              <div className='flex items-center xmd:flex-col xmd:items-start'>
-                <span className='sub1 font-bold xmd:font-semibold text-greyscale-20 xmd:text-greyscale-50 mr-[0.59rem] xmd:mr-0 xmd:mb-[0.3rem]'>
-                  Tổng cộng:
-                </span>
-                <span className='h6 text-[#D48E43] font-bold xmd:font-semibold'>
-                  195.000đ
-                </span>
-              </div>
-
-              <AddToCartBtn
-                className={{
-                  wrapper: 'text-greyscale-20 w-[12rem] mx-0',
-                  text: 'flex ml-[0.59rem]',
-                  img: 'smd:size-[1.1713rem]',
-                }}
-              />
-            </div>
-          </div>
         </div>
 
-        <div className='w-[21.22rem] flex flex-col items-center col h-full sticky top-[9rem] xmd:hidden'>
+        <div className='w-[21.22rem] flex flex-col items-center col h-full sticky top-[9rem] right-0 xmd:hidden'>
           <VoucherList voucher={voucher} />
         </div>
       </div>
@@ -161,4 +141,4 @@ const ProductDetail = ({isMobile, data, voucher}) => {
   )
 }
 
-export default ProductDetail
+export default ComboDetail
