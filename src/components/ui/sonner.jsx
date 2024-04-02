@@ -1,10 +1,10 @@
 'use client'
 import {Toaster as Sonner} from 'sonner'
 
-const Toaster = ({...props}) => {
+const Toaster = ({className = '', ...props}) => {
   return (
     <Sonner
-      className='toaster group z-[9999999]'
+      className={`${className} toaster group z-[9999999]`}
       toastOptions={{
         classNames: {
           toast:

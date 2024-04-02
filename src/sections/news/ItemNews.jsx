@@ -1,15 +1,8 @@
+import {convertDateFormat} from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function ItemNews({borderClass = '', isOption = false, item}) {
-  function convertDateFormat(dateTimeStr) {
-    const dateTime = new Date(dateTimeStr)
-    const day = dateTime.getDate().toString().padStart(2, '0') // Thêm số 0 nếu cần thiết để ngày có 2 chữ số
-    const month = (dateTime.getMonth() + 1).toString().padStart(2, '0') // Tháng được trả lại từ 0-11
-    const year = dateTime.getFullYear()
-
-    return `${day}/${month}/${year}`
-  }
   return (
     <article
       className={`${

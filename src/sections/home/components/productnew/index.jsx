@@ -8,7 +8,6 @@ export default async function ProductIndex({isMobile}) {
   const data = await getData(
     `/okhub/v1/product/allProduct?limit=${isMobile ? 8 : 20}&order=desc&page=1`,
   )
-  console.log('🚀 ~ ProductIndex ~ data:', data)
   return (
     <>
       {isMobile ? (

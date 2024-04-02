@@ -6,7 +6,7 @@ import {useState} from 'react'
 import {cn} from '@/lib/utils'
 
 function PopupProduct(props) {
-  const {setIsOpen} = props
+  const {setIsOpen, type, product} = props
   const dataArr = [
     {src: '/components/productImg.jpg', key: '1'},
     {src: '/components/productImg.jpg', key: '2'},
@@ -35,7 +35,10 @@ function PopupProduct(props) {
           )
         })}
       </div>
-      <ProductInfo />
+      <ProductInfo
+        type={type}
+        product={product}
+      />
 
       <Image
         src={'/components/closeIcon.svg'}

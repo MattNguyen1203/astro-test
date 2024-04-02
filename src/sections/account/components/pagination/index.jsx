@@ -1,18 +1,16 @@
 'use client'
 
-import {usePathname, useRouter} from 'next/navigation'
+import {useRouter} from 'next/navigation'
 import ReactPaginate from 'react-paginate'
 
 export default function PaginationIndex({
   pageCount = 10,
   pageRangeDisplayed = 2,
+  page = null,
+  push = '',
 }) {
   const router = useRouter()
-  const pathName = usePathname()
-  const page =
-    pathName.split('/')[pathName.split('/').length - 1] === 'tin-tuc'
-      ? null
-      : pathName.split('/')[pathName.split('/').length - 1]
+  const slug = push || '/tin-tuc/p/'
   return (
     <ReactPaginate
       activeClassName='!bg-blue-700 !text-white'
@@ -61,7 +59,8 @@ export default function PaginationIndex({
         //     scroll: false,
         //   })
         // } else {
-        router.push('/tin-tuc/p/' + `${Number(e?.selected) + 1}`, {
+
+        router.push(slug + `${Number(e?.selected) + 1}`, {
           scroll: true,
         })
 

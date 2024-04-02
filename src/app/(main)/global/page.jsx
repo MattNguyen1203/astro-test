@@ -22,7 +22,7 @@ export default function GlobalPage() {
         </div>
       </div>
       <div className='flex items-center justify-center w-full h-screen'>
-        <PopupProduct />
+        {/* <PopupProduct /> */}
       </div>
       <div className='container h-[77.28843rem] relative'>
         <div className='bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)] absolute w-[40.81091rem] h-[4.465rem] -top-[1.47rem] left-1/2 -translate-x-1/2 rounded-[1.1713rem] flex justify-center items-center'>

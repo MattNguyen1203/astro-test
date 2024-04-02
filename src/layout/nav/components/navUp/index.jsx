@@ -4,8 +4,12 @@ import BoxSearch from './BoxSearch'
 import Account from './Account'
 import MenuRes from './MenuRes'
 import Cart from './Cart'
+import getData from '@/lib/getData'
 
-export default function NavUp({session, isMobile, referer}) {
+export default async function NavUp({session, isMobile, referer}) {
+  const productSuggest = await getData(
+    '/okhub/v1/product/allProduct?limit=6&order=desc&page=1',
+  )
   return (
     <div
       id='nav_up'
@@ -25,7 +29,10 @@ export default function NavUp({session, isMobile, referer}) {
           priority
         />
       </Link>
-      <BoxSearch isMobile={isMobile} />
+      <BoxSearch
+        isMobile={isMobile}
+        productSuggest={productSuggest}
+      />
       <div
         id='cart_and_user'
         className='flex items-center'

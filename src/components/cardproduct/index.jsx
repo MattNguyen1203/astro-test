@@ -1,14 +1,20 @@
+'use client'
 import {formatToVND, handlePercentSale, renderPriceProduct} from '@/lib/utils'
-import {DialogProduct} from '@/sections/home/components/dialog'
+// import {DialogProduct} from '@/sections/home/components/dialog'
 import Image from 'next/image'
 import Link from 'next/link'
-import Progress from '../progress'
+import {useState} from 'react'
+import dynamic from 'next/dynamic'
+const DialogProduct = dynamic(() =>
+  import('@/sections/home/components/dialog').then((mod) => mod.DialogProduct),
+)
 
 export default function CardProduct({product, priority = false}) {
+  const [isOpen, setIsOpen] = useState(false)
   const percentSale = handlePercentSale(product)
   const price = renderPriceProduct(product)
   return (
-    <div className='w-full h-[28.2rem] xmd:h-fit first:ml-0 rounded-[0.87848rem] md:border md:border-solid md:border-[#E5E7EB] group shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] md:hover:shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_32px_0px_rgba(12,46,112,0.08)] xmd:shadow-[0px_0px_10px_0px_rgba(12,46,112,0.08)] select-none'>
+    <div className='w-full h-[28.2rem] xmd:h-[23.1rem] first:ml-0 rounded-[0.87848rem] md:border md:border-solid md:border-[#E5E7EB] group shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] md:hover:shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_32px_0px_rgba(12,46,112,0.08)] select-none xmd:shadow-[-6px_2px_28px_0px_rgba(12,46,112,0.08),2px_4px_16px_0px_rgba(12,46,112,0.04)]'>
       <Link
         href={product?.slug || '/'}
         className='h-[16.82284rem] xmd:h-[12.00586rem] w-full rounded-tl-[0.87848rem] rounded-tr-[0.87848rem] overflow-hidden relative block'
@@ -17,7 +23,6 @@ export default function CardProduct({product, priority = false}) {
           className='object-cover size-full'
           src={product?.featuredImage?.url || '/home/item-product.jpg'}
           alt={product?.featuredImage?.alt || product?.name || 'ảnh sản phẩm'}
-
           width={230}
           height={230}
           priority={priority}
@@ -28,7 +33,7 @@ export default function CardProduct({product, priority = false}) {
           </div>
         )}
       </Link>
-      <div className='p-[0.73206rem] xmd:p-[0.44rem] bg-white rounded-bl-[0.87848rem] rounded-br-[0.87848rem]'>
+      <div className='p-[0.73206rem] xmd:p-[0.44rem] bg-white rounded-bl-[0.87848rem] rounded-br-[0.87848rem] xmd:h-[calc(23.1rem-12.00586rem)] relative'>
         <Link
           href={product?.slug || '/'}
           className='block w-full h-fit'
@@ -38,11 +43,11 @@ export default function CardProduct({product, priority = false}) {
           </h2>
         </Link>
         {/* {false && <Progress />} */}
-        <ul className='mt-[0.4rem] flex flex-wrap *:mt-[0.29rem] *:ml-[0.29rem] *:px-[0.58565rem] *:py-[0.29283rem] *:rounded-[7.5rem] *:bg-[#F6F6F6] md:min-h-[3.51rem] md:*:h-fit md:*:whitespace-nowrap'>
+        <ul className='mt-[0.4rem] flex flex-wrap *:mt-[0.29rem] *:ml-[0.29rem] *:px-[0.58565rem] *:py-[0.29283rem] *:rounded-[7.5rem] *:bg-[#F6F6F6] min-h-[3.51rem] md:*:h-fit md:*:whitespace-nowrap'>
           {product?.categories?.slice(0, 4).map((category, index) => (
             <li
               key={index}
-              className='font-normal first:ml-0 caption1 text-greyscale-40'
+              className='font-normal first:ml-0 caption1 text-greyscale-40 h-fit'
             >
               {index === 3 && product?.categories?.length > 4
                 ? `+${product?.categories?.length - 3}`
@@ -50,8 +55,13 @@ export default function CardProduct({product, priority = false}) {
             </li>
           ))}
         </ul>
-        <DialogProduct>
-          <button className='mt-[0.59rem] w-full h-[2.92826rem] rounded-[0.58565rem] bg-blue-50 md:group-hover:bg-blue-800 transition-all duration-500 py-[0.65886rem] px-[0.58565rem] flex justify-between items-center xmd:bg-[#10273F]'>
+        <DialogProduct
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          type='add'
+          product={product}
+        >
+          <button className='mt-[0.59rem] w-full h-[2.92826rem] rounded-[0.58565rem] bg-blue-50 md:group-hover:bg-blue-800 transition-all duration-500 py-[0.65886rem] px-[0.58565rem] flex justify-between items-center xmd:bg-[#10273F] xmd:absolute xmd:left-1/2 xmd:w-[calc(100%-0.88rem)] xmd:-translate-x-1/2 xmd:bottom-[0.44rem]'>
             <div className='flex flex-col'>
               <span className='font-semibold text-blue-800 transition-all duration-500 sub2 xmd:caption1 xmd:font-bold xmd:text-white size-full md:group-hover:text-white'>
                 {formatToVND(price.sale)}

@@ -26,7 +26,7 @@ const linkNavUp = [
   },
 ]
 
-export default function BoxSearch({isMobile}) {
+export default function BoxSearch({isMobile, productSuggest}) {
   const [isValue, setIsValue] = useState(false)
   const isFocusSearchNav = useStore((state) => state.isFocusSearchNav)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
@@ -71,7 +71,9 @@ export default function BoxSearch({isMobile}) {
           ))}
         </ul>
       )}
-      {isValue && isFocusSearchNav && <PopupResult />}
+      {isValue && isFocusSearchNav && (
+        <PopupResult productSuggest={productSuggest} />
+      )}
     </div>
   )
 }

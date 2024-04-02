@@ -24,7 +24,7 @@ const listSocial = [
 ]
 
 export default async function TechnologyConner({isMobile}) {
-  const posts = await getData('/custom/v1/post/postsByCategory/goc-cong-nghe')
+  const posts = await getData('/okhub/v1/post/postsByCategory/goc-cong-nghe')
   return (
     <div className='md:bg-elevation-20 pt-[4.39rem]'>
       <span className='block font-medium text-center text-blue-600 h6 xmd:sub1 xmd:tracking-[0.01464rem]'>
