@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import {useState} from 'react'
 
-const ChangeQuantity = () => {
+const ChangeQuantity = ({isAdd = false}) => {
   const [inputVal, setInputVal] = useState(1)
   const handleDec = () => {
     if (inputVal > 1) {
@@ -15,12 +15,14 @@ const ChangeQuantity = () => {
   }
   return (
     <div className='flex items-center justify-between xmd:w-full xmd:mb-[0.88rem]'>
-      <span className='hidden xmd:flex caption1 font-medium text-greyscale-30 '>
+      <span className='hidden font-medium xmd:flex caption1 text-greyscale-30 '>
         Số lượng:
       </span>
       <div className='flex'>
         <div
-          className='w-[2.34261rem] h-[2.34261rem] p-[0.35rem] bg-white rounded-[0.46852rem] shadow-[1.6px_1.6px_9.6px_0px_rgba(0,0,0,0.02),-2.4px_1.6px_16px_0px_rgba(0,0,0,0.04)] cursor-pointer select-none'
+          className={`${
+            isAdd ? 'size-[2.92826rem]' : 'size-[2.34261rem]'
+          } p-[0.35rem] bg-white rounded-[0.46852rem] shadow-[1.6px_1.6px_9.6px_0px_rgba(0,0,0,0.02),-2.4px_1.6px_16px_0px_rgba(0,0,0,0.04)] cursor-pointer select-none active:scale-95`}
           onClick={handleDec}
         >
           <Image
@@ -30,17 +32,27 @@ const ChangeQuantity = () => {
             alt='icon minus'
           />
         </div>
-        <div className='w-[2.3rem] h-[2.3rem]'>
+        <div
+          className={`${
+            isAdd ? 'size-[2.92826rem]' : 'size-[2.3rem]'
+          } select-none`}
+        >
           <input
             type='number'
             name='quantity'
             value={inputVal}
-            className='input-hidden sub2 font-semibold text-[#000] flex items-center justify-center w-full h-full text-center px-[0.5rem]'
+            autoFocus={false}
+            disabled
+            className={`${
+              isAdd ? 'button' : 'sub2'
+            } input-hidden font-semibold text-black flex items-center justify-center w-full h-full text-center px-[0.5rem]`}
             onChange={(e) => setInputVal(e.target.value)}
           />
         </div>
         <div
-          className='cursor-pointer w-[2.34261rem] h-[2.34261rem] p-[0.35rem] bg-white rounded-[0.46852rem] shadow-[1.6px_1.6px_9.6px_0px_rgba(0,0,0,0.02),-2.4px_1.6px_16px_0px_rgba(0,0,0,0.04)] select-none'
+          className={`${
+            isAdd ? 'size-[2.92826rem]' : 'size-[2.34261rem]'
+          } cursor-pointer p-[0.35rem] bg-white rounded-[0.46852rem] shadow-[1.6px_1.6px_9.6px_0px_rgba(0,0,0,0.02),-2.4px_1.6px_16px_0px_rgba(0,0,0,0.04)] select-none active:scale-95`}
           onClick={handleInc}
         >
           <Image

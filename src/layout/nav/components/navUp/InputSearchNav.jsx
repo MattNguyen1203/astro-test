@@ -1,11 +1,29 @@
 'use client'
 
 import useStore from '@/app/(store)/store'
+import {fetcher} from '@/lib/utils'
 import Image from 'next/image'
+import {useState} from 'react'
+import useSWR from 'swr'
 
 export default function InputSearchNav({setIsValue, isValue, isMobile}) {
   const setIsFocusSearchNav = useStore((state) => state.setIsFocusSearchNav)
   const isFocusSearchNav = useStore((state) => state.isFocusSearchNav)
+
+  const {data, error, isLoading} = useSWR(
+    isValue
+      ? process.env.NEXT_PUBLIC_API +
+          `/okhub/v1/product/productSearch?keyword=${isValue}`
+      : null,
+    fetcher,
+    {
+      refreshInterval: 1000,
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    },
+  )
+  console.log('🚀 ~ InputSearchNav ~ data:', data)
   return (
     <label
       id='search_nav'

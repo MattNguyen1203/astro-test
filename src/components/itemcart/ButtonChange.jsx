@@ -23,7 +23,7 @@ export default function ButtonChange() {
     <div className='flex items-center w-fit'>
       <button
         onClick={handleDecre}
-        className='size-[2.63543rem] rounded-[0.58565rem] bg-elevation-20 flex justify-center items-center group'
+        className='size-[2.63543rem] xmd:size-[2.34261rem] rounded-[0.58565rem] bg-elevation-20 flex justify-center items-center group'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -37,19 +37,20 @@ export default function ButtonChange() {
             d='M7 12H17'
             stroke='#262626'
             strokeWidth='2'
+            className='xmd:stroke-[1.5]'
             strokeLinecap='round'
             strokeLinejoin='round'
           />
         </svg>
       </button>
-      <div className='w-[2.05rem] relative'>
-        <span className='absolute font-semibold text-black -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 button'>
+      <div className='w-[2.05rem] relative xmd:w-[1.9rem]'>
+        <span className='absolute font-semibold text-black -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 button xmd:caption1'>
           {count}
         </span>
       </div>
       <button
         onClick={handleIncre}
-        className='size-[2.63543rem] rounded-[0.58565rem] bg-elevation-20 flex justify-center items-center group'
+        className='size-[2.63543rem] xmd:size-[2.34261rem] rounded-[0.58565rem] bg-elevation-20 flex justify-center items-center group'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -63,6 +64,7 @@ export default function ButtonChange() {
             d='M7 12H12M12 12H17M12 12V17M12 12V7'
             stroke='#262626'
             strokeWidth='2'
+            className='xmd:stroke-[1.5]'
             strokeLinecap='round'
             strokeLinejoin='round'
           />

@@ -4,11 +4,16 @@ import ItemNews from '../ItemNews'
 import Image from 'next/image'
 import MenuNews from '../MenuNews'
 import PaginationIndex from '@/sections/account/components/pagination'
-import {useSearchParams} from 'next/navigation'
+import {useParams, useSearchParams} from 'next/navigation'
 
 export default function AllNews({posts}) {
   const searchParams = useSearchParams()
-
+  const params = useParams()
+  const page = params?.page?.length
+    ? params?.page[0] === 'tin-tuc'
+      ? null
+      : params?.page[0]
+    : null
   return (
     <section className='container relative flex xmd:flex-col xmd:items-center w-full h-fit mt-[3.51rem] justify-between lg:pb-[6.59rem]'>
       <div className='flex flex-col lg:w-[62.4451rem] xmd:ml-[0.6rem] xmd:mb-[1.76rem]'>
@@ -34,6 +39,7 @@ export default function AllNews({posts}) {
             <PaginationIndex
               pageCount={Math.ceil(posts?.countItem / 6)}
               pageRangeDisplayed={5}
+              page={page}
             />
           </div>
         </div>

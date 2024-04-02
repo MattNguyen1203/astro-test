@@ -8,6 +8,7 @@ export default function useClickOutSide() {
   useEffect(() => {
     if (typeof window === 'undefined') return
     document.addEventListener('click', handleClickOutSide, true)
+    return () => document.removeEventListener('click', handleClickOutSide)
   }, [])
 
   const handleClickOutSide = (e) => {

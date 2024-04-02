@@ -99,3 +99,11 @@ export function formatToShortVND(price) {
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export {fetcher}
 
+export function convertDateFormat(dateTimeStr) {
+  const dateTime = new Date(dateTimeStr)
+  const day = dateTime.getDate().toString().padStart(2, '0') // Thêm số 0 nếu cần thiết để ngày có 2 chữ số
+  const month = (dateTime.getMonth() + 1).toString().padStart(2, '0') // Tháng được trả lại từ 0-11
+  const year = dateTime.getFullYear()
+
+  return `${day}/${month}/${year}`
+}

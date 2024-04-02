@@ -24,30 +24,32 @@ export default function BreadCrumb({category, categorySlg, name}) {
           Trang chủ
         </span>
       </Link>
-      <Link
-        href={categorySlg || ''}
-        className='flex items-center w-fit mx-[0.29rem] xmd:max-w-[6rem] relative xmd:pl-[1rem] xmd:h-[1.1713rem]'
-      >
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='16'
-          height='16'
-          viewBox='0 0 16 16'
-          fill='none'
-          className='size-[1.1713rem] mr-[0.29rem] xmd:absolute xmd:top-1/2 xmd:left-0 xmd:-translate-y-1/2 '
+      {categorySlg && (
+        <Link
+          href={categorySlg || ''}
+          className='flex items-center w-fit mx-[0.29rem] xmd:max-w-[6rem] relative xmd:pl-[1rem] xmd:h-[1.1713rem]'
         >
-          <path
-            d='M6.66602 5.33398L9.33268 8.00065L6.66602 10.6673'
-            stroke='#A9A9A9'
-            strokeWidth='1.6'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-          />
-        </svg>
-       <span className='capitalize font-normal caption1 text-greyscale-10 align-middle xmd:line-clamp-1'>
-          {category || ''}
-        </span>
-      </Link>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='16'
+            height='16'
+            viewBox='0 0 16 16'
+            fill='none'
+            className='size-[1.1713rem] mr-[0.29rem] xmd:absolute xmd:top-1/2 xmd:left-0 xmd:-translate-y-1/2 '
+          >
+            <path
+              d='M6.66602 5.33398L9.33268 8.00065L6.66602 10.6673'
+              stroke='#A9A9A9'
+              strokeWidth='1.6'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+          <span className='font-normal capitalize align-middle caption1 text-greyscale-10 xmd:line-clamp-1'>
+            {category || ''}
+          </span>
+        </Link>
+      )}
       <div className='flex items-center w-fit xmd:max-w-[10rem] xmd:relative xmd:pl-[1rem]'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -65,9 +67,9 @@ export default function BreadCrumb({category, categorySlg, name}) {
             strokeLinejoin='round'
           />
         </svg>
-        <h1 className='capitalize font-normal caption1 text-greyscale-80 xmd:line-clamp-1'>
+        <h2 className='font-normal capitalize caption1 text-greyscale-80 xmd:line-clamp-1'>
           {name || ''}
-        </h1>
+        </h2>
       </div>
     </div>
   )

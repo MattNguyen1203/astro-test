@@ -1,25 +1,31 @@
 import getData from '@/lib/getData'
-import ProductDetail from '@/sections/productDetail'
+import IndexProduct from '@/sections/product'
 
-const ProductDetailPage = async ({searchParams, params: {slug}}) => {
+export default async function CategoryProductPage({params, searchParams}) {
+  const {slug} = params
+  console.log('🚀 ~ CategoryProductPage ~ slug:', slug)
+  const isFilter = slug?.length > 1
   const {viewport} = searchParams
-  const isMobile = viewport.includes('mobile')
+  const isMobile = viewport === 'mobile'
 
-  const dataProductDetail = await getData(
-    `/okhub/v1/product/productByslug/${slug}`,
-  )
-
-  const dataProductVoucher = await getData(`/okhub/v1/product/coupon/${slug}`)
+  const [products, categories] = await Promise.all([
+    getData(
+      `/okhub/v1/product/${
+        isFilter ? `productByCategory/${slug[0]}` : 'allProduct'
+      }?limit=${isMobile ? 8 : 16}&order=desc&page=${
+        isFilter ? slug[slug?.length - 1] : slug[0]
+      }`,
+    ),
+    getData('/okhub/v1/category/category'),
+  ])
+  console.log('🚀 ~ CategoryProductPage ~ products:', products)
 
   return (
-    <main className='bg-elevation-20'>
-      <ProductDetail
-        isMobile={isMobile}
-        data={dataProductDetail}
-        voucher={dataProductVoucher}
-      />
-    </main>
+    <IndexProduct
+      products={products}
+      categories={categories}
+      isMobile={isMobile}
+      page={slug[0]}
+    />
   )
 }
-
-export default ProductDetailPage

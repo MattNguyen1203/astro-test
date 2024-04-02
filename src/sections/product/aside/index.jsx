@@ -3,9 +3,12 @@ import './style.css'
 
 import {Input} from '@/components/ui/input'
 import SocialProduct from './SocialProduct'
-import PopupCategories from './PopupCategories'
+// import PopupCategories from './PopupCategories'
 import {useEffect, useState} from 'react'
 import useClickOutSide from '@/hooks/useClickOutSide'
+import {useParams} from 'next/navigation'
+import dynamic from 'next/dynamic'
+const PopupCategories = dynamic(() => import('./PopupCategories'))
 
 const arr = [
   {
@@ -23,12 +26,17 @@ const arr = [
 ]
 
 export default function Aside({categories}) {
+  const params = useParams()
   const [isOpen, setIsOpen] = useState(false)
-  const [indexSelect, setIndexSelect] = useState(1)
+  const [indexSelect, setIndexSelect] = useState(0)
   const [sideRef, isOutSide] = useClickOutSide()
   useEffect(() => {
     if (isOutSide) return setIsOpen(false)
   }, [isOutSide])
+
+  function handleNameCategory(categories, slug) {
+    return categories?.find((e) => e?.slug === slug)?.name
+  }
 
   return (
     <aside className='w-[16.17862rem] h-fit sticky top-[9.76rem] left-0 z-[99]'>
@@ -39,7 +47,9 @@ export default function Aside({categories}) {
           className='px-[0.88rem] bg-elevation-20 h-[3.51391rem] flex justify-between items-center rounded-[0.29283rem] cursor-pointer relative'
         >
           <span className='font-semibold sub2 text-greyscale-80 '>
-            Bút cảm ứng {indexSelect + 1}
+            {params?.slug?.length > 1
+              ? handleNameCategory(categories, params?.slug[0])
+              : 'Tất cả sản phẩm'}
           </span>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -62,6 +72,8 @@ export default function Aside({categories}) {
             setIsOpen={setIsOpen}
             indexSelect={indexSelect}
             setIndexSelect={setIndexSelect}
+            categories={categories}
+            params={params}
           />
         </div>
         <hr className='w-full h-[0.07321rem] bg-[rgba(236,236,236,0.70)] my-[0.88rem]' />
