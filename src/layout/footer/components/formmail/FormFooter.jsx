@@ -70,7 +70,7 @@ export default function SignInIndex({status}) {
   }
 
   return (
-    <article className='size-full'>
+    <article className='size-full xmd:h-fit'>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
