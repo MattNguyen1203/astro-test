@@ -9,7 +9,7 @@ import getData from '@/lib/getData'
 
 export default async function Nav({isMobile, referer}) {
   const session = await auth()
-  const categories = await getData('/custom/v1/category/category')
+  const categories = await getData('/okhub/v1/category/category')
   return (
     <header
       id='container_nav'

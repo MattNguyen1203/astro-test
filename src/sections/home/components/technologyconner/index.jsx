@@ -51,8 +51,8 @@ export default async function TechnologyConner({isMobile}) {
           </li>
         ))}
       </ul>
-      <div className='bg-white h-[32.35725rem] flex items-center'>
-        <div className='w-[12.59rem] h-[23.20644rem] my-auto flex justify-center items-center relative overflow-hidden xmd:w-fit'>
+      <div className='bg-white h-[32.35725rem] xmd:h-[29.6rem] flex items-center'>
+        <div className='w-[12.59rem] h-[23.20644rem] my-auto flex justify-center items-center relative overflow-hidden xmd:w-fit xmd:mt-[2.3rem] flex-shrink-0'>
           <div className='w-[63.46999rem] xmd:w-[18.46999rem] h-full absolute left-0 top-0 z-[1] bg-[linear-gradient(90deg,#02315D_0%,rgba(1,65,125,0.45)_33.79%,rgba(0,78,151,0.00)_45.29%)] xmd:bg-[linear-gradient(90deg,#02315D_0%,rgba(0,78,151,0.00)_49.99%)] backdrop-blur-[5px]'></div>
           <h2
             className='rotate-180 text-white text-[2.04978rem] font-semibold leading-[1.2] tracking-[0.00512rem] z-10 xmd:h5 xmd:font-bold xmd:px-[0.88rem]'
@@ -61,7 +61,7 @@ export default async function TechnologyConner({isMobile}) {
             GÓC CÔNG NGHỆ
           </h2>
         </div>
-        <div className='size-full overflow-hidden rounded-tl-[0.58565rem] relative'>
+        <div className='relative overflow-hidden size-full'>
           <SlideTechnology
             isMobile={isMobile}
             posts={posts}

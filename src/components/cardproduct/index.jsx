@@ -64,11 +64,11 @@ export default function CardProduct({product, priority = false}) {
           <button className='mt-[0.59rem] w-full h-[2.92826rem] rounded-[0.58565rem] bg-blue-50 md:group-hover:bg-blue-800 transition-all duration-500 py-[0.65886rem] px-[0.58565rem] flex justify-between items-center xmd:bg-[#10273F] xmd:absolute xmd:left-1/2 xmd:w-[calc(100%-0.88rem)] xmd:-translate-x-1/2 xmd:bottom-[0.44rem]'>
             <div className='flex flex-col'>
               <span className='font-semibold text-blue-800 transition-all duration-500 sub2 xmd:caption1 xmd:font-bold xmd:text-white size-full md:group-hover:text-white'>
-                {formatToVND(price.sale)}
+                {formatToVND(price?.price)}
               </span>
               {percentSale && (
                 <span className='transition-all duration-500 giagoc size-full md:group-hover:text-greyscaletext-5-div xmd:font-workSans xmd:text-greyscaletext-5-div xmd:tracking-[0.00827rem] xmd:leading-[1.2] xmd:font-medium xmd:text-[0.65886rem]'>
-                  {formatToVND(price.price)}
+                  {formatToVND(price?.sale)}
                 </span>
               )}
             </div>

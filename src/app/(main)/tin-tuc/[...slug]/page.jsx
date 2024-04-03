@@ -1,4 +1,3 @@
-// "use server"
 import BreadCrumb from '@/components/breadcrumb'
 import ActualProduct from '@/sections/postdetail/ActualProduct'
 import RelatedArticle from '@/sections/postdetail/RelatedArticle'
@@ -6,12 +5,10 @@ import getData from '@/lib/getData'
 import '@/sections/postdetail/postdetail.css'
 import Share from '@/sections/postdetail/Share'
 import MainPostdetail from '@/sections/postdetail/MainPostdetail'
-const page = async ({searchParams}) => {
+export default async function PostDetailPage({params, searchParams}) {
   const {viewport} = searchParams
   const isMobile = viewport?.includes('mobile')
-  const data = await getData(
-    `/okhub/v1/post/postsBySlug/redmi-buds-5buds-5-pro-chong-on-dinh-cao-tan-huong-tron-ven-7`,
-  )
+  const data = await getData(`/okhub/v1/post/postsBySlug/${params?.slug[0]}`)
   return (
     <main className='md:p-[9.76rem] xmd:mt-[6rem] md:bg-elevation-20'>
       <div className='container'>
@@ -34,5 +31,3 @@ const page = async ({searchParams}) => {
     </main>
   )
 }
-
-export default page

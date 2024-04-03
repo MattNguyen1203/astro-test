@@ -15,71 +15,25 @@ export function handleViewPort(viewport, desktop, tablet, mobile) {
 }
 
 export function handlePercentSale(product) {
-  if (product?.type === 'grouped') {
-    // handle san pham combo
-    let totalRegularPrice = 0
-    let totalSalePrice = 0
-    let countSale = 0
-    product?.grouped_products?.forEach((item) => {
-      if (!item?.salePrice) {
-        countSale += 1
-      }
-      totalRegularPrice +=
-        Number(item?.salePrice ? item?.regular_price : item?.price) || 0
-      totalSalePrice += Number(item?.salePrice) || 0
-    })
-    // khong co san pham sale nao
-    if (countSale === product?.grouped_products?.length) return null
-
-    return Math.floor(
-      (totalRegularPrice - totalSalePrice) / (totalRegularPrice / 100),
-    )
-  } else {
-    // handle san pham don
-    if (!product?.salePrice) return null
+  if (Number(product?.salePrice)) {
     return Math.floor(
       (Number(product?.regular_price) - Number(product?.salePrice)) /
         (Number(product?.regular_price) / 100),
     )
   }
+  return false
 }
 
 export function renderPriceProduct(product) {
-  if (product?.type === 'grouped') {
-    // handle san pham combo
-    let totalRegularPrice = 0
-    let totalSalePrice = 0
-    let countSale = 0
-    product?.grouped_products?.forEach((item) => {
-      if (!item?.salePrice) {
-        countSale += 1
-      }
-      totalRegularPrice +=
-        Number(item?.salePrice ? item?.regular_price : item?.price) || 0
-      totalSalePrice += Number(item?.salePrice) || 0
-    })
-    // khong co san pham sale nao
-    if (countSale === product?.grouped_products?.length)
-      return {
-        price: totalRegularPrice,
-        sale: totalRegularPrice,
-      }
-
-    return {
-      price: totalRegularPrice,
-      sale: totalSalePrice,
-    }
-  } else {
-    // handle san pham don
-    if (!product?.salePrice)
-      return {
-        price: product?.price,
-        sale: product?.price,
-      }
+  if (!Number(product?.salePrice))
     return {
       price: product?.regular_price,
-      sale: product?.salePrice,
+      sale: 0,
     }
+
+  return {
+    price: product?.regular_price,
+    sale: product?.salePrice,
   }
 }
 

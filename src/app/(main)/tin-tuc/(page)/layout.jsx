@@ -1,6 +1,6 @@
 import BreadCrumb from '@/components/breadcrumb'
-import HandBook from '@/sections/news/handbook'
-import Review from '@/sections/news/review'
+import WrapperHandBook from '@/sections/news/WrapperHandBook'
+import WrapperReview from '@/sections/news/WrapperReview'
 
 export default function PageLayout({children}) {
   return (
@@ -8,8 +8,8 @@ export default function PageLayout({children}) {
       <div className='container'>
         <BreadCrumb />
       </div>
-      <HandBook />
-      <Review />
+      <WrapperHandBook />
+      <WrapperReview />
       {children}
     </main>
   )
