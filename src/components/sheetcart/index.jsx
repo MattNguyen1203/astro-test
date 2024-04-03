@@ -60,7 +60,7 @@ export default function SheetCart({children, isMobile = false, session}) {
           GIỎ HÀNG:
         </SheetTitle>
         <div className='w-full absolute top-[3.80673rem] left-0 bg-[#EFEFEF] h-[1px] !my-0 xmd:hidden' />
-        <div className='relative xmd:!m-0 xmd:h-[calc(100%-3.80673rem)]'>
+        <div className='relative xmd:!m-0 h-full xmd:h-[calc(100%-3.80673rem)]'>
           <div className='px-[2.92rem] xmd:px-0'>
             <div className='md:mt-[1.46rem] flex justify-between bg-[#F5F5F5] md:rounded-[0.58565rem] px-[1.17rem] py-[0.88rem] mb-[0.88rem]'>
               <div
@@ -94,9 +94,9 @@ export default function SheetCart({children, isMobile = false, session}) {
           <div className='md:pr-[1.42rem]'>
             <ScrollArea
               type={isMobile ? 'never' : 'always'}
-              className='w-full h-[calc(100vh-10.17rem-4.84rem)] xmd:h-[calc(100vh-10.17rem-3.6rem)] pl-[2.92rem] pr-[1.5rem] xmd:px-[0.59rem]'
+              className='w-full h-[calc(100vh-10rem-4rem)] xmd:h-[calc(100vh-10.17rem-3.6rem)] pl-[2.92rem] pr-[1.5rem] xmd:px-[0.59rem]'
             >
-              <div className='grid grid-cols-1 gap-y-[0.88rem]'>
+              <div className='grid grid-cols-1 gap-y-[0.88rem] xmd:mb-[4rem]'>
                 {Array(10)
                   .fill(0)
                   .map((item, index) => (
@@ -111,7 +111,7 @@ export default function SheetCart({children, isMobile = false, session}) {
               </div>
             </ScrollArea>
           </div>
-          <div className='border-t border-solid border-[#EFEFEF] mt-auto h-[4.39239rem] xmd:h-[4.97804rem] px-[2.92rem] flex justify-between items-center xmd:absolute xmd:bottom-0 xmd:left-0 xmd:z-20 xmd:px-[0.59rem] xmd:w-full'>
+          <div className='border-t border-solid border-[#EFEFEF] mt-auto h-[4.39239rem] xmd:h-[4.97804rem] px-[2.92rem] flex justify-between items-center xmd:absolute xmd:bottom-0 xmd:left-0 xmd:z-20 xmd:px-[0.59rem] xmd:w-full bg-white'>
             <div className='flex flex-col'>
               <div className='flex items-center space-x-[0.29rem]'>
                 <span className='text-[#6A6A6A] caption font-medium xmd:text-[0.73206rem] xmd:tracking-normal'>
@@ -122,10 +122,10 @@ export default function SheetCart({children, isMobile = false, session}) {
                 </span>
               </div>
               <div className='flex items-center space-x-[0.29rem] mt-[0.44rem] xmd:mt-[0.29rem]'>
-                <span className='text-[0.65886rem] font-medium leading-[1.2] tracking-[0.00329rem] text-[#6A6A6A] md:tracking-[0.00329rem] xmd:text-[0.73206rem]'>
+                <span className='text-[0.8rem] font-medium leading-[1.2] tracking-[0.00329rem] text-[#6A6A6A] xmd:text-[0.73206rem]'>
                   Tiết kiệm:
                 </span>
-                <span className='text-[#D48E43] text-[0.65886rem] font-bold leading-[1.2] md:tracking-[0.00329rem] xmd:text-[0.73206rem] xmd:font-semibold'>
+                <span className='text-[#D48E43] text-[0.8rem] font-bold leading-[1.2] md:tracking-[0.00329rem] xmd:text-[0.73206rem] xmd:font-semibold'>
                   40.000đ
                 </span>
               </div>

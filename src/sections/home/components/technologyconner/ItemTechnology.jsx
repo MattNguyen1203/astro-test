@@ -10,6 +10,7 @@ export default function ItemTechnology({
   widthHeightImg = '',
   mbCard,
   priority = false,
+  excerptClass = '',
 }) {
   return (
     <Link
@@ -24,7 +25,7 @@ export default function ItemTechnology({
         className={`relative size-full ${widthHeightImg} overflow-hidden xmd:rounded-[1.1713rem] xmd:mb-[0.58rem]`}
       >
         <Image
-          className='absolute top-0 left-0 z-0 transition-all duration-300 size-full group-hover:scale-110 xmd:rounded-[1.1713rem] object-cover'
+          className='absolute top-0 left-0 z-0 transition-all duration-300 size-full md:group-hover:scale-110 xmd:rounded-[1.1713rem] object-cover'
           src={post?.thumbnail_url || '/home/item-post-tech.jpg'}
           alt={post?.title || 'item post tech'}
           fill
@@ -63,7 +64,9 @@ export default function ItemTechnology({
             </span>
           </div>
         )}
-        <div className='lg:p-[1.46rem] xmd:flex xmd:flex-col xmd:overflow-hidden xmd:items-start xmd:w-full rounded-[0.58565rem] backdrop-blur-[15px] lg:bg-[linear-gradient(101deg,rgba(0,0,0,0.31)_0.17%,rgba(0,0,0,0.26)_87.85%)] lg:relative lg:h-[9.6rem]'>
+        <div
+          className={`${excerptClass} lg:p-[1.46rem] xmd:flex xmd:flex-col xmd:overflow-hidden xmd:items-start xmd:w-full rounded-[0.58565rem] backdrop-blur-[15px] lg:bg-[linear-gradient(101deg,rgba(0,0,0,0.31)_0.17%,rgba(0,0,0,0.26)_87.85%)] lg:relative lg:h-[9.6rem]`}
+        >
           <div className='xmd:hidden lg:absolute z-[1] size-full bottom-0 left-1/2 -translate-x-1/2 group-hover:border-t-[2px] group-hover:border-r-[2px] rounded-[0.58565rem] group-hover:border-l-[2px] group-hover:border-white group-hover:border-solid transition-all duration-200 '></div>
           <h2 className='line-clamp-2 lg:h-[2.78184rem] sub1 xmd:h5 font-medium xmd:font-semibold text-white xmd:text-greyscale-80 mb-[0.88rem] relative z-10'>
             {post?.title}

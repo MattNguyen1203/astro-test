@@ -13,7 +13,7 @@ export default function ItemCart({cart, setCart, index, isMobile}) {
           cart={cart}
           index={index}
         />
-        <button className='w-[1.75695rem] h-fit block mt-[0.88rem]'>
+        <button className='w-[1.75695rem] h-fit block mt-[0.88rem] xmd:w-[1.5rem]'>
           <Image
             className='w-full h-auto'
             src={'/components/delete.svg'}

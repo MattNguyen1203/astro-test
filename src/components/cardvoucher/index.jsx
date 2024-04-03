@@ -32,7 +32,7 @@ export default function CardVoucher({
           Giảm{' '}
           {item?.type === 'fixed_product'
             ? formatToVND(item?.amount)
-            : item?.amount + '%'}
+            : (item?.amount || '15') + '%'}
         </h3>
         <p className='font-normal caption2 tracking-[0.00732rem] text-greyscale-40 xmd:tracking-normal xmd:text-greyscale-30'>
           Đơn Tối thiểu {formatToShortVND(item?.maximum_amount)}
