@@ -13,7 +13,7 @@ export default function ItemTechnology({
 }) {
   return (
     <Link
-      href={'/'}
+      href={`/tin-tuc/${post?.post_slug}`}
       className={`${
         index === 11
           ? 'before:absolute relative before:size-full before:rounded-[0.58565rem] before:bg-[#D9D9D9] before:z-10 before:pointer-events-none before:opacity-40 hover:before:opacity-0 before:transition-all before:duration-200'

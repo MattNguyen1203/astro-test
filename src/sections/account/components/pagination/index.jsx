@@ -1,5 +1,6 @@
 'use client'
 
+import useStore from '@/app/(store)/store'
 import {useRouter} from 'next/navigation'
 import ReactPaginate from 'react-paginate'
 
@@ -9,6 +10,7 @@ export default function PaginationIndex({
   page = null,
   push = '',
 }) {
+  const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
   const router = useRouter()
   const slug = push || '/tin-tuc/p/'
   return (
@@ -59,6 +61,7 @@ export default function PaginationIndex({
         //     scroll: false,
         //   })
         // } else {
+        setIsFilterProduct(true)
 
         router.push(slug + `${Number(e?.selected) + 1}`, {
           scroll: true,

@@ -20,13 +20,13 @@ export default function SlideTechnology({isMobile, posts = []}) {
       id='technology_swiper'
       className='size-full '
     >
-      {posts?.map((post, index) => (
+      {posts?.item?.map((post, index) => (
         <SwiperSlide
           key={index}
           className='!w-[21.38063rem] pr-[0.59rem]'
         >
           <ItemTechnology
-            className='md:h-[30.4rem]'
+            className='md:h-[30.4rem] xmd:h-[27.6rem]'
             index={index}
             post={post}
           />

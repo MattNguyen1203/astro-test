@@ -6,8 +6,7 @@ import MenuNews from '../MenuNews'
 import PaginationIndex from '@/sections/account/components/pagination'
 import {useParams, useSearchParams} from 'next/navigation'
 
-export default function AllNews({posts}) {
-  const searchParams = useSearchParams()
+export default function AllNews({posts, categories}) {
   const params = useParams()
   const page = params?.page?.length
     ? params?.page[0] === 'tin-tuc'
@@ -21,14 +20,14 @@ export default function AllNews({posts}) {
           <h2 className='font-semibold text-blue-700 h5 whitespace-nowrap'>
             Tin tức
           </h2>
-          <MenuNews arr={4} />
+          <MenuNews categories={categories} />
         </div>
         <div className='w-full bg-white lg:p-[1.76rem] rounded-[0.87848rem]'>
-          {posts?.item?.map((item, index) => (
+          {posts?.item?.map((post, index) => (
             <Fragment key={index}>
               <ItemNews
                 isOption={true}
-                item={item}
+                post={post}
               />
               {index !== posts?.item?.length - 1 && (
                 <hr className='w-full my-[1.76rem] h-[0.07rem] bg-[#EBF0F7]' />
@@ -37,7 +36,7 @@ export default function AllNews({posts}) {
           ))}
           <div className='mt-[2.34rem] flex justify-center'>
             <PaginationIndex
-              pageCount={Math.ceil(posts?.countItem / 6)}
+              pageCount={Math.ceil(posts?.count / 6)}
               pageRangeDisplayed={5}
               page={page}
             />

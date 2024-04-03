@@ -8,10 +8,10 @@
 
 #list_categories_mega_hover li {
   width: 100%;
-  pointer-events: none;
+  /* pointer-events: none; */
   margin: 0;
   padding: 0 0.88rem;
-  cursor: default;
+  cursor: pointer;
 }
 
 #list_categories_mega_hover li:hover {

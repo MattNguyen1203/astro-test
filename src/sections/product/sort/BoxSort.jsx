@@ -1,7 +1,7 @@
 'use client'
 import useClickOutSide from '@/hooks/useClickOutSide'
 import Link from 'next/link'
-import {usePathname, useRouter, useSearchParams} from 'next/navigation'
+import {useParams, useRouter} from 'next/navigation'
 import {useEffect, useState} from 'react'
 
 const listSort = [
@@ -20,9 +20,7 @@ const listSort = [
 ]
 export default function BoxSort() {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const pathName = usePathname()
-  const sort = searchParams.get('sort') || 'new'
+  const params = useParams()
   const [isOpen, setIsOpen] = useState(false)
   const [sideRef, isOutSide] = useClickOutSide()
 
@@ -31,12 +29,51 @@ export default function BoxSort() {
   }, [isOutSide])
 
   const handleSort = (query) => {
-    const params = new URLSearchParams(searchParams)
-    params.set('sort', query)
-    router.push(pathName + '?' + params.toString(), {
-      scroll: false,
-    })
     setIsOpen(false)
+    if (params?.slug?.length) {
+      let pathName = '/san-pham/'
+      let paramsNew = [...params?.slug]
+
+      if (paramsNew?.includes('asc')) {
+        if (query === 'new') {
+          paramsNew.splice(paramsNew?.indexOf('asc'), 1)
+        } else {
+          paramsNew[paramsNew?.indexOf('asc')] = query
+        }
+      } else if (paramsNew?.includes('desc')) {
+        if (query === 'new') {
+          paramsNew.splice(paramsNew?.indexOf('desc'), 1)
+        } else {
+          paramsNew[paramsNew?.indexOf('desc')] = query
+        }
+      } else {
+        if (query !== 'new') {
+          let last = paramsNew[paramsNew?.length - 1]
+          paramsNew.shift()
+          paramsNew.push(query)
+          paramsNew.push(last)
+        }
+      }
+
+      paramsNew?.map((e, index) => {
+        if (index < paramsNew?.length - 1) {
+          pathName += e + '/'
+        }
+      })
+      router.push(pathName + paramsNew[paramsNew?.length - 1])
+    } else {
+      if (query === 'new') {
+        router.push('/san-pham/1')
+      } else {
+        router.push('/san-pham/' + query + '/1')
+      }
+    }
+  }
+
+  const handleIndexSort = () => {
+    if (params?.slug?.includes('asc')) return 1
+    if (params?.slug?.includes('desc')) return 2
+    return 0
   }
   return (
     <div className='flex'>
@@ -78,8 +115,8 @@ export default function BoxSort() {
               <div
                 onClick={() => handleSort(e.query)}
                 className={`${
-                  sort === e.query
-                    ? 'bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] text-white '
+                  index === handleIndexSort()
+                    ? 'bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] text-white pointer-events-none'
                     : 'text-greyscale-80 hover:bg-greyscale-20/30'
                 } ${
                   index === 0 ? 'mt-0' : 'mt-[0.51rem]'

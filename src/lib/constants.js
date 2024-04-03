@@ -1,3 +1,6 @@
 const slugAccessory = 'phu-kien'
 
-export {slugAccessory}
+const slugCategoryHandBook = 'cam-nang-su-dung'
+const slugCategoryReview = 'review-san-pham'
+
+export {slugAccessory, slugCategoryHandBook, slugCategoryReview}
