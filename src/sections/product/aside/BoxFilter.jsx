@@ -21,7 +21,7 @@ export default function BoxFilter({categories}) {
     <div
       ref={sideRef}
       onClick={() => setIsOpen(!isOpen)}
-      className='px-[0.88rem] bg-elevation-20 h-[3.51391rem] flex justify-between items-center rounded-[0.29283rem] cursor-pointer relative'
+      className='px-[0.88rem] bg-elevation-20 h-[3.51391rem] flex justify-between items-center rounded-[0.29283rem] cursor-pointer relative select-none'
     >
       <span className='font-semibold sub2 text-greyscale-80 '>
         {params?.slug?.length > 1

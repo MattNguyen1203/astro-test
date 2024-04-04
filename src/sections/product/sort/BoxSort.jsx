@@ -49,9 +49,8 @@ export default function BoxSort() {
       } else {
         if (query !== 'new') {
           let last = paramsNew[paramsNew?.length - 1]
-          paramsNew.shift()
-          paramsNew.push(query)
-          paramsNew.push(last)
+          paramsNew.pop()
+          paramsNew = [...paramsNew, query, last]
         }
       }
 

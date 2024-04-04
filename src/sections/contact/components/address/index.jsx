@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function AddressContact() {
   return (
@@ -32,11 +33,15 @@ export default function AddressContact() {
                 width={32}
                 height={32}
                 alt='add icon'
-                src='/contact/address.svg'
+                src='/contact/phone.svg'
               />
-              <span className='flex-1 body2 ml-[0.58565rem] font-normal text-[#212529]'>
+              <Link
+                prefetch={false}
+                href={'tel: 0947492020'}
+                className='flex-1 body2 ml-[0.58565rem] font-normal text-[#212529]'
+              >
                 +094 749 2020
-              </span>
+              </Link>
             </div>
             <div className='flex items-center lg:w-[36.96925rem]'>
               <Image
@@ -44,7 +49,7 @@ export default function AddressContact() {
                 width={32}
                 height={32}
                 alt='add icon'
-                src='/contact/address.svg'
+                src='/contact/oclock.svg'
               />
               <span className='flex-1 body2 ml-[0.58565rem] font-normal text-[#212529]'>
                 09:00 - 21:00
@@ -56,7 +61,7 @@ export default function AddressContact() {
                 width={32}
                 height={32}
                 alt='add icon'
-                src='/contact/address.svg'
+                src='/contact/book.svg'
               />
               <p className='flex-1 body2 ml-[0.58565rem] font-normal text-[#212529]'>
                 Mã số doanh nghiệp:{' '}
