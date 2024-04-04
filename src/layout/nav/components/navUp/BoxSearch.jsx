@@ -6,6 +6,8 @@ import PopupResult from './PopupResult'
 import {useState} from 'react'
 import useStore from '@/app/(store)/store'
 import PopupStore from '../popupstore'
+import useSWR from 'swr'
+import {fetcher} from '@/lib/utils'
 
 const linkNavUp = [
   {
@@ -27,9 +29,25 @@ const linkNavUp = [
 ]
 
 export default function BoxSearch({isMobile, productSuggest}) {
-  const [isValue, setIsValue] = useState(false)
+  const [isValue, setIsValue] = useState('')
+  console.log('🚀 ~ BoxSearch ~ isValue:', isValue)
   const isFocusSearchNav = useStore((state) => state.isFocusSearchNav)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
+
+  const {data, error, isLoading} = useSWR(
+    isValue
+      ? process.env.NEXT_PUBLIC_API +
+          `/okhub/v1/product/filter/products?limit=10&page=1&keyword=${isValue}`
+      : null,
+    fetcher,
+    {
+      refreshInterval: 1000,
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    },
+  )
+  console.log('🚀 ~ InputSearchNav ~ data:', data)
   return (
     <div
       id='container_search_nav'
@@ -71,7 +89,7 @@ export default function BoxSearch({isMobile, productSuggest}) {
           ))}
         </ul>
       )}
-      {isValue && isFocusSearchNav && (
+      {data && isFocusSearchNav && (
         <PopupResult productSuggest={productSuggest} />
       )}
     </div>
