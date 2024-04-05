@@ -133,7 +133,9 @@ export default function FormContact() {
                 </FormLabel>
                 <FormControl>
                   <Textarea
-                    className='tablet:text-[2rem] tablet:placeholder:text-[2rem] placeholder:text-[1.02489rem] placeholder:font-normal placeholder:leading-[1.2] placeholder:text-greyscale-20 bg-transparent border border-solid rounded-[0.58565rem] border-greyscale-10 p-[0.88rem]'
+                    className='tablet:text-[2rem] tablet:placeholder:text-[2rem] tablet:p-[1rem] tablet:leading-[100%] placeholder:text-[1.02489rem] 
+                    placeholder:font-normal placeholder:leading-[1.2] placeholder:text-greyscale-20 bg-transparent 
+                    border border-solid rounded-[0.58565rem] border-greyscale-10 p-[0.88rem]'
                     placeholder='Viết yêu cầu của bạn'
                     {...field}
                   />
