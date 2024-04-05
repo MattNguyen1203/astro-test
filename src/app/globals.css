@@ -131,7 +131,7 @@
   }
 
   .container {
-    @apply md:min-w-[87.84773060029283rem] md:w-[87.84773060029283rem] min-w-[96%] w-[96%] mx-auto;
+    @apply lg:min-w-[87.84773060029283rem] lg:w-[87.84773060029283rem] md:min-w-[94%] md:w-[94%] min-w-[96%] w-[96%] mx-auto;
   }
 }
 
