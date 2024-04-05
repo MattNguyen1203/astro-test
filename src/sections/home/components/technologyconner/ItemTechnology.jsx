@@ -33,7 +33,7 @@ export default function ItemTechnology({
         />
       </div>
       <div
-        className={`${boxClass} lg:absolute xmd:overflow-hidden lg:top-0 z-10 lg:size-full lg:px-[0.59rem] lg:pb-[1.54rem] lg:pt-[0.59rem] flex flex-col justify-between`}
+        className={`${boxClass} xlg:absolute xlg:bottom-0 xlg:size-full lg:absolute xmd:overflow-hidden top-0 z-10 lg:size-full lg:px-[0.59rem] xlg:pb-[1.54rem] xlg:pt-[0.59rem] lg:pb-[1.54rem] lg:pt-[0.59rem] flex flex-col justify-between xmd:relative`}
       >
         {!mbCard ? (
           <div className='flex xmd:absolute relative top-[1.83rem] left-[1.76rem] xmd:top-[0.73rem] xmd:left-[0.73rem] items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] p-[0.59rem] bg-white/85 backdrop-blur-[2.5px] w-fit'>
@@ -65,7 +65,7 @@ export default function ItemTechnology({
           </div>
         )}
         <div
-          className={`${excerptClass} lg:p-[1.46rem] xmd:flex xmd:flex-col xmd:overflow-hidden xmd:items-start xmd:w-full rounded-[0.58565rem] backdrop-blur-[15px] lg:bg-[linear-gradient(101deg,rgba(0,0,0,0.31)_0.17%,rgba(0,0,0,0.26)_87.85%)] lg:relative lg:h-[9.6rem]`}
+          className={`${excerptClass} xmd:p-0 p-[1.46rem] xmd:flex xmd:flex-col xmd:overflow-hidden xmd:items-start xmd:w-full rounded-[0.58565rem] backdrop-blur-[15px] lg:bg-[linear-gradient(101deg,rgba(0,0,0,0.31)_0.17%,rgba(0,0,0,0.26)_87.85%)] xlg:bg-[linear-gradient(101deg,rgba(0,0,0,0.31)_0.17%,rgba(0,0,0,0.26)_87.85%)] xlg:relative lg:relative xlg:h-[9.6rem] lg:h-[9.6rem]`}
         >
           <div className='xmd:hidden lg:absolute z-[1] size-full bottom-0 left-1/2 -translate-x-1/2 group-hover:border-t-[2px] group-hover:border-r-[2px] rounded-[0.58565rem] group-hover:border-l-[2px] group-hover:border-white group-hover:border-solid transition-all duration-200 '></div>
           <h2 className='line-clamp-2 lg:h-[2.78184rem] sub1 xmd:h5 font-medium xmd:font-semibold text-white xmd:text-greyscale-80 mb-[0.88rem] relative z-10'>
