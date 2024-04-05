@@ -43,7 +43,7 @@ export default function HandBook({posts, categories}) {
               priority={true}
               key={index}
               className='rounded-[1.1713rem] xmd:w-[11.3rem] h-full xmd:mr-[0.58565rem] xlg:relative'
-              boxClass='lg:!p-[1.17rem] xlg:!p-[1.17rem]'
+              boxClass='lg:!p-[1.17rem] xlg:!p-[1.17rem] xmd:!p-0'
               widthHeightImg='xmd:w-[11.49341rem] xmd:h-[8.19912rem]'
               mbCard
             />
