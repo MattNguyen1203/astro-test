@@ -66,7 +66,7 @@ export default function FormContact() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='space-y-[0.88rem] w-full'
+        className='space-y-[0.88rem] w-full xlg:px-[2rem] xlg:pb-[3rem] xmd:px-0'
       >
         <FormField
           control={form.control}
@@ -85,7 +85,7 @@ export default function FormContact() {
             </FormItem>
           )}
         />
-        <div className='grid grid-cols-2 gap-x-[0.88rem] xmd:grid-cols-1 xmd:gap-x-0 xmd:gap-y-[0.88rem]'>
+        <div className='grid grid-cols-2 gap-x-[0.88rem] tablet:grid-cols-1 tablet:gap-y-[0.88rem] xmd:grid-cols-1 xmd:gap-x-0 xmd:gap-y-[0.88rem]'>
           <FormField
             control={form.control}
             name='phone'
@@ -128,7 +128,7 @@ export default function FormContact() {
             name='note'
             render={({field}) => (
               <FormItem>
-                <FormLabel className='!font-svnGraphik sub2 font-medium text-blue-600 mb-[0.88rem] block w-fit'>
+                <FormLabel className='!font-svnGraphik sub2 tablet:text-[1rem] font-medium text-blue-600 mb-[0.88rem] block w-fit'>
                   Yêu cầu
                 </FormLabel>
                 <FormControl>
@@ -152,7 +152,7 @@ export default function FormContact() {
           type='submit'
           className={`${
             isPending ? 'pointer-events-none' : ''
-          } flex justify-center items-center w-full h-[3.51391rem] rounded-[0.58565rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] !mt-[1.76rem] `}
+          } flex justify-center items-center w-full h-[3.51391rem] rounded-[0.58565rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] !mt-[1.76rem] xlg:!mt-[1.5rem] `}
         >
           {isPending ? (
             <svg

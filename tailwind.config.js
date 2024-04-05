@@ -28,6 +28,7 @@ module.exports = {
       xxl: {max: '1366px'},
       xlg: {max: '1023px'},
       xmd: {max: '767px'},
+      tablet: {min: '768px', max: '1023px'},
     },
     extend: {
       fontFamily: {

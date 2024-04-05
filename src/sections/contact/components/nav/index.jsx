@@ -6,7 +6,7 @@ import Image from 'next/image'
 export default function NavContact() {
   return (
     <section className='pt-[8rem] xmd:pt-[4.09956rem] w-full bg-[#17395C]'>
-      <div className='container flex lg:h-[16.54466rem] flex-col items-start xmd:mb-[2.63543rem]'>
+      <div className='container flex lg:h-[16.54466rem] flex-col items-start xmd:mb-[2.63543rem] tablet:pb-[2.25rem]'>
         <div className='mt-[1.76rem] xmd:w-[27.45242rem]'>
           <BreadCrumb></BreadCrumb>
         </div>
@@ -14,11 +14,11 @@ export default function NavContact() {
           Liên hệ với AstroMazing
         </h4>
         <div className='mt-[2.34rem] xmd:mt-[1.17rem] flex flex-col items-start'>
-          <p className='body2 text-white font-normal mb-[0.73206rem]'>
+          <p className='body2 text-white font-normal mb-[0.73206rem] tablet:text-[1.2rem]'>
             Ghé gian hàng tại:
           </p>
           <div className='flex items-start'>
-            <div className='flex justify-center w-[2.63543rem] xmd:w-[2.92826rem] h-[2.63543rem] xmd:h-[2.92826rem] rounded-[0.51245rem] bg-[rgba(255,255,255,0.20)]'>
+            <div className='flex justify-center cursor-pointer tablet:w-[3rem] tablet:h-[3rem] w-[2.63543rem] tablet:p-[0.4rem] xmd:w-[2.92826rem] h-[2.63543rem] xmd:h-[2.92826rem] rounded-[0.51245rem] bg-[rgba(255,255,255,0.20)]'>
               <Image
                 className='object-contain'
                 src={'/contact/fb.svg'}
@@ -27,7 +27,7 @@ export default function NavContact() {
                 height={26.667}
               />
             </div>
-            <div className='flex justify-center mx-[0.87848rem] w-[2.63543rem] xmd:w-[2.92826rem] h-[2.63543rem] xmd:h-[2.92826rem] rounded-[0.51245rem] bg-[rgba(255,255,255,0.20)]'>
+            <div className='flex justify-center cursor-pointer tablet:w-[3rem] tablet:h-[3rem] tablet:mx-[1rem] tablet:p-[0.4rem] mx-[0.87848rem] w-[2.63543rem] xmd:w-[2.92826rem] h-[2.63543rem] xmd:h-[2.92826rem] rounded-[0.51245rem] bg-[rgba(255,255,255,0.20)]'>
               <Image
                 className='object-contain'
                 src={'/contact/heart.svg'}
@@ -36,7 +36,7 @@ export default function NavContact() {
                 height={26.667}
               />
             </div>
-            <div className='flex justify-center w-[2.63543rem] xmd:w-[2.92826rem] h-[2.63543rem] xmd:h-[2.92826rem] rounded-[0.51245rem] bg-[rgba(255,255,255,0.20)]'>
+            <div className='flex justify-center cursor-pointer tablet:w-[3rem] tablet:h-[3rem] w-[2.63543rem] tablet:p-[0.4rem] xmd:w-[2.92826rem] h-[2.63543rem] xmd:h-[2.92826rem] rounded-[0.51245rem] bg-[rgba(255,255,255,0.20)]'>
               <Image
                 className='object-contain'
                 src={'/contact/tiktok.svg'}
