@@ -76,7 +76,7 @@ export default function FormContact() {
               <FormControl>
                 <Input
                   type='text'
-                  className='placeholder:text-[1.02489rem] placeholder:font-normal placeholder:leading-[1.2] placeholder:text-greyscale-20 bg-transparent border border-solid rounded-[0.58565rem] border-greyscale-10 p-[1.02rem]'
+                  className='tablet:text-[2rem] tablet:placeholder:text-[2rem] placeholder:text-[1.02489rem] placeholder:font-normal placeholder:leading-[1.2] placeholder:text-greyscale-20 bg-transparent border border-solid rounded-[0.58565rem] border-greyscale-10 p-[1.02rem]'
                   placeholder='Tên của bạn *'
                   {...field}
                 />
@@ -93,7 +93,7 @@ export default function FormContact() {
               <FormItem className=''>
                 <FormControl>
                   <Input
-                    className='placeholder:text-[1.02489rem] placeholder:font-normal placeholder:leading-[1.2] placeholder:text-greyscale-20 bg-transparent border border-solid rounded-[0.58565rem] border-greyscale-10 p-[1.02rem]'
+                    className='tablet:text-[2rem] tablet:placeholder:text-[2rem] placeholder:text-[1.02489rem] placeholder:font-normal placeholder:leading-[1.2] placeholder:text-greyscale-20 bg-transparent border border-solid rounded-[0.58565rem] border-greyscale-10 p-[1.02rem]'
                     placeholder='Số điện thoại *'
                     type='tel'
                     {...field}
@@ -111,7 +111,7 @@ export default function FormContact() {
                 <FormControl>
                   <Input
                     type='email'
-                    className='placeholder:text-[1.02489rem] placeholder:font-normal placeholder:leading-[1.2] placeholder:text-greyscale-20 bg-transparent border border-solid rounded-[0.58565rem] border-greyscale-10 p-[1.02rem]'
+                    className='tablet:text-[2rem] tablet:placeholder:text-[2rem] placeholder:text-[1.02489rem] placeholder:font-normal placeholder:leading-[1.2] placeholder:text-greyscale-20 bg-transparent border border-solid rounded-[0.58565rem] border-greyscale-10 p-[1.02rem]'
                     placeholder='Email *'
                     {...field}
                   />
@@ -128,12 +128,12 @@ export default function FormContact() {
             name='note'
             render={({field}) => (
               <FormItem>
-                <FormLabel className='!font-svnGraphik sub2 tablet:text-[1rem] font-medium text-blue-600 mb-[0.88rem] block w-fit'>
+                <FormLabel className='!font-svnGraphik sub2 tablet:text-[2rem] font-medium text-blue-600 mb-[0.88rem] block w-fit'>
                   Yêu cầu
                 </FormLabel>
                 <FormControl>
                   <Textarea
-                    className='placeholder:text-[1.02489rem] placeholder:font-normal placeholder:leading-[1.2] placeholder:text-greyscale-20 bg-transparent border border-solid rounded-[0.58565rem] border-greyscale-10 p-[0.88rem]'
+                    className='tablet:text-[2rem] tablet:placeholder:text-[2rem] placeholder:text-[1.02489rem] placeholder:font-normal placeholder:leading-[1.2] placeholder:text-greyscale-20 bg-transparent border border-solid rounded-[0.58565rem] border-greyscale-10 p-[0.88rem]'
                     placeholder='Viết yêu cầu của bạn'
                     {...field}
                   />
@@ -152,7 +152,7 @@ export default function FormContact() {
           type='submit'
           className={`${
             isPending ? 'pointer-events-none' : ''
-          } flex justify-center items-center w-full h-[3.51391rem] rounded-[0.58565rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] !mt-[1.76rem] xlg:!mt-[1.5rem] `}
+          } tablet:p-[2.5rem_2rem] flex justify-center items-center w-full h-[3.51391rem] rounded-[0.58565rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] !mt-[1.76rem] xlg:!mt-[1.5rem] `}
         >
           {isPending ? (
             <svg
@@ -176,7 +176,7 @@ export default function FormContact() {
             </svg>
           ) : (
             <>
-              <span className='button font-semibold text-center text-white mr-[0.73206rem]'>
+              <span className='button font-semibold text-center text-white mr-[0.73206rem] tablet:text-[2rem]'>
                 GỬI NGAY
               </span>
               <Image

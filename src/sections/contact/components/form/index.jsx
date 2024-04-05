@@ -21,7 +21,7 @@ export default function IndexFormContact() {
         xmd:bg-[#E8EBEF] xmd:mb-[1.76rem]
         tablet:p-[2rem] tablet:mb-[1.5rem] tablet:bg-[#E8EBEF] tablet:w-full'
         >
-          <div className='mr-[0.87848rem] flex justify-center w-[3.07467rem] xmd:w-[2.92826rem] h-[3.07467rem] xmd:h-[2.92826rem] p-[0.73206rem] xmd:p-[0.4183rem] items-start rounded-[0.51245rem] xmd:rounded-[0.48807rem] bg-gradient-to-l from-[#102841] to-[#1359A1]'>
+          <div className='mr-[0.87848rem] tablet:mr-[2rem] flex justify-center tablet:w-[4rem] tablet:h-[4rem] w-[3.07467rem] xmd:w-[2.92826rem] h-[3.07467rem] xmd:h-[2.92826rem] p-[0.73206rem] xmd:p-[0.4183rem] items-start rounded-[0.51245rem] xmd:rounded-[0.48807rem] bg-gradient-to-l from-[#102841] to-[#1359A1]'>
             <Image
               width={24.004}
               height={23.288}
@@ -29,7 +29,7 @@ export default function IndexFormContact() {
               src={'/contact/mess.svg'}
             />
           </div>
-          <p className='flex-1 font-medium sub1 xmd:body2 xmd:text-greyscale-50 text-greyscale-80'>
+          <p className='flex-1 font-medium sub1 xmd:body2 xmd:text-greyscale-50 text-greyscale-80 tablet:text-[2rem]'>
             Gửi thắc mắc của bạn tới AstroMazing, chúng tôi sẽ giúp bạn giải đáp
             thắc mắc trong thời gian sớm nhất
           </p>

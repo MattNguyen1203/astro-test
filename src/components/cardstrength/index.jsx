@@ -12,7 +12,8 @@ export default function CardStrength({
         background
           ? 'bg-white'
           : 'bg-[linear-gradient(95deg,#EEF8FF_0%,rgba(255,245,237,0.79)_100%)]'
-      } w-[21.08346rem] p-[1.46rem] flex h-fit items-center rounded-[0.58565rem] xlg:w-full xmd:p-[0.88rem] xmd:flex-col xmd:items-center`}
+      } w-[21.08346rem] p-[1.46rem] flex h-fit items-center rounded-[0.58565rem] xlg:w-full xmd:p-[0.88rem] xmd:flex-col xmd:items-center
+      tablet:p-[2rem]`}
     >
       <picture className='size-[3.51391rem] md:mr-[1.16rem] xmd:size-[2.63543rem]'>
         <Image
