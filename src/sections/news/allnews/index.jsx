@@ -14,9 +14,9 @@ export default function AllNews({posts, categories}) {
       : params?.page[0]
     : null
   return (
-    <section className='container relative flex xmd:flex-col xmd:items-center w-full h-fit mt-[3.51rem] justify-between lg:pb-[6.59rem]'>
-      <div className='flex flex-col lg:w-[62.4451rem] xmd:ml-[0.6rem] xmd:mb-[1.76rem]'>
-        <div className='h-[4.97804rem] xmd:h-[6.3rem] bg-white rounded-[0.87848rem] flex xmd:flex-col justify-between xmd:justify-between items-center xmd:items-start lg:px-[1.76rem] mb-[0.88rem] xmd:mb-[1.76rem]'>
+    <section className='container relative flex lg:flex-row xmd:flex-col xlg:flex-col xlg:items-center xmd:items-center h-fit mt-[3.51rem] justify-between lg:pb-[6.59rem]'>
+      <div className='flex flex-col lg:w-[62.4451rem] xlg:ml-[0.6rem] xlg:mb-[1.76rem] xmd:ml-[0.6rem] xmd:mb-[1.76rem]'>
+        <div className='h-[4.97804rem] xlg:h-[6.3rem] xmd:h-[6.3rem] bg-white rounded-[0.87848rem] flex xmd:flex-col xlg:flex-col justify-between items-center xlg:items-start xmd:items-start lg:px-[1.76rem] mb-[0.88rem] xmd:mb-[1.76rem] xlg:mb-[1.76rem]'>
           <h2 className='font-semibold text-blue-700 h5 whitespace-nowrap'>
             Tin tức
           </h2>
@@ -43,8 +43,8 @@ export default function AllNews({posts, categories}) {
           </div>
         </div>
       </div>
-      <aside className='w-[22.47438rem] xmd:w-full sticky top-[9.76rem] left-0 flex-shrink-0 xmd:flex xmd:flex-col xmd:items-center h-fit'>
-        <div className='flex flex-col items-start w-[22.47438rem] xmd:w-[26.28111rem] mb-[1.17rem]'>
+      <aside className='w-[22.47438rem] xmd:w-full xlg:w-full sticky top-[9.76rem] left-0 flex-shrink-0 xlg:flex xlg:flex-col xlg:items-center xmd:flex xmd:flex-col xmd:items-center h-fit'>
+        <div className='flex flex-col items-start w-[22.47438rem] xlg:w-[46.28111rem] xmd:w-[26.28111rem] mb-[1.17rem]'>
           <div className='mb-[0.87848rem] flex w-full items-center py-[0.58565rem] pr-[1.1713rem] pl-[1.1713rem] rounded-[0.87848rem] bg-[#17395C]'>
             <div className='flex items-center w-[20.57101rem]'>
               <p className='py-[0.65886rem] px-[0.43924rem] sub2 font-semibold text-white'>
@@ -218,12 +218,12 @@ export default function AllNews({posts, categories}) {
           </div>
         </div>
         {/* san pham moi nhat */}
-        <div className='flex items-start flex-col p-[1.75695rem] xmd:w-[26.28111rem] xmd:px-[0.87848rem] xmd:py-[1.76rem] rounded-[0.87848rem] bg-white'>
+        <div className='flex items-start flex-col p-[1.75695rem] xlg:w-[46.28111rem] xlg:px-[0.87848rem] xlg:py-[1.76rem] xmd:w-[26.28111rem] xmd:px-[0.87848rem] xmd:py-[1.76rem] rounded-[0.87848rem] bg-white'>
           <p className='sub1 font-medium text-[#102841] mb-[1.76rem]'>
             SẢN PHẨM MỚI NHẤT
           </p>
-          <ul className='flex flex-col items-center xmd:w-full'>
-            <li className='mb-[1.17rem] w-[18.96047rem] xmd:w-full flex items-center'>
+          <ul className='flex flex-col items-center xmd:w-full xlg:w-full'>
+            <li className='mb-[1.17rem] w-[18.96047rem] xmd:w-full xlg:w-full flex items-center'>
               <div className='mr-[0.73206rem] w-[4.61201rem] h-[4.61201rem] justify-center items-center pr-[0.01603rem] bg-white'>
                 <Image
                   className='rounded-[0.29283rem] object-cover'
@@ -234,7 +234,7 @@ export default function AllNews({posts, categories}) {
                 />
               </div>
               <div className='flex flex-col items-start flex-1'>
-                <p className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
+                <p className='flex-1 overflow-hidden font-normal xmd:body2 body2 xlg:text-[1.5rem] text-ellipsis text-greyscale-60'>
                   Bút cảm ứng AstroMazing Pencil GD cho iPad
                 </p>
                 <p className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
@@ -242,7 +242,7 @@ export default function AllNews({posts, categories}) {
                 </p>
               </div>
             </li>
-            <li className='mb-[1.17rem] w-[18.96047rem] xmd:w-full flex items-center'>
+            <li className='mb-[1.17rem] w-[18.96047rem] xmd:w-full xlg:w-full flex items-center'>
               <div className='mr-[0.73206rem] w-[4.61201rem] h-[4.61201rem] justify-center items-center pr-[0.01603rem] bg-white'>
                 <Image
                   className='rounded-[0.29283rem] object-cover'
@@ -253,7 +253,7 @@ export default function AllNews({posts, categories}) {
                 />
               </div>
               <div className='flex flex-col items-start flex-1'>
-                <p className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
+                <p className='flex-1 overflow-hidden font-normal xmd:body2 body2 xlg:text-[1.5rem] text-ellipsis text-greyscale-60'>
                   Bút cảm ứng AstroMazing Pencil GD cho iPad
                 </p>
                 <p className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
@@ -261,7 +261,7 @@ export default function AllNews({posts, categories}) {
                 </p>
               </div>
             </li>
-            <li className='mb-[1.17rem] w-[18.96047rem] xmd:w-full flex items-center'>
+            <li className='mb-[1.17rem] w-[18.96047rem] xmd:w-full xlg:w-full flex items-center'>
               <div className='mr-[0.73206rem] w-[4.61201rem] h-[4.61201rem] justify-center items-center pr-[0.01603rem] bg-white'>
                 <Image
                   className='rounded-[0.29283rem] object-cover'
@@ -272,7 +272,7 @@ export default function AllNews({posts, categories}) {
                 />
               </div>
               <div className='flex flex-col items-start flex-1'>
-                <p className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
+                <p className='flex-1 overflow-hidden font-normal xmd:body2 body2 xlg:text-[1.5rem] text-ellipsis text-greyscale-60'>
                   Bút cảm ứng AstroMazing Pencil GD cho iPad
                 </p>
                 <p className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
@@ -280,7 +280,7 @@ export default function AllNews({posts, categories}) {
                 </p>
               </div>
             </li>
-            <li className='mb-[1.17rem] w-[18.96047rem] xmd:w-full flex items-center'>
+            <li className='mb-[1.17rem] w-[18.96047rem] xmd:w-full xlg:w-full flex items-center'>
               <div className='mr-[0.73206rem] w-[4.61201rem] h-[4.61201rem] justify-center items-center pr-[0.01603rem] bg-white'>
                 <Image
                   className='rounded-[0.29283rem] object-cover'
@@ -291,7 +291,7 @@ export default function AllNews({posts, categories}) {
                 />
               </div>
               <div className='flex flex-col items-start flex-1'>
-                <p className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
+                <p className='flex-1 overflow-hidden font-normal xmd:body2 body2 xlg:text-[1.5rem] text-ellipsis text-greyscale-60'>
                   Bút cảm ứng AstroMazing Pencil GD cho iPad
                 </p>
                 <p className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
@@ -299,7 +299,7 @@ export default function AllNews({posts, categories}) {
                 </p>
               </div>
             </li>
-            <li className='mb-[1.17rem] w-[18.96047rem] xmd:w-full flex items-center'>
+            <li className='mb-[1.17rem] w-[18.96047rem] xmd:w-full xlg:w-full flex items-center'>
               <div className='mr-[0.73206rem] w-[4.61201rem] h-[4.61201rem] justify-center items-center pr-[0.01603rem] bg-white'>
                 <Image
                   className='rounded-[0.29283rem] object-cover'
@@ -310,7 +310,7 @@ export default function AllNews({posts, categories}) {
                 />
               </div>
               <div className='flex flex-col items-start flex-1'>
-                <p className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
+                <p className='flex-1 overflow-hidden font-normal xmd:body2 body2 xlg:text-[1.5rem] text-ellipsis text-greyscale-60'>
                   Bút cảm ứng AstroMazing Pencil GD cho iPad
                 </p>
                 <p className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
@@ -318,12 +318,10 @@ export default function AllNews({posts, categories}) {
                 </p>
               </div>
             </li>
-            <button className='flex h-[2.63543rem] justify-center py-[0.80527rem] px-[1.46413rem] rounded-[7.32064rem] bg-[#F2F2F2]'>
-              <div className='flex items-center justify-center'>
-                <p className='font-semibold caption text-greyscale-80'>
-                  XEM THÊM
-                </p>
-              </div>
+            <button className='flex h-[3.63543rem] px-[1rem] justify-center items-center rounded-[7.32064rem] bg-[#F2F2F2]'>
+              <p className='font-semibold caption xmd:caption xlg:text-[1.5rem] text-greyscale-80 flex justify-center items-center'>
+                XEM THÊM
+              </p>
             </button>
           </ul>
         </div>
