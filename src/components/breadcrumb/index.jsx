@@ -20,7 +20,7 @@ export default function BreadCrumb({category, categorySlg, name}) {
             fill='#C5C5C5'
           />
         </svg>
-        <span className='font-normal caption1 text-greyscale-10'>
+        <span className='font-normal caption1 leading-[100%] text-greyscale-10'>
           Trang chủ
         </span>
       </Link>
