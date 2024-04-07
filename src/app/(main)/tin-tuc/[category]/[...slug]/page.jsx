@@ -5,6 +5,7 @@ import getData from '@/lib/getData'
 import '@/sections/postdetail/postdetail.css'
 import Share from '@/sections/postdetail/Share'
 import MainPostdetail from '@/sections/postdetail/MainPostdetail'
+
 export default async function PostDetailPage({params, searchParams}) {
   const {viewport} = searchParams
   const isMobile = viewport?.includes('mobile')

@@ -1,4 +1,3 @@
-import React from 'react'
 import Image from 'next/image'
 const ActualProduct = () => {
   return (
@@ -105,10 +104,8 @@ const ActualProduct = () => {
             </p>
           </div>
         </li>
-        <button className='flex h-[2.63543rem] justify-center py-[0.80527rem] px-[1.46413rem] rounded-[7.32064rem] bg-[#F2F2F2]'>
-          <div className='flex items-center justify-center'>
-            <p className='font-semibold caption text-greyscale-80'>XEM THÊM</p>
-          </div>
+        <button className='flex h-[2.63543rem] justify-center py-[0.80527rem] px-[1.46413rem] rounded-[7.32064rem] bg-[#F2F2F2] font-semibold caption text-greyscale-80'>
+          XEM THÊM
         </button>
       </ul>
     </div>

@@ -22,6 +22,9 @@ const nextConfig = {
   // compiler: {
   //   removeConsole: true,
   // },
+  // experimental: {
+  //   scrollRestoration: true,
+  // },
 }
 
 // module.exports = withBundleAnalyzer(nextConfig)

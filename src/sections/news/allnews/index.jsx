@@ -1,29 +1,60 @@
 'use client'
-import {Fragment} from 'react'
+import {Fragment, useRef} from 'react'
 import ItemNews from '../ItemNews'
 import Image from 'next/image'
 import MenuNews from '../MenuNews'
 import PaginationIndex from '@/sections/account/components/pagination'
 import {useParams, useSearchParams} from 'next/navigation'
+import useSWR from 'swr'
+import {fetcher} from '@/lib/utils'
+import Link from 'next/link'
 
 export default function AllNews({posts, categories}) {
+  console.log('🚀 ~ AllNews ~ posts:', posts)
+  const boxRef = useRef(null)
+  const searchParams = useSearchParams()
   const params = useParams()
-  const page = params?.page?.length
-    ? params?.page[0] === 'tin-tuc'
-      ? null
-      : params?.page[0]
-    : null
+  const page = searchParams.get('page')
+
+  const {data, error, isLoading} = useSWR(
+    Number(page) > 1
+      ? process.env.NEXT_PUBLIC_API +
+          (params?.category
+            ? `/okhub/v1/post/postsByCategory/${params?.category}?page=${page}&limit=6`
+            : `/okhub/v1/post/post?limit=6&page=${page}`)
+      : null,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    },
+  )
+
+  const postsNew = Number(page) > 1 ? data?.item : posts?.item
+  const countPage =
+    Number(page) > 1
+      ? Math.ceil(Number(data?.count) / 6)
+      : Math.ceil(Number(posts?.count) / 6)
+
   return (
-    <section className='container relative flex xmd:flex-col xmd:items-center w-full h-fit mt-[3.51rem] justify-between lg:pb-[6.59rem]'>
+    <section
+      ref={boxRef}
+      className='container relative flex xmd:flex-col xmd:items-center w-full h-fit pt-[11.51rem] justify-between lg:pb-[6.59rem] -mt-[8rem]'
+    >
       <div className='flex flex-col lg:w-[62.4451rem] xmd:ml-[0.6rem] xmd:mb-[1.76rem]'>
         <div className='h-[4.97804rem] xmd:h-[6.3rem] bg-white rounded-[0.87848rem] flex xmd:flex-col justify-between xmd:justify-between items-center xmd:items-start lg:px-[1.76rem] mb-[0.88rem] xmd:mb-[1.76rem]'>
           <h2 className='font-semibold text-blue-700 h5 whitespace-nowrap'>
             Tin tức
           </h2>
-          <MenuNews categories={categories} />
+          <MenuNews
+            categories={categories}
+            isPage={true}
+            categoryCurrent={params?.category}
+          />
         </div>
         <div className='w-full bg-white lg:p-[1.76rem] rounded-[0.87848rem]'>
-          {posts?.item?.map((post, index) => (
+          {postsNew?.map((post, index) => (
             <Fragment key={index}>
               <ItemNews
                 isOption={true}
@@ -34,13 +65,16 @@ export default function AllNews({posts, categories}) {
               )}
             </Fragment>
           ))}
-          <div className='mt-[2.34rem] flex justify-center'>
-            <PaginationIndex
-              pageCount={Math.ceil(posts?.count / 6)}
-              pageRangeDisplayed={5}
-              page={page}
-            />
-          </div>
+          {Number(countPage) > 1 && (
+            <div className='mt-[2.34rem] flex justify-center'>
+              <PaginationIndex
+                pageCount={Math.ceil(posts?.count / 6)}
+                pageRangeDisplayed={5}
+                page={page}
+                ref={boxRef}
+              />
+            </div>
+          )}
         </div>
       </div>
       <aside className='w-[22.47438rem] xmd:w-full sticky top-[9.76rem] left-0 flex-shrink-0 xmd:flex xmd:flex-col xmd:items-center h-fit'>
@@ -55,32 +89,21 @@ export default function AllNews({posts, categories}) {
           <div className='mb-[0.87848rem] w-full flex py-[0.58565rem] pr-[1.1713rem] pl-[1.1713rem] rounded-[0.87848rem] bg-[rgba(232,235,239,0.60)]'>
             <div className='flex items-center justify-between w-full'>
               <div className='flex items-center'>
-                <div className='w-[2.63543rem] h-[2.63543rem] flex justify-center items-center mr-[0.43924rem] relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)]'>
-                  <div className='w-full h-full rounded-[0.51245rem] bg-[#4B6FBE] absolute inset-0'></div>
-                  <div className='w-[1.75695rem] h-[1.75695rem] z-10'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      width='24'
-                      height='24'
-                      viewBox='0 0 24 24'
-                      fill='none'
-                    >
-                      <path
-                        d='M17 9.00004H13.6508V7.00005C13.6508 5.96805 13.7306 5.31805 15.1359 5.31805H16.9107V2.13806C16.047 2.04406 15.1786 1.99806 14.3093 2.00006C11.7316 2.00006 9.85036 3.65706 9.85036 6.69905V9.00004H7V13L9.85036 12.999V22H13.6508V12.997L16.5639 12.996L17 9.00004Z'
-                        fill='white'
-                      />
-                    </svg>
-                  </div>
+                <div className='w-[2.63543rem] h-[2.63543rem] flex justify-center items-center mr-[0.88rem] relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)] rounded-[0.51245rem] bg-[#4B6FBE]'>
+                  <Image
+                    className='brightness-0 invert w-[1.75695rem] h-auto object-contain'
+                    src={'/product/facebook.svg'}
+                    alt='icon facebook'
+                    width={24}
+                    height={24}
+                  />
                 </div>
-                <div className='flex items-center py-[0.65886rem] px-[0.43924rem]'>
-                  <p className='sub2 font-medium text-[#4B6FBE]'>
-                    1,000,000 Fan
-                  </p>
-                </div>
+                <span className='sub2 font-medium text-[#4B6FBE]'>
+                  1,000,000 Fan
+                </span>
               </div>
-              <div className='flex items-center justify-end py-[0.07321rem]'>
-                <div className='w-[0.07321rem] mr-[1.1713rem] h-[1.75695rem] opacity-50 bg-[#B7C2CC]'></div>
-                <p className='sub2 text-[#4B6FBE] font-medium'>Like</p>
+              <div className='flex items-center h-[1.9rem] sub2 text-[#4B6FBE] font-medium border-l border-solid border-[#B7C2CC]/50 pl-[1.17rem]'>
+                Like
               </div>
             </div>
           </div>
@@ -90,61 +113,13 @@ export default function AllNews({posts, categories}) {
                 <div className='w-[2.63543rem] h-[2.63543rem] flex justify-center items-center mr-[0.43924rem] relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)]'>
                   <div className='w-full h-full rounded-[0.51245rem] absolute inset-0 bg-gradient-to-t to-[#2C5BB7] from-[#1B2852]'></div>
                   <div className='flex items-center justify-center w-[1.46413rem] h-[1.46413rem] px-[0.14641rem] pt-[0.29283rem] pb-[0.21962rem] z-10'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      width='20'
-                      height='17'
-                      viewBox='0 0 20 17'
-                      fill='none'
-                    >
-                      <g clip-path='url(#clip0_78_55206)'>
-                        <path
-                          fill-rule='evenodd'
-                          clip-rule='evenodd'
-                          d='M10.0032 17C9.8616 17 9.72104 16.9629 9.59817 16.8899C8.54028 16.2491 0.702921 11.1063 0.407211 10.9494C0.182305 10.8393 0.0282025 10.6137 0.00217166 10.3554V3.13975C-0.00407573 2.87057 0.123996 2.61664 0.33849 2.46952L0.395758 2.43573C1.15273 1.94314 3.69022 0.322585 4.09213 0.0893647C4.18376 0.0326944 4.28893 0.00108981 4.39617 0C4.49613 0.00108981 4.59505 0.0272453 4.68355 0.0762869C4.68355 0.0762869 8.2352 2.49894 8.77872 2.71582C9.15981 2.8989 9.57527 2.99045 9.99488 2.98282C10.4697 2.99372 10.9403 2.87275 11.3568 2.63517C11.8878 2.34201 15.2812 0.0893647 15.3177 0.0893647C15.403 0.034874 15.502 0.00762869 15.6019 0.00871851C15.7092 0.00871851 15.8143 0.0403231 15.906 0.0980832C16.3683 0.365088 19.5138 2.38124 19.6482 2.47061C19.8699 2.6101 20.0032 2.86185 20.0011 3.13212V10.3456C19.9761 10.605 19.822 10.8306 19.5961 10.9395C19.3004 11.1096 11.487 16.2524 10.4093 16.8801C10.2864 16.9564 10.1469 16.9978 10.0043 16.9989L10.0032 17Z'
-                          fill='url(#paint0_linear_78_55206)'
-                        />
-                      </g>
-                      <defs>
-                        <linearGradient
-                          id='paint0_linear_78_55206'
-                          x1='0.0521508'
-                          y1='8.55722'
-                          x2='19.868'
-                          y2='8.41098'
-                          gradientUnits='userSpaceOnUse'
-                        >
-                          <stop stopColor='#F8B500' />
-                          <stop
-                            offset='0.33'
-                            stopColor='#EF7C00'
-                          />
-                          <stop
-                            offset='0.56'
-                            stopColor='#E7336F'
-                          />
-                          <stop
-                            offset='0.78'
-                            stopColor='#D14492'
-                          />
-                          <stop
-                            offset='0.93'
-                            stopColor='#B64F98'
-                          />
-                          <stop
-                            offset='1'
-                            stopColor='#AD529B'
-                          />
-                        </linearGradient>
-                        <clipPath id='clip0_78_55206'>
-                          <rect
-                            width='20'
-                            height='17'
-                            fill='white'
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
+                    <Image
+                      className=''
+                      src={'/home/lazada.svg'}
+                      alt='icon lazada'
+                      width={24}
+                      height={24}
+                    />
                   </div>
                 </div>
                 <div className='flex items-center py-[0.65886rem] px-[0.43924rem]'>
@@ -219,112 +194,43 @@ export default function AllNews({posts, categories}) {
         </div>
         {/* san pham moi nhat */}
         <div className='flex items-start flex-col p-[1.75695rem] xmd:w-[26.28111rem] xmd:px-[0.87848rem] xmd:py-[1.76rem] rounded-[0.87848rem] bg-white'>
-          <p className='sub1 font-medium text-[#102841] mb-[1.76rem]'>
+          <h2 className='sub1 font-medium text-[#102841] mb-[1.76rem]'>
             SẢN PHẨM MỚI NHẤT
-          </p>
+          </h2>
           <ul className='flex flex-col items-center xmd:w-full'>
-            <li className='mb-[1.17rem] w-[18.96047rem] xmd:w-full flex items-center'>
-              <div className='mr-[0.73206rem] w-[4.61201rem] h-[4.61201rem] justify-center items-center pr-[0.01603rem] bg-white'>
-                <Image
-                  className='rounded-[0.29283rem] object-cover'
-                  alt='anh'
-                  width={63}
-                  height={63}
-                  src={'/contact/ang-test.png'}
-                />
-              </div>
-              <div className='flex flex-col items-start flex-1'>
-                <p className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
-                  Bút cảm ứng AstroMazing Pencil GD cho iPad
-                </p>
-                <p className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
-                  499.999
-                </p>
-              </div>
-            </li>
-            <li className='mb-[1.17rem] w-[18.96047rem] xmd:w-full flex items-center'>
-              <div className='mr-[0.73206rem] w-[4.61201rem] h-[4.61201rem] justify-center items-center pr-[0.01603rem] bg-white'>
-                <Image
-                  className='rounded-[0.29283rem] object-cover'
-                  alt='anh'
-                  width={63}
-                  height={63}
-                  src={'/contact/ang-test.png'}
-                />
-              </div>
-              <div className='flex flex-col items-start flex-1'>
-                <p className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
-                  Bút cảm ứng AstroMazing Pencil GD cho iPad
-                </p>
-                <p className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
-                  499.999
-                </p>
-              </div>
-            </li>
-            <li className='mb-[1.17rem] w-[18.96047rem] xmd:w-full flex items-center'>
-              <div className='mr-[0.73206rem] w-[4.61201rem] h-[4.61201rem] justify-center items-center pr-[0.01603rem] bg-white'>
-                <Image
-                  className='rounded-[0.29283rem] object-cover'
-                  alt='anh'
-                  width={63}
-                  height={63}
-                  src={'/contact/ang-test.png'}
-                />
-              </div>
-              <div className='flex flex-col items-start flex-1'>
-                <p className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
-                  Bút cảm ứng AstroMazing Pencil GD cho iPad
-                </p>
-                <p className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
-                  499.999
-                </p>
-              </div>
-            </li>
-            <li className='mb-[1.17rem] w-[18.96047rem] xmd:w-full flex items-center'>
-              <div className='mr-[0.73206rem] w-[4.61201rem] h-[4.61201rem] justify-center items-center pr-[0.01603rem] bg-white'>
-                <Image
-                  className='rounded-[0.29283rem] object-cover'
-                  alt='anh'
-                  width={63}
-                  height={63}
-                  src={'/contact/ang-test.png'}
-                />
-              </div>
-              <div className='flex flex-col items-start flex-1'>
-                <p className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
-                  Bút cảm ứng AstroMazing Pencil GD cho iPad
-                </p>
-                <p className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
-                  499.999
-                </p>
-              </div>
-            </li>
-            <li className='mb-[1.17rem] w-[18.96047rem] xmd:w-full flex items-center'>
-              <div className='mr-[0.73206rem] w-[4.61201rem] h-[4.61201rem] justify-center items-center pr-[0.01603rem] bg-white'>
-                <Image
-                  className='rounded-[0.29283rem] object-cover'
-                  alt='anh'
-                  width={63}
-                  height={63}
-                  src={'/contact/ang-test.png'}
-                />
-              </div>
-              <div className='flex flex-col items-start flex-1'>
-                <p className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
-                  Bút cảm ứng AstroMazing Pencil GD cho iPad
-                </p>
-                <p className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
-                  499.999
-                </p>
-              </div>
-            </li>
-            <button className='flex h-[2.63543rem] justify-center py-[0.80527rem] px-[1.46413rem] rounded-[7.32064rem] bg-[#F2F2F2]'>
-              <div className='flex items-center justify-center'>
-                <p className='font-semibold caption text-greyscale-80'>
-                  XEM THÊM
-                </p>
-              </div>
-            </button>
+            {Array(5)
+              .fill(0)
+              .map((_, index) => (
+                <li
+                  key={index}
+                  className='mb-[1.17rem] w-[18.96047rem] xmd:w-full flex items-center'
+                >
+                  <div className='mr-[0.73206rem] w-[4.61201rem] h-[4.61201rem] justify-center items-center pr-[0.01603rem] bg-white'>
+                    <Image
+                      className='rounded-[0.29283rem] object-cover'
+                      alt='anh'
+                      width={63}
+                      height={63}
+                      src={'/contact/ang-test.png'}
+                    />
+                  </div>
+                  <div className='flex flex-col items-start flex-1'>
+                    <h3 className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
+                      Bút cảm ứng AstroMazing Pencil GD cho iPad
+                    </h3>
+                    <span className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
+                      499.999
+                    </span>
+                  </div>
+                </li>
+              ))}
+
+            <Link
+              href={'/san-pham'}
+              className='flex h-[2.63543rem] justify-center font-semibold caption text-greyscale-80 py-[0.80527rem] px-[1.46413rem] rounded-[7.32064rem] bg-[#F2F2F2]'
+            >
+              XEM THÊM
+            </Link>
           </ul>
         </div>
       </aside>

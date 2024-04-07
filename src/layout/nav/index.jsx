@@ -17,6 +17,7 @@ export default async function Nav({isMobile, referer}) {
     >
       <WrapNav isMobile={isMobile}>
         <NavUp
+          categories={categories}
           isMobile={isMobile}
           referer={referer}
           session={session}
