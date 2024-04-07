@@ -12,7 +12,7 @@ export default function MenuNews({
   const router = useRouter()
   const pathName = usePathname()
   return (
-    <div className='relative flex items-center justify-end overflow-hidden size-full'>
+    <div className='relative flex items-center xlg:justify-start xmd:justify-end justify-end overflow-hidden size-full'>
       <div className='flex xmd:top-0 xmd:left-0 xmd:absolute xmd:w-full xmd:overflow-auto hidden-scrollbar '>
         <button
           onClick={() => {
