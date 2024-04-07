@@ -13,10 +13,10 @@ export default function TemVoucher({className = '', regularPrice, price}) {
       ? (Number(discount) / Number(regularPrice)) * 100
       : 0
   return (
-    <HoverCard>
+    <HoverCard openDelay={200}>
       <HoverCardTrigger asChild>
         <div
-          className={`${className} mt-[0.59rem] px-[0.29rem] rounded-[0.43924rem] h-[1.46413rem] w-fit bg-[#1CB684] flex justify-between items-center`}
+          className={`${className} mt-[0.59rem] px-[0.29rem] rounded-[0.43924rem] h-[1.46413rem] w-fit bg-[#1CB684] flex justify-between items-center cursor-context-menu`}
         >
           <Image
             className='size-[0.88rem] object-contain'
@@ -43,20 +43,20 @@ export default function TemVoucher({className = '', regularPrice, price}) {
         <div className='py-[0.88rem] my-[0.88rem] border-y border-[#D4D4D459]'>
           <div className='flex mb-[0.59rem] justify-between items-center'>
             <span className='text-greyscale-40'>Giá gốc</span>
-            <span className='text-greyscale-80 font-semibold'>
+            <span className='font-semibold text-greyscale-80'>
               {formatToVND(regularPrice ? regularPrice : price)}
             </span>
           </div>
 
           {discount > 0 && (
             <div className='flex mb-[0.59rem] justify-between items-center'>
-              <span className='text-greyscale-40 flex'>
+              <span className='flex text-greyscale-40'>
                 <p className='mr-[0.25rem]'>Giảm giá sản phẩm:</p>
                 <p className='font-semibold text-greyscale-80'>
                   -{Math.ceil(percent)}%
                 </p>
               </span>
-              <span className='text-greyscale-80 font-semibold'>
+              <span className='font-semibold text-greyscale-80'>
                 -{formatToVND(discount)}
               </span>
             </div>
@@ -64,15 +64,15 @@ export default function TemVoucher({className = '', regularPrice, price}) {
 
           <div className='flex mb-[0.59rem] justify-between items-center'>
             <span className='text-greyscale-40'>Voucher giảm giá:</span>
-            <span className='text-greyscale-80 font-semibold'>-17.000đ</span>
+            <span className='font-semibold text-greyscale-80'>-17.000đ</span>
           </div>
         </div>
 
         <div className='flex mb-[0.59rem] justify-between items-center'>
-          <span className='text-greyscale-80 caption1 font-medium'>
+          <span className='font-medium text-greyscale-80 caption1'>
             Giá tạm tính:
           </span>
-          <span className='text-orange-0 sub1 font-bold'>280.000đ</span>
+          <span className='font-bold text-orange-0 sub1'>280.000đ</span>
         </div>
       </HoverCardContent>
     </HoverCard>

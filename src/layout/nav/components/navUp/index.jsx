@@ -6,7 +6,7 @@ import MenuRes from './MenuRes'
 import Cart from './Cart'
 import getData from '@/lib/getData'
 
-export default async function NavUp({session, isMobile, referer}) {
+export default async function NavUp({session, isMobile, referer, categories}) {
   const productSuggest = await getData(
     '/okhub/v1/product/allProduct?limit=6&order=desc&page=1',
   )
@@ -32,6 +32,7 @@ export default async function NavUp({session, isMobile, referer}) {
       <BoxSearch
         isMobile={isMobile}
         productSuggest={productSuggest}
+        categories={categories}
       />
       <div
         id='cart_and_user'

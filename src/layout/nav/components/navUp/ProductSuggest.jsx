@@ -2,17 +2,18 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import {useRouter} from 'next/navigation'
-import {useState} from 'react'
 
-export default function ProductSuggest({productSuggest}) {
+export default function ProductSuggest({productSuggest, data}) {
   const router = useRouter()
-  const [isMore, setIsMore] = useState(false)
+  const products = data
+    ? data?.item.slice(0, 3)
+    : productSuggest?.item?.slice(0, 3)
   return (
     <>
       <span className='font-medium button text-greyscale-40 block mb-[1.46rem]'>
-        Sản phẩm gợi ý
+        {data ? 'Sản phẩm theo từ khoá tìm kiểm' : 'Sản phẩm gợi ý'}
       </span>
-      {productSuggest?.item?.slice(0, isMore ? 6 : 3)?.map((product, index) => (
+      {products?.map((product, index) => (
         <Link
           href={product?.slug}
           key={index}
@@ -36,13 +37,12 @@ export default function ProductSuggest({productSuggest}) {
       ))}
       <button
         onClick={() => {
-          isMore && router.push('/san-pham')
-          setIsMore(!isMore)
+          router.push('/san-pham')
         }}
         className='flex items-center mx-auto w-fit px-[0.5rem] pt-[0.76rem] mt-[1rem] hover:scale-105 hover:active:scale-95 select-none'
       >
         <span className='text-[#007BEE] button font-medium block w-fit mr-[0.29rem]'>
-          {isMore ? 'Xem tất cả' : 'Xem Thêm'}
+          Xem Thêm
         </span>
         <svg
           xmlns='http://www.w3.org/2000/svg'
