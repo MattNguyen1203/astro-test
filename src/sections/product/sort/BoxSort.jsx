@@ -1,7 +1,12 @@
 'use client'
 import useClickOutSide from '@/hooks/useClickOutSide'
 import Link from 'next/link'
-import {useParams, useRouter} from 'next/navigation'
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation'
 import {useEffect, useState} from 'react'
 
 const listSort = [
@@ -21,7 +26,10 @@ const listSort = [
 export default function BoxSort() {
   const router = useRouter()
   const params = useParams()
+  const searchParams = useSearchParams()
+  const pathName = usePathname()
   const [isOpen, setIsOpen] = useState(false)
+  console.log('🚀 ~ BoxSort ~ isOpen:', isOpen)
   const [sideRef, isOutSide] = useClickOutSide()
 
   useEffect(() => {
@@ -30,42 +38,15 @@ export default function BoxSort() {
 
   const handleSort = (query) => {
     setIsOpen(false)
-    if (params?.slug?.length) {
-      let pathName = '/san-pham/'
-      let paramsNew = [...params?.slug]
 
-      if (paramsNew?.includes('asc')) {
-        if (query === 'new') {
-          paramsNew.splice(paramsNew?.indexOf('asc'), 1)
-        } else {
-          paramsNew[paramsNew?.indexOf('asc')] = query
-        }
-      } else if (paramsNew?.includes('desc')) {
-        if (query === 'new') {
-          paramsNew.splice(paramsNew?.indexOf('desc'), 1)
-        } else {
-          paramsNew[paramsNew?.indexOf('desc')] = query
-        }
-      } else {
-        if (query !== 'new') {
-          let last = paramsNew[paramsNew?.length - 1]
-          paramsNew.pop()
-          paramsNew = [...paramsNew, query, last]
-        }
-      }
-
-      paramsNew?.map((e, index) => {
-        if (index < paramsNew?.length - 1) {
-          pathName += e + '/'
-        }
+    const paramNew = new URLSearchParams(searchParams)
+    if (query === 'new') {
+      paramNew.delete('sort')
+      router.push(pathName + '?' + paramNew.toString(), {
+        scroll: false,
       })
-      router.push(pathName + paramsNew[paramsNew?.length - 1])
     } else {
-      if (query === 'new') {
-        router.push('/san-pham/1')
-      } else {
-        router.push('/san-pham/' + query + '/1')
-      }
+      router.push('/san-pham/' + query + '/1')
     }
   }
 
@@ -110,9 +91,9 @@ export default function BoxSort() {
         </div>
         {isOpen && (
           <div className='absolute -bottom-[1.3rem] left-0 z-10 w-full translate-y-full h-fit rounded-[0.87848rem] bg-white shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)] px-[0.88rem] py-[1.17rem] flex flex-col before:absolute before:w-[1.46413rem] before:h-[1.1713rem] before:-top-[0.4rem] before:right-[0.88rem] before:rotate-45 before:origin-center before:bg-white before:z-10 '>
-            {listSort.map((e, index) => (
+            {listSort?.map((e, index) => (
               <div
-                onClick={() => handleSort(e.query)}
+                onClick={() => handleSort(e?.query)}
                 className={`${
                   index === handleIndexSort()
                     ? 'bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] text-white pointer-events-none'
