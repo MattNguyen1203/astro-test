@@ -16,7 +16,7 @@ const linkNavUp = [
   },
   {
     title: 'Góc công nghệ',
-    href: '/goc-cong-nghe',
+    href: '/tin-tuc/goc-cong-nghe',
   },
   {
     title: 'Cửa hàng',

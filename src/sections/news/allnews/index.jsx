@@ -1,6 +1,5 @@
 'use client'
-import {Fragment, useRef} from 'react'
-import ItemNews from '../ItemNews'
+import {useRef} from 'react'
 import Image from 'next/image'
 import {useParams, useSearchParams} from 'next/navigation'
 import useSWR from 'swr'
@@ -8,8 +7,9 @@ import {fetcher} from '@/lib/utils'
 import Link from 'next/link'
 import PaginationPosts from '@/sections/account/components/pagination/PaginationPosts'
 import MenuNewsLink from '../MenuNewsLink'
+import GridNews from './GridNews'
 
-export default function AllNews({posts, categories}) {
+export default function AllNews({posts, categories, before, url}) {
   const boxRef = useRef(null)
   const searchParams = useSearchParams()
   const params = useParams()
@@ -56,24 +56,16 @@ export default function AllNews({posts, categories}) {
           />
         </div>
         <div className='w-full bg-white lg:p-[1.76rem] rounded-[0.87848rem]'>
-          {postsNew?.map((post, index) => (
-            <Fragment key={index}>
-              <ItemNews
-                isOption={true}
-                post={post}
-              />
-              {index !== posts?.item?.length - 1 && (
-                <hr className='w-full my-[1.76rem] h-[0.07rem] bg-[#EBF0F7]' />
-              )}
-            </Fragment>
-          ))}
+          <GridNews postsNew={postsNew} />
           {Number(countPage) > 1 && (
             <div className='mt-[2.34rem] flex justify-center'>
               <PaginationPosts
                 pageCount={Math.ceil(posts?.count / 6)}
                 pageRangeDisplayed={5}
-                page={page}
                 ref={boxRef}
+                page={Number(params?.page)}
+                before={before}
+                url={url}
               />
             </div>
           )}
