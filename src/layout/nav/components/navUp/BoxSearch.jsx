@@ -41,13 +41,14 @@ export default function BoxSearch({isMobile, productSuggest, categories}) {
       : null,
     fetcher,
     {
-      refreshInterval: 1000,
       revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
     },
   )
-  console.log('🚀 ~ InputSearchNav ~ data:', data)
+
+  // refreshInterval: isValue ? 1000 : false,
+
   return (
     <div
       id='container_search_nav'

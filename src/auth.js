@@ -98,7 +98,6 @@ export const {
           }),
         )
         if (res?.user_id) {
-          console.log('🚀 ~ authorize ~ res:', res)
           return res
         } else {
           return JSON.parse(res)

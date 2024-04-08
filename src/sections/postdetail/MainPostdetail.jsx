@@ -1,4 +1,4 @@
-import React from 'react'
+import './postdetail.css'
 import Image from 'next/image'
 import ContentPostDetail from '@/sections/postdetail/ContentPostDetail'
 const MainPostdetail = ({data}) => {

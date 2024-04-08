@@ -1,28 +1,61 @@
 'use client'
 
-import useStore from '@/app/(store)/store'
-import {usePathname, useRouter, useSearchParams} from 'next/navigation'
+import {useParams, useRouter, useSearchParams} from 'next/navigation'
 import {forwardRef} from 'react'
 import ReactPaginate from 'react-paginate'
 
-const PaginationIndex = forwardRef(
-  ({pageCount = 10, pageRangeDisplayed = 2, page = null}, ref) => {
+const PaginationPosts = forwardRef(
+  ({pageCount = 10, pageRangeDisplayed = 2}, ref) => {
     const searchParams = useSearchParams()
-    const pathName = usePathname()
-    const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
+    const params = useParams()
     const router = useRouter()
 
+    const page =
+      params?.category?.length > 1
+        ? params?.category[1]
+        : params?.category?.length === 1 && Number(params?.category[0])
+        ? Number(params?.category[0])
+        : 1
+
     const handleRouter = (page) => {
-      console.log('🚀 ~ handleRouter ~ page:', page)
       const paramNew = new URLSearchParams(searchParams)
       if (page <= 1) {
-        paramNew.delete('page')
+        if (params?.category?.length > 1) {
+          const pathNameNew = '/tin-tuc/' + params?.category[0]
+          if (ref) {
+            ref?.current?.scrollIntoView({behavior: 'smooth'})
+          }
+          router.push(pathNameNew + '?' + paramNew.toString(), {
+            scroll: false,
+          })
+        } else {
+          const pathNameNew = '/tin-tuc'
+          if (ref) {
+            ref?.current?.scrollIntoView({behavior: 'smooth'})
+          }
+          router.push(pathNameNew + '?' + paramNew.toString(), {
+            scroll: false,
+          })
+        }
       } else {
-        paramNew.set('page', page)
+        if (params?.category?.length) {
+          const pathNameNew = '/tin-tuc/' + params?.category[0] + `/${page}`
+          if (ref) {
+            ref?.current?.scrollIntoView({behavior: 'smooth'})
+          }
+          router.push(pathNameNew + '?' + paramNew.toString(), {
+            scroll: false,
+          })
+        } else {
+          const pathNameNew = '/tin-tuc/' + `${page}`
+          if (ref) {
+            ref?.current?.scrollIntoView({behavior: 'smooth'})
+          }
+          router.push(pathNameNew + '?' + paramNew.toString(), {
+            scroll: false,
+          })
+        }
       }
-      router.push(pathName + '?' + paramNew.toString(), {
-        scroll: false,
-      })
     }
     return (
       <ReactPaginate
@@ -67,16 +100,7 @@ const PaginationIndex = forwardRef(
         }
         nextClassName='rounded-full bg-white size-[2.63543rem] flex justify-center items-center shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_28px_0px_rgba(12,46,112,0.04)] ml-[1.43rem]'
         onPageChange={(e) => {
-          // if (Number(e?.selected) === 0) {
-          //   router.push('/tin-tuc', {
-          //     scroll: false,
-          //   })
-          // } else {
-          setIsFilterProduct(true)
           handleRouter(Number(e?.selected) + 1)
-          if (ref) {
-            ref?.current?.scrollIntoView({behavior: 'smooth'})
-          }
         }}
         // hrefBuilder={(e) => `/tin-tuc/p/${e}`}
         pageRangeDisplayed={pageRangeDisplayed}
@@ -91,4 +115,4 @@ const PaginationIndex = forwardRef(
     )
   },
 )
-export default PaginationIndex
+export default PaginationPosts

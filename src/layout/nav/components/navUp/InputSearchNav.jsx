@@ -6,8 +6,10 @@ import {useRouter} from 'next/navigation'
 
 export default function InputSearchNav({setIsValue, isValue, isMobile}) {
   const router = useRouter()
+
   const setIsFocusSearchNav = useStore((state) => state.setIsFocusSearchNav)
   const isFocusSearchNav = useStore((state) => state.isFocusSearchNav)
+
   const handleSubmit = (e) => {
     e.preventDefault()
     router.push('/san-pham')

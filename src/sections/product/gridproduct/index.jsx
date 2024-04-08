@@ -1,8 +1,10 @@
 'use client'
+import {Fragment, useEffect} from 'react'
+
 import useStore from '@/app/(store)/store'
+
 import CardProduct from '@/components/cardproduct'
 import SkeletonCardProduct from '@/components/cardproduct/SkeletonCardProduct'
-import {Fragment, useEffect} from 'react'
 
 export default function GridProduct({
   products,
@@ -12,12 +14,13 @@ export default function GridProduct({
 }) {
   const isFilterProduct = useStore((state) => state.isFilterProduct)
   const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
+
   useEffect(() => {
     setIsFilterProduct(false)
   }, [])
+
   const limit = Number(products?.item?.length) || 0
   const colsProduct = limit ? Math.ceil(limit / 4) : 4
-  console.log('🚀 ~ products:', products)
   return (
     <div
       style={{

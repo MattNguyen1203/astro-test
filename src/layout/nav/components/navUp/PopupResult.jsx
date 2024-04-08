@@ -7,7 +7,6 @@ export default function PopupResult({
   isValue,
   data,
 }) {
-  console.log('🚀 ~ isValue:', isValue)
   const categorySearch =
     categories?.filter((e) =>
       e?.name?.toLowerCase()?.includes(isValue.toLowerCase()),
