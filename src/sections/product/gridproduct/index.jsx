@@ -16,7 +16,7 @@ export default function GridProduct({
   const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
 
   useEffect(() => {
-    setIsFilterProduct(false)
+    isFilterProduct && setIsFilterProduct(false)
   }, [])
 
   const limit = Number(products?.item?.length) || 0

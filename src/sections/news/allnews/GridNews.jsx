@@ -9,7 +9,7 @@ export default function GridNews({postsNew}) {
   const setIsFilterPosts = useStore((state) => state.setIsFilterPosts)
   const isFilterPosts = useStore((state) => state.isFilterPosts)
   useEffect(() => {
-    setIsFilterPosts(false)
+    isFilterPosts && setIsFilterPosts(false)
   }, [])
   return (
     <>
