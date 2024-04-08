@@ -1,62 +1,74 @@
 'use client'
 
+import useStore from '@/app/(store)/store'
 import {useParams, useRouter, useSearchParams} from 'next/navigation'
 import {forwardRef} from 'react'
 import ReactPaginate from 'react-paginate'
 
 const PaginationPosts = forwardRef(
-  ({pageCount = 10, pageRangeDisplayed = 2}, ref) => {
+  (
+    {
+      pageCount = 10,
+      pageRangeDisplayed = 2,
+      page = null,
+      before = '',
+      url = '/tin-tuc/',
+    },
+    ref,
+  ) => {
     const searchParams = useSearchParams()
     const params = useParams()
     const router = useRouter()
+    const setIsFilterPosts = useStore((state) => state.setIsFilterPosts)
 
-    const page =
-      params?.category?.length > 1
-        ? params?.category[1]
-        : params?.category?.length === 1 && Number(params?.category[0])
-        ? Number(params?.category[0])
-        : 1
+    const pageCurrent = page
+      ? page
+      : params?.category?.length > 1
+      ? params?.category[1]
+      : params?.category?.length === 1 && Number(params?.category[0])
+      ? Number(params?.category[0])
+      : 1
 
     const handleRouter = (page) => {
       const paramNew = new URLSearchParams(searchParams)
       if (page <= 1) {
         if (params?.category?.length > 1) {
-          const pathNameNew = '/tin-tuc/' + params?.category[0]
+          const pathNameNew = url + before + params?.category[0]
+          setIsFilterPosts(true)
           if (ref) {
             ref?.current?.scrollIntoView({behavior: 'smooth'})
           }
           router.push(pathNameNew + '?' + paramNew.toString(), {
             scroll: false,
-            shallow: true,
           })
         } else {
-          const pathNameNew = '/tin-tuc'
+          const pathNameNew = url?.slice(0, url?.length - 1)
+          setIsFilterPosts(true)
           if (ref) {
             ref?.current?.scrollIntoView({behavior: 'smooth'})
           }
           router.push(pathNameNew + '?' + paramNew.toString(), {
             scroll: false,
-            shallow: true,
           })
         }
       } else {
         if (params?.category?.length) {
-          const pathNameNew = '/tin-tuc/' + params?.category[0] + `/${page}`
+          const pathNameNew = url + before + params?.category[0] + `/${page}`
+          setIsFilterPosts(true)
           if (ref) {
             ref?.current?.scrollIntoView({behavior: 'smooth'})
           }
           router.push(pathNameNew + '?' + paramNew.toString(), {
             scroll: false,
-            shallow: true,
           })
         } else {
-          const pathNameNew = '/tin-tuc/' + `${page}`
+          const pathNameNew = url + before + `${page}`
+          setIsFilterPosts(true)
           if (ref) {
             ref?.current?.scrollIntoView({behavior: 'smooth'})
           }
           router.push(pathNameNew + '?' + paramNew.toString(), {
             scroll: false,
-            shallow: true,
           })
         }
       }
@@ -111,7 +123,7 @@ const PaginationPosts = forwardRef(
         // pageCount={Math.ceil(data?.meta?.pageCount) || 1}
         pageCount={pageCount}
         renderOnZeroPageCount={null}
-        forcePage={page ? page - 1 : 0}
+        forcePage={pageCurrent ? pageCurrent - 1 : 0}
         // pageClassName={classes.page}
         // activeClassName={classes.selected}
         className={'flex justify-center items-center'}

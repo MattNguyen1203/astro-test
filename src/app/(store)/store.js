@@ -3,6 +3,7 @@ const useStore = create((set) => ({
   isFocusSearchNav: false,
   isOpenMegaMenuRes: false,
   isFilterProduct: false,
+  isFilterPosts: false,
   setIsFocusSearchNav: (data) => {
     set((state) => {
       return {
@@ -24,6 +25,14 @@ const useStore = create((set) => ({
       return {
         ...state,
         isFilterProduct: data,
+      }
+    })
+  },
+  setIsFilterPosts: (data) => {
+    set((state) => {
+      return {
+        ...state,
+        isFilterPosts: data,
       }
     })
   },

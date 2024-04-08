@@ -25,7 +25,7 @@ const listCategories = [
   },
   {
     title: 'GÓC CÔNG NGHỆ',
-    href: '/goc-cong-nghe',
+    href: '/tin-tuc/goc-cong-nghe',
   },
   {
     title: 'CỬA HÀNG',
