@@ -68,3 +68,45 @@ toast.promise(promise, {
 ## Chỉ call 1 api
 ## Vẫn giữ được SEO
 ## SEO chi tiết sản phẩm "!IMPORTANT "
+
+
+const handleRouter = (page) => {
+      const paramNew = new URLSearchParams(searchParams)
+      if (page <= 1) {
+        if (params?.category?.length > 1) {
+          const pathNameNew = '/tin-tuc/' + params?.category[0]
+          if (ref) {
+            ref?.current?.scrollIntoView({behavior: 'smooth'})
+          }
+          router.push(pathNameNew + '?' + paramNew.toString(), {
+            scroll: false,
+          })
+        } else {
+          const pathNameNew = '/tin-tuc'
+          if (ref) {
+            ref?.current?.scrollIntoView({behavior: 'smooth'})
+          }
+          router.push(pathNameNew + '?' + paramNew.toString(), {
+            scroll: false,
+          })
+        }
+      } else {
+        if (params?.category?.length) {
+          const pathNameNew = '/tin-tuc/' + params?.category[0] + `/${page}`
+          if (ref) {
+            ref?.current?.scrollIntoView({behavior: 'smooth'})
+          }
+          router.push(pathNameNew + '?' + paramNew.toString(), {
+            scroll: false,
+          })
+        } else {
+          const pathNameNew = '/tin-tuc/' + `${page}`
+          if (ref) {
+            ref?.current?.scrollIntoView({behavior: 'smooth'})
+          }
+          router.push(pathNameNew + '?' + paramNew.toString(), {
+            scroll: false,
+          })
+        }
+      }
+    }

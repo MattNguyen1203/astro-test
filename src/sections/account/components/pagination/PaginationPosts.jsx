@@ -27,6 +27,7 @@ const PaginationPosts = forwardRef(
           }
           router.push(pathNameNew + '?' + paramNew.toString(), {
             scroll: false,
+            shallow: true,
           })
         } else {
           const pathNameNew = '/tin-tuc'
@@ -35,6 +36,7 @@ const PaginationPosts = forwardRef(
           }
           router.push(pathNameNew + '?' + paramNew.toString(), {
             scroll: false,
+            shallow: true,
           })
         }
       } else {
@@ -45,6 +47,7 @@ const PaginationPosts = forwardRef(
           }
           router.push(pathNameNew + '?' + paramNew.toString(), {
             scroll: false,
+            shallow: true,
           })
         } else {
           const pathNameNew = '/tin-tuc/' + `${page}`
@@ -53,6 +56,7 @@ const PaginationPosts = forwardRef(
           }
           router.push(pathNameNew + '?' + paramNew.toString(), {
             scroll: false,
+            shallow: true,
           })
         }
       }

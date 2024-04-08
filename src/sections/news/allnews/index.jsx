@@ -2,12 +2,12 @@
 import {Fragment, useRef} from 'react'
 import ItemNews from '../ItemNews'
 import Image from 'next/image'
-import MenuNews from '../MenuNews'
 import {useParams, useSearchParams} from 'next/navigation'
 import useSWR from 'swr'
 import {fetcher} from '@/lib/utils'
 import Link from 'next/link'
 import PaginationPosts from '@/sections/account/components/pagination/PaginationPosts'
+import MenuNewsLink from '../MenuNewsLink'
 
 export default function AllNews({posts, categories}) {
   const boxRef = useRef(null)
@@ -46,7 +46,8 @@ export default function AllNews({posts, categories}) {
           <h2 className='font-semibold text-blue-700 h5 whitespace-nowrap'>
             Tin tức
           </h2>
-          <MenuNews
+          <MenuNewsLink
+            searchParams={searchParams}
             categories={categories}
             isPage={true}
             categoryCurrent={
