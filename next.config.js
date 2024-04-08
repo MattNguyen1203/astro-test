@@ -16,9 +16,6 @@ const nextConfig = {
     // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [{protocol: 'https', hostname: '**'}],
   },
-  experimental: {
-    nextScriptWorkers: true,
-  },
   // experimental: {
   //   optimizePackageImports: ["gsap", "embla-carousel-react"],
   // },
