@@ -12,7 +12,6 @@ export default async function CategoryProductPage({params, searchParams}) {
     }&page=1&order=desc`,
   )
 
-  console.log('🚀 ~ CategoryProductPage ~ products:', products)
   return (
     <IndexProduct
       isMobile={isMobile}
