@@ -45,3 +45,22 @@ export default function GridProduct({
     </div>
   )
 }
+
+const GridProductLoading = () => {
+  return (
+    <div
+      style={{
+        gridTemplateRows: `repeat(4, minmax(0, 1fr))`,
+      }}
+      className={`grid xmd:grid-cols-2 grid-cols-4 gap-y-[1.17rem] gap-x-[0.88rem] xmd:gap-[0.59rem] xmd:container`}
+    >
+      {Array(16)
+        .fill(0)
+        .map((_, index) => (
+          <SkeletonCardProduct key={index} />
+        ))}
+    </div>
+  )
+}
+GridProductLoading.displayName = 'GridProductLoading'
+export {GridProductLoading}

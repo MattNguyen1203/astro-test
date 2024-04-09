@@ -4,6 +4,7 @@ import SocialProduct from './SocialProduct'
 import WrapperBoxFilter from './WrapperBoxFilter'
 import Special from './Special'
 import Device from './Device'
+import {Skeleton} from '@/components/ui/skeleton'
 
 export default function Aside() {
   return (
@@ -30,3 +31,13 @@ export default function Aside() {
     </aside>
   )
 }
+
+const AsideLoading = () => {
+  return (
+    <aside className='w-[16.17862rem] h-[20rem] sticky top-[9.76rem] left-0 z-[99] rounded-[0.87848rem] overflow-hidden'>
+      <Skeleton className='size-full' />
+    </aside>
+  )
+}
+AsideLoading.displayName = 'AsideLoading'
+export {AsideLoading}
