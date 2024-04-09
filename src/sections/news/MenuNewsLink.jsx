@@ -26,7 +26,10 @@ export default function MenuNewsLink({
     <div className='relative flex items-center justify-end overflow-hidden xlg:justify-start xmd:justify-end size-full'>
       <div className='flex xmd:top-0 xmd:left-0 xmd:absolute xmd:w-full xmd:overflow-auto hidden-scrollbar '>
         <Link
-          onClick={() => setIsFilterPosts(true)}
+          onClick={() => {
+            if (pathName?.includes('/tin-tuc')) return
+            setIsFilterPosts(true)
+          }}
           scroll={false}
           href='/tin-tuc'
           className={`${
@@ -39,7 +42,10 @@ export default function MenuNewsLink({
         </Link>
         {categories?.map((category, index) => (
           <Link
-            onClick={() => setIsFilterPosts(true)}
+            onClick={() => {
+              if (pathName?.includes(category?.slug)) return
+              setIsFilterPosts(true)
+            }}
             scroll={false}
             href={handleHref(category)}
             key={index}

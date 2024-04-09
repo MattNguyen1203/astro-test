@@ -14,13 +14,13 @@ export default async function ProductIndex({isMobile}) {
         <div className='container'>
           <CategoryProductRes
             title='SẢN PHẨM MỚI NHẤT'
-            href='/'
+            href='/san-pham'
           />
         </div>
       ) : (
         <CategoryProduct
           title='SẢN PHẨM MỚI NHẤT'
-          href='/'
+          href='/san-pham'
         />
       )}
       {isMobile ? (

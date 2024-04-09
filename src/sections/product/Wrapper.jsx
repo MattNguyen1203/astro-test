@@ -1,6 +1,6 @@
 'use client'
 
-import {useEffect, useRef} from 'react'
+import {Suspense, useEffect, useRef} from 'react'
 import {useParams, useSearchParams} from 'next/navigation'
 
 import useSWR from 'swr'
@@ -8,7 +8,7 @@ import {fetcher} from '@/lib/utils'
 import useStore from '@/app/(store)/store'
 
 import PaginationIndex from '../account/components/pagination'
-import GridProduct from './gridproduct'
+import GridProduct, {GridProductLoading} from './gridproduct'
 import Sort from './sort'
 
 export default function Wrapper({isMobile, products, children}) {
@@ -81,12 +81,14 @@ export default function Wrapper({isMobile, products, children}) {
           isMobile={isMobile}
           products={isFilter() ? data : products}
         />
-        <GridProduct
-          products={isFilter() ? data : products}
-          priority={true}
-          indexPriority={8}
-          isMobile={isMobile}
-        />
+        <Suspense fallback={<GridProductLoading />}>
+          <GridProduct
+            products={isFilter() ? data : products}
+            priority={true}
+            indexPriority={8}
+            isMobile={isMobile}
+          />
+        </Suspense>
         {pageCount > 0 && (
           <div className='flex justify-center mt-[2.34rem]'>
             <PaginationIndex

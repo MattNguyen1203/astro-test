@@ -51,6 +51,7 @@ export default function PopupCategories({
                       >
                         <div
                           onClick={() => {
+                            if (isActiveCategory(category?.slug)) return
                             setIsFilterProduct(true)
                             const paramNew = new URLSearchParams(searchParams)
                             router.push(
@@ -101,6 +102,7 @@ export default function PopupCategories({
                             >
                               <h3
                                 onClick={() => {
+                                  if (isActiveCategory(item?.slug)) return
                                   setIsFilterProduct(true)
                                   const paramNew = new URLSearchParams(
                                     searchParams,
@@ -122,6 +124,7 @@ export default function PopupCategories({
                                 {item?.children?.map((e, idx) => (
                                   <li
                                     onClick={() => {
+                                      if (isActiveCategory(e?.slug)) return
                                       setIsFilterProduct(true)
                                       const paramNew = new URLSearchParams(
                                         searchParams,
@@ -154,6 +157,7 @@ export default function PopupCategories({
                   ) : (
                     <div
                       onClick={() => {
+                        if (isActiveCategory(category?.slug)) return
                         setIsFilterProduct(true)
                         const paramNew = new URLSearchParams(searchParams)
                         router.push(
@@ -197,6 +201,8 @@ export default function PopupCategories({
                 <hr className='w-full bg-[#ECECECB2] h-[0.07321rem] mb-[0.88rem]' />
                 <button
                   onClick={() => {
+                    if (Number(params?.category?.[0]) || !params?.category)
+                      return
                     setIsFilterProduct(true)
                     const paramNew = new URLSearchParams(searchParams)
                     router.push(`/san-pham` + '?' + paramNew.toString(), {

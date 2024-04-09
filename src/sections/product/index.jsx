@@ -1,7 +1,8 @@
 import BreadCrumb from '@/components/breadcrumb'
 import Image from 'next/image'
 import Wrapper from './Wrapper'
-import Aside from './aside'
+import Aside, {AsideLoading} from './aside'
+import {Suspense} from 'react'
 
 export default function IndexProduct({products, isMobile}) {
   return (
@@ -26,7 +27,11 @@ export default function IndexProduct({products, isMobile}) {
         isMobile={isMobile}
         products={products}
       >
-        {!isMobile && <Aside />}
+        {!isMobile && (
+          <Suspense fallback={<AsideLoading />}>
+            <Aside />
+          </Suspense>
+        )}
       </Wrapper>
     </main>
   )

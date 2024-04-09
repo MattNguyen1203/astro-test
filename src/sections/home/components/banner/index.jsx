@@ -4,6 +4,7 @@ import {Autoplay, Navigation, Pagination} from 'swiper/modules'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import Image from 'next/image'
 import {handleViewPort} from '@/lib/utils'
+import {Skeleton} from '@/components/ui/skeleton'
 
 export default function BannerHome({viewport, isMobile}) {
   const pagination = {
@@ -124,3 +125,13 @@ export default function BannerHome({viewport, isMobile}) {
     </article>
   )
 }
+
+const BannerLoading = () => {
+  return (
+    <article className='h-[29.55447rem] xmd:h-[11.85944rem] container mt-[1.17rem] relative rounded-[0.87848rem] overflow-hidden'>
+      <Skeleton className='size-full' />
+    </article>
+  )
+}
+BannerLoading.displayName = 'BannerLoading'
+export {BannerLoading}
