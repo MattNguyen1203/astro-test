@@ -5,21 +5,11 @@
   overflow: hidden;
   top: auto;
   bottom: 1.02rem;
-  @media (max-width: 767px) {
-    background: #ebebeb;
-    bottom: 0;
-    width: 16.61786rem;
-    left: 50%;
-    transform: translateX(-50%);
-  }
 }
 
 #accessory_swiper .swiper-scrollbar .swiper-scrollbar-drag {
   border-radius: 0.21962rem;
   background: rgba(69, 97, 125, 1);
-  @media (max-width: 767px) {
-    background: #002f60;
-  }
 }
 
 .arrow-loop {
@@ -32,5 +22,17 @@
   }
   to {
     transform: translateX(0.6rem);
+  }
+}
+@media (max-width: 767px) {
+  #accessory_swiper .swiper-scrollbar .swiper-scrollbar-drag {
+    background: #002f60;
+  }
+  #accessory_swiper .swiper-scrollbar {
+    background: #ebebeb;
+    bottom: 0;
+    width: 16.61786rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }

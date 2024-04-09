@@ -11,7 +11,7 @@ import Image from 'next/image'
 // import SheetCategories from '../sheetcategories'
 import dynamic from 'next/dynamic'
 import {useState} from 'react'
-import CheckDefault from '../sheetcategories/BoxCheck'
+import CheckDefault from '../sheetcategories/CheckDefault'
 import {RadioGroup, RadioGroupItem} from '../ui/radio-group'
 import {Label} from '../ui/label'
 const SheetCategories = dynamic(() => import('../sheetcategories'))

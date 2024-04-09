@@ -7,7 +7,10 @@ export default function IndexNews() {
   return (
     <main className='pt-[9.76rem] bg-elevation-10'>
       <div className='container'>
-        <BreadCrumb />
+        <BreadCrumb
+          category={'Tin tức'}
+          categorySlg={'/tin-tuc'}
+        />
       </div>
       <WrapperHandBook />
       <WrapperReview />

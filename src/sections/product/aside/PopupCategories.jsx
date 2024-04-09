@@ -1,6 +1,9 @@
 'use client'
 
 import useStore from '@/app/(store)/store'
+import Image from 'next/image'
+import {useRouter, useSearchParams} from 'next/navigation'
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -8,8 +11,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu'
-import Image from 'next/image'
-import {useRouter} from 'next/navigation'
 
 export default function PopupCategories({
   isOpen = true,
@@ -17,7 +18,12 @@ export default function PopupCategories({
   params,
 }) {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
+
+  const isActiveCategory = (slug) => {
+    if (params?.category?.[0] === slug) return true
+  }
 
   return (
     <>
@@ -46,11 +52,18 @@ export default function PopupCategories({
                         <div
                           onClick={() => {
                             setIsFilterProduct(true)
-                            router.push(`/san-pham/${category?.slug}/1`)
+                            const paramNew = new URLSearchParams(searchParams)
+                            router.push(
+                              `/san-pham/${category?.slug}` +
+                                '?' +
+                                paramNew.toString(),
+                              {
+                                scroll: false,
+                              },
+                            )
                           }}
                           className={`${
-                            params?.slug?.length &&
-                            params?.slug[0] === category?.slug
+                            isActiveCategory(category?.slug)
                               ? 'shadow-[0px_2px_30px_0px_rgba(0,0,0,0.10)] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)]'
                               : 'bg-white hover:bg-elevation-30'
                           } ${
@@ -66,35 +79,17 @@ export default function PopupCategories({
                           />
                           <span
                             className={`${
-                              params?.slug?.length &&
-                              params?.slug[0] === category?.slug
+                              isActiveCategory(category?.slug)
                                 ? 'text-white'
                                 : 'text-greyscale-80'
                             } caption1 block w-fit ml-[0.88rem] font-semibold transition-all duration-200`}
                           >
                             {category?.name}
                           </span>
-                          <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            width='16'
-                            height='17'
-                            viewBox='0 0 16 17'
-                            fill='none'
+                          <ICArrowRight
+                            isActive={isActiveCategory(category?.slug)}
                             className='w-[1.1713rem] h-auto absolute top-1/2 right-[0.59rem] -translate-y-1/2'
-                          >
-                            <path
-                              d='M6.66699 5.60938L9.33366 8.27604L6.66699 10.9427'
-                              stroke={
-                                params?.slug?.length &&
-                                params?.slug[0] === category?.slug
-                                  ? 'white'
-                                  : 'black'
-                              }
-                              strokeWidth='2'
-                              strokeLinecap='round'
-                              strokeLinejoin='round'
-                            />
-                          </svg>
+                          />
                         </div>
                       </NavigationMenuTrigger>
                       <NavigationMenuContent className='w-[54.75842rem] rounded-[1.75695rem] p-[1.46rem]'>
@@ -107,8 +102,16 @@ export default function PopupCategories({
                               <h3
                                 onClick={() => {
                                   setIsFilterProduct(true)
+                                  const paramNew = new URLSearchParams(
+                                    searchParams,
+                                  )
                                   router.push(
-                                    `/san-pham/${category?.slug}/${item?.slug}/1`,
+                                    `/san-pham/${item?.slug}` +
+                                      '?' +
+                                      paramNew.toString(),
+                                    {
+                                      scroll: false,
+                                    },
                                   )
                                 }}
                                 className='font-bold text-blue-600 caption1 pl-[0.3rem]'
@@ -120,13 +123,21 @@ export default function PopupCategories({
                                   <li
                                     onClick={() => {
                                       setIsFilterProduct(true)
+                                      const paramNew = new URLSearchParams(
+                                        searchParams,
+                                      )
                                       router.push(
-                                        `/san-pham/${category?.slug}/${item?.slug}/${e?.slug}/1`,
+                                        `/san-pham/${e?.slug}` +
+                                          '?' +
+                                          paramNew.toString(),
+                                        {
+                                          scroll: false,
+                                        },
                                       )
                                     }}
                                     key={idx}
                                     className={`${
-                                      params?.slug?.includes(e?.slug)
+                                      params?.category?.includes(e?.slug)
                                         ? 'bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] text-white'
                                         : 'bg-elevation-20 text-blue-800'
                                     } font-bold caption1 w-fit px-[0.73rem] py-[0.44rem] rounded-[7.5rem]`}
@@ -144,11 +155,18 @@ export default function PopupCategories({
                     <div
                       onClick={() => {
                         setIsFilterProduct(true)
-                        router.push(`/san-pham/${category?.slug}/1`)
+                        const paramNew = new URLSearchParams(searchParams)
+                        router.push(
+                          `/san-pham/${category?.slug}` +
+                            '?' +
+                            paramNew.toString(),
+                          {
+                            scroll: false,
+                          },
+                        )
                       }}
                       className={`${
-                        params?.slug?.length &&
-                        params?.slug[0] === category?.slug
+                        isActiveCategory(category?.slug)
                           ? 'shadow-[0px_2px_30px_0px_rgba(0,0,0,0.10)] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)]'
                           : 'bg-white hover:bg-elevation-30'
                       } ${
@@ -164,8 +182,7 @@ export default function PopupCategories({
                       />
                       <span
                         className={`${
-                          params?.slug?.length &&
-                          params?.slug[0] === category?.slug
+                          isActiveCategory(category?.slug)
                             ? 'text-white'
                             : 'text-greyscale-80'
                         } caption1 block w-fit ml-[0.88rem] font-semibold transition-all duration-200`}
@@ -181,10 +198,13 @@ export default function PopupCategories({
                 <button
                   onClick={() => {
                     setIsFilterProduct(true)
-                    router.push('/san-pham/1')
+                    const paramNew = new URLSearchParams(searchParams)
+                    router.push(`/san-pham` + '?' + paramNew.toString(), {
+                      scroll: false,
+                    })
                   }}
                   className={`${
-                    params?.slug?.length < 2
+                    Number(params?.category?.[0]) || !params?.category
                       ? 'shadow-[0px_2px_30px_0px_rgba(0,0,0,0.10)] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] text-white'
                       : 'text-greyscale-80 hover:bg-elevation-20'
                   } font-semibold caption1 h-[2.92826rem] w-full flex justify-center items-center rounded-[0.29283rem]`}
@@ -199,3 +219,25 @@ export default function PopupCategories({
     </>
   )
 }
+
+const ICArrowRight = ({isActive, className = ''}) => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='16'
+      height='17'
+      viewBox='0 0 16 17'
+      fill='none'
+      className={className}
+    >
+      <path
+        d='M6.66699 5.60938L9.33366 8.27604L6.66699 10.9427'
+        stroke={isActive ? 'white' : 'black'}
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      />
+    </svg>
+  )
+}
+ICArrowRight.displayName = 'ICArrowRight'

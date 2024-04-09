@@ -1,12 +1,7 @@
 'use client'
+import useStore from '@/app/(store)/store'
 import useClickOutSide from '@/hooks/useClickOutSide'
-import Link from 'next/link'
-import {
-  useParams,
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from 'next/navigation'
+import {usePathname, useRouter, useSearchParams} from 'next/navigation'
 import {useEffect, useState} from 'react'
 
 const listSort = [
@@ -25,12 +20,13 @@ const listSort = [
 ]
 export default function BoxSort() {
   const router = useRouter()
-  const params = useParams()
   const searchParams = useSearchParams()
+  const sort = searchParams.get('sort')
   const pathName = usePathname()
+  const flashsale = searchParams.get('flashsale')
   const [isOpen, setIsOpen] = useState(false)
-  console.log('🚀 ~ BoxSort ~ isOpen:', isOpen)
   const [sideRef, isOutSide] = useClickOutSide()
+  const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
 
   useEffect(() => {
     if (isOutSide) return setIsOpen(false)
@@ -41,28 +37,49 @@ export default function BoxSort() {
 
     const paramNew = new URLSearchParams(searchParams)
     if (query === 'new') {
+      setIsFilterProduct(true)
       paramNew.delete('sort')
       router.push(pathName + '?' + paramNew.toString(), {
         scroll: false,
       })
     } else {
-      router.push('/san-pham/' + query + '/1')
+      setIsFilterProduct(true)
+      paramNew.set('sort', query)
+      router.push(pathName + '?' + paramNew.toString(), {
+        scroll: false,
+      })
     }
   }
 
   const handleIndexSort = () => {
-    if (params?.slug?.includes('asc')) return 1
-    if (params?.slug?.includes('desc')) return 2
+    if (sort?.includes('asc')) return 1
+    if (sort?.includes('desc')) return 2
     return 0
+  }
+
+  const handleFilterFlashsale = () => {
+    const paramNew = new URLSearchParams(searchParams)
+    if (flashsale) {
+      paramNew.delete('flashsale')
+    } else {
+      paramNew.set('flashsale', 'true')
+    }
+    router.push(pathName + '?' + paramNew.toString(), {
+      scroll: false,
+    })
   }
   return (
     <div className='flex'>
-      <Link
-        href={'/'}
-        className='w-fit h-[2.63543rem] bg-[linear-gradient(180deg,#E0B181_0.72%,#BE9367_99.87%)] px-[0.73rem] rounded-[0.43924rem] mr-[0.44rem] text-white flex items-center caption font-semibold'
+      <button
+        onClick={handleFilterFlashsale}
+        className={`${
+          flashsale
+            ? 'bg-[linear-gradient(180deg,#E0B181_0.72%,#BE9367_99.87%)] text-white'
+            : 'bg-[#F0F0F0] text-blue-800'
+        } w-fit h-[2.63543rem] px-[0.73rem] rounded-[0.43924rem] mr-[0.44rem] flex items-center caption font-semibold`}
       >
         FLASHSALE
-      </Link>
+      </button>
       <div
         ref={sideRef}
         className='w-[13.98243rem] rounded-[0.43924rem] bg-elevation-20 h-[2.63543rem] relative select-none'

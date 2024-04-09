@@ -5,10 +5,13 @@ export default function CheckDefault({
   isCheck = false,
   setIsCheck = () => {},
   className = '',
+  preventDefault = false,
 }) {
   return (
     <div
-      onClick={() => setIsCheck(!isCheck)}
+      onClick={() => {
+        !preventDefault && setIsCheck(!isCheck)
+      }}
       className={`${className} size-[1.75695rem] relative overflow-hidden cursor-pointer`}
     >
       <ICBoxCheck className='size-full' />

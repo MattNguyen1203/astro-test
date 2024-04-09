@@ -1,51 +1,44 @@
 .tintuc img {
   margin-top: 1.75695rem;
   margin-bottom: 1.75695rem;
-  @media (max-width: 767px) {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
 }
+
 .tintuc h2 {
   color: #262626;
-  /* WEB/H5/MEDIUM */
-  font-family: SVN-Graphik;
+  font-family: var(--font-svn-graphik);
   font-size: 1.75695rem;
   font-style: normal;
   font-weight: 600;
   line-height: 120%;
   align-self: stretch;
   margin-bottom: 0.88rem;
-  @media (max-width: 767px) {
-    /* APP/H5/SEMI BOLD */
-    font-size: 1.46413rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 120%; /* 1.75695rem */
-    letter-spacing: 0.00366rem;
-  }
 }
 
-/* .tintuc p {
-  line-height: 2;
-} */
 .tintuc .wp-block-group:nth-child(4) ul > li {
   list-style: disc;
   margin-left: 1.1rem;
-  /* line-height: 1.8; */
 }
-.tintuc .wp-block-group:nth-child(4) ~ p {
-  /* background-color: red; */
-  /* line-height: 2; */
-}
-.tintuc p {
-  /* WEB/BODY1/REGULAR */
 
+.tintuc p {
   color: #454545;
-  font-family: SVN-Graphik;
+  font-family: var(--font-svn-graphik);
   font-size: 1.1713rem;
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
   letter-spacing: 0.00586rem;
+}
+@media (max-width: 767px) {
+  .tintuc h2 {
+    font-size: 1.46413rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+    letter-spacing: 0.00366rem;
+  }
+
+  .tintuc img {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
 }

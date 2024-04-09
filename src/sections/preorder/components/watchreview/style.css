@@ -5,18 +5,10 @@
 
 #preview_swiper .swiper-slide.swiper-slide-next .frame_phone {
   transform: translate(-43%, -50%) scaleY(1) scaleX(0.8711565);
-  @media (max-width: 767px) {
-    transform: translate(-5%, -50%) scaleY(1) scaleX(1.16);
-    border-radius: 8px;
-  }
 }
 
 #preview_swiper .swiper-slide.swiper-slide-prev .frame_phone {
   transform: translate(-57%, -50%) scaleY(1) scaleX(0.8711565);
-  @media (max-width: 767px) {
-    transform: translate(-95%, -50%) scaleY(1) scaleX(1.16);
-    border-radius: 8px;
-  }
 }
 
 #preview_swiper .swiper-slide.swiper-slide-active .frame_phone {
@@ -24,7 +16,20 @@
   z-index: 50;
   border-radius: 1.31772rem;
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-  @media (max-width: 767px) {
+}
+
+@media (max-width: 767px) {
+  #preview_swiper .swiper-slide.swiper-slide-next .frame_phone {
+    transform: translate(-5%, -50%) scaleY(1) scaleX(1.16);
+    border-radius: 8px;
+  }
+
+  #preview_swiper .swiper-slide.swiper-slide-prev .frame_phone {
+    transform: translate(-95%, -50%) scaleY(1) scaleX(1.16);
+    border-radius: 8px;
+  }
+
+  #preview_swiper .swiper-slide.swiper-slide-active .frame_phone {
     transform: translate(-50%, -50%) scaleY(1.4878053927) scaleX(1.536);
     border: 1px solid white;
     box-shadow: 1.5px -2px 16px 0px rgba(232, 231, 231, 0.3);
