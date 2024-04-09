@@ -1,10 +1,11 @@
 'use client'
 
-import {useRef} from 'react'
+import {useEffect, useRef} from 'react'
 import {useParams, useSearchParams} from 'next/navigation'
 
 import useSWR from 'swr'
 import {fetcher} from '@/lib/utils'
+import useStore from '@/app/(store)/store'
 
 import PaginationIndex from '../account/components/pagination'
 import GridProduct from './gridproduct'
@@ -14,31 +15,41 @@ export default function Wrapper({isMobile, products, children}) {
   const boxRef = useRef(null)
   const searchParams = useSearchParams()
   const params = useParams()
-
-  const page = searchParams.get('page')
   const sort = searchParams.get('sort')
   const price = searchParams.get('orderby')
   const device = searchParams.get('device')
+  const type = searchParams.get('type')
+  const flashsale = searchParams.get('flashsale')
+
+  const isFilterProduct = useStore((state) => state.isFilterProduct)
+  const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
 
   const isFilter = () => {
-    if (Number(page) > 1) return true
-    if (params?.slug?.length > 1) return true
     if (price) return true
     if (sort === 'asc') return true
+    if (sort === 'desc') return true
     if (device) return true
+    if (type) return true
+    if (flashsale) return true
     return false
   }
-  console.log('🚀 ~ isFilter ~ isFilter:', isFilter())
+  // const filterCategory = params?.category?.length && [...params?.category[0]]
+
+  // if (device) {
+  //   filterCategory.push(device)
+  // }
 
   const {data, isLoading, error} = useSWR(
     isFilter()
       ? process.env.NEXT_PUBLIC_API +
           `/okhub/v1/product/filter/products?${
-            params?.slug?.length > 1
-              ? 'category=' + [...params?.slug] + '&'
+            params?.category?.length && !Number(params?.category[0])
+              ? 'category=' + JSON.stringify(params?.category[0]) + '&'
               : ''
-          }limit=${isMobile ? 8 : 16}${price ? `&orderby=${price}` : ''}&page=${
-            page ? page : 1
+          }limit=16${type ? `&type=${type}` : ''}${
+            flashsale ? `&is_flashsale=true` : ''
+          }${price ? `&orderby=${price}` : ''}&page=${
+            params?.category?.length > 1 ? params?.category?.[1] : 1
           }&order=${sort ? sort : 'desc'}`
       : null,
     fetcher,
@@ -48,6 +59,12 @@ export default function Wrapper({isMobile, products, children}) {
       revalidateOnReconnect: false,
     },
   )
+
+  useEffect(() => {
+    if (isFilterProduct) {
+      setIsFilterProduct(false)
+    }
+  }, [searchParams])
 
   const pageCount = Math.ceil(
     Number((isFilter() ? data?.count : products?.count) / 16),
@@ -74,7 +91,6 @@ export default function Wrapper({isMobile, products, children}) {
           <div className='flex justify-center mt-[2.34rem]'>
             <PaginationIndex
               pageCount={pageCount}
-              page={page}
               ref={boxRef}
             />
           </div>

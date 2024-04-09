@@ -6,11 +6,14 @@
   width: 81.33236rem;
   border-radius: 0.73206rem;
   overflow: hidden;
-  @media (max-width: 767px) {
-    width: 23.33236rem;
-  }
 }
 
 #technology_swiper .swiper-pagination .swiper-pagination-progressbar-fill {
   background: #ffdc00;
+}
+
+@media (max-width: 767px) {
+  #technology_swiper .swiper-pagination {
+    width: 23.33236rem;
+  }
 }

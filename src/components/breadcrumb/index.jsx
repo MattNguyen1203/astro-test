@@ -45,7 +45,11 @@ export default function BreadCrumb({category, categorySlg, name}) {
               strokeLinejoin='round'
             />
           </svg>
-          <span className='font-normal capitalize align-middle caption1 text-greyscale-10 xmd:line-clamp-1'>
+          <span
+            className={`${
+              name ? 'text-greyscale-10' : 'text-greyscale-80'
+            } font-normal capitalize align-middle caption1 xmd:line-clamp-1`}
+          >
             {category || ''}
           </span>
         </Link>
