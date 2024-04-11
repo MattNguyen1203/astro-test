@@ -61,6 +61,7 @@ const PaginationIndex = forwardRef(
         }
       }
     }
+
     return (
       <ReactPaginate
         activeClassName='!bg-blue-700 !text-white'

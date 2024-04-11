@@ -4,6 +4,18 @@ const useStore = create((set) => ({
   isOpenMegaMenuRes: false,
   isFilterProduct: false,
   isFilterPosts: false,
+  urlFilter: {
+    pathName: '/san-pham',
+    searchParams: {
+      sort: '',
+      type: '',
+      flashsale: '',
+      device: '',
+      orderby: '',
+      page: 1,
+    },
+  },
+  isOpenSortRes: false,
   setIsFocusSearchNav: (data) => {
     set((state) => {
       return {
@@ -33,6 +45,22 @@ const useStore = create((set) => ({
       return {
         ...state,
         isFilterPosts: data,
+      }
+    })
+  },
+  setUrlFilter: (data) => {
+    set((state) => {
+      return {
+        ...state,
+        urlFilter: data,
+      }
+    })
+  },
+  setIsOpenSortRes: (data) => {
+    set((state) => {
+      return {
+        ...state,
+        isOpenSortRes: data,
       }
     })
   },

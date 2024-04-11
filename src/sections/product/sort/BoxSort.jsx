@@ -39,12 +39,14 @@ export default function BoxSort() {
     if (query === 'new') {
       setIsFilterProduct(true)
       paramNew.delete('sort')
+      paramNew.delete('orderby')
       router.push(pathName + '?' + paramNew.toString(), {
         scroll: false,
       })
     } else {
       setIsFilterProduct(true)
       paramNew.set('sort', query)
+      paramNew.set('orderby', 'price')
       router.push(pathName + '?' + paramNew.toString(), {
         scroll: false,
       })

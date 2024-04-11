@@ -9,6 +9,7 @@ export default function BannerFlashSale({isMobile}) {
         alt='banner'
         width={isMobile ? 380 : 1400}
         height={isMobile ? 320 : 600}
+        quality={100}
         priority
       />
       <div className='flex justify-center md:py-[1.54rem] bg-[#0A1A29] xmd:h-[5.49048rem] relative xmd:overflow-x-auto hidden-scrollbar'>

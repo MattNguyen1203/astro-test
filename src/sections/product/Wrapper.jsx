@@ -11,7 +11,7 @@ import PaginationIndex from '../account/components/pagination'
 import GridProduct, {GridProductLoading} from './gridproduct'
 import Sort from './sort'
 
-export default function Wrapper({isMobile, products, children}) {
+export default function Wrapper({isMobile, products, children, categories}) {
   const boxRef = useRef(null)
   const searchParams = useSearchParams()
   const params = useParams()
@@ -78,6 +78,7 @@ export default function Wrapper({isMobile, products, children}) {
       {children}
       <div className='w-[69.91215rem] xmd:w-full xmd:bg-white xmd:rounded-[0.87848rem] xmd:shadow-[0px_0px_10px_0px_rgba(12,46,112,0.05)] xmd:pb-[1.46rem] xmd:pt-[1.46rem]'>
         <Sort
+          categories={categories}
           isMobile={isMobile}
           products={isFilter() ? data : products}
         />
@@ -89,9 +90,10 @@ export default function Wrapper({isMobile, products, children}) {
             isMobile={isMobile}
           />
         </Suspense>
-        {pageCount > 0 && (
+        {pageCount > 1 && (
           <div className='flex justify-center mt-[2.34rem]'>
             <PaginationIndex
+              pageRangeDisplayed={isMobile ? 1 : 2}
               pageCount={pageCount}
               ref={boxRef}
             />

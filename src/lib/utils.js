@@ -15,6 +15,17 @@ export function handleViewPort(viewport, desktop, tablet, mobile) {
 }
 
 export function handlePercentSale(product) {
+  const isFlashsale =
+    product?.meta_detect?.flash_sale?.is_flash_sale === 'yes' ? true : false
+  if (isFlashsale) {
+    const priceFlashsale = Number(
+      product?.meta_detect?.flash_sale?.flash_sale_price,
+    )
+    return Math.floor(
+      (Number(product?.regular_price) - priceFlashsale) /
+        (Number(product?.regular_price) / 100),
+    )
+  }
   if (Number(product?.salePrice)) {
     return Math.floor(
       (Number(product?.regular_price) - Number(product?.salePrice)) /
@@ -25,6 +36,14 @@ export function handlePercentSale(product) {
 }
 
 export function renderPriceProduct(product) {
+  const isFlashsale =
+    product?.meta_detect?.flash_sale?.is_flash_sale === 'yes' ? true : false
+  if (isFlashsale) {
+    return {
+      price: product?.regular_price,
+      sale: product?.meta_detect?.flash_sale?.flash_sale_price,
+    }
+  }
   if (!Number(product?.salePrice))
     return {
       price: product?.regular_price,

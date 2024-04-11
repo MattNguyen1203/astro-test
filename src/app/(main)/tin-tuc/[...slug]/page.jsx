@@ -6,7 +6,7 @@ import RelatedArticle from '@/sections/postdetail/RelatedArticle'
 import Share from '@/sections/postdetail/Share'
 
 export async function generateStaticParams() {
-  const posts = await getData('/okhub/v1/post/post?limit=50')
+  const posts = await getData('/okhub/v1/post/post')
   return posts?.item?.map((post) => {
     return {
       slug: [post?.post_slug],

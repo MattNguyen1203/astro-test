@@ -190,6 +190,10 @@ body {
   }
   body {
     overflow-x: hidden !important;
+    --removed-body-scroll-bar-size: 0px !important;
+  }
+  html body {
+    margin-right: 0 !important;
   }
 }
 
