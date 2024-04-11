@@ -23,6 +23,7 @@ export default function Wrapper({isMobile, products, children, categories}) {
 
   const isFilterProduct = useStore((state) => state.isFilterProduct)
   const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
+  console.log('🚀 ~ Wrapper ~ isFilterProduct:', isFilterProduct)
 
   const isFilter = () => {
     if (price) return true
@@ -61,7 +62,7 @@ export default function Wrapper({isMobile, products, children, categories}) {
   )
 
   useEffect(() => {
-    if (isFilterProduct) {
+    if (!isLoading) {
       setIsFilterProduct(false)
     }
   }, [searchParams])
@@ -84,6 +85,7 @@ export default function Wrapper({isMobile, products, children, categories}) {
         />
         <Suspense fallback={<GridProductLoading />}>
           <GridProduct
+            isLoading={isLoading}
             products={isFilter() ? data : products}
             priority={true}
             indexPriority={8}

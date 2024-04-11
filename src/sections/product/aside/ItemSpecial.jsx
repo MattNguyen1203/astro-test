@@ -11,7 +11,7 @@ export default function ItemSpecial({item, onMobile}) {
   const pathName = usePathname()
   const type = searchParams.get('type')
   const urlFilter = useStore((state) => state.urlFilter)
-  console.log('🚀 ~ urlFilter:', urlFilter?.searchParams?.type)
+
   const [isCheck, setIsCheck] = useState(
     onMobile && urlFilter?.searchParams?.type === item?.slug
       ? true
