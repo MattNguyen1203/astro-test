@@ -18,7 +18,7 @@ export default function GridProduct({
 
   useEffect(() => {
     isFilterProduct && setIsFilterProduct(false)
-  }, [])
+  }, [isLoading])
 
   const limit = Number(products?.item?.length) || 0
   const colsProduct = limit ? Math.ceil(limit / 4) : 4
