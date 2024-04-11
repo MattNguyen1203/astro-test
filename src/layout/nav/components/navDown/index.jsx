@@ -14,7 +14,7 @@ export default function NavDown({categories}) {
   return (
     <NavigationMenu className='max-w-full'>
       <NavigationMenuList className='flex justify-between lg:min-w-[87.84773060029283rem] xl:min-w-[1200px]'>
-        {categories?.map((e, index) => (
+        {categories?.slice(0, 8)?.map((e, index) => (
           <NavigationMenuItem key={index}>
             <NavigationMenuTrigger className='px-0 py-[0.52rem] bg-transparent'>
               <Image

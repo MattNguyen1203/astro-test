@@ -38,23 +38,27 @@ export default async function CategoryProductPage({params, searchParams}) {
   const {viewport} = searchParams
   const isMobile = viewport === 'mobile'
 
-  const products = await getData(
-    `/okhub/v1/product/filter/products?${
-      !Number(category?.[0]) ? `category=${category?.[0]}&` : ''
-    }limit=16&page=${
-      Number(category?.[0])
-        ? Number(category?.[0])
-        : Number(category?.[1])
-        ? Number(category?.[1])
-        : 1
-    }&order=desc`,
-  )
+  const [products, categories] = await Promise.all([
+    getData(
+      `/okhub/v1/product/filter/products?${
+        !Number(category?.[0]) ? `category=${category?.[0]}&` : ''
+      }limit=16&page=${
+        Number(category?.[0])
+          ? Number(category?.[0])
+          : Number(category?.[1])
+          ? Number(category?.[1])
+          : 1
+      }&order=desc`,
+    ),
+    getData('/okhub/v1/category/category'),
+  ])
 
   return (
     <IndexProduct
       isMobile={isMobile}
       products={products}
       params={params}
+      categories={categories}
     />
   )
 }

@@ -11,13 +11,14 @@ const specials = [
   },
 ]
 
-export default function Special() {
+export default function Special({onMobile = false}) {
   return (
     <>
       {specials?.map((item, index) => (
         <ItemSpecial
           key={index}
           item={item}
+          onMobile={onMobile}
         />
       ))}
     </>

@@ -5,7 +5,7 @@ import WrapperHandBook from '@/sections/news/WrapperHandBook'
 import WrapperReview from '@/sections/news/WrapperReview'
 
 export async function generateStaticParams() {
-  const posts = await getData('/okhub/v1/post/post')
+  const posts = await getData('/okhub/v1/post/post?limit=1&page=1')
   const staticParams = []
 
   const handleRenderPage = (length) => {

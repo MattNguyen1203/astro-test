@@ -2,7 +2,7 @@
 import BoxSort from './BoxSort'
 import SortRes from './sortRes/SortRes'
 
-export default function Sort({isMobile, products}) {
+export default function Sort({isMobile, products, categories}) {
   return (
     <div className='h-[5.27086rem] xmd:h-[4.1rem] rounded-[0.87848rem] bg-white md:shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] px-[1.17rem] flex items-center justify-between mb-[1.17rem] relative z-20'>
       <div className='w-fit'>
@@ -13,7 +13,7 @@ export default function Sort({isMobile, products}) {
           {`(${products?.count || 0} sản phẩm)`}
         </span>
       </div>
-      {isMobile ? <SortRes /> : <BoxSort />}
+      {isMobile ? <SortRes categories={categories} /> : <BoxSort />}
     </div>
   )
 }

@@ -1,3 +1,4 @@
+'use client'
 import {
   Sheet,
   SheetContent,
@@ -8,6 +9,8 @@ import {
 import Image from 'next/image'
 // import {PopoverCategory} from '../popovercategory'
 import dynamic from 'next/dynamic'
+import {useEffect} from 'react'
+import {useParams, useSearchParams} from 'next/navigation'
 const PopoverCategory = dynamic(() =>
   import('../popovercategory').then((mod) => mod.PopoverCategory),
 )
@@ -17,7 +20,19 @@ export default function SheetCategories({
   isMobile = false,
   isOpen,
   setIsOpen,
+  categories,
 }) {
+  const searchParams = useSearchParams()
+  const params = useParams()
+
+  useEffect(() => {
+    isOpen && setIsOpen(false)
+  }, [searchParams])
+
+  const isActiveCategory = (slug) => {
+    if (params?.category?.[0] === slug) return true
+  }
+
   return (
     <Sheet
       open={isOpen}
@@ -32,24 +47,37 @@ export default function SheetCategories({
           Danh mục sản phẩm
         </SheetTitle>
         <div className='flex flex-col space-y-[0.59rem]'>
-          {Array(8)
-            .fill(0)
-            .map((_, index) => (
-              <PopoverCategory key={index}>
-                <button className='px-[0.88rem] rounded-[0.29283rem] bg-elevation-20 flex items-center h-[3.51391rem]'>
-                  <Image
-                    className='w-[1.21171rem] h-auto object-contain'
-                    src={'/layout/nav/pen.svg'}
-                    alt='icon pen'
-                    width={24}
-                    height={24}
-                  />
-                  <span className='font-semibold sub2 text-greyscale-80 block ml-[0.59rem]'>
-                    Tai nghe - loa
-                  </span>
-                </button>
-              </PopoverCategory>
-            ))}
+          {categories?.map((category, index) => (
+            <PopoverCategory
+              key={index}
+              category={category}
+            >
+              <button
+                className={`${
+                  isActiveCategory(category?.slug)
+                    ? 'bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)]'
+                    : 'bg-elevation-20 '
+                } px-[0.88rem] rounded-[0.29283rem] flex items-center h-[3.51391rem]`}
+              >
+                <Image
+                  className='w-[1.21171rem] h-auto object-contain'
+                  src={category?.icon || '/layout/nav/pen.svg'}
+                  alt={category?.name || 'icon category'}
+                  width={24}
+                  height={24}
+                />
+                <span
+                  className={`${
+                    isActiveCategory(category?.slug)
+                      ? 'text-white'
+                      : 'text-greyscale-80'
+                  } font-semibold sub2 block ml-[0.59rem]`}
+                >
+                  {category?.name}
+                </span>
+              </button>
+            </PopoverCategory>
+          ))}
         </div>
         <button
           onClick={() => setIsOpen(false)}

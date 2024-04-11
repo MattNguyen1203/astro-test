@@ -1,7 +1,7 @@
 import getData from '@/lib/getData'
 
 export default async function sitemap() {
-  const posts = await getData('/okhub/v1/post/post')
+  const posts = await getData('/okhub/v1/post/post?limit=1&page=1')
   const afterPrefix = '/page/'
 
   function handleRenderPage(length) {

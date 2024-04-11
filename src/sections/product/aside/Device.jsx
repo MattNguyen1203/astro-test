@@ -23,24 +23,47 @@ const arr = [
   },
 ]
 
-export default function Device() {
+export default function Device({onMobile = false}) {
   const router = useRouter()
   const pathName = usePathname()
   const searchParams = useSearchParams()
   const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
+
+  const setUrlFilter = useStore((state) => state.setUrlFilter)
+  const urlFilter = useStore((state) => state.urlFilter)
   const device = searchParams.get('device')
 
   const handleFilterDevice = (slug) => {
-    const paramNew = new URLSearchParams(searchParams)
-    setIsFilterProduct(true)
-    if (device === slug) {
-      paramNew.delete('device')
+    if (onMobile) {
+      if (urlFilter?.searchParams?.device) {
+        setUrlFilter({
+          pathName: urlFilter?.pathName,
+          searchParams: {
+            ...urlFilter?.searchParams,
+            device: '',
+          },
+        })
+      } else {
+        setUrlFilter({
+          pathName: urlFilter?.pathName,
+          searchParams: {
+            ...urlFilter?.searchParams,
+            device: slug,
+          },
+        })
+      }
     } else {
-      paramNew.set('device', slug)
+      const paramNew = new URLSearchParams(searchParams)
+      setIsFilterProduct(true)
+      if (device === slug) {
+        paramNew.delete('device')
+      } else {
+        paramNew.set('device', slug)
+      }
+      router.push(pathName + '?' + paramNew.toString(), {
+        scroll: false,
+      })
     }
-    router.push(pathName + '?' + paramNew.toString(), {
-      scroll: false,
-    })
   }
 
   return (

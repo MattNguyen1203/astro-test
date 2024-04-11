@@ -7,38 +7,170 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 
-import Image from 'next/image'
-// import SheetCategories from '../sheetcategories'
-import dynamic from 'next/dynamic'
-import {useState} from 'react'
-import CheckDefault from '../sheetcategories/CheckDefault'
+import {useEffect, useState} from 'react'
 import {RadioGroup, RadioGroupItem} from '../ui/radio-group'
 import {Label} from '../ui/label'
-const SheetCategories = dynamic(() => import('../sheetcategories'))
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation'
+import Device from '@/sections/product/aside/Device'
+import Special from '@/sections/product/aside/Special'
+import useStore from '@/app/(store)/store'
+// import dynamic from 'next/dynamic'
+// const SheetCategories = dynamic(() => import('../sheetcategories'))
 
-export default function SheetSort({children, isMobile = false}) {
-  const [isOpen, setIsOpen] = useState(false)
+export default function SheetSort({children, isMobile = false, categories}) {
+  const router = useRouter()
+  const params = useParams()
+  const searchParams = useSearchParams()
+  const pathName = usePathname()
+
+  // const [isOpen, setIsOpen] = useState(false)
+  const [isOpens, setIsOpens] = useState(false)
+  const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
+  const setUrlFilter = useStore((state) => state.setUrlFilter)
+  const urlFilter = useStore((state) => state.urlFilter)
+
+  const sort = searchParams.get('sort') || ''
+  const price = searchParams.get('orderby') || ''
+  const device = searchParams.get('device') || ''
+  const type = searchParams.get('type') || ''
+  const flashsale = searchParams.get('flashsale') || ''
+
+  useEffect(() => {
+    setUrlFilter({
+      pathName,
+      searchParams: {
+        sort,
+        type,
+        flashsale,
+        device,
+        orderby: price,
+        page: Number(params?.category?.[0])
+          ? Number(params?.category?.[0])
+          : Number(params?.category?.[1])
+          ? Number(params?.category?.[1])
+          : 1,
+      },
+    })
+
+    const isSpecial = localStorage.getItem('isSpecial')
+
+    if (isSpecial) {
+      localStorage.setItem('filterType', JSON.stringify(['simple', 'grouped']))
+    } else {
+      if (type) {
+        localStorage.setItem('filterType', JSON.stringify([type]))
+      } else {
+        localStorage.removeItem('filterType')
+      }
+    }
+  }, [isOpens])
+
+  // function handleNameCategory(categories, slug) {
+  //   return categories?.find((e) => e?.slug === slug)?.name || 'Tất cả sản phẩm'
+  // }
+
+  const handleFilterFlashsale = () => {
+    setUrlFilter({
+      pathName: urlFilter.pathName,
+      searchParams: {
+        ...urlFilter?.searchParams,
+        flashsale: urlFilter?.searchParams?.flashsale ? '' : 'true',
+      },
+    })
+  }
+
+  const handleSort = (query) => {
+    setUrlFilter({
+      pathName: urlFilter.pathName,
+      searchParams: {
+        ...urlFilter?.searchParams,
+        orderby: query === 'new' ? '' : 'price',
+        sort: query === 'new' ? '' : query,
+      },
+    })
+  }
+  const isReset = () => {
+    if (pathName !== '/san-pham' || searchParams?.size) return true
+    return false
+  }
+
+  function createQueryString(searchParams) {
+    const query = Object.entries(searchParams)
+      .filter(([key, value]) => value && key !== 'page') // Bỏ qua các cặp key-value không có giá trị hoặc giá trị là rỗng
+      .map(([key, value]) => {
+        return key + '=' + value
+      })
+      .join('&') // Nối các cặp với nhau bằng "&"
+
+    return query
+  }
+
+  const handleReset = () => {
+    if (!isReset()) return
+    setIsOpens(false)
+    setIsFilterProduct(true)
+    router.push('/san-pham', {
+      scroll: false,
+    })
+  }
+
+  const handleFilterSubmit = () => {
+    setIsOpens(false)
+    setIsFilterProduct(true)
+    const typeLocal = JSON.parse(localStorage.getItem('filterType'))
+    if (typeLocal?.length === 2) {
+      localStorage.setItem('isSpecial', 'all')
+    } else {
+      localStorage.removeItem('isSpecial')
+    }
+    const pathNameNew =
+      urlFilter?.pathName +
+      (Number(urlFilter?.searchParams?.page) > 1
+        ? '/' + urlFilter?.searchParams?.page
+        : '')
+    const searchParamsNew = createQueryString(urlFilter?.searchParams)
+    router.push(pathNameNew + '?' + searchParamsNew, {
+      scroll: false,
+    })
+  }
+
   return (
-    <Sheet>
+    <Sheet
+      open={isOpens}
+      onOpenChange={setIsOpens}
+    >
       <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent
         side='bottom'
         className='pt-[1.46rem] pb-[2.64rem] px-[1.17rem] bg-white xmd:data-[state=open]:duration-200 rounded-tl-[0.87848rem] rounded-tr-[0.87848rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'
       >
-        <SheetTitle className='h-[3.80673rem] flex justify-start items-center px-[2.92rem] xmd:px-[0.88rem] xmd:border-b xmd:border-solid xmd:border-[#EFEFEF]'>
+        <SheetTitle className='h-[3.80673rem] flex justify-start items-center px-[2.92rem] xmd:px-[0.88rem]'>
           Bộ lọc tìm kiếm
         </SheetTitle>
         <div className='w-full space-y-[0.88rem]'>
-          <button className='rounded-[0.43924rem] bg-[linear-gradient(180deg,#E0B181_0.72%,#BE9367_99.87%)] w-full flex justify-center items-center caption font-semibold text-white h-[2.63543rem]'>
+          <button
+            onClick={handleFilterFlashsale}
+            className={`${
+              urlFilter?.searchParams?.flashsale
+                ? 'bg-[linear-gradient(180deg,#E0B181_0.72%,#BE9367_99.87%)] text-white'
+                : 'bg-elevation-20 text-greyscale-80'
+            } rounded-[0.43924rem] w-full flex justify-center items-center caption font-semibold h-[2.63543rem]`}
+          >
             FLASHSALE
           </button>
-          <SheetCategories
+          {/* <SheetCategories
+            categories={categories}
             isOpen={isOpen}
             setIsOpen={setIsOpen}
           >
             <button className='flex justify-between items-center px-[0.88rem] rounded-[0.29283rem] bg-elevation-20 h-[2.92826rem] w-full'>
               <span className='font-semibold sub2 text-greyscale-80'>
-                Bút cảm ứng
+                {handleNameCategory(categories, params?.category?.[0])}
               </span>
               <Image
                 className='size-[1.1713rem] object-contain'
@@ -48,64 +180,29 @@ export default function SheetSort({children, isMobile = false}) {
                 height={24}
               />
             </button>
-          </SheetCategories>
+          </SheetCategories> */}
           <div className='pb-[0.88rem] border-b border-solid border-[#454545]/20'>
             <span className='block font-medium caption1 text-greyscale-70 mb-[0.15rem]'>
               Dành cho thiết bị:
             </span>
-            <div className='flex flex-wrap'>
-              {Array(5)
-                .fill(0)
-                .map((_, index) => (
-                  <div
-                    key={index}
-                    className={`flex relative items-center mr-[0.73rem] p-[0.44rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02),-6px_2px_32px_0px_rgba(0,0,0,0.06)] rounded-[0.29283rem] cursor-pointer border-[2px] border-solid border-transparent border-blue-500 mt-[0.73rem]`}
-                  >
-                    <Image
-                      src={'/components/checkVar.svg'}
-                      alt=''
-                      width={12}
-                      height={12}
-                      className={`absolute top-[-0.43924rem] right-[-0.36603rem] z-10 hidden'
-                      `}
-                    />
-                    <span className='font-normal caption1 text-greyscale-40'>
-                      Ipad Air 5
-                    </span>
-                  </div>
-                ))}
-            </div>
+            <Device onMobile={true} />
           </div>
         </div>
         <div className='mt-[1.17rem] pb-[0.88rem] border-b border-solid border-[#454545]/20'>
           <span className='block font-medium caption1 text-greyscale-70'>
             Phân loại:
           </span>
-          <div className='flex items-center mt-[0.88rem]'>
-            <CheckDefault
-              className='size-[1.46413rem]'
-              isCheck={true}
-            />
-            <span className='font-normal caption text-greyscale-50 block w-fit ml-[0.59rem]'>
-              Sản phẩm combo
-            </span>
-          </div>
-          <div className='flex items-center mt-[0.88rem]'>
-            <CheckDefault
-              className='size-[1.46413rem]'
-              isCheck={true}
-            />
-            <span className='font-normal caption text-greyscale-50 block w-fit ml-[0.59rem]'>
-              Sản phẩm lẻ
-            </span>
-          </div>
+          <Special onMobile={true} />
         </div>
         <div className='mt-[1.17rem] '>
           <span className='block font-medium caption1 text-greyscale-70'>
             Sắp xếp theo:
           </span>
           <RadioGroup
-            defaultValue='new'
+            defaultValue={sort || 'new'}
+            onValueChange={(e) => {
+              handleSort(e)
+            }}
             className='flex flex-col mt-[0.58rem]'
           >
             <Label
@@ -152,10 +249,18 @@ export default function SheetSort({children, isMobile = false}) {
             </Label>
           </RadioGroup>
           <div className='grid grid-cols-2 gap-x-[0.59rem] mt-[1.16rem] h-[2.63543rem]'>
-            <button className='text-white caption font-semibold flex justify-center items-center rounded-[0.43924rem] bg-greyscale-10'>
+            <button
+              onClick={handleReset}
+              className={`${
+                isReset() ? 'bg-[#10273F]' : 'bg-greyscale-10'
+              } text-white caption font-semibold flex justify-center items-center rounded-[0.43924rem]`}
+            >
               THIẾP LẬP LẠI
             </button>
-            <button className='rounded-[0.43924rem] bg-[#10273F] text-white flex justify-center items-center caption font-semibold'>
+            <button
+              onClick={handleFilterSubmit}
+              className='rounded-[0.43924rem] bg-[#10273F] text-white flex justify-center items-center caption font-semibold'
+            >
               LỌC
             </button>
           </div>
