@@ -11,6 +11,7 @@ export default function GridProduct({
   priority,
   indexPriority,
   isMobile,
+  isLoading,
 }) {
   const isFilterProduct = useStore((state) => state.isFilterProduct)
   const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
@@ -30,18 +31,26 @@ export default function GridProduct({
         isMobile ? 'grid-cols-2' : 'grid-cols-4'
       } grid gap-y-[1.17rem] gap-x-[0.88rem] xmd:gap-[0.59rem] xmd:container`}
     >
-      {products?.item?.map((product, index) => (
-        <Fragment key={index}>
-          {isFilterProduct ? (
-            <SkeletonCardProduct />
-          ) : (
-            <CardProduct
-              product={product}
-              priority={priority && index < indexPriority ? true : false}
-            />
-          )}
-        </Fragment>
-      ))}
+      {isLoading ? (
+        Array(16)
+          .fill(0)
+          .map((_, index) => <SkeletonCardProduct key={index} />)
+      ) : (
+        <>
+          {products?.item?.map((product, index) => (
+            <Fragment key={index}>
+              {isFilterProduct ? (
+                <SkeletonCardProduct />
+              ) : (
+                <CardProduct
+                  product={product}
+                  priority={priority && index < indexPriority ? true : false}
+                />
+              )}
+            </Fragment>
+          ))}
+        </>
+      )}
     </div>
   )
 }
