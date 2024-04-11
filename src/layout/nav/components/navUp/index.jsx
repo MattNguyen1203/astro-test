@@ -47,7 +47,10 @@ export default async function NavUp({session, isMobile, referer, categories}) {
           isMobile={isMobile}
         />
         {isMobile ? (
-          <MenuRes referer={referer} />
+          <MenuRes
+            categories={categories}
+            referer={referer}
+          />
         ) : (
           <>
             {session?.user?.name ? (

@@ -12,7 +12,7 @@ import 'swiper/css/free-mode'
 import BannerStrength from './components/strength'
 import FlashVoucher from './components/flashvoucher'
 import Accessory from './components/accessory'
-import BannerHome, {BannerLoading} from './components/banner'
+import BannerHome from './components/banner'
 import PromotionSlide from './components/promotions'
 import CategoriesProduct from './components/categoriesproduct'
 
@@ -22,19 +22,16 @@ import PreOder from './components/preoder'
 import FeedBack from './components/feedback'
 import TechnologyConner from './components/technologyconner'
 import ListStrength from '@/components/liststrength'
-import {Suspense} from 'react'
 
 export default function HomeIndex({viewport, products}) {
   const isMobile = viewport === 'mobile'
   return (
     <main className='relative bg-elevation-20 xmd:bg-white'>
       <section className='pt-[8rem] xmd:pt-[4.1rem] xmd:bg-elevation-20'>
-        <Suspense fallback={<BannerLoading />}>
-          <BannerHome
-            isMobile={isMobile}
-            viewport={viewport}
-          />
-        </Suspense>
+        <BannerHome
+          isMobile={isMobile}
+          viewport={viewport}
+        />
         {!isMobile && <BannerStrength />}
       </section>
       <section>

@@ -16,7 +16,7 @@ export default function PopupResult({
         )
       : categories?.slice(0, 3)
   return (
-    <div className='p-[1.76rem] bg-white absolute -bottom-[1.1rem] left-0 w-full h-fit translate-y-full'>
+    <div className='p-[1.76rem] bg-white absolute -bottom-[1.1rem] left-0 w-full h-fit translate-y-full xmd:-bottom-[0.7rem]'>
       <span className='font-medium select-none button text-greyscale-40'>
         Có phải bạn muốn tìm kiếm
       </span>

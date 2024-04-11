@@ -69,9 +69,9 @@ const PaginationIndex = forwardRef(
         breakLabel='...'
         previousLabel={<ICPrevPagination />}
         pageLinkClassName='size-full flex justify-center items-center'
-        previousClassName='rounded-full bg-white size-[2.63543rem] flex justify-center items-center shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_28px_0px_rgba(12,46,112,0.04)] mr-[1.43rem]'
+        previousClassName='rounded-full bg-white size-[2.63543rem] flex justify-center items-center shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_28px_0px_rgba(12,46,112,0.04)] mr-[1.43rem] xmd:mr-[0.43rem]'
         nextLabel={<ICNextPagination />}
-        nextClassName='rounded-full bg-white size-[2.63543rem] flex justify-center items-center shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_28px_0px_rgba(12,46,112,0.04)] ml-[1.43rem]'
+        nextClassName='rounded-full bg-white size-[2.63543rem] flex justify-center items-center shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_28px_0px_rgba(12,46,112,0.04)] ml-[1.43rem] xmd:ml-[0.43rem]'
         onPageChange={(e) => {
           handleRouter(Number(e?.selected) + 1)
         }}
