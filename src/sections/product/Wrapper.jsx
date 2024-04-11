@@ -95,7 +95,6 @@ export default function Wrapper({isMobile, products, children, categories}) {
         {pageCount > 1 && (
           <div className='flex justify-center mt-[2.34rem]'>
             <PaginationIndex
-              pageRangeDisplayed={isMobile ? 1 : 2}
               pageCount={pageCount}
               ref={boxRef}
             />

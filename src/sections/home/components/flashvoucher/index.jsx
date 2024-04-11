@@ -1,9 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import VoucherSlide, {VoucherSlideLoading} from './slidevoucher'
-import VoucherSlideRes, {VoucherSlideResLoading} from './slidevoucherres'
+import VoucherSlide from './slidevoucher'
+import VoucherSlideRes from './slidevoucherres'
 import CountDown from './countdown'
-import {Suspense} from 'react'
 
 const listData = new Array(14).fill(0)
 export default function FlashVoucher({isMobile}) {
@@ -42,13 +41,9 @@ export default function FlashVoucher({isMobile}) {
           <CountDown />
         </div>
         {isMobile ? (
-          <Suspense fallback={<VoucherSlideResLoading />}>
-            <VoucherSlideRes data={listData} />
-          </Suspense>
+          <VoucherSlideRes data={listData} />
         ) : (
-          <Suspense fallback={<VoucherSlideLoading />}>
-            <VoucherSlide data={listData} />
-          </Suspense>
+          <VoucherSlide data={listData} />
         )}
         <div className='mt-[7.91rem] xmd:mt-[1.46rem] flex h-[8.56515rem] relative'>
           <div className='bg-[#EEB357] size-full relative rounded-[1.1713rem] xmd:rounded-[0.58565rem] xmd:w-[96%] xmd:mx-auto xmd:bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)]'>
