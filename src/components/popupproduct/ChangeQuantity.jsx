@@ -4,7 +4,7 @@ import {cn} from '@/lib/utils'
 import Image from 'next/image'
 import {useState} from 'react'
 
-const ChangeQuantity = ({stockQty}) => {
+const ChangeQuantity = ({stockQty, isAdd}) => {
   const [inputVal, setInputVal] = useState(1)
   const handleDec = () => {
     if (inputVal > 1) {

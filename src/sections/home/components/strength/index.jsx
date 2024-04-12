@@ -1,7 +1,10 @@
 import CardStrength from '@/components/cardstrength'
-import {listCardStrength} from '@/components/liststrength'
+import getData from '@/lib/getData'
 
-export default function BannerStrength() {
+export default async function BannerStrength() {
+  const data = await getData('/wp/v2/pages/281')
+  const listCardStrength = data?.acf?.infomation
+
   return (
     <article className='container select-none rounded-[0.88rem] overflow-hidden'>
       <div className='flex justify-between mt-[1.17rem] mb-[4.41rem]'>

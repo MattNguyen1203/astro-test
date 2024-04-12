@@ -7,11 +7,6 @@ import {cn} from '@/lib/utils'
 
 function PopupProduct(props) {
   const {setIsOpen, data = [], activeId, type, product} = props
-  const dataArr = [
-    {src: '/components/productImg.jpg', key: '1'},
-    {src: '/components/productImg.jpg', key: '2'},
-    {src: '/components/productImg.jpg', key: '3'},
-  ]
 
   const listImg = useMemo(() => {
     return data.map((item) => ({
@@ -20,7 +15,7 @@ function PopupProduct(props) {
     }))
   }, [data])
 
-  const [key, setKey] = useState(activeId || listImg[0].key)
+  const [key, setKey] = useState(activeId || listImg?.[0]?.key)
   const [dataActive, setDataActive] = useState({})
 
   useEffect(() => {
