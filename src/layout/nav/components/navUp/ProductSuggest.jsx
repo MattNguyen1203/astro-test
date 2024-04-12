@@ -1,13 +1,17 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import {useRouter} from 'next/navigation'
+import {usePathname, useRouter, useSearchParams} from 'next/navigation'
 
-export default function ProductSuggest({productSuggest, data}) {
+export default function ProductSuggest({productSuggest, data, value}) {
   const router = useRouter()
+  const pathName = usePathname()
+  const searchParams = useSearchParams()
+
   const products = data
-    ? data?.item.slice(0, 3)
+    ? data?.item?.slice(0, 3)
     : productSuggest?.item?.slice(0, 3)
+
   return (
     <>
       <span className='font-medium button text-greyscale-40 block mb-[1.46rem]'>
@@ -37,7 +41,17 @@ export default function ProductSuggest({productSuggest, data}) {
       ))}
       <button
         onClick={() => {
-          router.push('/san-pham')
+          const paramNew = new URLSearchParams(searchParams)
+          if (value) {
+            paramNew.set('search', encodeURI(value))
+          } else {
+            paramNew.delete('search')
+          }
+          if (pathName?.includes('/san-pham')) {
+            router.push(pathName + '?' + paramNew.toString())
+          } else {
+            router.push('/san-pham' + '?' + paramNew.toString())
+          }
         }}
         className='flex items-center mx-auto w-fit px-[0.5rem] pt-[0.76rem] mt-[1rem] hover:scale-105 hover:active:scale-95 select-none'
       >

@@ -19,17 +19,17 @@ export default function Wrapper({isMobile, products, children, categories}) {
   const price = searchParams.get('orderby')
   const device = searchParams.get('device')
   const type = searchParams.get('type')
+  const search = decodeURI(searchParams.get('search') || '')
   const flashsale = searchParams.get('flashsale')
 
-  const isFilterProduct = useStore((state) => state.isFilterProduct)
   const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
-  console.log('🚀 ~ Wrapper ~ isFilterProduct:', isFilterProduct)
 
   const isFilter = () => {
     if (price) return true
     if (sort === 'asc') return true
     if (sort === 'desc') return true
     if (device) return true
+    if (search) return true
     if (type) return true
     if (flashsale) return true
     return false
@@ -51,7 +51,7 @@ export default function Wrapper({isMobile, products, children, categories}) {
             flashsale ? `&is_flashsale=true` : ''
           }${price ? `&orderby=${price}` : ''}&page=${
             params?.category?.length > 1 ? params?.category?.[1] : 1
-          }&order=${sort ? sort : 'desc'}`
+          }&order=${sort ? sort : 'desc'}${search ? `&keyword=${search}` : ''}`
       : null,
     fetcher,
     {
