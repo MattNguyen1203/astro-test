@@ -5,13 +5,16 @@ import Image from 'next/image'
 import dynamic from 'next/dynamic'
 const SheetMegaMenu = dynamic(() => import('@/components/sheetmegamenu'))
 
-export default function MenuRes({referer}) {
+export default function MenuRes({referer, categories}) {
   const setIsOpenMegaMenuRes = useStore((state) => state.setIsOpenMegaMenuRes)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
 
   return (
     <>
-      <SheetMegaMenu referer={referer}>
+      <SheetMegaMenu
+        referer={referer}
+        categories={categories}
+      >
         <div
           onClick={() => setIsOpenMegaMenuRes(true)}
           className={`${

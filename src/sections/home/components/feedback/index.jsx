@@ -36,7 +36,9 @@ export default function FeedBack({isMobile}) {
             height={23}
           />
         </Link>
-        <ICArrowRightWhite className='-rotate-90 absolute bottom-[8.5rem] left-[16.9rem] z-50 w-[2.64729rem] h-[4.07679rem] xmd:w-[2.45988rem] xmd:h-auto xmd:left-[13.5rem]' />
+        <div className='size-fit absolute bottom-[8.5rem] left-[16.9rem] z-50  animate-bounce xmd:left-[13.5rem]'>
+          <ICArrowRightWhite className='-rotate-90 w-[2.64729rem] h-[4.07679rem] xmd:w-[2.45988rem] xmd:h-auto' />
+        </div>
       </div>
       <div className='absolute z-20 w-full h-[25.69546rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.00)_42.61%,#FFF_100%)] bottom-0 left-0 pointer-events-none'></div>
     </div>

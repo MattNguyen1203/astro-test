@@ -6,10 +6,11 @@ import NavDown from './components/navDown'
 import NavUp from './components/navUp'
 import WrapNav from './components/wrapnav'
 import getData from '@/lib/getData'
+import {Skeleton} from '@/components/ui/skeleton'
 
 export default async function Nav({isMobile, referer}) {
   const session = await auth()
-  const categories = await getData('/custom/v1/category/category')
+  const categories = await getData('/okhub/v1/category/category')
   return (
     <header
       id='container_nav'
@@ -17,6 +18,7 @@ export default async function Nav({isMobile, referer}) {
     >
       <WrapNav isMobile={isMobile}>
         <NavUp
+          categories={categories}
           isMobile={isMobile}
           referer={referer}
           session={session}
@@ -37,3 +39,16 @@ export default async function Nav({isMobile, referer}) {
     </header>
   )
 }
+
+const NavLoading = () => {
+  return (
+    <header className='fixed top-0 left-0 h-[7.76rem] z-[999] w-full xmd:h-[4.1rem] bg-white'>
+      <div className='container relative z-30 size-full'>
+        <Skeleton className='size-full' />
+      </div>
+    </header>
+  )
+}
+
+NavLoading.displayName = 'NavLoading'
+export {NavLoading}

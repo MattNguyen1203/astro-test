@@ -2,7 +2,20 @@ import {create} from 'zustand'
 const useStore = create((set) => ({
   isFocusSearchNav: false,
   isOpenMegaMenuRes: false,
-
+  isFilterProduct: false,
+  isFilterPosts: false,
+  urlFilter: {
+    pathName: '/san-pham',
+    searchParams: {
+      sort: '',
+      type: '',
+      flashsale: '',
+      device: '',
+      orderby: '',
+      page: 1,
+    },
+  },
+  isOpenSortRes: false,
   setIsFocusSearchNav: (data) => {
     set((state) => {
       return {
@@ -16,6 +29,38 @@ const useStore = create((set) => ({
       return {
         ...state,
         isOpenMegaMenuRes: data,
+      }
+    })
+  },
+  setIsFilterProduct: (data) => {
+    set((state) => {
+      return {
+        ...state,
+        isFilterProduct: data,
+      }
+    })
+  },
+  setIsFilterPosts: (data) => {
+    set((state) => {
+      return {
+        ...state,
+        isFilterPosts: data,
+      }
+    })
+  },
+  setUrlFilter: (data) => {
+    set((state) => {
+      return {
+        ...state,
+        urlFilter: data,
+      }
+    })
+  },
+  setIsOpenSortRes: (data) => {
+    set((state) => {
+      return {
+        ...state,
+        isOpenSortRes: data,
       }
     })
   },

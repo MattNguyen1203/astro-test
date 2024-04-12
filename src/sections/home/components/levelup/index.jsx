@@ -5,14 +5,15 @@ import {slugAccessory} from '@/lib/constants'
 export default async function LevelUpYourTech({isMobile}) {
   const data = (await getData('/okhub/v1/category/category')) || []
   const categories = data?.find((e) => e?.slug === slugAccessory)?.children
+  console.log('🚀 ~ LevelUpYourTech ~ categories:', categories)
   const productCategory = await getData(
-    `/okhub/v1/product/productByCategory/${categories && categories[0]?.slug}`,
+    `/okhub/v1/product/productByCategory/${data[0]?.slug}`,
   )
 
   return (
     <BoxLevelUpYourTech
       categories={categories}
-      data={productCategory}
+      products={productCategory}
       isMobile={isMobile}
     />
   )

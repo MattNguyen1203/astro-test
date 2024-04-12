@@ -67,7 +67,7 @@ export default async function RootLayout({children}) {
   const headersList = headers()
   const userAgent = headersList.get('user-agent')
   const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|ZaloTheme|FB_IAB|Opera Mini/i.test(
       userAgent,
     )
   return (

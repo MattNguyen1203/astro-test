@@ -8,7 +8,6 @@ import {Form, FormControl, FormField, FormItem} from '@/components/ui/form'
 import {Input} from '@/components/ui/input'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
-import {Toaster} from '@/components/ui/sonner'
 import {toast} from 'sonner'
 
 const formSchema = z.object({
@@ -71,7 +70,7 @@ export default function SignInIndex({status}) {
   }
 
   return (
-    <article className='size-full'>
+    <article className='size-full xmd:h-fit'>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -84,7 +83,7 @@ export default function SignInIndex({status}) {
               <FormItem>
                 <FormControl>
                   <Input
-                    className='!outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik rounded-[1.46413rem] bg-white shadow-[2.25px_2.25px_3.375px_0px_rgba(0,0,0,0.18)_inset] pl-[1.1rem] pr-[3.6rem] placeholder:text-greyscale-30 placeholder:sub2 placeholder:font-medium'
+                    className='!outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik rounded-[1.46413rem] bg-white md:shadow-[2.25px_2.25px_3.375px_0px_rgba(0,0,0,0.18)_inset] pl-[1.1rem] pr-[3.6rem] placeholder:text-greyscale-30 placeholder:sub2 placeholder:font-medium xmd:rounded-[0.58565rem]'
                     placeholder='Nhập E-mail của bạn...'
                     {...field}
                   />
@@ -107,7 +106,6 @@ export default function SignInIndex({status}) {
           </button>
         </form>
       </Form>
-      <Toaster richColors />
     </article>
   )
 }

@@ -9,7 +9,11 @@ import CategoryProductRes from '../productnew/CategoryProductRes'
 import useSWR from 'swr'
 import {fetcher} from '@/lib/utils'
 
-export default function BoxLevelUpYourTech({isMobile, categories = [], data}) {
+export default function BoxLevelUpYourTech({
+  isMobile,
+  categories = [],
+  products,
+}) {
   const [indexCategory, setIndexCategory] = useState(0)
 
   const {
@@ -62,7 +66,7 @@ export default function BoxLevelUpYourTech({isMobile, categories = [], data}) {
       )}
       <SlideProduct
         isMobile={isMobile}
-        data={indexCategory ? dataOfCategory : data}
+        products={indexCategory ? dataOfCategory : products}
       />
     </>
   )

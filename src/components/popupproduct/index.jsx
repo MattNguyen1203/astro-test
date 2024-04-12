@@ -6,7 +6,12 @@ import {useEffect, useMemo, useState} from 'react'
 import {cn} from '@/lib/utils'
 
 function PopupProduct(props) {
-  const {setIsOpen, data = [], activeId} = props
+  const {setIsOpen, data = [], activeId, type, product} = props
+  const dataArr = [
+    {src: '/components/productImg.jpg', key: '1'},
+    {src: '/components/productImg.jpg', key: '2'},
+    {src: '/components/productImg.jpg', key: '3'},
+  ]
 
   const listImg = useMemo(() => {
     return data.map((item) => ({
@@ -52,7 +57,11 @@ function PopupProduct(props) {
           )
         })}
       </div>
-      <ProductInfo data={dataActive} />
+      <ProductInfo
+        data={dataActive}
+        type={type}
+        product={product}
+      />
 
       <Image
         src={'/components/closeIcon.svg'}

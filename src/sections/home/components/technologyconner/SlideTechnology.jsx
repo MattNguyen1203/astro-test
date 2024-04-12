@@ -6,7 +6,7 @@ import ICArrowRightWhite from '@/components/icon/ICArrowRightWhite'
 import Link from 'next/link'
 import {Pagination} from 'swiper/modules'
 import {Swiper, SwiperSlide} from 'swiper/react'
-import ItemTechnology from './ItemTechnology'
+import ItemTechnologyHome from './ItemTechnologyHome'
 export default function SlideTechnology({isMobile, posts = []}) {
   return (
     <Swiper
@@ -20,13 +20,12 @@ export default function SlideTechnology({isMobile, posts = []}) {
       id='technology_swiper'
       className='size-full '
     >
-      {posts?.map((post, index) => (
+      {posts?.item?.map((post, index) => (
         <SwiperSlide
           key={index}
           className='!w-[21.38063rem] pr-[0.59rem]'
         >
-          <ItemTechnology
-            className='md:h-[30.4rem]'
+          <ItemTechnologyHome
             index={index}
             post={post}
           />

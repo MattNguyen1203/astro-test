@@ -15,71 +15,44 @@ export function handleViewPort(viewport, desktop, tablet, mobile) {
 }
 
 export function handlePercentSale(product) {
-  if (product?.type === 'grouped') {
-    // handle san pham combo
-    let totalRegularPrice = 0
-    let totalSalePrice = 0
-    let countSale = 0
-    product?.grouped_products?.forEach((item) => {
-      if (!item?.salePrice) {
-        countSale += 1
-      }
-      totalRegularPrice +=
-        Number(item?.salePrice ? item?.regular_price : item?.price) || 0
-      totalSalePrice += Number(item?.salePrice) || 0
-    })
-    // khong co san pham sale nao
-    if (countSale === product?.grouped_products?.length) return null
-
-    return Math.floor(
-      (totalRegularPrice - totalSalePrice) / (totalRegularPrice / 100),
+  const isFlashsale =
+    product?.meta_detect?.flash_sale?.is_flash_sale === 'yes' ? true : false
+  if (isFlashsale) {
+    const priceFlashsale = Number(
+      product?.meta_detect?.flash_sale?.flash_sale_price,
     )
-  } else {
-    // handle san pham don
-    if (!product?.salePrice) return null
+    return Math.floor(
+      (Number(product?.regular_price) - priceFlashsale) /
+        (Number(product?.regular_price) / 100),
+    )
+  }
+  if (Number(product?.salePrice)) {
     return Math.floor(
       (Number(product?.regular_price) - Number(product?.salePrice)) /
         (Number(product?.regular_price) / 100),
     )
   }
+  return false
 }
 
 export function renderPriceProduct(product) {
-  if (product?.type === 'grouped') {
-    // handle san pham combo
-    let totalRegularPrice = 0
-    let totalSalePrice = 0
-    let countSale = 0
-    product?.grouped_products?.forEach((item) => {
-      if (!item?.salePrice) {
-        countSale += 1
-      }
-      totalRegularPrice +=
-        Number(item?.salePrice ? item?.regular_price : item?.price) || 0
-      totalSalePrice += Number(item?.salePrice) || 0
-    })
-    // khong co san pham sale nao
-    if (countSale === product?.grouped_products?.length)
-      return {
-        price: totalRegularPrice,
-        sale: totalRegularPrice,
-      }
-
-    return {
-      price: totalRegularPrice,
-      sale: totalSalePrice,
-    }
-  } else {
-    // handle san pham don
-    if (!product?.salePrice)
-      return {
-        price: product?.price,
-        sale: product?.price,
-      }
+  const isFlashsale =
+    product?.meta_detect?.flash_sale?.is_flash_sale === 'yes' ? true : false
+  if (isFlashsale) {
     return {
       price: product?.regular_price,
-      sale: product?.salePrice,
+      sale: product?.meta_detect?.flash_sale?.flash_sale_price,
     }
+  }
+  if (!Number(product?.salePrice))
+    return {
+      price: product?.regular_price,
+      sale: 0,
+    }
+
+  return {
+    price: product?.regular_price,
+    sale: product?.salePrice,
   }
 }
 
@@ -99,3 +72,11 @@ export function formatToShortVND(price) {
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 export {fetcher}
 
+export function convertDateFormat(dateTimeStr) {
+  const dateTime = new Date(dateTimeStr)
+  const day = dateTime.getDate().toString().padStart(2, '0') // Thêm số 0 nếu cần thiết để ngày có 2 chữ số
+  const month = (dateTime.getMonth() + 1).toString().padStart(2, '0') // Tháng được trả lại từ 0-11
+  const year = dateTime.getFullYear()
+
+  return `${day}/${month}/${year}`
+}

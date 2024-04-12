@@ -18,7 +18,7 @@ const ChangeQuantity = ({stockQty}) => {
   }
   return (
     <div className='flex items-center justify-between xmd:w-full xmd:mb-[0.88rem]'>
-      <span className='hidden xmd:flex caption1 font-medium text-greyscale-30 '>
+      <span className='hidden font-medium xmd:flex caption1 text-greyscale-30 '>
         Số lượng:
       </span>
       <div className='flex'>
@@ -36,7 +36,11 @@ const ChangeQuantity = ({stockQty}) => {
             alt='icon minus'
           />
         </div>
-        <div className='w-[2.3rem] h-[2.3rem]'>
+        <div
+          className={`${
+            isAdd ? 'size-[2.92826rem]' : 'size-[2.3rem]'
+          } select-none`}
+        >
           <input
             type='number'
             name='quantity'

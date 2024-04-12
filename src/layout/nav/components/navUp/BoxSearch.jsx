@@ -6,6 +6,8 @@ import PopupResult from './PopupResult'
 import {useState} from 'react'
 import useStore from '@/app/(store)/store'
 import PopupStore from '../popupstore'
+import useSWR from 'swr'
+import {fetcher} from '@/lib/utils'
 
 const linkNavUp = [
   {
@@ -14,7 +16,7 @@ const linkNavUp = [
   },
   {
     title: 'Góc công nghệ',
-    href: '/goc-cong-nghe',
+    href: '/tin-tuc/goc-cong-nghe',
   },
   {
     title: 'Cửa hàng',
@@ -26,10 +28,26 @@ const linkNavUp = [
   },
 ]
 
-export default function BoxSearch({isMobile}) {
-  const [isValue, setIsValue] = useState(false)
+export default function BoxSearch({isMobile, productSuggest, categories}) {
+  const [value, setValue] = useState('')
   const isFocusSearchNav = useStore((state) => state.isFocusSearchNav)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
+
+  const {data, error, isLoading} = useSWR(
+    value
+      ? process.env.NEXT_PUBLIC_API +
+          `/okhub/v1/product/filter/products?limit=10&page=1&order=desc&keyword=${value}`
+      : null,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    },
+  )
+
+  // refreshInterval: value ? 1000 : false,
+
   return (
     <div
       id='container_search_nav'
@@ -38,8 +56,8 @@ export default function BoxSearch({isMobile}) {
       } transition-all duration-200 bg-blue-50 xmd:bg-elevation-20 rounded-[7.5rem] md:p-[0.29rem] flex items-center h-[3.22108rem] xmd:h-[2.34261rem] w-fit relative xmd:-mr-[4.4rem]`}
     >
       <InputSearchNav
-        setIsValue={setIsValue}
-        isValue={isValue}
+        setValue={setValue}
+        value={value}
         isMobile={isMobile}
       />
       {!isMobile && (
@@ -50,7 +68,9 @@ export default function BoxSearch({isMobile}) {
           {linkNavUp.map((e, index) => (
             <li
               key={index}
-              className={`${index === 2 ? 'relative group' : ''}`}
+              className={`${
+                index === 2 ? 'relative group before:absolute' : ''
+              }`}
             >
               {index === 2 ? (
                 <>
@@ -71,7 +91,14 @@ export default function BoxSearch({isMobile}) {
           ))}
         </ul>
       )}
-      {isValue && isFocusSearchNav && <PopupResult />}
+      {isFocusSearchNav && (
+        <PopupResult
+          productSuggest={productSuggest}
+          categories={categories}
+          value={value}
+          data={data}
+        />
+      )}
     </div>
   )
 }

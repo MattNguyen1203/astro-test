@@ -19,7 +19,6 @@ export const {
       return true
     },
     async jwt({token, account, user}) {
-      console.log('🚀 ~ jwt ~ token:', token)
       // Chỉ thực hiện khi người dùng đăng nhập và có thông tin từ provider
       // Khi người dùng đăng nhập bằng Google, lưu access token vào token
       if (account?.provider === 'google') {
@@ -50,21 +49,29 @@ export const {
         token.accessToken = user?.token
       }
 
-      // // refresh-token trước khi hết hạn 5 phút
-      // if (Date.now() > token.exp * 1000 - (5 * 60 * 1000)) {
-      //   // return refreshAccessToken(token)
-      //   const res = await postData(
-      //     '/custom/v1/customer/refresh-token',
-      //     JSON.stringify({
-      //       token: token?.accessToken,
-      //     }),
-      //   )
-      // }
-
+      // refresh-token trước khi hết hạn 5 phút
+      if (Date.now() > token.exp * 1000 - 5 * 60 * 1000) {
+        const res = await postData(
+          '/custom/v1/customer/refresh-token',
+          JSON.stringify({
+            token: token?.accessToken,
+          }),
+        )
+        if (res?.refresh_token) {
+          token.exp = res?.expire
+          token.accessToken = res?.refresh_token
+        } else {
+          // Đánh dấu refresh token thất bại
+          token.error = 'RefreshAccessTokenError'
+        }
+      }
       return token
     },
     async session({token, session}) {
       session.accessToken = token?.accessToken
+      if (token.error === 'RefreshAccessTokenError') {
+        throw new Error('RefreshAccessTokenError')
+      }
       return session
     },
   },
@@ -91,7 +98,6 @@ export const {
           }),
         )
         if (res?.user_id) {
-          console.log('🚀 ~ authorize ~ res:', res)
           return res
         } else {
           return JSON.parse(res)

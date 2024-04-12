@@ -97,7 +97,10 @@ const FormDescription = forwardRef(({className, ...props}, ref) => {
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn('text-sm text-muted-foreground', className)}
+      className={cn(
+        'text-sm text-muted-foreground !font-svnGraphik',
+        className,
+      )}
       {...props}
     />
   )
@@ -116,7 +119,10 @@ const FormMessage = forwardRef(({className, children, ...props}, ref) => {
     <p
       ref={ref}
       id={formMessageId}
-      className={cn('text-sm font-medium text-destructive', className)}
+      className={cn(
+        'text-sm font-medium text-destructive !font-svnGraphik',
+        className,
+      )}
       {...props}
     >
       {body}

@@ -17,11 +17,12 @@ import {Label} from '@/components/ui/label'
 import BtnSubmit from '../auth/components/btnsubmit'
 import {useState} from 'react'
 import {DialogAvatar} from './components/dialogavatar'
+import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
 
 const formSchema = z.object({
   voucher: z.string().min(1, {message: 'Bạn chưa nhập Voucher!'}),
 })
-export default function IndexAccount() {
+export default function IndexAccount({isMobile}) {
   const [isEdit, setIsEdit] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const form = useForm({
@@ -41,6 +42,12 @@ export default function IndexAccount() {
   }
   return (
     <section>
+      {isMobile && (
+        <div className='flex items-center pl-[0.59rem]'>
+          <ICArrowRightBlack className='rotate-180 size-[1.2rem] mr-[0.59rem]' />
+          <span>Thông tin tài khoản</span>
+        </div>
+      )}
       <article>
         <Form {...form}>
           <form
