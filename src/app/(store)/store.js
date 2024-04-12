@@ -2,6 +2,7 @@ import {create} from 'zustand'
 const useStore = create((set) => ({
   isFocusSearchNav: false,
   isOpenMegaMenuRes: false,
+
   setIsFocusSearchNav: (data) => {
     set((state) => {
       return {

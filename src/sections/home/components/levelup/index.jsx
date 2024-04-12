@@ -6,7 +6,7 @@ export default async function LevelUpYourTech({isMobile}) {
   const data = (await getData('/okhub/v1/category/category')) || []
   const categories = data?.find((e) => e?.slug === slugAccessory)?.children
   const productCategory = await getData(
-    `/okhub/v1/product/productByCategory/${categories[0]?.slug}`,
+    `/okhub/v1/product/productByCategory/${categories && categories[0]?.slug}`,
   )
 
   return (

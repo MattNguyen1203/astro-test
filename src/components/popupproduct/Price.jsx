@@ -11,7 +11,7 @@ const ProductPrice = ({regularPrice, price}) => {
       <div className='relative group before:size-full before:absolute before:top-0 before:left-0 hover:before:opacity-100 before:opacity-0 before:transition-all before:duration-500 md:before:bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] md:bg-[linear-gradient(100deg,#E9940B_46.57%,#FFDBA3_100.64%)] overflow-hidden transition duration-500 ease-in flex items-center w-[19rem] xmd:w-fit h-[2.78rem] xmd:h-fit rounded-[0.58565rem]'>
         <div className='flex items-center w-full h-full relative z-10 px-[0.59rem] py-[0.44rem] xmd:p-0'>
           <span className='sub1 text-white font-bold mr-[0.59rem] xmd:text-[1.31772rem] xmd:text-[#0D1F33]'>
-            280.000đ
+            {formatToVND(price || '')}
           </span>
 
           {regularPrice && (

@@ -11,16 +11,6 @@ const ShowMore = ({
   iconProp,
   wrapperClass,
 }) => {
-  // API:{
-  //   maxHeight={200}
-  //   textClass='sub2 text-greyscale-30 font-medium mr-0.29rem'
-  //   iconProp={{
-  //     className: 'w-[1.1713rem] h-[1.1713rem] object-contain',
-  //     url: '/product/arrow.svg',
-  //   }}
-  //   wrapperClass='bg-transparent relative'
-
-  // }
   const [isExpanded, setIsExpanded] = useState(false)
   const [showButton, setShowButton] = useState(false)
   const contentRef = useRef(null)
@@ -42,7 +32,7 @@ const ShowMore = ({
 
     // Cleanup observer on component unmount
     return () => observer.disconnect()
-  }, [maxHeight, children])
+  }, [maxHeight])
 
   const toggleExpand = () => setIsExpanded(!isExpanded)
   return (

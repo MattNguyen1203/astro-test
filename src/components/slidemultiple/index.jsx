@@ -7,13 +7,19 @@ import 'swiper/css/thumbs'
 
 import {Swiper, SwiperSlide} from 'swiper/react'
 import {FreeMode, Navigation, Thumbs} from 'swiper/modules'
-import {useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import Image from 'next/image'
 import ICChevron from '../icon/ICChevron'
-export default function SlideMultiple() {
+export default function SlideMultiple({listGallery, activeImage}) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
-
-  let dataSlide = new Array(5).fill()
+  const slideRef = useRef()
+  const uniqueId = Math.random() * 1000
+  useEffect(() => {
+    const activeIndex = listGallery.findIndex((item) => item === activeImage)
+    if (activeIndex >= 0 && slideRef.current) {
+      slideRef.current.slideTo(activeIndex)
+    }
+  }, [activeImage, uniqueId])
 
   return (
     <>
@@ -39,15 +45,18 @@ export default function SlideMultiple() {
             }}
             thumbs={{swiper: thumbsSwiper}}
             modules={[FreeMode, Navigation, Thumbs]}
+            onBeforeInit={(swiper) => {
+              slideRef.current = swiper
+            }}
             className='productSlideMain size-full'
           >
-            {dataSlide.map((item, index) => (
+            {listGallery?.map((item, index) => (
               <SwiperSlide key={index}>
                 <Image
-                  src='/components/productImg.jpg'
-                  alt='items'
-                  width={500}
-                  height={500}
+                  src={item || '/no-image.jpg'}
+                  alt='ảnh sp'
+                  width={800}
+                  height={800}
                   className='w-full h-full object-cover xmd:border xmd:border-[#ECECEC] xmd:rounded-[0.5rem]'
                 />
               </SwiperSlide>
@@ -72,17 +81,17 @@ export default function SlideMultiple() {
             modules={[FreeMode, Navigation, Thumbs]}
             className='productSlideThumb size-full'
           >
-            {dataSlide.map((item, index) => (
+            {listGallery?.map((item, index) => (
               <SwiperSlide
                 className='bg-white overflow-hidden rounded-[0.46728rem]'
                 key={index}
               >
                 <Image
-                  src='/components/productImg.jpg'
+                  src={item || '/no-image.jpg'}
                   alt='items'
-                  width={500}
-                  height={500}
-                  className='rounded-[0.46728rem] size-full'
+                  width={200}
+                  height={200}
+                  className='rounded-[0.46728rem] size-full object-cover'
                 />
               </SwiperSlide>
             ))}

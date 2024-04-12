@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {memo} from 'react'
 import AccordionInfo from '../Accordion'
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
 import ShowMore from '@/components/showmore'
@@ -55,4 +55,4 @@ const TabInfo = ({info, isMobile}) => {
   )
 }
 
-export default TabInfo
+export default memo(TabInfo)
