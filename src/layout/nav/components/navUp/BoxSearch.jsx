@@ -29,15 +29,14 @@ const linkNavUp = [
 ]
 
 export default function BoxSearch({isMobile, productSuggest, categories}) {
-  const [isValue, setIsValue] = useState('')
-  console.log('🚀 ~ BoxSearch ~ isValue:', isValue)
+  const [value, setValue] = useState('')
   const isFocusSearchNav = useStore((state) => state.isFocusSearchNav)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
 
   const {data, error, isLoading} = useSWR(
-    isValue
+    value
       ? process.env.NEXT_PUBLIC_API +
-          `/okhub/v1/product/filter/products?limit=10&page=1&keyword=${isValue}`
+          `/okhub/v1/product/filter/products?limit=10&page=1&order=desc&keyword=${value}`
       : null,
     fetcher,
     {
@@ -47,7 +46,7 @@ export default function BoxSearch({isMobile, productSuggest, categories}) {
     },
   )
 
-  // refreshInterval: isValue ? 1000 : false,
+  // refreshInterval: value ? 1000 : false,
 
   return (
     <div
@@ -57,8 +56,8 @@ export default function BoxSearch({isMobile, productSuggest, categories}) {
       } transition-all duration-200 bg-blue-50 xmd:bg-elevation-20 rounded-[7.5rem] md:p-[0.29rem] flex items-center h-[3.22108rem] xmd:h-[2.34261rem] w-fit relative xmd:-mr-[4.4rem]`}
     >
       <InputSearchNav
-        setIsValue={setIsValue}
-        isValue={isValue}
+        setValue={setValue}
+        value={value}
         isMobile={isMobile}
       />
       {!isMobile && (
@@ -69,7 +68,9 @@ export default function BoxSearch({isMobile, productSuggest, categories}) {
           {linkNavUp.map((e, index) => (
             <li
               key={index}
-              className={`${index === 2 ? 'relative group' : ''}`}
+              className={`${
+                index === 2 ? 'relative group before:absolute' : ''
+              }`}
             >
               {index === 2 ? (
                 <>
@@ -94,7 +95,7 @@ export default function BoxSearch({isMobile, productSuggest, categories}) {
         <PopupResult
           productSuggest={productSuggest}
           categories={categories}
-          isValue={isValue}
+          value={value}
           data={data}
         />
       )}

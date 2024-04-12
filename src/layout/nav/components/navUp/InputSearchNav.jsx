@@ -2,17 +2,29 @@
 
 import useStore from '@/app/(store)/store'
 import Image from 'next/image'
-import {useRouter} from 'next/navigation'
+import {usePathname, useRouter, useSearchParams} from 'next/navigation'
 
-export default function InputSearchNav({setIsValue, isValue, isMobile}) {
+export default function InputSearchNav({setValue, value, isMobile}) {
   const router = useRouter()
+  const pathName = usePathname()
+  const searchParams = useSearchParams()
 
   const setIsFocusSearchNav = useStore((state) => state.setIsFocusSearchNav)
   const isFocusSearchNav = useStore((state) => state.isFocusSearchNav)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    router.push('/san-pham')
+    const paramNew = new URLSearchParams(searchParams)
+    if (value) {
+      paramNew.set('search', encodeURI(value))
+    } else {
+      paramNew.delete('search')
+    }
+    if (pathName?.includes('/san-pham')) {
+      router.push(pathName + '?' + paramNew.toString())
+    } else {
+      router.push('/san-pham' + '?' + paramNew.toString())
+    }
     setIsFocusSearchNav(false)
   }
 
@@ -29,7 +41,7 @@ export default function InputSearchNav({setIsValue, isValue, isMobile}) {
         <div
           id='icon_search_nav'
           className={`${
-            isValue ? 'active' : ''
+            value ? 'active' : ''
           } absolute top-1/2 -translate-y-1/2 md:right-[0.88rem] size-[1.46413rem] pointer-events-none xmd:size-[1.1713rem] xmd:-translate-x-1/2 xmd:left-1/2`}
         >
           <Image
@@ -59,9 +71,7 @@ export default function InputSearchNav({setIsValue, isValue, isMobile}) {
           }
           onFocus={() => setIsFocusSearchNav(true)}
           onChange={(e) => {
-            if (e.target.value) {
-              setIsValue(e.target.value)
-            }
+            setValue(e.target.value)
           }}
           // onBlur={() => setIsFocusSearchNav(false)}
         />
