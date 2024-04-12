@@ -1,11 +1,13 @@
+'use client'
 import TemVoucher from './TemVoucher'
 import SlideMultiple from '../slidemultiple'
 import Variation from './Variation'
 import ChangeQuantity from './ChangeQuantity'
 import ProductPrice from './Price'
+import Link from 'next/link'
 import AddToCart from './AddToCart'
 
-export default function ProductInfo({type, product}) {
+export default function ProductInfo({type, product, data = {}}) {
   const isAdd = type === 'add'
   return (
     <div className='xmd:flex-col xmd:flex px-[1.17rem] xmd:p-[0] xmd:pt-[0.73rem] xmd:pb-[9rem] pt-[1.17rem] pb-[1.14rem] rounded-[0.87848rem] bg-elevation-20 xmd:bg-white w-fit xmd:w-full h-fit flex xmd:overflow-hidden'>
@@ -13,12 +15,22 @@ export default function ProductInfo({type, product}) {
 
       <div className='w-[28.25769rem] relative xmd:w-full xmd:mt-[1.17rem]'>
         <div className='bg-white rounded-[0.87848rem] p-[0.88rem] xmd:p-[0.73rem]'>
-          <h2 className='capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'>
-            Sp2
-          </h2>
-          <ProductPrice />
-          <TemVoucher />
-          <Variation product={product} />
+          <Link
+            href={`/san-pham/${data?.slug}`}
+            className='capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'
+          >
+            {data?.name}
+          </Link>
+          <ProductPrice
+            regularPrice={data?.regular_price}
+            price={data?.price}
+          />
+          <TemVoucher
+            regularPrice={data?.regular_price}
+            price={data?.price}
+          />
+
+          {data.type === 'variable' && <Variation data={data} />}
         </div>
 
         <div
