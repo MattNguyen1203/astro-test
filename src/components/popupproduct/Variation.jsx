@@ -1,97 +1,139 @@
 'use client'
 
+import {cn} from '@/lib/utils'
 import Image from 'next/image'
-import {useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
+import {getLastKey, getListValueOutOfStock} from './function'
 
-const Variation = () => {
+const Variation = ({data = {}, setSelectedPrd}) => {
   const [variationSelected, setVariationSelected] = useState([])
-  const listVar = [
-    {
-      label: 'Màu sắc',
-      slug: 'color',
-      content: [
-        {
-          src: '/components/varImg.jpg',
-          name: 'Trắng',
-          slug: 'white',
-        },
-        {
-          src: '/components/varImg.jpg',
-          name: 'Hồng',
-          slug: 'pink',
-        },
-        {
-          src: '/components/varImg.jpg',
-          name: 'Xanh',
-          slug: 'blue',
-        },
-        {
-          src: '/components/varImg.jpg',
-          name: 'Đen',
-          slug: 'black',
-        },
-      ],
-    },
-    {
-      label: 'Dòng máy',
-      slug: 'brand',
-      content: [
-        {
-          src: '',
-          name: 'Macbook',
-          slug: 'macbook',
-        },
-        {
-          src: '',
-          name: 'Surface',
-          slug: 'surface',
-        },
-        {
-          src: '',
-          name: 'Asus',
-          slug: 'asus',
-        },
-        {
-          src: '',
-          name: 'LG',
-          slug: 'lg',
-        },
-      ],
-    },
-  ]
+  const [listAttribute, setListAttribute] = useState([])
+  const [listOutOfStock, setListOutOfStock] = useState({
+    key: '',
+    value: [],
+  })
+  // handle attribute
+  useEffect(() => {
+    // get init list attribute
+    const listAttr = Object.values(data?.list_attributes)
+    const listVariations = Object.values(data?.variations)
 
-  const handleSelectVariation = (parentSlug, item) => {
+    // check attributes that appear in variations
+    const finalRes = listAttr.map((attr) => {
+      const parentKey = attr?.key
+      const listVal = attr.value.map((item) => {
+        const isExist = listVariations?.some((variant) =>
+          variant?.attributes?.some(
+            (variantAttr) =>
+              variantAttr.taxonomy === parentKey &&
+              variantAttr?.key === item.slug,
+          ),
+        )
+        if (isExist) return item
+      })
+
+      return {
+        ...attr,
+        value: listVal,
+      }
+    })
+    setListAttribute(finalRes)
+  }, [data])
+
+  //handle Select variation
+  const handleSelectVariation = (parentkey, item) => {
     const index = variationSelected.findIndex(
-      (variant) => variant.parentSlug === parentSlug,
+      (variant) => variant.parentkey === parentkey,
     )
-
     const updatedVariationSelected = [...variationSelected]
 
     if (index !== -1) {
-      // If the variation for the parentSlug already exists, update its selectedSlug
+      // If the variation for the parentkey already exists, update its selectedkey
       updatedVariationSelected[index] = {
         ...updatedVariationSelected[index],
-        selectedSlug: item.slug,
+        selectedkey: item.slug,
+        selectedName: item.name,
       }
     } else {
-      // If the variation for the parentSlug doesn't exist, add it to the array
-      updatedVariationSelected.push({parentSlug, selectedSlug: item.slug})
+      // If the variation for the parentkey doesn't exist, add it to the array
+      updatedVariationSelected.push({
+        parentkey,
+        selectedkey: item.slug,
+        selectedName: item.name,
+      })
     }
-
     setVariationSelected(updatedVariationSelected)
   }
 
-  const isSelected = (parentSlug, itemSlug) => {
+  //check variant selected or not
+  const isSelected = (parentkey, itemkey) => {
     const findExistChild = variationSelected.find(
       (variant) =>
-        variant.parentSlug === parentSlug && variant.selectedSlug === itemSlug,
+        variant.parentkey === parentkey && variant.selectedkey === itemkey,
     )
     return findExistChild ? true : false
   }
+  useEffect(() => {
+    if (variationSelected.length < 1) return
 
+    // handle list out of stock
+    const listParentKey = listAttribute.map((item) => item.key)
+    const lastKey = getLastKey(variationSelected, listParentKey)
+    const listVariations = Object.values(data?.variations)
+    const listOutOfStock = getListValueOutOfStock(
+      listVariations,
+      variationSelected,
+      lastKey,
+    )
+
+    const listValueOutOfStock = listOutOfStock.map((item) => {
+      const result = item.attributes.find((attr) => attr.taxonomy === lastKey)
+      return result.key
+    })
+
+    setListOutOfStock({
+      key: lastKey,
+      value: listValueOutOfStock,
+    })
+
+    if (variationSelected.length === listParentKey.length) {
+      // when variationSelected change => if list out of stock have selectedkey => update selectedkey = ""
+      variationSelected.forEach((item, index) => {
+        if (
+          item.parentkey === lastKey &&
+          listValueOutOfStock.includes(item.selectedkey)
+        ) {
+          variationSelected[index].selectedkey = ''
+          setSelectedPrd((prev) => ({
+            ...prev,
+            selectedVariations: {},
+          }))
+        }
+      })
+      const variationSelectedInfo = listVariations.find((variant) => {
+        if (
+          variationSelected.every((item) =>
+            variant.attributes?.some(
+              (attr) =>
+                attr.taxonomy === item.parentkey &&
+                attr.key === item.selectedkey,
+            ),
+          )
+        ) {
+          return variant
+        }
+      })
+
+      if (variationSelectedInfo)
+        setSelectedPrd((prev) => ({
+          ...prev,
+          selectedVariations: variationSelectedInfo,
+        }))
+    }
+  }, [variationSelected])
   return (
     <div className=''>
-      {listVar.map((variation, index) => {
+      {listAttribute?.map((variation, index) => {
         return (
           <div
             key={index}
@@ -102,16 +144,21 @@ const Variation = () => {
             </span>
 
             <div className='flex'>
-              {variation?.content?.map((item, itemIndex) => {
+              {variation?.value?.map((item, itemIndex) => {
                 return (
                   <div
                     key={itemIndex}
-                    className={`flex relative items-center mr-[0.44rem] p-[0.44rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02),-6px_2px_32px_0px_rgba(0,0,0,0.06)] rounded-[0.29283rem] cursor-pointer border-[2px] border-solid ${
-                      isSelected(variation.slug, item.slug)
+                    className={cn(
+                      'flex relative items-center mr-[0.44rem] p-[0.44rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02),-6px_2px_32px_0px_rgba(0,0,0,0.06)] rounded-[0.29283rem] cursor-pointer border-[2px] border-solid',
+                      isSelected(variation?.key, item?.slug)
                         ? 'border-blue-500'
-                        : 'border-transparent'
-                    }`}
-                    onClick={() => handleSelectVariation(variation?.slug, item)}
+                        : 'border-transparent',
+                      variation.key === listOutOfStock.key &&
+                        listOutOfStock.value.includes(item?.slug)
+                        ? 'bg-[rgba(0,0,0,0.2)] pointer-events-none'
+                        : 'bg-white',
+                    )}
+                    onClick={() => handleSelectVariation(variation?.key, item)}
                   >
                     <Image
                       src={'/components/checkVar.svg'}
@@ -119,14 +166,14 @@ const Variation = () => {
                       width={12}
                       height={12}
                       className={`absolute top-[-0.43924rem] right-[-0.36603rem] z-10 ${
-                        isSelected(variation.slug, item.slug)
+                        isSelected(variation.key, item?.slug)
                           ? 'flex'
                           : 'hidden'
                       }`}
                     />
-                    {item.src && item.src.length > 0 ? (
+                    {item.image && item.image.length > 0 ? (
                       <Image
-                        src={item.src}
+                        src={item.image}
                         alt=''
                         width={28}
                         height={27}

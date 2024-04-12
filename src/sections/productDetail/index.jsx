@@ -14,7 +14,8 @@ import SubInfo from './SubInfo/SubInfo'
 import TechnicalInfo from './SubInfo/TechnicalInfo'
 import VoucherList from './VoucherList'
 import TabInfo from './SubInfo/TabInfo'
-import {useEffect, useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
+import {DialogProduct} from '../home/components/dialog'
 
 const prdOther = [
   {
@@ -38,9 +39,38 @@ const prdOther = [
   },
 ]
 
-const ProductDetail = ({isMobile, data, voucher}) => {
-  const fakeData = new Array(3).fill(0)
+const ProductDetail = ({isMobile, data, voucher, variations}) => {
+  const [isOpen, setIsOpen] = useState(false) // open popup product
+  const [activeId, setActiveId] = useState('') // activeID in open popup;
+  const [selectedPrd, setSelectedPrd] = useState({
+    ...data,
+    variations: variations,
+  })
 
+  //get list image
+  const listGallery = useMemo(() => {
+    const gallery = data?.galleryImgs.map((item) => item)
+
+    const listImgVariations = Object.values(variations?.variations)?.map(
+      (item) => item.image.url,
+    )
+
+    return gallery.concat(listImgVariations)
+  }, [data])
+
+  //check user select variation or not
+  const isHaveSelectedVar = useMemo(() => {
+    if (data.type === 'variable') {
+      return (
+        selectedPrd?.selectedVariations &&
+        selectedPrd.attributes &&
+        selectedPrd.attributes.length > 0
+      )
+    }
+  }, [selectedPrd, data])
+
+  const handleAddToCart = () => {}
+  console.log('selectedPrd', selectedPrd)
   return (
     <div className='container mt-[8.1rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
@@ -53,7 +83,10 @@ const ProductDetail = ({isMobile, data, voucher}) => {
       <div className='relative flex justify-between xmd:flex-col'>
         <div className='col'>
           <div className='sticky top-[9rem] right-0 mb-[2rem]'>
-            <SlideMultiple />
+            <SlideMultiple
+              listGallery={listGallery}
+              activeImage={selectedPrd?.selectedVariations?.image?.url}
+            />
             <div className='xmd:hidden sub2 font-medium tracking-[0.01025rem] mt-[1.32rem] mb-[0.59rem] text-greyscale-30'>
               Ghé thăm gian hàng tại:
             </div>
@@ -69,31 +102,77 @@ const ProductDetail = ({isMobile, data, voucher}) => {
               {data?.name}
             </h2>
             <ProductPrice
-              regularPrice={data?.regular_price}
-              price={data?.price || 0}
+              regularPrice={
+                selectedPrd?.selectedVariations?.display_regular_price ||
+                data?.regular_price
+              }
+              price={
+                selectedPrd?.selectedVariations?.display_price ||
+                data?.price ||
+                0
+              }
             />
 
             <TemVoucher
-              regularPrice={data?.regular_price}
-              price={data?.price || 0}
+              regularPrice={
+                selectedPrd?.selectedVariations?.display_regular_price ||
+                data?.regular_price
+              }
+              price={
+                selectedPrd?.selectedVariations?.display_price ||
+                data?.price ||
+                0
+              }
             />
 
-            {data?.type === 'variable' && <Variation />}
+            {data?.type === 'variable' && (
+              <Variation
+                data={variations}
+                setSelectedPrd={setSelectedPrd}
+              />
+            )}
             <div className='absolute top-[1.17rem] right-[1.17rem] z-10'>
               <WishListIcon />
             </div>
             <div className='border-y xmd:border-none border-[rgba(236,236,236,0.70)] py-[1.46rem] xmd:py-0 flex items-center my-[1.46rem] xmd:mb-0 xmd:flex-col xmd:justify-start xmd:items-start'>
-              <ChangeQuantity />
-              <div className='flex xmd:flex-row-reverse h-[2.9282rem] xmd:h-[3.22108rem]'>
-                <AddToCartBtn
-                  className={{
-                    wrapper:
-                      'xmd:w-[3.22108rem] xmd:ml-[0.59rem] xmd:p-[0.58565rem] xmd:border-0 xmd:bg-blue-50 xmd:mr-0',
-                    text: 'xmd:hidden',
-                    img: 'xmd:size-[2rem]',
-                  }}
+              <div
+                className={cn(
+                  data?.type === 'variable' &&
+                    (!selectedPrd?.selectedVariations ||
+                      !selectedPrd?.selectedVariations.max_qty)
+                    ? 'pointer-events-none opacity-40 cursor-not-allowed'
+                    : '',
+                )}
+              >
+                <ChangeQuantity
+                  stockQty={
+                    selectedPrd?.selectedVariations?.max_qty ||
+                    selectedPrd.stock_quantity
+                  }
                 />
-                <button className='caption1 font-semibold text-white flex items-center justify-center w-[10.688rem] xmd:w-[21.3rem] h-full rounded-[0.58565rem] bg-[#102841] px-[1.17rem] py-[0.73rem] uppercase'>
+              </div>
+              <div className='flex xmd:flex-row-reverse h-[2.9282rem] xmd:h-[3.22108rem]'>
+                <div
+                  className={cn(
+                    !isHaveSelectedVar && 'opacity-50 pointer-events-none',
+                  )}
+                >
+                  <AddToCartBtn
+                    className={{
+                      wrapper:
+                        'xmd:w-[3.22108rem] xmd:ml-[0.59rem] xmd:p-[0.58565rem] xmd:border-0 xmd:bg-blue-50 xmd:mr-0',
+                      text: 'xmd:hidden',
+                      img: 'xmd:size-[2rem]',
+                    }}
+                  />
+                </div>
+
+                <button
+                  disabled={!isHaveSelectedVar}
+                  className={cn(
+                    'caption1 font-semibold text-white flex items-center justify-center w-[10.688rem] xmd:w-[21.3rem] h-full rounded-[0.58565rem] bg-[#102841] px-[1.17rem] py-[0.73rem] uppercase',
+                  )}
+                >
                   Mua ngay
                 </button>
               </div>
@@ -119,18 +198,29 @@ const ProductDetail = ({isMobile, data, voucher}) => {
             <div className='sub2 font-medium mb-[0.88rem]'>
               Sản phẩm mua kèm phù hợp:
             </div>
-            {fakeData.map((item, index) => (
+            {data?.crossSellProducts?.map((item, index) => (
               <div
                 key={index}
                 className={cn(
-                  index === fakeData?.length - 1
+                  index === data?.crossSellProducts?.length - 1
                     ? ''
                     : 'mb-[0.88rem] xmd:mb-[1.17rem]',
                 )}
               >
-                <ItemProduct />
+                <ItemProduct
+                  data={item}
+                  setIsOpen={setIsOpen}
+                  setActiveId={setActiveId}
+                />
               </div>
             ))}
+
+            <DialogProduct
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              data={data?.crossSellProducts}
+              activeId={activeId}
+            ></DialogProduct>
 
             <div className='flex items-center justify-between mt-[1.17rem]'>
               <div className='flex items-center xmd:flex-col xmd:items-start'>
