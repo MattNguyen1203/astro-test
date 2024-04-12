@@ -15,7 +15,7 @@ import TechnicalInfo from './SubInfo/TechnicalInfo'
 import VoucherList from './VoucherList'
 import TabInfo from './SubInfo/TabInfo'
 import {useEffect, useMemo, useState} from 'react'
-import {DialogProduct} from '../home/components/dialog'
+import DialogProductCrossell from '../home/components/dialogCrossell'
 
 const prdOther = [
   {
@@ -215,12 +215,12 @@ const ProductDetail = ({isMobile, data, voucher, variations}) => {
               </div>
             ))}
 
-            <DialogProduct
+            <DialogProductCrossell
               isOpen={isOpen}
               setIsOpen={setIsOpen}
               data={data?.crossSellProducts}
               activeId={activeId}
-            ></DialogProduct>
+            ></DialogProductCrossell>
 
             <div className='flex items-center justify-between mt-[1.17rem]'>
               <div className='flex items-center xmd:flex-col xmd:items-start'>

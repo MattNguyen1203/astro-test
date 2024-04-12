@@ -1,7 +1,7 @@
 import PopupProduct from '@/components/popupproduct'
 import {Dialog, DialogContent, DialogTrigger} from '@/components/ui/dialog'
 
-export function DialogProduct({children, isOpen, setIsOpen, data, activeId}) {
+export function DialogProduct({children, isOpen, setIsOpen, data}) {
   return (
     <Dialog
       open={isOpen}
@@ -12,7 +12,6 @@ export function DialogProduct({children, isOpen, setIsOpen, data, activeId}) {
         <PopupProduct
           setIsOpen={setIsOpen}
           data={data}
-          activeId={activeId}
         />
       </DialogContent>
     </Dialog>

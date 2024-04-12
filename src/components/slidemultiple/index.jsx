@@ -10,7 +10,7 @@ import {FreeMode, Navigation, Thumbs} from 'swiper/modules'
 import {useEffect, useRef, useState} from 'react'
 import Image from 'next/image'
 import ICChevron from '../icon/ICChevron'
-export default function SlideMultiple({listGallery, activeImage}) {
+export default function SlideMultiple({listGallery = [], activeImage}) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
   const slideRef = useRef()
   const uniqueId = Math.random() * 1000
