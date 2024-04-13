@@ -9,30 +9,36 @@ import Link from 'next/link'
 import React, {useEffect, useState} from 'react'
 
 const ItemProduct = (props) => {
-  const {data = {}, setIsOpen, setActiveId} = props
+  const {data = {}, setIsOpen, setActiveId, type} = props
   const [isChecked, setIsChecked] = useState(false)
 
   return (
     <div className='flex xmd:flex-col xmd:justify-start xmd:items-start justify-between items-center bg-white p-[1.17rem] xmd:p-[0.73rem] rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)]'>
       <div className='flex items-center relative'>
-        <div className='relative size-[1.75695rem] xmd:size-[1.46413rem] mr-[0.88rem] xmd:absolute xmd:bottom-[0.4rem] xmd:left-[0.4rem] xmd:mr-0'>
-          <ICBoxCheck className='size-full' />
-          {isChecked && (
-            <div className='absolute top-0 left-0 flex items-center justify-center bg-blue-700 size-full rounded-[0.25rem]'>
-              <ICCheck className='w-[0.8rem] h-auto' />
-            </div>
-          )}
+        {type !== 'combo' && (
+          <div className='relative size-[1.75695rem] xmd:size-[1.46413rem] mr-[0.88rem] xmd:absolute xmd:bottom-[0.4rem] xmd:left-[0.4rem] xmd:mr-0'>
+            <ICBoxCheck className='size-full' />
+            {isChecked && (
+              <div className='absolute top-0 left-0 flex items-center justify-center bg-blue-700 size-full rounded-[0.25rem]'>
+                <ICCheck className='w-[0.8rem] h-auto' />
+              </div>
+            )}
 
-          <input
-            type='checkbox'
-            name='product'
-            className='opacity-0 absolute top-0 left-0 w-full h-full z-10'
-            onClick={() => setIsChecked((prev) => !prev)}
-          />
-        </div>
+            <input
+              type='checkbox'
+              name='product'
+              className='opacity-0 absolute top-0 left-0 w-full h-full z-10'
+              onClick={() => setIsChecked((prev) => !prev)}
+            />
+          </div>
+        )}
 
         <Image
-          src={data?.featuredImage?.url || '/no-image.jpg'}
+          src={
+            data?.selectedVariations?.image?.url ||
+            data?.featuredImage?.url ||
+            '/no-image.jpg'
+          }
           alt=''
           width={200}
           height={200}
@@ -49,51 +55,61 @@ const ItemProduct = (props) => {
 
           <div className='flex items-center mb-[0.44rem]'>
             <span className='sub2 font-semibold text-blue-600 mr-[0.59rem] xmd:text-[1.1713rem] xmd:leading-normal'>
-              {formatToVND(data?.price)}
+              {formatToVND(
+                data?.selectedVariations?.display_price || data?.price,
+              )}
             </span>
 
             {data?.regular_price && (
               <span className='caption1 line-through text-greyscale-40 xmd:font-medium xmd:text-greyscale-30 xmd:leading-normal'>
-                {formatToVND(data?.regular_price)}
+                {formatToVND(
+                  data?.selectedVariations?.display_regular_price ||
+                    data?.regular_price,
+                )}
               </span>
             )}
           </div>
 
-          {data?.type === 'variable' && (
+          <div className='flex items-center mb-[0.5rem]'>
+            <span className='text-[0.875rem] text-greyscale-40 font-medium mr-[0.25rem]'>
+              Số lượng:
+            </span>
+            <span className='caption1 text-greyscale-80 font-medium'>
+              {data?.quantity || 1}
+            </span>
+          </div>
+
+          {data?.type === 'variable' && data?.selectedVariations && (
             <div className='flex xmd:hidden'>
-              {Array(2)
-                .fill()
-                .map((tag, index) => (
-                  <div
-                    key={index}
-                    className='caption1 text-greyscale-40 py-[0.44rem] px-[0.59rem] rounded-[0.43924rem] bg-elevation-20 mr-[0.59rem]'
-                  >
-                    xanh min
-                  </div>
-                ))}
+              {data?.selectedVariations?.attributes?.map((item, index) => (
+                <div
+                  key={index}
+                  className='caption1 text-greyscale-40 py-[0.44rem] px-[0.59rem] rounded-[0.43924rem] bg-elevation-20 mr-[0.59rem]'
+                >
+                  {item?.label}
+                </div>
+              ))}
             </div>
           )}
         </div>
       </div>
 
       <div className='flex xmd:justify-between xmd:items-center xmd:w-full xmd:mt-[0.73rem]'>
-        {data?.type === 'variable' && (
+        {data?.type === 'variable' && data?.selectedVariations && (
           <div className='hidden xmd:flex'>
-            {Array(2)
-              .fill()
-              .map((tag, index) => (
-                <div
-                  key={index}
-                  className='caption1 text-greyscale-40 py-[0.44rem] px-[0.59rem] rounded-[0.43924rem] bg-elevation-20 mr-[0.59rem]'
-                >
-                  xanh min
-                </div>
-              ))}
+            {data?.selectedVariations?.attributes?.map((item, index) => (
+              <div
+                key={index}
+                className='caption1 text-greyscale-40 py-[0.44rem] px-[0.59rem] rounded-[0.43924rem] bg-elevation-20 mr-[0.59rem]'
+              >
+                {item?.label}
+              </div>
+            ))}
           </div>
         )}
 
         <div
-          className='size-fit transition-all duration-300 p-[0.66rem] bg-elevation-20 hover:bg-[linear-gradient(151deg,#17395C_-0.57%,rgba(35,101,170,0.89)_57.41%)] rounded-full flex items-center justify-center cursor-pointer group'
+          className='size-[2.5rem] transition-all duration-300 p-[0.66rem] bg-elevation-20 hover:bg-[linear-gradient(151deg,#17395C_-0.57%,rgba(35,101,170,0.89)_57.41%)] rounded-full flex items-center justify-center cursor-pointer group'
           onClick={() => {
             setIsOpen(true)
             setActiveId(data?.id)

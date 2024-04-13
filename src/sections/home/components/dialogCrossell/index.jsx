@@ -1,6 +1,6 @@
 import PopupProduct from '@/components/popupproduct'
 import {Dialog, DialogContent, DialogTrigger} from '@/components/ui/dialog'
-import {cn} from '@/lib/utils'
+import {cn, fetcher} from '@/lib/utils'
 import {useEffect, useMemo, useState} from 'react'
 import Image from 'next/image'
 
@@ -10,27 +10,35 @@ export default function DialogProductCrossell({
   setIsOpen,
   data,
   activeId,
+  setActiveId,
+  setListCrossell,
 }) {
   const listImg = useMemo(() => {
-    return data.map((item) => ({
+    return data?.map((item) => ({
       key: item.id,
       src: item.featuredImage.url || '/no-image.jpg',
     }))
   }, [data])
-
-  const [key, setKey] = useState(activeId || listImg?.[0]?.key)
-  const [dataActive, setDataActive] = useState({})
+  const [dataActive, setDataActive] = useState(data?.[0] || {})
 
   useEffect(() => {
-    const activeData = data.find((item) => item.id === activeId)
+    const activeData = data?.find((item) => item.id === activeId)
     setDataActive(activeData)
   }, [activeId])
 
   const handleActive = (key) => {
-    setKey(key)
+    setActiveId(key)
+  }
 
-    const findItem = data.find((item) => item.id === key)
-    setDataActive(findItem)
+  const handleChangeVariation = () => {
+    setListCrossell((prev) => {
+      const newList = prev.map((item) =>
+        item?.id === dataActive?.id ? dataActive : item,
+      )
+      return newList
+    })
+
+    setIsOpen(false)
   }
 
   return (
@@ -52,18 +60,22 @@ export default function DialogProductCrossell({
                   height={200}
                   className={cn(
                     'h-full w-[6.29575rem] border-[0.61px] border-[#E7E7E7] mr-[0.59rem] rounded-[0.5358rem] object-cover cursor-pointer',
-                    key === item.key ? 'border-blue-800' : 'border-[#E7E7E7]',
+                    activeId === item.key
+                      ? 'border-blue-800'
+                      : 'border-[#E7E7E7]',
                   )}
                   onClick={() => handleActive(item.key)}
                 />
               )
             })}
-
-            <PopupProduct
-              setIsOpen={setIsOpen}
-              data={dataActive}
-            />
           </div>
+
+          <PopupProduct
+            setIsOpen={setIsOpen}
+            data={dataActive}
+            setSelectedPrd={setDataActive}
+            handleChangeVariation={handleChangeVariation}
+          />
         </div>
       </DialogContent>
     </Dialog>

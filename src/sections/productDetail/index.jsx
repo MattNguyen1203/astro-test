@@ -6,7 +6,7 @@ import Variation from '@/components/popupproduct/Variation'
 import TemVoucher from '@/components/popupproduct/TemVoucher'
 import ChangeQuantity from '@/components/popupproduct/ChangeQuantity'
 import ItemProduct from './itemProduct/Crosssell'
-import {cn} from '@/lib/utils'
+import {cn, formatToVND} from '@/lib/utils'
 import AddToCartBtn from './addToCartBtn'
 import WishListIcon from './Wishlist'
 import ProductPrice from '@/components/popupproduct/Price'
@@ -45,7 +45,12 @@ const ProductDetail = ({isMobile, data, voucher, variations}) => {
   const [selectedPrd, setSelectedPrd] = useState({
     ...data,
     variations: variations,
+    quantity: 1,
   })
+
+  const [listCrossell, setListCrossell] = useState(
+    data?.crossSellProducts || [],
+  )
 
   //get list image
   const listGallery = useMemo(() => {
@@ -69,8 +74,25 @@ const ProductDetail = ({isMobile, data, voucher, variations}) => {
     }
   }, [selectedPrd, data])
 
+  //handle Crossell Total Price
+  const totalCrossell = useMemo(() => {
+    const totalPrice = listCrossell?.reduce((value, currentValue) => {
+      const quantity = Number(currentValue.quantity) || 1
+      if (currentValue?.selectedVariations?.display_price) {
+        return (
+          Number(currentValue?.selectedVariations?.display_price) * quantity +
+          value
+        )
+      } else {
+        return Number(currentValue?.price) * quantity + value
+      }
+    }, 0)
+
+    return totalPrice
+  }, [listCrossell])
+
   const handleAddToCart = () => {}
-  console.log('selectedPrd', selectedPrd)
+
   return (
     <div className='container mt-[8.1rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
@@ -149,6 +171,7 @@ const ProductDetail = ({isMobile, data, voucher, variations}) => {
                     selectedPrd?.selectedVariations?.max_qty ||
                     selectedPrd.stock_quantity
                   }
+                  setChangeQty={setSelectedPrd}
                 />
               </div>
               <div className='flex xmd:flex-row-reverse h-[2.9282rem] xmd:h-[3.22108rem]'>
@@ -193,16 +216,15 @@ const ProductDetail = ({isMobile, data, voucher, variations}) => {
           />
 
           {/* sản phẩm mua kèm */}
-
           <div className='subContainer'>
             <div className='sub2 font-medium mb-[0.88rem]'>
               Sản phẩm mua kèm phù hợp:
             </div>
-            {data?.crossSellProducts?.map((item, index) => (
+            {listCrossell?.map((item, index) => (
               <div
                 key={index}
                 className={cn(
-                  index === data?.crossSellProducts?.length - 1
+                  index === listCrossell?.length - 1
                     ? ''
                     : 'mb-[0.88rem] xmd:mb-[1.17rem]',
                 )}
@@ -220,6 +242,8 @@ const ProductDetail = ({isMobile, data, voucher, variations}) => {
               setIsOpen={setIsOpen}
               data={data?.crossSellProducts}
               activeId={activeId}
+              setActiveId={setActiveId}
+              setListCrossell={setListCrossell}
             ></DialogProductCrossell>
 
             <div className='flex items-center justify-between mt-[1.17rem]'>
@@ -228,7 +252,7 @@ const ProductDetail = ({isMobile, data, voucher, variations}) => {
                   Tổng cộng:
                 </span>
                 <span className='h6 text-[#D48E43] font-bold xmd:font-semibold'>
-                  195.000đ
+                  {formatToVND(totalCrossell || 0)}
                 </span>
               </div>
 
