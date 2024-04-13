@@ -12,8 +12,10 @@ const Variation = ({data = {}, setSelectedPrd}) => {
     key: '',
     value: [],
   })
+
   // handle attribute
   useEffect(() => {
+    if (!data) return
     // get init list attribute
     const listAttr = Object.values(data?.list_attributes)
     const listVariations = Object.values(data?.variations)
@@ -75,7 +77,6 @@ const Variation = ({data = {}, setSelectedPrd}) => {
   }
   useEffect(() => {
     if (variationSelected.length < 1) return
-
     // handle list out of stock
     const listParentKey = listAttribute.map((item) => item.key)
     const lastKey = getLastKey(variationSelected, listParentKey)

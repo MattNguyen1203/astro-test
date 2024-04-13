@@ -37,7 +37,7 @@ const formSchema = z.object({
   note: z.string(),
 })
 
-export default function FormPreOrder() {
+export default function FormPreOrder({data, setSelectedPrd, selectedPrd}) {
   const [isPending, startTransition] = useTransition()
   const [isSuccess, setIsSuccess] = useState(false)
   const form = useForm({
@@ -83,7 +83,7 @@ export default function FormPreOrder() {
           onSubmit={form.handleSubmit(onSubmit)}
           className='space-y-[0.88rem]'
         >
-          <div className='grid grid-cols-3 gap-[0.88rem] xmd:gap-0 xmd:flex xmd:flex-wrap space-y-[0.88rem]'>
+          <div className='grid grid-cols-3 gap-[0.88rem] xmd:gap-0 xmd:flex xmd:flex-wrap xmd:space-y-[0.88rem]'>
             <FormField
               control={form.control}
               name='name'
@@ -137,7 +137,12 @@ export default function FormPreOrder() {
             />
           </div>
           <div className='w-full xmd:h-[3.22rem]'>
-            <SelectOptions form={form} />
+            <SelectOptions
+              form={form}
+              data={data}
+              setSelectedPrd={setSelectedPrd}
+              selectedPrd={selectedPrd}
+            />
           </div>
           <div className='w-full'>
             <FormField

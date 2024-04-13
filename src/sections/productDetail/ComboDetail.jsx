@@ -17,6 +17,9 @@ import ComboItem from './itemProduct/ComboItem'
 import TechnicalInfo from './SubInfo/TechnicalInfo'
 import TabInfo from './SubInfo/TabInfo'
 import VoucherList from './VoucherList'
+import ItemProduct from './itemProduct/Crosssell'
+import {useMemo, useState} from 'react'
+import DialogProductCrossell from '../home/components/dialogCrossell'
 
 const prdOther = [
   {
@@ -41,7 +44,21 @@ const prdOther = [
 ]
 
 const ComboDetail = ({isMobile, data, voucher}) => {
-  const fakeData = new Array(3).fill(0)
+  const [isOpen, setIsOpen] = useState(false) // open popup product
+  const [activeId, setActiveId] = useState('') // activeID in open popup;
+  const [selectedPrd, setSelectedPrd] = useState({
+    ...data,
+    quantity: 1,
+  })
+
+  const [listProduct, setListProduct] = useState(data?.grouped_products)
+
+  //get list image
+  const listGallery = useMemo(() => {
+    const gallery = data?.galleryImgs.map((item) => item)
+
+    return gallery
+  }, [data])
 
   return (
     <div className='container mt-[8.1rem] bg-elevation-10 relative xmd:w-full'>
@@ -55,7 +72,7 @@ const ComboDetail = ({isMobile, data, voucher}) => {
       <div className='relative flex justify-between xmd:flex-col'>
         <div className='col'>
           <div className='sticky top-[9rem] right-0 mb-[2rem]'>
-            <SlideMultiple />
+            <SlideMultiple listGallery={listGallery} />
             <div className='xmd:hidden sub2 font-medium tracking-[0.01025rem] mt-[1.32rem] mb-[0.59rem] text-greyscale-30'>
               Ghé thăm gian hàng tại:
             </div>
@@ -80,15 +97,29 @@ const ComboDetail = ({isMobile, data, voucher}) => {
                 <div
                   key={item.id}
                   className={cn(
-                    index === fakeData?.length - 1
+                    index === data?.grouped_products?.length - 1
                       ? ''
                       : 'mb-[0.88rem] xmd:mb-[1.17rem]',
                   )}
                 >
-                  <ComboItem data={item} />
+                  <ItemProduct
+                    data={item}
+                    setIsOpen={setIsOpen}
+                    setActiveId={setActiveId}
+                    type='combo'
+                  />
                 </div>
               ))}
             </div>
+            <DialogProductCrossell
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              data={listProduct}
+              activeId={activeId}
+              setActiveId={setActiveId}
+              setListCrossell={setListProduct}
+            ></DialogProductCrossell>
+
             <ProductPrice
               regularPrice={data?.regular_price}
               price={data?.price || 0}
@@ -102,7 +133,10 @@ const ComboDetail = ({isMobile, data, voucher}) => {
               <WishListIcon />
             </div>
             <div className='xmd:order-2 border-b xmd:border-none border-[rgba(236,236,236,0.70)] pb-[1.46rem] xmd:py-0 flex items-center my-[1.46rem] xmd:mb-0 xmd:flex-col xmd:justify-start xmd:items-start'>
-              <ChangeQuantity />
+              <ChangeQuantity
+                setChangeQty={setSelectedPrd}
+                stockQty={data?.stock_quantity}
+              />
               <div className='flex xmd:flex-row-reverse h-[2.9282rem] xmd:h-[3.22108rem]'>
                 <AddToCartBtn
                   className={{

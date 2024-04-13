@@ -2,20 +2,27 @@
 
 import {cn} from '@/lib/utils'
 import Image from 'next/image'
-import {useState} from 'react'
+import {memo, useEffect, useState} from 'react'
 
-const ChangeQuantity = ({stockQty, isAdd}) => {
+const ChangeQuantity = ({stockQty, isAdd, setChangeQty}) => {
   const [inputVal, setInputVal] = useState(1)
   const handleDec = () => {
     if (inputVal > 1) {
       setInputVal((prev) => Number(prev) - 1)
+      setChangeQty((prev) => ({...prev, quantity: inputVal}))
     }
   }
   const handleInc = () => {
     if (inputVal < stockQty) {
       setInputVal((prev) => Number(prev) + 1)
+      setChangeQty((prev) => ({...prev, quantity: inputVal}))
     }
   }
+
+  // useEffect(() => {
+  //   console.log('inputVal', inputVal)
+  //   // setChangeQty((prev) => ({...prev, quantity: inputVal}))
+  // }, [inputVal])
   return (
     <div className='flex items-center justify-between xmd:w-full xmd:mb-[0.88rem]'>
       <span className='hidden font-medium xmd:flex caption1 text-greyscale-30 '>
@@ -47,7 +54,10 @@ const ChangeQuantity = ({stockQty, isAdd}) => {
             value={inputVal}
             className='input-hidden sub2 font-semibold text-[#000] flex items-center justify-center w-full h-full text-center px-[0.5rem]'
             onChange={(e) => {
-              if (e.target.value <= stockQty) setInputVal(e.target.value)
+              if (e.target.value <= stockQty) {
+                setInputVal(e.target.value)
+                setChangeQty((prev) => ({...prev, quantity: inputVal}))
+              }
             }}
           />
         </div>
