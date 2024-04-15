@@ -53,7 +53,7 @@ export default function ItemCart({
           height={82}
         />
       </div>
-      <div className='flex xmd:flex-col'>
+      <div className='flex justify-between w-full xmd:flex-col'>
         <div className='pl-[0.88rem] flex flex-col justify-center xmd:pl-[0.44rem]'>
           <div>
             <h2 className='font-medium line-clamp-1 caption1 text-greyscale-40 xmd:text-greyscale-50 xmd:font-semibold leading-[1.2] xmd:tracking-[0.01025rem]'>

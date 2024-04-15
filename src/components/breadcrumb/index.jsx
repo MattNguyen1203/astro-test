@@ -5,7 +5,7 @@ export default function BreadCrumb({category, categorySlg, name}) {
     <div className='flex overflow-hidden w-fit xmd:max-w-full xmd:w-full'>
       <Link
         href={'/'}
-        className='flex items-center w-fit xmd:w-[6rem]'
+        className='flex items-center w-fit xmd:w-fit'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -35,7 +35,7 @@ export default function BreadCrumb({category, categorySlg, name}) {
             height='16'
             viewBox='0 0 16 16'
             fill='none'
-            className='size-[1.1713rem] mr-[0.29rem] xmd:absolute xmd:top-1/2 xmd:left-0 xmd:-translate-y-1/2 '
+            className='size-[1.1713rem] xmd:absolute xmd:top-1/2 xmd:left-0 xmd:-translate-y-1/2 '
           >
             <path
               d='M6.66602 5.33398L9.33268 8.00065L6.66602 10.6673'
@@ -48,33 +48,35 @@ export default function BreadCrumb({category, categorySlg, name}) {
           <span
             className={`${
               name ? 'text-greyscale-10' : 'text-greyscale-80'
-            } font-normal capitalize align-middle caption1 xmd:line-clamp-1`}
+            } font-normal capitalize align-middle caption1 xmd:line-clamp-1 ml-[0.29rem]`}
           >
             {category || ''}
           </span>
         </Link>
       )}
-      <div className='flex items-center w-fit xmd:max-w-[10rem] xmd:relative xmd:pl-[1rem]'>
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='16'
-          height='16'
-          viewBox='0 0 16 16'
-          fill='none'
-          className='size-[1.1713rem] mr-[0.29rem] xmd:absolute xmd:top-1/2 xmd:left-0 xmd:-translate-y-1/2'
-        >
-          <path
-            d='M6.66602 5.33398L9.33268 8.00065L6.66602 10.6673'
-            stroke='#262626'
-            strokeWidth='1.6'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-          />
-        </svg>
-        <h2 className='font-normal capitalize caption1 text-greyscale-80 xmd:line-clamp-1'>
-          {name || ''}
-        </h2>
-      </div>
+      {name && (
+        <div className='flex items-center w-fit xmd:max-w-[10rem] xmd:relative xmd:pl-[1rem]'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='16'
+            height='16'
+            viewBox='0 0 16 16'
+            fill='none'
+            className='size-[1.1713rem] mr-[0.29rem] xmd:absolute xmd:top-1/2 xmd:left-0 xmd:-translate-y-1/2'
+          >
+            <path
+              d='M6.66602 5.33398L9.33268 8.00065L6.66602 10.6673'
+              stroke='#262626'
+              strokeWidth='1.6'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+          <h2 className='font-normal capitalize caption1 text-greyscale-80 xmd:line-clamp-1'>
+            {name || ''}
+          </h2>
+        </div>
+      )}
     </div>
   )
 }

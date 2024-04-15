@@ -41,9 +41,9 @@ export default function AllNews({posts, categories, before, url}) {
       ref={boxRef}
       className='container relative flex xmd:flex-col xmd:items-center xlg:flex-col xlg:items-center lg:flex-row w-full h-fit pt-[11.51rem] justify-between lg:pb-[6.59rem] -mt-[8rem]'
     >
-      <div className='flex flex-col lg:w-[62.4451rem] xmd:ml-[0.6rem] xmd:mb-[1.76rem] xlg:mb-[1.76rem]'>
-        <div className='h-[4.97804rem] xlg:h-[6.3rem] xmd:h-[6.3rem] bg-white rounded-[0.87848rem] flex xmd:flex-col xlg:flex-col justify-between xmd:justify-between items-center xlg:items-start xmd:items-start lg:px-[1.76rem] mb-[0.88rem] xmd:mb-[1.76rem] xlg:mb-[1.76rem]'>
-          <h2 className='font-semibold text-blue-700 h5 whitespace-nowrap'>
+      <div className='flex flex-col lg:w-[62.4451rem] xmd:mb-[1.76rem] xlg:mb-[1.76rem] xmd:w-full'>
+        <div className='h-[4.97804rem] xlg:h-[6.3rem] xmd:h-[6.3rem] bg-white rounded-[0.87848rem] flex xmd:flex-col xlg:flex-col justify-between xmd:justify-between items-center xlg:items-start xmd:items-start lg:px-[1.76rem] mb-[0.88rem] xmd:mb-[1.2rem] xlg:mb-[1.76rem]'>
+          <h2 className='font-semibold text-blue-700 h5 whitespace-nowrap xmd:px-[0.59rem] xmd:mb-[0.88rem]'>
             Tin tức
           </h2>
           <MenuNewsLink
@@ -55,7 +55,7 @@ export default function AllNews({posts, categories, before, url}) {
             }
           />
         </div>
-        <div className='w-full bg-white lg:p-[1.76rem] rounded-[0.87848rem]'>
+        <div className='w-full bg-white lg:p-[1.76rem] rounded-[0.87848rem] xmd:px-[0.59rem] xmd:pb-[1.76rem]'>
           <GridNews postsNew={postsNew} />
           {Number(countPage) > 1 && (
             <div className='mt-[2.34rem] flex justify-center'>

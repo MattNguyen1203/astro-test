@@ -7,17 +7,17 @@ export default function ItemNews({borderClass = '', isOption = false, post}) {
     <article
       className={`${
         isOption
-          ? 'h-fit xmd:h-fit xlg:h-[15rem]'
-          : 'h-[10.1757rem] xmd:h-[12.08rem] xmd:flex-col mr-[1.76rem] xmd:mr-[0.6rem]'
-      } w-full flex`}
+          ? 'h-fit xmd:h-fit xlg:h-[15rem] xmd:w-full xmd:flex'
+          : 'h-[10.1757rem] xmd:h-[12.08rem] xmd:flex-col mr-[1.76rem] xmd:mr-[0.6rem] xmd:w-[12.1rem]'
+      } w-full flex `}
     >
       <Link
         href={`/tin-tuc/${post?.post_slug}`}
         className={`${
           isOption
             ? 'w-[16.47145rem] xlg:w-[20rem] xmd:w-[7.10102rem] xmd:h-[5.05124rem] rounded-[1.1713rem] mr-[0.88rem] xmd:mr-[0.6rem]'
-            : 'w-[10.1757rem] xmd:w-[11.27379rem] xmd:h-[6.89rem] rounded-[0.87848rem] h-full mr-[0.88rem]'
-        } block relative flex-shrink-0 overflow-hidden`}
+            : 'w-[10.1757rem] xmd:h-[6.89rem] rounded-[0.87848rem] h-full mr-[0.88rem] xmd:w-full'
+        } block relative flex-shrink-0 overflow-hidden xmd:mr-0 `}
       >
         <Image
           className='object-cover size-full'
@@ -26,14 +26,20 @@ export default function ItemNews({borderClass = '', isOption = false, post}) {
           fill
         />
       </Link>
-      <div className='flex xmd:mt-[0.6rem] h-full flex-col justify-between xmd:p-0 xlg:p-[1rem]'>
+      <div
+        className={`${
+          isOption ? 'xmd:mt-0' : 'xmd:mt-[0.6rem]'
+        } flex h-full flex-col justify-between xmd:p-0 xlg:p-[1rem]`}
+      >
         <Link
           href={`/tin-tuc/${post?.post_slug}`}
           className='block xmd:order-2'
         >
           <h2
             className={`${
-              isOption ? '' : 'h-[2.78184rem]'
+              isOption
+                ? 'xmd:body2 xmd:font-normal xmd:line-clamp-2'
+                : 'h-[2.78184rem]'
             } xmd:order-2 sub1 font-medium tracking-[0.01464rem] text-greyscale-80`}
           >
             {post?.title}
@@ -62,7 +68,7 @@ export default function ItemNews({borderClass = '', isOption = false, post}) {
           <span
             className={`${
               isOption ? 'ml-[0.29rem]' : 'ml-[0.59rem]'
-            } text-[0.87848rem] text-greyscale-80 font-medium block w-fit tracking-[0.00439rem] leading-[1.2]`}
+            } text-[0.87848rem] text-greyscale-80 font-medium block w-fit tracking-[0.00439rem] leading-[1.2] xmd:caption xmd:font-normal xmd:text-greyscale-30`}
           >
             {convertDateFormat(post?.post_date)}
           </span>

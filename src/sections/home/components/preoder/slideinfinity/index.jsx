@@ -1,8 +1,12 @@
+import getData from '@/lib/getData'
 import './style.css'
 
 import Image from 'next/image'
 
-export default function SlideInfinity() {
+export default async function SlideInfinity() {
+  const products = await getData(
+    '/okhub/v1/product/allProduct?limit=16&order=desc&page=1',
+  )
   return (
     <div
       id='slide_infinity'
@@ -13,15 +17,15 @@ export default function SlideInfinity() {
           id='wrapper_infinity'
           className='flex *:mr-[0.59rem] w-fit'
         >
-          {new Array(16).fill(0).map((_, index) => (
+          {products?.item?.map((product, index) => (
             <div
               key={index}
               className='bg-white size-[6.22255rem] rounded-[0.58565rem]'
             >
               <Image
                 className='size-full object-contain rounded-[0.58565rem]'
-                src={'/home/item-loop.png'}
-                alt='item loop'
+                src={product?.featuredImage?.url || '/home/item-loop.png'}
+                alt={product?.featuredImage?.alt || product?.name}
                 width={85}
                 height={85}
               />
