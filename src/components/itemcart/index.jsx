@@ -1,10 +1,28 @@
+'use client'
 import Image from 'next/image'
 import ButtonChange from './ButtonChange'
 import BoxCheck from '../sheetcart/BoxCheck'
-import TemVoucher from '../popupproduct/TemVoucher'
 import Variantion from './Variantion'
+import useStore from '@/app/(store)/store'
 
-export default function ItemCart({cart, setCart, index, isMobile, item}) {
+export default function ItemCart({
+  cart,
+  setCart,
+  index,
+  isMobile,
+  item,
+  isAuth = false,
+}) {
+  const setActionCart = useStore((state) => state.setActionCart)
+  const handleDeleteItemCart = () => {
+    if (isAuth) {
+    } else {
+      const localGet = JSON.parse(localStorage.getItem('cartAstro')) || []
+      localGet?.splice(localGet?.findIndex((e) => e?.slug === item?.slug))
+      localStorage.setItem('cartAstro', JSON.stringify(localGet))
+      setActionCart((prev) => !prev)
+    }
+  }
   return (
     <article className='rounded-[0.58565rem] bg-white shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)] py-[0.73rem] pl-[0.59rem] pr-[1.17rem] flex xmd:px-[0.73rem] xmd:py-[0.59rem] xmd:shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)]'>
       <div className='flex flex-col items-center justify-center md:px-[0.59rem] xmd:mr-[0.44rem]'>
@@ -13,7 +31,10 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
           cart={cart}
           index={index}
         />
-        <button className='w-[1.75695rem] h-fit block mt-[0.88rem] xmd:w-[1.5rem]'>
+        <button
+          onClick={handleDeleteItemCart}
+          className='w-[1.75695rem] h-fit block mt-[0.88rem] xmd:w-[1.5rem]'
+        >
           <Image
             className='w-full h-auto'
             src={'/components/delete.svg'}
@@ -38,7 +59,6 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
             <h2 className='font-medium line-clamp-1 caption1 text-greyscale-40 xmd:text-greyscale-50 xmd:font-semibold leading-[1.2] xmd:tracking-[0.01025rem]'>
               {item?.name}
             </h2>
-            {/* {!isMobile && <TemVoucher className='mt-[0.44rem]' />} */}
           </div>
           <div className='relative flex w-full mt-auto xmd:mt-[0.44rem]'>
             <Variantion className='mr-[0.59rem]' />

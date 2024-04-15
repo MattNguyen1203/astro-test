@@ -1,6 +1,6 @@
 import ItemProductPayment from './ItemProductPayment'
 
-export default function InfoOrder({carts, children}) {
+export default function InfoOrder({carts, onSubmit}) {
   return (
     <aside className='w-[34.91947rem] flex-shrink-0 h-fit sticky top-[9.76rem] right-0 rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] p-[1.17rem]'>
       <h3 className='font-medium sub2 text-greyscale-80'>
@@ -93,7 +93,13 @@ export default function InfoOrder({carts, children}) {
           <span className='sub1 font-bold text-[#D48E43]'>225.000đ</span>
         </div>
       </div>
-      {children}
+      <button
+        onClick={onSubmit}
+        type='submit'
+        className='flex items-center justify-center w-full text-white bg-blue-700 rounded-[0.58565rem] mt-[1.64rem] h-[2.92826rem] caption1 font-semibold'
+      >
+        THANH TOÁN NGAY
+      </button>
     </aside>
   )
 }

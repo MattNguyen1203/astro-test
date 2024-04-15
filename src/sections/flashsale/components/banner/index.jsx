@@ -12,7 +12,7 @@ export default function BannerFlashSale({isMobile}) {
         quality={100}
         priority
       />
-      <div className='flex justify-center md:py-[1.54rem] bg-[#0A1A29] xmd:h-[5.49048rem] relative xmd:overflow-x-auto hidden-scrollbar'>
+      {/* <div className='flex justify-center md:py-[1.54rem] bg-[#0A1A29] xmd:h-[5.49048rem] relative xmd:overflow-x-auto hidden-scrollbar'>
         <ul className='flex xmd:absolute xmd:top-0 xmd:left-0 xmd:items-center xmd:h-full xmd:w-fit xmd:px-[0.59rem]'>
           {new Array(isMobile ? 6 : 4).fill(0).map((_, index) => (
             <li
@@ -23,7 +23,7 @@ export default function BannerFlashSale({isMobile}) {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </section>
   )
 }

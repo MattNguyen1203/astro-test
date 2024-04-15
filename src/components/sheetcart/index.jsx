@@ -14,20 +14,28 @@ import ICCheck from '../icon/ICCheck'
 import useSWR from 'swr'
 import {useRouter} from 'next/navigation'
 import {toast} from 'sonner'
-
-let listCart = []
+import useStore from '@/app/(store)/store'
 
 export default function SheetCart({children, isMobile = false, session}) {
   const isAuth = session?.status === 'authenticated'
   const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false)
+  const actionCart = useStore((state) => state.actionCart)
 
   const [cart, setCart] = useState([])
+  const [listCart, setListCart] = useState([])
 
   useEffect(() => {
-    const localGet = JSON.parse(localStorage.getItem('cartAstro')) || []
+    if (isOpen) {
+      const localGet = JSON.parse(localStorage.getItem('cartAstro')) || []
 
-    listCart = isAuth ? [] : localGet
-  }, [])
+      if (isAuth) {
+        setListCart([])
+      } else {
+        setListCart(localGet)
+      }
+    }
+  }, [isOpen, actionCart])
 
   // const fetcher = (url) =>
   //   fetch(url, {
@@ -78,8 +86,11 @@ export default function SheetCart({children, isMobile = false, session}) {
   }
 
   return (
-    <Sheet>
-      <SheetTrigger>{children}</SheetTrigger>
+    <Sheet
+      open={isOpen}
+      onOpenChange={setIsOpen}
+    >
+      <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent className='p-0 bg-white xmd:data-[state=open]:duration-200 h-full '>
         <SheetTitle className='h-[3.80673rem] flex justify-start items-center px-[2.92rem] xmd:px-[0.88rem] xmd:border-b xmd:border-solid xmd:border-[#EFEFEF]'>
           GIỎ HÀNG:
@@ -130,6 +141,7 @@ export default function SheetCart({children, isMobile = false, session}) {
                     cart={cart}
                     isMobile={isMobile}
                     item={item}
+                    isAuth={isAuth}
                   />
                 ))}
               </div>
