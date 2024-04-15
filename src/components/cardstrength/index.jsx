@@ -19,7 +19,7 @@ export default function CardStrength({
       <picture className='size-[3.51391rem] tablet:size-[4rem] md:mr-[1.16rem] xmd:size-[2.63543rem]'>
         <Image
           className='object-contain size-full'
-          src={item?.image_logo?.src || '/home/htmp.svg'}
+          src={item?.image_logo?.url || '/home/htmp.svg'}
           width={48}
           height={48}
           alt={item?.title || 'icon strength'}
@@ -27,7 +27,7 @@ export default function CardStrength({
         />
       </picture>
       <div className='h-[3.58712rem] flex flex-col justify-between xmd:mt-[0.59rem] xmd:h-fit'>
-        <h2 className='tablet:mb-[0.5rem] font-semibold text-blue-600 uppercase sub2 tablet:text-[1.875rem] xmd:text-center xmd:mb-[0.29rem]'>
+        <h2 className='tablet:mb-[0.5rem] font-semibold text-blue-600 uppercase sub2 tablet:text-[1.875rem] xmd:text-center xmd:mb-[0.29rem] xmd:caption2'>
           {item?.title}
         </h2>
         <Description description={item?.description} />
