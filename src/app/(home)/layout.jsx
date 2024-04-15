@@ -1,7 +1,6 @@
 import {headers} from 'next/headers'
-import Nav, {NavLoading} from '@/layout/nav'
+import Nav from '@/layout/nav'
 import VoucherPin from '@/components/voucherpin'
-import {Suspense} from 'react'
 
 export default function HomeLayout({children}) {
   const headersList = headers()
@@ -15,12 +14,10 @@ export default function HomeLayout({children}) {
 
   return (
     <>
-      <Suspense fallback={<NavLoading />}>
-        <Nav
-          isMobile={isMobile}
-          referer={referer}
-        />
-      </Suspense>
+      <Nav
+        isMobile={isMobile}
+        referer={referer}
+      />
       {isMobile && <VoucherPin />}
       {children}
     </>

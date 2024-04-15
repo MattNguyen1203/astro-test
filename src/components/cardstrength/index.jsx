@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Description from './Description'
 
 export default function CardStrength({
   className = '',
@@ -18,10 +19,10 @@ export default function CardStrength({
       <picture className='size-[3.51391rem] tablet:size-[4rem] md:mr-[1.16rem] xmd:size-[2.63543rem]'>
         <Image
           className='object-contain size-full'
-          src={item?.src || '/home/htmp.svg'}
+          src={item?.image_logo?.src || '/home/htmp.svg'}
           width={48}
           height={48}
-          alt='icon strength'
+          alt={item?.title || 'icon strength'}
           priority={priority}
         />
       </picture>
@@ -29,10 +30,7 @@ export default function CardStrength({
         <h2 className='tablet:mb-[0.5rem] font-semibold text-blue-600 uppercase sub2 tablet:text-[1.875rem] xmd:text-center xmd:mb-[0.29rem]'>
           {item?.title}
         </h2>
-        <p
-          className='font-normal text-greyscale-40 caption1 tablet:text-[1.4rem] xmd:text-center'
-          dangerouslySetInnerHTML={item?.description}
-        />
+        <Description description={item?.description} />
       </div>
     </article>
   )

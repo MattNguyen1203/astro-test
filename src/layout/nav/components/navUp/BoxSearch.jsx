@@ -29,6 +29,7 @@ const linkNavUp = [
 ]
 
 export default function BoxSearch({isMobile, productSuggest, categories}) {
+  console.log('🚀 ~ BoxSearch ~ productSuggest:', productSuggest)
   const [value, setValue] = useState('')
   const isFocusSearchNav = useStore((state) => state.isFocusSearchNav)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
@@ -59,6 +60,7 @@ export default function BoxSearch({isMobile, productSuggest, categories}) {
         setValue={setValue}
         value={value}
         isMobile={isMobile}
+        data={data}
       />
       {!isMobile && (
         <ul

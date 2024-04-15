@@ -4,7 +4,7 @@ import useStore from '@/app/(store)/store'
 import Image from 'next/image'
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
 
-export default function InputSearchNav({setValue, value, isMobile}) {
+export default function InputSearchNav({setValue, value, isMobile, data}) {
   const router = useRouter()
   const pathName = usePathname()
   const searchParams = useSearchParams()
@@ -20,11 +20,19 @@ export default function InputSearchNav({setValue, value, isMobile}) {
     } else {
       paramNew.delete('search')
     }
-    if (pathName?.includes('/san-pham')) {
-      router.push(pathName + '?' + paramNew.toString())
-    } else {
-      router.push('/san-pham' + '?' + paramNew.toString())
-    }
+    setTimeout(() => {
+      if (value) {
+        if (data?.item) {
+          if (pathName?.includes('/san-pham')) {
+            router.push(pathName + '?' + paramNew.toString())
+          } else {
+            router.push('/san-pham' + '?' + paramNew.toString())
+          }
+        } else {
+          router.push('/khong-tim-thay')
+        }
+      }
+    }, 1001)
     setIsFocusSearchNav(false)
   }
 

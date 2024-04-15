@@ -13,7 +13,6 @@ import BannerStrength from './components/strength'
 import FlashVoucher from './components/flashvoucher'
 import Accessory from './components/accessory'
 import BannerHome from './components/banner'
-import PromotionSlide from './components/promotions'
 import CategoriesProduct from './components/categoriesproduct'
 
 import ProductIndex from './components/productnew'
@@ -22,17 +21,19 @@ import PreOder from './components/preoder'
 import FeedBack from './components/feedback'
 import TechnologyConner from './components/technologyconner'
 import ListStrength from '@/components/liststrength'
+import WrapperPromotionSlide from './components/promotions/WrapperPromotionSlide'
 
 export default function HomeIndex({viewport, products}) {
   const isMobile = viewport === 'mobile'
+  const isTablet = viewport === 'tablet'
   return (
     <main className='relative bg-elevation-20 xmd:bg-white'>
-      <section className='pt-[8rem] xmd:pt-[4.1rem] xmd:bg-elevation-20'>
+      <section className='pt-[8rem] xmd:pt-[4.1rem] xmd:bg-elevation-20 tablet:pb-[5rem]'>
         <BannerHome
           isMobile={isMobile}
           viewport={viewport}
         />
-        {!isMobile && <BannerStrength />}
+        {!isMobile && !isTablet && <BannerStrength />}
       </section>
       <section>
         <FlashVoucher isMobile={isMobile} />
@@ -44,7 +45,7 @@ export default function HomeIndex({viewport, products}) {
       </section>
       {!isMobile && (
         <section>
-          <PromotionSlide />
+          <WrapperPromotionSlide />
         </section>
       )}
       <section>

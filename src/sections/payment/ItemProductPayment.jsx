@@ -1,20 +1,17 @@
 import Image from 'next/image'
 
-export default function ItemProductPayment() {
+export default function ItemProductPayment({item}) {
   return (
     <div className='p-[0.59rem] h-fit w-full flex space-x-[0.88rem]'>
       <Image
         className='object-contain rounded-[0.3631rem] size-[5.27086rem]'
-        src={'/home/item-product.jpg'}
-        alt='item product'
+        src={item?.featuredImage?.url || '/home/item-product.jpg'}
+        alt={item?.featuredImage?.alt || item?.name}
         width={72}
         height={72}
       />
       <div className='flex flex-col justify-center space-x-[0.59rem]'>
-        <h2>
-          Bút cảm ứng AstroMazing Pencil GD cho iPadBút cảm ứng AstroMazing
-          Pencil GD cho iPad
-        </h2>
+        <h2>{item?.name}</h2>
         <ul className='flex '>
           <li className='rounded-[0.43924rem] bg-elevation-20 size-fit py-[0.44rem] px-[0.59rem] caption1 leading-[1.2] text-greyscale-40'>
             xanh min

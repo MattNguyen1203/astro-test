@@ -8,6 +8,7 @@ import Link from 'next/link'
 import AddToCart from './AddToCart'
 import {useMemo} from 'react'
 
+
 export default function ProductInfo({
   type,
   data = {},
@@ -85,7 +86,7 @@ export default function ProductInfo({
             />
           </div>
           {isAdd ? (
-            <AddToCart />
+            <AddToCart data={data} />
           ) : (
             <div className='flex xmd:flex-col-reverse xmd:fixed xmd:left-0 xmd:bottom-0 xmd:bg-white xmd:w-full z-10 xmd:p-[0.73rem] '>
               <button
