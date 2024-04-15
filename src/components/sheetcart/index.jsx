@@ -6,15 +6,28 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import ItemCart from '../itemcart'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import ICDelete from '../icon/ICDelete'
 import {ScrollArea} from '../ui/scroll-area'
 import ICBoxCheck from '../icon/ICBoxCheck'
 import ICCheck from '../icon/ICCheck'
 import useSWR from 'swr'
+import {useRouter} from 'next/navigation'
+import {toast} from 'sonner'
+
+let listCart = []
 
 export default function SheetCart({children, isMobile = false, session}) {
+  const isAuth = session?.status === 'authenticated'
+  const router = useRouter()
+
   const [cart, setCart] = useState([])
+
+  useEffect(() => {
+    const localGet = JSON.parse(localStorage.getItem('cartAstro')) || []
+
+    listCart = isAuth ? [] : localGet
+  }, [])
 
   // const fetcher = (url) =>
   //   fetch(url, {
@@ -49,6 +62,18 @@ export default function SheetCart({children, isMobile = false, session}) {
         .fill(0)
         .map((_, index) => arr.push(index))
       setCart(arr)
+    }
+  }
+
+  const handlePayment = () => {
+    if (cart?.length) {
+      const createOrder = cart.join('--')
+      router.push('/thanh-toan?order=' + createOrder)
+    } else {
+      toast.warning('Vui lòng chọn sản phẩm muốn thanh toán!', {
+        duration: 3000,
+        position: 'bottom-center',
+      })
     }
   }
 
@@ -97,17 +122,16 @@ export default function SheetCart({children, isMobile = false, session}) {
               className='w-full h-[calc(100vh-10rem-4rem)] xmd:h-[calc(100vh-10.17rem-3.6rem)] pl-[2.92rem] pr-[1.5rem] xmd:px-[0.59rem]'
             >
               <div className='grid grid-cols-1 gap-y-[0.88rem] xmd:mb-[4rem]'>
-                {Array(10)
-                  .fill(0)
-                  .map((item, index) => (
-                    <ItemCart
-                      key={index}
-                      index={index}
-                      setCart={setCart}
-                      cart={cart}
-                      isMobile={isMobile}
-                    />
-                  ))}
+                {listCart?.map((item, index) => (
+                  <ItemCart
+                    key={index}
+                    index={index}
+                    setCart={setCart}
+                    cart={cart}
+                    isMobile={isMobile}
+                    item={item}
+                  />
+                ))}
               </div>
             </ScrollArea>
           </div>
@@ -130,7 +154,10 @@ export default function SheetCart({children, isMobile = false, session}) {
                 </span>
               </div>
             </div>
-            <button className='h-[2.92826rem] w-[12.15227rem] xmd:w-[10.2489rem] rounded-[0.58565rem] shadow-[2px_1px_12px_0px_rgba(0,0,0,0.06),2px_2px_20px_0px_rgba(0,0,0,0.04)] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] text-white caption1 font-semibold flex justify-center items-center ml-[0.88rem]'>
+            <button
+              onClick={handlePayment}
+              className='h-[2.92826rem] w-[12.15227rem] xmd:w-[10.2489rem] rounded-[0.58565rem] shadow-[2px_1px_12px_0px_rgba(0,0,0,0.06),2px_2px_20px_0px_rgba(0,0,0,0.04)] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] text-white caption1 font-semibold flex justify-center items-center ml-[0.88rem]'
+            >
               THANH TOÁN
             </button>
           </div>

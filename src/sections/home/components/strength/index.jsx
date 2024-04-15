@@ -1,8 +1,9 @@
 import CardStrength from '@/components/cardstrength'
+import {IDGLOBALAPI} from '@/lib/IdPageAPI'
 import getData from '@/lib/getData'
 
 export default async function BannerStrength() {
-  const data = await getData('/wp/v2/pages/281')
+  const data = await getData(`/wp/v2/pages/${IDGLOBALAPI}`, 3600)
   const listCardStrength = data?.acf?.infomation
 
   return (

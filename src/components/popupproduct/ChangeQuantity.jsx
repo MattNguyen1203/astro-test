@@ -8,12 +8,12 @@ const ChangeQuantity = ({stockQty, isAdd}) => {
   const [inputVal, setInputVal] = useState(1)
   const handleDec = () => {
     if (inputVal > 1) {
-      setInputVal((prev) => Number(prev) - 1)
+      setInputVal((prev) => prev - 1)
     }
   }
   const handleInc = () => {
     if (inputVal < stockQty) {
-      setInputVal((prev) => Number(prev) + 1)
+      setInputVal((prev) => prev + 1)
     }
   }
   return (

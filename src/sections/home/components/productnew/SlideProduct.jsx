@@ -21,7 +21,7 @@ export default function SlideProduct({isMobile, products}) {
     swiperRef.current?.slidePrev()
   }
 
-  const pageSlidePc = Math.ceil(Number(products?.count) / 5) || 0
+  const pageSlidePc = Math.ceil(Number(products?.item?.length) / 5) || 0
   return (
     <article className='h-[29.96rem] xmd:h-[25.18rem] container xmd:full-mb relative'>
       <Swiper
@@ -43,7 +43,7 @@ export default function SlideProduct({isMobile, products}) {
           swiperRef.current = swiper
         }}
         modules={[FreeMode]}
-        className='h-full xmd:!px-[0.295rem]'
+        className='size-full xmd:!px-[0.295rem]'
       >
         {new Array(isMobile ? 8 : Number(pageSlidePc))
           .fill(0)

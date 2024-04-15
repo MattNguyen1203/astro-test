@@ -5,8 +5,12 @@ import InfoFooter from './components/infofooter'
 import Link from 'next/link'
 import MenuFooter from './components/menufooter'
 import {Toaster} from '@/components/ui/sonner'
+import getData from '@/lib/getData'
+import {IDGLOBALAPI} from '@/lib/IdPageAPI'
 
-export default function Footer({isMobile}) {
+export default async function Footer({isMobile}) {
+  const data = await getData(`/wp/v2/pages/${IDGLOBALAPI}`, 3600)
+  const footer = data?.acf?.footer
   return (
     <>
       <footer className='w-full overflow-x-hidden bg-elevation-20 xmd:bg-blue-800 xmd:rounded-tl-[0.87848rem] xmd:rounded-tr-[0.87848rem] xmd:pb-[3.22rem] relative z-10'>

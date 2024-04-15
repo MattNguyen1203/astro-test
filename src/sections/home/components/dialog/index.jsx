@@ -1,7 +1,7 @@
 import PopupProduct from '@/components/popupproduct'
 import {Dialog, DialogContent, DialogTrigger} from '@/components/ui/dialog'
 
-export function DialogProduct({children, isOpen, setIsOpen, data}) {
+export function DialogProduct({children, isOpen, setIsOpen, type, data}) {
   return (
     <Dialog
       open={isOpen}
@@ -10,6 +10,7 @@ export function DialogProduct({children, isOpen, setIsOpen, data}) {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className='sm:max-w-[425px] p-0 rounded-[0.8rem] w-fit h-fit max-w-screen xmd:rounded-b-none xmd:bottom-0 xmd:top-auto xmd:translate-y-0'>
         <PopupProduct
+          type={type}
           setIsOpen={setIsOpen}
           data={data}
         />
