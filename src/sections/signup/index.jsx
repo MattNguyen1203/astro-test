@@ -193,6 +193,18 @@ export default function SignUpIndex() {
                 priority
               />
             </div>
+            <div
+              className='size-[2.92826rem] flex justify-center items-center rounded-full bg-white shadow-[2.222px_2.222px_13.333px_0px_rgba(0,0,0,0.02),-3.333px_2.222px_22.222px_0px_rgba(0,0,0,0.04)] cursor-pointer'
+              onClick={() => signIn('facebook', {callbackUrl: '/'})}
+            >
+              <Image
+                src={'/auth/icon-fb.svg'}
+                alt='icon facebook'
+                width={20}
+                height={20}
+                priority
+              />
+            </div>
           </div>
         </form>
       </Form>

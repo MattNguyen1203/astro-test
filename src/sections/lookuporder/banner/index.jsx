@@ -1,9 +1,13 @@
 'use client'
 
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/effect-fade'
+
 import NavigationCustom from '@/components/navigationcustom'
 import Image from 'next/image'
 import {useRef} from 'react'
-import {Autoplay, Pagination} from 'swiper/modules'
+import {Autoplay, EffectFade, Pagination} from 'swiper/modules'
 import {Swiper, SwiperSlide} from 'swiper/react'
 
 export default function BannerLookUpOrder() {
@@ -20,8 +24,9 @@ export default function BannerLookUpOrder() {
         slidesPerView={1}
         spaceBetween={16}
         grabCursor={true}
+        effect={'fade'}
         loop={true}
-        speed={500}
+        speed={200}
         pagination={true}
         autoplay={{
           delay: 5000,
@@ -30,8 +35,9 @@ export default function BannerLookUpOrder() {
         onBeforeInit={(swiper) => {
           swiperRef.current = swiper
         }}
-        modules={[Autoplay, Pagination]}
+        modules={[EffectFade, Autoplay, Pagination]}
         className='size-full'
+        id='swiper_tracking'
       >
         {Array(3)
           .fill(0)
@@ -39,8 +45,12 @@ export default function BannerLookUpOrder() {
             <SwiperSlide key={index}>
               <div className='flex items-start size-full'>
                 <Image
-                  className='object-cover w-full h-[21.5rem]'
-                  src='/lookuporder/banner.jpg'
+                  className='w-full h-[21.5rem]'
+                  src={
+                    index === 1
+                      ? '/product/banner.jpg'
+                      : '/lookuporder/banner.jpg'
+                  }
                   alt='banner'
                   width={1400}
                   height={360}

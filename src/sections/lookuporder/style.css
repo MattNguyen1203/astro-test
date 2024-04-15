@@ -1,0 +1,7 @@
+#swiper_tracking .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: #153454;
+}
+
+#swiper_tracking .swiper-pagination {
+  bottom: -4px;
+}

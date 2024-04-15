@@ -14,6 +14,10 @@ const statusAuth = [
     href: '/quen-mat-khau',
     title: 'Quên mật khẩu',
   },
+  {
+    href: '/otp',
+    title: 'XÁC THỰC TÀI KHOẢN',
+  },
 ]
 
 export default function TitleAuth() {

@@ -16,6 +16,7 @@ const useStore = create((set) => ({
     },
   },
   isOpenSortRes: false,
+  actionCart: false,
   setIsFocusSearchNav: (data) => {
     set((state) => {
       return {
@@ -61,6 +62,14 @@ const useStore = create((set) => ({
       return {
         ...state,
         isOpenSortRes: data,
+      }
+    })
+  },
+  setActionCart: (data) => {
+    set((state) => {
+      return {
+        ...state,
+        actionCart: data,
       }
     })
   },

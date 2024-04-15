@@ -23,6 +23,8 @@ import {Textarea} from '@/components/ui/textarea'
 import ShipHT from './ShipHT'
 import ShipTC from './ShipTC'
 import {toast} from 'sonner'
+import {createOrder} from '@/actions/payment'
+import {useRouter} from 'next/navigation'
 
 // name: '',
 //       phone: '',
@@ -57,6 +59,8 @@ export default function PaymentIndex({
   listIdItemCart,
   session,
 }) {
+  const router = useRouter()
+
   const isAuth = session?.status === 'authenticated'
 
   const [valueProvince, setValueProvince] = useState(null)
@@ -70,12 +74,12 @@ export default function PaymentIndex({
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      phone: '',
-      email: '',
+      name: 'trinh van duc',
+      phone: '0338277705',
+      email: 'trinhvanduc21062001@gmail.com',
       address: '',
       street: '',
-      note: '',
+      note: 'test',
       password: '',
     },
   })
@@ -96,18 +100,91 @@ export default function PaymentIndex({
 
   const values = form.watch()
 
-  function onSubmit(values) {
+  function onSubmit(valueForm) {
     form.setValue(
       'address',
       valueCommune + ' - ' + valueDistrict + ' - ' + valueProvince,
     )
-    console.log('🚀 ~ onSubmit ~ values:', values)
     if (!payment) {
       return toast.error('Vui lòng chọn phương thức thanh toán!', {
         position: 'bottom-center',
       })
     }
+
+    const productIds = []
+    carts?.forEach((e) =>
+      productIds.push({
+        product_id: e?.id,
+        quantity: 1,
+        cart_key: '',
+      }),
+    )
+    const body = {
+      customer_id: '0',
+      payment_method: 'onepay',
+      payment_method_title: 'One Pay',
+      customer_note: values?.note,
+      url_redirect: 'http://localhost:3000',
+      coupon_lines: [
+        {
+          code: 'mycouponcode',
+        },
+      ],
+      shipping_lines: [
+        {
+          method_id: 'flat_rate',
+          method_title: 'Flat Rate',
+          total: '10.00',
+        },
+      ],
+      billing_address: {
+        first_name: values?.name,
+        last_name: '',
+        email: values?.email,
+        address_1: values?.street + ' - ' + valueCommune,
+        address_2: valueDistrict,
+        city: valueProvince,
+        state: valueProvince,
+        postcode: '100000',
+        country: 'Việt Nam',
+        phone: values?.phone,
+      },
+      shipping_information: {
+        first_name: values?.name,
+        last_name: '',
+        email: values?.email,
+        address_1: values?.street + ' - ' + valueCommune,
+        address_2: valueDistrict,
+        city: valueProvince,
+        state: valueProvince,
+        postcode: '100000',
+        country: 'Việt Nam',
+        phone: values?.phone,
+      },
+      products: [...productIds],
+      url_redirect: 'http://localhost:3000/payment',
+      card_list: null,
+    }
+    createOrder(JSON.stringify(body))
+      .then((res) => {
+        if (res?.success) {
+          router.push(res?.url)
+          //   4000 0000 0000 1091
+          // 05/26
+        } else {
+          return toast.error(
+            res?.message?.includes('Quantity in stock is not enough')
+              ? 'Sản phẩm bạn mua đã hết hàng!'
+              : 'Đã có lỗi xảy ra!',
+            {
+              position: 'bottom-center',
+            },
+          )
+        }
+      })
+      .catch((err) => console.log('error payment', err))
   }
+
   return (
     <section className='container relative flex justify-between'>
       <article className='w-[50.88rem] h-fit sticky top-[9.76rem] left-0 space-y-[0.88rem]'>
@@ -426,15 +503,10 @@ export default function PaymentIndex({
           </div>
         </div>
       </article>
-      <InfoOrder carts={carts}>
-        <button
-          type='submit'
-          className='flex items-center justify-center w-full text-white bg-blue-700 rounded-[0.58565rem] mt-[1.64rem] h-[2.92826rem] caption1 font-semibold'
-          onClick={form.handleSubmit(onSubmit)}
-        >
-          THANH TOÁN NGAY
-        </button>
-      </InfoOrder>
+      <InfoOrder
+        carts={carts}
+        onSubmit={onSubmit}
+      />
     </section>
   )
 }
