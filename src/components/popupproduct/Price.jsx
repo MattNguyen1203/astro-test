@@ -14,21 +14,25 @@ const ProductPrice = ({regularPrice, price}) => {
             {formatToVND(price || '')}
           </span>
 
-          {regularPrice && (
+          {regularPrice && regularPrice != finalPrice && (
             <span className='md:group-hover:hidden caption1 font-normal text-white line-through xmd:text-greyscale-30 leading-normal'>
               {formatToVND(regularPrice)}
             </span>
           )}
 
-          <span className='w-[2.855rem] md:group-hover:w-0 md:opacity-1 md:group-hover:opacity-0 z-10  md:absolute md:top-1/2 md:-translate-y-1/2 md:right-[0.59rem] h-[1.9rem] md:transition-all md:duration-500 ml-auto p-[0.43924rem] rounded-[0.43924rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] xmd:bg-[linear-gradient(278deg,#102841_-67.59%,#1359A1_93.68%)] text-white flex items-center justify-center caption1 font-semibold xmd:text-[0.73206rem] xmd:ml-[1rem]'>
-            <span className=''>-15%</span>
-          </span>
-          <span className='xmd:hidden w-0 group-hover:w-[9rem] opacity-0 group-hover:opacity-100  z-10 flex absolute top-1/2 -translate-y-1/2 right-[0.59rem] h-[1.9rem] transition-all duration-500 ml-auto p-[0.43924rem] rounded-[0.43924rem] bg-[linear-gradient(104deg,#E78C03_-3.95%,#FFB84F_106.72%)] xmd:bg-[linear-gradient(278deg,#102841_-67.59%,#1359A1_93.68%)] text-white items-center justify-center caption1 font-semibold xmd:text-[0.73206rem] xmd:ml-[1rem]'>
-            <span className='group-hover:opacity-100 opacity-0 delay-300 transition-all duration-200 flex'>
-              Tiết kiệm{' '}
-              <p className='ml-[0.25rem]'>{formatToVND(savingMoney)}</p>
-            </span>
-          </span>
+          {savingMoney > 0 && (
+            <>
+              <span className='w-[2.855rem] md:group-hover:w-0 md:opacity-1 md:group-hover:opacity-0 z-10  md:absolute md:top-1/2 md:-translate-y-1/2 md:right-[0.59rem] h-[1.9rem] md:transition-all md:duration-500 ml-auto p-[0.43924rem] rounded-[0.43924rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] xmd:bg-[linear-gradient(278deg,#102841_-67.59%,#1359A1_93.68%)] text-white flex items-center justify-center caption1 font-semibold xmd:text-[0.73206rem] xmd:ml-[1rem]'>
+                <span className=''>-15%</span>
+              </span>
+              <span className='xmd:hidden w-0 group-hover:w-[9rem] opacity-0 group-hover:opacity-100  z-10 flex absolute top-1/2 -translate-y-1/2 right-[0.59rem] h-[1.9rem] transition-all duration-500 ml-auto p-[0.43924rem] rounded-[0.43924rem] bg-[linear-gradient(104deg,#E78C03_-3.95%,#FFB84F_106.72%)] xmd:bg-[linear-gradient(278deg,#102841_-67.59%,#1359A1_93.68%)] text-white items-center justify-center caption1 font-semibold xmd:text-[0.73206rem] xmd:ml-[1rem]'>
+                <span className='group-hover:opacity-100 opacity-0 delay-300 transition-all duration-500 flex'>
+                  Tiết kiệm{' '}
+                  <p className='ml-[0.25rem]'>{formatToVND(savingMoney)}</p>
+                </span>
+              </span>
+            </>
+          )}
         </div>
       </div>
     </>
