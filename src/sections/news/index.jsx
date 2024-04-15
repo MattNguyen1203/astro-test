@@ -5,7 +5,7 @@ import WrapperReview from './WrapperReview'
 
 export default function IndexNews() {
   return (
-    <main className='pt-[9.76rem] bg-elevation-10'>
+    <main className='pt-[9.76rem] bg-elevation-10 xmd:pt-[5.18rem]'>
       <div className='container'>
         <BreadCrumb
           category={'Tin tức'}

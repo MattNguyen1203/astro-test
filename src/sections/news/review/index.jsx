@@ -1,7 +1,7 @@
 'use client'
 import useSWR from 'swr'
 import MenuNews from '../MenuNews'
-import GridProductReview from './GridProductReview'
+import GridProductReview, {GridProductReviewSkeleton} from './GridProductReview'
 import {useSearchParams} from 'next/navigation'
 import {fetcher} from '@/lib/utils'
 
@@ -21,9 +21,9 @@ export default function Review({posts, categories}) {
     },
   )
   return (
-    <section className='mt-[3.51rem] container'>
-      <div className='h-[4.97804rem] xmd:h-[6.3rem] bg-white rounded-[0.87848rem] flex xmd:flex-col justify-between items-center xmd:items-start lg:px-[1.76rem] xmd:mb-[1.76rem] mb-[0.88rem] '>
-        <h2 className='font-semibold text-blue-700 h5 xmd:mb-[0.88rem] whitespace-nowrap'>
+    <section className='mt-[3.51rem] container xmd:full-mb'>
+      <div className='h-[4.97804rem] xmd:h-[6.3rem] bg-white rounded-[0.87848rem] flex xmd:flex-col justify-between items-center xmd:items-start lg:px-[1.76rem] xmd:mb-[1.2rem] mb-[0.88rem] '>
+        <h2 className='font-semibold text-blue-700 h5 xmd:mb-[0.88rem] whitespace-nowrap xmd:px-[0.59rem]'>
           Review sản phẩm
         </h2>
         <MenuNews
@@ -33,7 +33,11 @@ export default function Review({posts, categories}) {
           nameCategory={'review'}
         />
       </div>
-      <GridProductReview posts={category ? data?.item : posts} />
+      {isLoading ? (
+        <GridProductReviewSkeleton />
+      ) : (
+        <GridProductReview posts={category ? data?.item : posts} />
+      )}
     </section>
   )
 }

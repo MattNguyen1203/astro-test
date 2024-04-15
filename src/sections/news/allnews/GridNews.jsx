@@ -23,8 +23,8 @@ export default function GridNews({postsNew}) {
               post={post}
             />
           )}
-          {index !== postsNew?.item?.length - 1 && (
-            <hr className='w-full my-[1.76rem] h-[0.07rem] bg-[#EBF0F7]' />
+          {index < postsNew?.length - 1 && (
+            <hr className='w-full my-[1.76rem] h-[0.07rem] bg-[#EBF0F7] xmd:my-[0.88rem]' />
           )}
         </Fragment>
       ))}
