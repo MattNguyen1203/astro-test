@@ -60,7 +60,7 @@ export default function FogetPassIndex() {
               </FormItem>
             )}
           />
-          <div className='flex justify-between'>
+          <div className='flex justify-between xmd:!mb-[8.8rem]'>
             <BtnSubmit
               className='w-full'
               isPending={isPending}

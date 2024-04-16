@@ -23,7 +23,7 @@ const statusAuth = [
 export default function TitleAuth() {
   const pathName = usePathname()
   return (
-    <span className='inline-block h6 font-medium bg-clip-text bg-[linear-gradient(180deg,#E0B181_0.72%,#BE9367_99.87%)]'>
+    <span className='inline-block h6 font-medium bg-clip-text bg-[linear-gradient(180deg,#E0B181_0.72%,#BE9367_99.87%)] xmd:sub1 xmd:font-medium'>
       {statusAuth.find((e) => pathName.includes(e.href)).title}
     </span>
   )

@@ -69,11 +69,11 @@ export default function SignInIndex({status}) {
   }
 
   return (
-    <article className='mt-[1.98rem]'>
+    <article className='mt-[1.98rem] xmd:mt-[1.17rem]'>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='space-y-[0.88rem]'
+          className='lg:space-y-[0.88rem]'
         >
           <FormField
             control={form.control}
@@ -82,7 +82,7 @@ export default function SignInIndex({status}) {
               <FormItem>
                 <FormControl>
                   <Input
-                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik'
+                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik xmd:rounded-[0.58565rem]'
                     placeholder='Nhập email/số điện thoại'
                     {...field}
                   />
@@ -98,7 +98,7 @@ export default function SignInIndex({status}) {
               <FormItem>
                 <FormControl>
                   <Input
-                    className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
+                    className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik xmd:mt-[0.59rem] xmd:rounded-[0.58565rem]'
                     placeholder='Mật khẩu'
                     {...field}
                   />
@@ -108,7 +108,7 @@ export default function SignInIndex({status}) {
             )}
           />
 
-          <div className='flex justify-between'>
+          <div className='flex justify-between xmd:mt-[1.76rem]'>
             <BtnSubmit
               isPending={isPending}
               title='Đăng nhập'
@@ -142,7 +142,7 @@ export default function SignInIndex({status}) {
           </div>
         </form>
       </Form>
-      <div className='flex justify-between items-center mt-[1rem] mb-[1.98rem]'>
+      <div className='flex justify-between items-center mt-[1rem] mb-[1.98rem] xmd:mt-[2.34rem] xmd:mb-[2.64rem]'>
         <div>
           <label
             htmlFor='forfet_password'
