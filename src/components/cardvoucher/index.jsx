@@ -9,7 +9,6 @@ export default function CardVoucher({
   isPriority = false,
 }) {
   const [isCopy, setCopy] = useState(false)
-
   return (
     <article
       className={`${className} w-[21.22987rem] h-[5.12rem] xmd:w-[18.66764rem] xmd:h-[4.1rem] rounded-[0.58565rem] bg-elevation-20 xmd:bg-white flex md:hover:bg-brown-50 transition-all duration-200 select-none xmd:shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)]`}
@@ -35,9 +34,11 @@ export default function CardVoucher({
             : (item?.amount || '15') + '%'}
         </h3>
         <p className='font-normal caption2 tracking-[0.00732rem] text-greyscale-40 xmd:tracking-normal xmd:text-greyscale-30'>
-          Đơn Tối thiểu {formatToShortVND(item?.maximum_amount)}
+          Đơn Tối thiểu {formatToShortVND(item?.minimum_amount)}
           <br />
-          Giảm Tối đa {formatToShortVND(item?.minimum_amount)}
+          {item?.max_discount && (
+            <span>Giảm Tối đa {formatToShortVND(item?.max_discount)}</span>
+          )}
         </p>
       </div>
       <div className='flex items-center flex-1 md:justify-center size-full'>

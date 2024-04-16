@@ -6,7 +6,13 @@ import {
 } from '@/components/ui/hover-card'
 import {formatToVND} from '@/lib/utils'
 
-export default function TemVoucher({className = '', regularPrice, price}) {
+export default function TemVoucher({
+  className = '',
+  regularPrice,
+  price,
+  bestCoupon,
+}) {
+  const finalPrice = Number(price) - Number(bestCoupon?.amount_discount)
   const discount = regularPrice ? Number(regularPrice) - Number(price) : 0
   const percent =
     regularPrice && Number(regularPrice) > 0
@@ -64,7 +70,9 @@ export default function TemVoucher({className = '', regularPrice, price}) {
 
           <div className='flex mb-[0.59rem] justify-between items-center'>
             <span className='text-greyscale-40'>Voucher giảm giá:</span>
-            <span className='font-semibold text-greyscale-80'>-17.000đ</span>
+            <span className='font-semibold text-greyscale-80'>
+              -{formatToVND(bestCoupon?.amount_discount)}
+            </span>
           </div>
         </div>
 
@@ -72,7 +80,9 @@ export default function TemVoucher({className = '', regularPrice, price}) {
           <span className='font-medium text-greyscale-80 caption1'>
             Giá tạm tính:
           </span>
-          <span className='font-bold text-orange-0 sub1'>280.000đ</span>
+          <span className='font-bold text-orange-0 sub1'>
+            {formatToVND(finalPrice)}
+          </span>
         </div>
       </HoverCardContent>
     </HoverCard>

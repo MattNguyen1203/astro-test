@@ -29,8 +29,6 @@ export default function ProductInfo({
     return gallery.concat(listImgVariations)
   }, [data, variations])
 
-  console.log('data', data)
-
   return (
     <div className='xmd:flex-col xmd:flex px-[1.17rem] xmd:p-[0] xmd:pt-[0.73rem] xmd:pb-[9rem] pt-[1.17rem] pb-[1.14rem] rounded-[0.87848rem] bg-elevation-20 xmd:bg-white w-fit xmd:w-full h-fit flex xmd:overflow-hidden'>
       <SlideMultiple
