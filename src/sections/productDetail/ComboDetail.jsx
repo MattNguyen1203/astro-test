@@ -43,7 +43,7 @@ const prdOther = [
   },
 ]
 
-const ComboDetail = ({isMobile, data, voucher}) => {
+const ComboDetail = ({isMobile, data, voucher, bestCoupon}) => {
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
   const [selectedPrd, setSelectedPrd] = useState({
@@ -55,11 +55,20 @@ const ComboDetail = ({isMobile, data, voucher}) => {
 
   //get list image
   const listGallery = useMemo(() => {
-    const gallery = data?.galleryImgs.map((item) => item)
+    const gallery = data?.galleryImgs || []
 
-    return gallery
+    const listProductGallery = []
+
+    data?.grouped_products?.forEach((item) => {
+      if (item.galleryImgs) {
+        listProductGallery.push(...item.galleryImgs)
+      }
+    })
+
+    return gallery.concat(listProductGallery)
   }, [data])
 
+  // console.log('listProduct', listProduct)
   return (
     <div className='container mt-[8.1rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
@@ -123,10 +132,12 @@ const ComboDetail = ({isMobile, data, voucher}) => {
             <ProductPrice
               regularPrice={data?.regular_price}
               price={data?.price || 0}
+              bestCoupon={bestCoupon}
             />
             <TemVoucher
               regularPrice={data?.regular_price}
               price={data?.price || 0}
+              bestCoupon={bestCoupon}
             />
 
             <div className='absolute top-[1.17rem] right-[1.17rem] z-10'>

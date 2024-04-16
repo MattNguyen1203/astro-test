@@ -5,11 +5,17 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
   const {viewport} = searchParams
   const isMobile = viewport.includes('mobile')
 
-  const dataProductDetail = await getData(
+  const dataProductDetailReq = getData(
     `/okhub/v1/product/productByslug/${slug}`,
   )
-
-  const dataProductVoucher = await getData(`/okhub/v1/product/coupon/${slug}`)
+  const dataProductVoucherReq = getData(`/okhub/v1/product/coupon/${slug}`)
+  const bestCouponReq = getData(`/okhub/v1/coupon/product-detail/${slug}/best`)
+  const [dataProductDetail, dataProductVoucher, dataBestCoupon] =
+    await Promise.all([
+      dataProductDetailReq,
+      dataProductVoucherReq,
+      bestCouponReq,
+    ])
 
   return (
     <main className='bg-elevation-20'>
@@ -17,6 +23,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
         isMobile={isMobile}
         data={dataProductDetail}
         voucher={dataProductVoucher}
+        bestCoupon={dataBestCoupon}
       />
     </main>
   )

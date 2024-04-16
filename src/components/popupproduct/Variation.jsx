@@ -24,12 +24,8 @@ const Variation = ({data = {}, setSelectedPrd}) => {
     const finalRes = listAttr.map((attr) => {
       const parentKey = attr?.key
       const listVal = attr.value.map((item) => {
-        const isExist = listVariations?.some((variant) =>
-          variant?.attributes?.some(
-            (variantAttr) =>
-              variantAttr.taxonomy === parentKey &&
-              variantAttr?.key === item.slug,
-          ),
+        const isExist = listVariations?.some(
+          (variant) => variant?.attributes?.[parentKey].key === item.slug,
         )
         if (isExist) return item
       })
@@ -40,6 +36,25 @@ const Variation = ({data = {}, setSelectedPrd}) => {
       }
     })
     setListAttribute(finalRes)
+
+    //set default
+
+    listVariations?.forEach((item) => {
+      if (item?.default) {
+        const ListParentKey = Object.keys(item?.attributes)
+        const ListValue = Object.values(item?.attributes)
+
+        const listVariant = ListParentKey.map((key, index) => {
+          return {
+            parentkey: key,
+            selectedkey: ListValue?.[index]?.key,
+            selectedName: ListValue?.[index]?.label,
+          }
+        })
+
+        setVariationSelected(listVariant)
+      }
+    })
   }, [data])
 
   //handle Select variation
@@ -87,9 +102,9 @@ const Variation = ({data = {}, setSelectedPrd}) => {
       lastKey,
     )
 
+    // console.log('listOutOfStock', listOutOfStock)
     const listValueOutOfStock = listOutOfStock.map((item) => {
-      const result = item.attributes.find((attr) => attr.taxonomy === lastKey)
-      return result.key
+      return item.attributes?.[lastKey].key
     })
 
     setListOutOfStock({
@@ -113,12 +128,9 @@ const Variation = ({data = {}, setSelectedPrd}) => {
       })
       const variationSelectedInfo = listVariations.find((variant) => {
         if (
-          variationSelected.every((item) =>
-            variant.attributes?.some(
-              (attr) =>
-                attr.taxonomy === item.parentkey &&
-                attr.key === item.selectedkey,
-            ),
+          variationSelected.every(
+            (item) =>
+              variant.attributes?.[item.parentkey]?.key === item.selectedkey,
           )
         ) {
           return variant
@@ -172,7 +184,7 @@ const Variation = ({data = {}, setSelectedPrd}) => {
                           : 'hidden'
                       }`}
                     />
-                    {item.image && item.image.length > 0 ? (
+                    {item?.image && item?.image?.length > 0 ? (
                       <Image
                         src={item.image}
                         alt=''
@@ -184,7 +196,7 @@ const Variation = ({data = {}, setSelectedPrd}) => {
                       ''
                     )}
                     <span className='caption1 font-normal text-greyscale-40'>
-                      {item.name}
+                      {item?.name}
                     </span>
                   </div>
                 )
