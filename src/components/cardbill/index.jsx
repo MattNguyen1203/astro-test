@@ -50,11 +50,25 @@ export default function CardBill() {
         </div>
       </div>
       <hr className='bg-[#ECECECB2] h-[0.07rem] w-full my-[0.88rem] block' />
-      <span className='text-[#D48E43] sub1 font-bold block text-end'>
-        25.000đ
-      </span>
-      <div className='flex mt-[0.88rem] justify-between'>
-        <div className='flex items-center'>
+      <div className='w-full xmd:flex xmd:justify-between xmd:items-center'>
+        <div className='flex items-center md:hidden'>
+          <Image
+            className='size-[1.1713rem] object-contain'
+            src={'/account/car.svg'}
+            alt='icon car'
+            width={16}
+            height={16}
+          />
+          <span className='font-medium sub2 text-brown-600 inline-block ml-[0.59rem] w-fit'>
+            Đang xử lý
+          </span>
+        </div>
+        <span className='text-[#D48E43] sub1 font-bold block text-end'>
+          25.000đ
+        </span>
+      </div>
+      <div className='flex mt-[0.88rem] justify-between xmd:grid xmd:grid-cols-2 xmd:gap-x-[0.5rem]'>
+        <div className='flex items-center xmd:hidden'>
           <Image
             className='size-[1.1713rem] object-contain'
             src={'/account/car.svg'}

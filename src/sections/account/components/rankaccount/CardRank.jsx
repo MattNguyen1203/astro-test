@@ -13,7 +13,7 @@ export default function CardRank({item, id, isActive, setIsActive}) {
     if (window.innerWidth >= 768) {
       return
     }
-    if (isActive == id) {
+    if (isActive === id) {
       setIsActive(null)
     } else {
       setIsActive(id)
@@ -21,7 +21,7 @@ export default function CardRank({item, id, isActive, setIsActive}) {
   }
   return (
     <>
-      {id == 0 ? (
+      {id === 0 ? (
         <div className='w-[50.87848rem] xmd:w-[26.28111rem] h-[0.07321rem] bg-[rgba(218,218,218,0.70)] my-[1.1713rem]'></div>
       ) : (
         <div className='xmd:hidden w-[50.87848rem] xmd:w-[26.28111rem] h-[0.07321rem] bg-[rgba(218,218,218,0.70)] my-[1.76rem]'></div>
@@ -43,11 +43,11 @@ export default function CardRank({item, id, isActive, setIsActive}) {
             </p>
           </div>
           <div className='lg:hidden flex w-[2.34261rem] h-[2.34261rem] p-[0.65871rem] justify-center items-center rounded-[0.29283rem]'>
-            {isActive == id ? (
+            {isActive === id ? (
               <Image
                 width={14}
                 height={14}
-                alt='icon add'
+                alt='icon remove'
                 src={'/account/icon-remove.svg'}
               />
             ) : (
@@ -62,34 +62,36 @@ export default function CardRank({item, id, isActive, setIsActive}) {
         </div>
         <div
           style={{
-            height: isActive == id ? '16rem' : `${width}`,
+            height: isActive === id ? '16rem' : `${width}`,
           }}
-          className='flex xmd:mb-[1.17rem] flex-col items-start xmd:overflow-hidden transition-all duration-500'
+          className={`${
+            isActive === id ? 'xmd:mb-[1.17rem]' : ''
+          } flex flex-col items-start xmd:overflow-hidden transition-all duration-500`}
         >
           <div className='flex flex-col items-start mb-[1.17rem]'>
             <p className='sub2 text-black font-bold mb-[0.59rem]'>Điều kiện:</p>
-            <div className='flex flex-col justify-center items-start'>
-              <span className='body2 font-normal text-greyscale-40'>
+            <div className='flex flex-col items-start justify-center'>
+              <span className='font-normal body2 text-greyscale-40'>
                 - Tổng giá trị hóa đơn từ 12.000.000/năm
               </span>
               <span className='my-[0.58565rem] body2 font-normal text-greyscale-40'>
                 - Điều kiện nâng hạng thẻ GOLD MEMBERSHIP:
               </span>
-              <span className='body2 font-normal text-greyscale-40'>
+              <span className='font-normal body2 text-greyscale-40'>
                 - Điều kiện gia hạn thẻ GOLD MEMBERSHIP:
               </span>
             </div>
           </div>
           <div className='flex flex-col items-start'>
             <p className='sub2 text-black font-bold mb-[0.59rem]'>Quyền lợi:</p>
-            <div className='flex flex-col justify-center items-start'>
-              <span className='body2 font-normal text-greyscale-40'>
+            <div className='flex flex-col items-start justify-center'>
+              <span className='font-normal body2 text-greyscale-40'>
                 - Tổng giá trị hóa đơn từ 12.000.000/năm
               </span>
               <span className='my-[0.58565rem] body2 font-normal text-greyscale-40'>
                 - Điều kiện nâng hạng thẻ GOLD MEMBERSHIP:
               </span>
-              <span className='body2 font-normal text-greyscale-40'>
+              <span className='font-normal body2 text-greyscale-40'>
                 - Điều kiện gia hạn thẻ GOLD MEMBERSHIP:
               </span>
             </div>

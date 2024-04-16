@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import 'swiper/css'
@@ -84,15 +85,15 @@ export default function ExpRank() {
             </div>
           </div>
           <div className='flex my-[0.87848rem] justify-start items-center h-[1.75695rem] pl-[1.31772rem] pr-[3.3675rem]'>
-            <div className='w-full xmd:w-[53.73352rem] h-[1.75695rem] absolute rounded-[1.0981rem] bg-[#F0F0F0]'></div>
+            <div className='w-[90%] xmd:w-[53.73352rem] h-[1.75695rem] absolute rounded-[1.0981rem] bg-[#F0F0F0]'></div>
             <div className='w-[32.06442rem] h-[1.75695rem] absolute z-10 rounded-[0.43924rem] bg-gradient-to-l from-[#407F0F] to-[#29AA4D] shadow-[4px_4px_8px_0px_rgba(83,118,209,0.10)]'></div>
           </div>
-          <div className='flex justify-between items-center w-full'>
+          <div className='flex items-center justify-between w-full'>
             <div className='flex flex-col items-center w-[8.56515rem]'>
               <p className='w-[8.56515rem] mb-[0.29283rem] text-center sub2 font-semibold bg-gradient-to-l from-[#E0B181] to-[#BE9367] bg-clip-text'>
                 0đ
               </p>
-              <p className='body2 font-normal text-greyscale-40'>
+              <p className='font-normal body2 text-greyscale-40'>
                 Thành viên mới
               </p>
             </div>
@@ -100,7 +101,7 @@ export default function ExpRank() {
               <p className='w-[8.56515rem] mb-[0.29283rem] text-center sub2 font-semibold bg-gradient-to-l from-[#E0B181] to-[#BE9367] bg-clip-text'>
                 0đ
               </p>
-              <p className='body2 font-normal text-greyscale-40'>
+              <p className='font-normal body2 text-greyscale-40'>
                 Thành viên mới
               </p>
             </div>
@@ -108,7 +109,7 @@ export default function ExpRank() {
               <p className='w-[8.56515rem] mb-[0.29283rem] text-center sub2 font-semibold bg-gradient-to-l from-[#E0B181] to-[#BE9367] bg-clip-text'>
                 0đ
               </p>
-              <p className='body2 font-normal text-greyscale-40'>
+              <p className='font-normal body2 text-greyscale-40'>
                 Thành viên mới
               </p>
             </div>
@@ -116,7 +117,7 @@ export default function ExpRank() {
               <p className='w-[8.56515rem] mb-[0.29283rem] text-center sub2 font-semibold bg-gradient-to-l from-[#E0B181] to-[#BE9367] bg-clip-text'>
                 0đ
               </p>
-              <p className='body2 font-normal text-greyscale-40'>
+              <p className='font-normal body2 text-greyscale-40'>
                 Thành viên mới
               </p>
             </div>

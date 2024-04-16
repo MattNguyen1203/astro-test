@@ -67,9 +67,9 @@ export default function PaymentIndex({
   const [idProvince, setIdProvince] = useState(null)
   const [valueDistrict, setValueDistrict] = useState(null)
   const [idDistrict, setIdDistrict] = useState(null)
+  const [valueCommune, setValueCommune] = useState(null)
   const [ship, setShip] = useState('in')
   const [payment, setPayment] = useState()
-  const [valueCommune, setValueCommune] = useState(null)
   const [carts, setCarts] = useState([])
   const form = useForm({
     resolver: zodResolver(formSchema),

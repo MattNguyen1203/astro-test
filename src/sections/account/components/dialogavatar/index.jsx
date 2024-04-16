@@ -65,16 +65,18 @@ export function DialogAvatar({children, isOpen, setIsOpen}) {
             } transition-all duration-200 h-full`}
           >
             {src && (
-              <picture className='size-[13.46999rem] overflow-hidden relative flex-shrink-0 rounded-full'>
-                <img
-                  style={{
-                    transform: `translate(-50%,-50%) scale(${size / 50})`,
-                  }}
-                  className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-[20rem] w-[20rem] h-auto object-fill block transition-all duration-100 origin-center'
-                  src={src}
-                  alt='avatar customer'
-                />
-              </picture>
+              <div className='border border-blue-200 border-dashed size-fit cursor-grab'>
+                <picture className='size-[13.46999rem] overflow-hidden relative flex-shrink-0 rounded-full active:cursor-grabbing'>
+                  <img
+                    style={{
+                      transform: `translate(-50%,-50%) scale(${size / 50})`,
+                    }}
+                    className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-[20rem] w-[20rem] h-auto object-fill block transition-all duration-100 origin-center'
+                    src={src}
+                    alt='avatar customer'
+                  />
+                </picture>
+              </div>
             )}
             <div
               onDragOver={handleDragOver}

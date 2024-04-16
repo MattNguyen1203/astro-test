@@ -32,9 +32,25 @@ export default function PopupCommune({
             valueCommune
               ? 'text-greyscale-80 hover:text-greyscale-80 capitalize'
               : 'text-greyscale-20 hover:text-greyscale-20'
-          } text-[0.87848rem] tracking-[0.00878rem] leading-[1.2] font-medium justify-start flex-1 p-[0.88rem] h-fit rounded-[0.58565rem] bg-elevation-20 font-svnGraphik`}
+          } text-[0.87848rem] tracking-[0.00878rem] leading-[1.2] font-medium justify-start flex-1 p-[0.88rem] h-fit rounded-[0.58565rem] bg-elevation-20 font-svnGraphik relative w-full`}
         >
           {valueCommune ? valueCommune : 'Phường/ Xã *'}
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='15'
+            height='14'
+            viewBox='0 0 15 14'
+            fill='none'
+            className='size-[0.875rem] absolute top-1/2 right-[0.5rem] -translate-y-1/2'
+          >
+            <path
+              d='M11.4167 5.25L7.33333 9.33333L3.25 5.25'
+              stroke='#A9A9A9'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
         </Button>
       </PopoverTrigger>
       <PopoverContent
