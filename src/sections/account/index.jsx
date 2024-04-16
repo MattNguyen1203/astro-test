@@ -4,6 +4,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from '@/components/ui/form'
 import {Input} from '@/components/ui/input'
@@ -17,18 +18,32 @@ import {Label} from '@/components/ui/label'
 import BtnSubmit from '../auth/components/btnsubmit'
 import {useState} from 'react'
 import {DialogAvatar} from './components/dialogavatar'
-import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
+import PopupProvince from '../payment/PopupProvince'
+import PopupDistrict from '../payment/PopupDistrict'
+import PopupCommune from '../payment/PopupCommune'
 
 const formSchema = z.object({
   voucher: z.string().min(1, {message: 'Bạn chưa nhập Voucher!'}),
 })
-export default function IndexAccount({isMobile}) {
+export default function IndexAccount({isMobile, province, district, commune}) {
   const [isEdit, setIsEdit] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [valueProvince, setValueProvince] = useState(null)
+  const [idProvince, setIdProvince] = useState(null)
+  const [valueDistrict, setValueDistrict] = useState(null)
+  const [idDistrict, setIdDistrict] = useState(null)
+  const [valueCommune, setValueCommune] = useState(null)
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      voucher: '',
+      nickname: '',
+      fullName: '',
+      email: '',
+      phone: '',
+      address: '',
+      street: '',
+      PhoneShip: '',
     },
   })
   function onSubmit(values) {}
@@ -42,12 +57,6 @@ export default function IndexAccount({isMobile}) {
   }
   return (
     <section>
-      {isMobile && (
-        <div className='flex items-center pl-[0.59rem]'>
-          <ICArrowRightBlack className='rotate-180 size-[1.2rem] mr-[0.59rem]' />
-          <span>Thông tin tài khoản</span>
-        </div>
-      )}
       <article>
         <Form {...form}>
           <form
@@ -61,54 +70,62 @@ export default function IndexAccount({isMobile}) {
               <hr className='bg-[#ECECECB2] h-[0.07rem] w-full my-[0.59rem] block' />
               <div className='flex items-center justify-between'>
                 <div className='w-[36.4rem] space-y-[0.7rem]'>
-                  <FormField
-                    control={form.control}
-                    name='voucher'
-                    render={({field}) => (
-                      <FormItem className='relative w-full'>
-                        <FormControl>
-                          <Input
-                            className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full'
-                            placeholder='Nhập mã voucher của bạn'
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className='absolute bottom-0 left-0 translate-y-full' />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name='voucher'
-                    render={({field}) => (
-                      <FormItem className='relative w-full'>
-                        <FormControl>
-                          <Input
-                            className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full'
-                            placeholder='Nhập mã voucher của bạn'
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className='absolute bottom-0 left-0 translate-y-full' />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name='voucher'
-                    render={({field}) => (
-                      <FormItem className='relative w-full'>
-                        <FormControl>
-                          <Input
-                            className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full'
-                            placeholder='Nhập mã voucher của bạn'
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className='absolute bottom-0 left-0 translate-y-full' />
-                      </FormItem>
-                    )}
-                  />
+                  <div className='flex'>
+                    <span className='w-[11.2rem] block caption1 font-normal text-greyscale-80'>
+                      Tên đăng nhập:
+                    </span>
+                    <span className='block font-medium caption1 text-greyscale-80'>
+                      0338 277 705
+                    </span>
+                  </div>
+                  <div className='flex items-center'>
+                    <FormLabel
+                      htmlFor='nickname'
+                      className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'
+                    >
+                      Nick name:
+                    </FormLabel>
+                    <FormField
+                      control={form.control}
+                      name='nickname'
+                      render={({field}) => (
+                        <FormItem className='relative w-full'>
+                          <FormControl>
+                            <Input
+                              className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
+                              placeholder='Thêm nick name'
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className='pl-[0.73rem] mt-[0.2rem]' />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className='flex items-center'>
+                    <FormLabel
+                      htmlFor='fullName'
+                      className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'
+                    >
+                      Họ và tên:
+                    </FormLabel>
+                    <FormField
+                      control={form.control}
+                      name='fullName'
+                      render={({field}) => (
+                        <FormItem className='relative w-full'>
+                          <FormControl>
+                            <Input
+                              className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
+                              placeholder='Trịnh Văn Đức'
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className='pl-[0.73rem] mt-[0.2rem]' />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                 </div>
                 <DialogAvatar
                   isOpen={isOpen}
@@ -132,82 +149,108 @@ export default function IndexAccount({isMobile}) {
                 </DialogAvatar>
               </div>
               <div>
-                <FormField
-                  control={form.control}
-                  name='voucher'
-                  render={({field}) => (
-                    <FormItem className='relative w-full'>
-                      <FormControl>
-                        <Input
-                          className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full'
-                          placeholder='Nhập mã voucher của bạn'
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className='absolute bottom-0 left-0 translate-y-full' />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name='voucher'
-                  render={({field}) => (
-                    <FormItem className='relative w-full'>
-                      <FormControl>
-                        <Input
-                          className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full'
-                          placeholder='Nhập mã voucher của bạn'
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className='absolute bottom-0 left-0 translate-y-full' />
-                    </FormItem>
-                  )}
-                />
-                <RadioGroup
-                  defaultValue=''
-                  className='grid grid-cols-2 gap-[0.59rem] mt-[1.17rem]'
-                >
-                  <Label
-                    htmlFor='in'
-                    className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer'
+                <div className='flex items-center my-[0.5rem]'>
+                  <FormLabel
+                    htmlFor='email'
+                    className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'
                   >
-                    <RadioGroupItem
-                      className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
-                      value='in'
-                      id='in'
-                    />
-
-                    <span className='font-medium caption1 text-greyscale-40'>
-                      Nam
-                    </span>
-                  </Label>
-                  <Label
-                    htmlFor='out'
-                    className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer'
+                    Email:
+                  </FormLabel>
+                  <FormField
+                    control={form.control}
+                    name='email'
+                    render={({field}) => (
+                      <FormItem className='relative w-full'>
+                        <FormControl>
+                          <Input
+                            className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
+                            placeholder='finn*****@gmail.com'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className='pl-[0.73rem] mt-[0.2rem]' />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className='flex items-center'>
+                  <FormLabel
+                    htmlFor='phone'
+                    className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'
                   >
-                    <RadioGroupItem
-                      className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
-                      value='out'
-                      id='out'
-                    />
+                    Số điện thoại:
+                  </FormLabel>
+                  <FormField
+                    control={form.control}
+                    name='phone'
+                    render={({field}) => (
+                      <FormItem className='relative w-full'>
+                        <FormControl>
+                          <Input
+                            className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
+                            placeholder='***********05'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className='pl-[0.73rem] mt-[0.2rem]' />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className='flex items-center'>
+                  <span className='w-[11.2rem] block flex-shrink-0 caption1 font-normal text-greyscale-80'>
+                    Giới tính:
+                  </span>
+                  <RadioGroup
+                    defaultValue=''
+                    className='grid grid-cols-2 gap-[0.59rem] mt-[1.17rem]'
+                  >
+                    <Label
+                      htmlFor='in'
+                      className='flex items-center px-[0.88rem] py-[0.73rem] cursor-pointer'
+                    >
+                      <RadioGroupItem
+                        className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
+                        value='in'
+                        id='in'
+                      />
 
-                    <span className='font-medium caption1 text-greyscale-40'>
-                      Nữ
-                    </span>
-                  </Label>
-                </RadioGroup>
+                      <span className='font-medium caption1 text-greyscale-40'>
+                        Nam
+                      </span>
+                    </Label>
+                    <Label
+                      htmlFor='out'
+                      className='flex items-center px-[0.88rem] py-[0.73rem] cursor-pointer'
+                    >
+                      <RadioGroupItem
+                        className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
+                        value='out'
+                        id='out'
+                      />
+
+                      <span className='font-medium caption1 text-greyscale-40'>
+                        Nữ
+                      </span>
+                    </Label>
+                  </RadioGroup>
+                </div>
               </div>
-              <div>
-                <PopupDate data={renderArrayDate(1, 31)} />
-                <PopupDate
-                  data={renderArrayDate(1, 12, 'Tháng ')}
-                  type={1}
-                />
-                <PopupDate
-                  data={renderArrayDate(1910, new Date().getFullYear())}
-                  type={2}
-                />
+              <div className='flex items-center'>
+                <span className='w-[11.2rem] block flex-shrink-0 caption1 font-normal text-greyscale-80'>
+                  Ngày sinh:
+                </span>
+                <div className='w-full grid grid-cols-3 gap-x-[0.75rem]'>
+                  <PopupDate data={renderArrayDate(1, 31)} />
+                  <PopupDate
+                    data={renderArrayDate(1, 13, 'Tháng ')}
+                    type={1}
+                  />
+                  <PopupDate
+                    data={renderArrayDate(1910, new Date().getFullYear())}
+                    type={2}
+                  />
+                </div>
               </div>
             </div>
             <div className='rounded-[0.58565rem] bg-white p-[1.17rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>
@@ -215,100 +258,86 @@ export default function IndexAccount({isMobile}) {
                 Địa chỉ nhận hàng
               </span>
               <hr className='bg-[#ECECECB2] h-[0.07rem] w-full my-[0.59rem] block' />
-              <div></div>
-              <FormField
-                control={form.control}
-                name='street'
-                render={({field}) => (
-                  <FormItem className='relative w-full'>
-                    <FormControl>
-                      <Input
-                        className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full'
-                        placeholder='Nhập mã voucher của bạn'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className='absolute bottom-0 left-0 translate-y-full' />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name='phone'
-                render={({field}) => (
-                  <FormItem className='relative w-full'>
-                    <FormControl>
-                      <Input
-                        className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full'
-                        placeholder='Nhập mã voucher của bạn'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className='absolute bottom-0 left-0 translate-y-full' />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className='rounded-[0.58565rem] bg-white p-[1.17rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>
               <div className='flex items-center'>
-                <span className='inline-block font-medium sub2 text-greyscale-80'>
-                  Đổi mật khẩu
+                <span className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'>
+                  Địa chỉ:
                 </span>
-                <span>
-                  (Để đảm bảo tính bảo mật vui lòng đặt mật khẩu với ít nhất 8
-                  kí tự)
-                </span>
+                <div className='grid grid-cols-3 gap-x-[0.75rem] w-full'>
+                  <PopupProvince
+                    province={province}
+                    valueProvince={valueProvince}
+                    setValueProvince={setValueProvince}
+                    setIdProvince={setIdProvince}
+                  />
+                  <PopupDistrict
+                    district={district?.filter(
+                      (e) => e?.idProvince === idProvince,
+                    )}
+                    valueDistrict={valueDistrict}
+                    setValueDistrict={setValueDistrict}
+                    setIdDistrict={setIdDistrict}
+                    idProvince={idProvince}
+                  />
+                  <PopupCommune
+                    commune={commune?.filter(
+                      (e) => e?.idDistrict === idDistrict,
+                    )}
+                    valueCommune={valueCommune}
+                    setValueCommune={setValueCommune}
+                    idDistrict={idDistrict}
+                  />
+                </div>
               </div>
-              <hr className='bg-[#ECECECB2] h-[0.07rem] w-full my-[0.59rem] block' />
-              <FormField
-                control={form.control}
-                name='passwordBefore'
-                render={({field}) => (
-                  <FormItem className='relative w-full'>
-                    <FormControl>
-                      <Input
-                        className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full'
-                        placeholder='Nhập mã voucher của bạn'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className='absolute bottom-0 left-0 translate-y-full' />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name='password'
-                render={({field}) => (
-                  <FormItem className='relative w-full'>
-                    <FormControl>
-                      <Input
-                        className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full'
-                        placeholder='Nhập mã voucher của bạn'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className='absolute bottom-0 left-0 translate-y-full' />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name='passwordConfirm'
-                render={({field}) => (
-                  <FormItem className='relative w-full'>
-                    <FormControl>
-                      <Input
-                        className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full'
-                        placeholder='Nhập mã voucher của bạn'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className='absolute bottom-0 left-0 translate-y-full' />
-                  </FormItem>
-                )}
-              />
+              <div className='flex items-center my-[0.56rem]'>
+                <FormLabel
+                  htmlFor='fullName'
+                  className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'
+                >
+                  Địa chỉ cụ thể:
+                </FormLabel>
+                <FormField
+                  control={form.control}
+                  name='street'
+                  render={({field}) => (
+                    <FormItem className='relative w-full'>
+                      <FormControl>
+                        <Input
+                          className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
+                          placeholder='Số nhà, tên đường*'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className='pl-[0.73rem] mt-[0.2rem]' />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className='flex items-center'>
+                <FormLabel
+                  htmlFor='fullName'
+                  className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'
+                >
+                  Số điện thoại:
+                </FormLabel>
+                <FormField
+                  control={form.control}
+                  name='PhoneShip'
+                  render={({field}) => (
+                    <FormItem className='relative w-full'>
+                      <FormControl>
+                        <Input
+                          className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
+                          placeholder='***********05'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className='pl-[0.73rem] mt-[0.2rem]' />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
+
             {isEdit ? (
               <div className='flex items-center justify-end !mt-[0.88rem]'>
                 <button

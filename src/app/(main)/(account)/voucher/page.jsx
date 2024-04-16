@@ -1,50 +1,28 @@
-import CardVoucher from '@/components/cardvoucher'
-import Image from 'next/image'
+import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
+import {TabsVoucher} from '@/components/tabvoucher'
+import IndexVoucher from '@/sections/account/components/voucher'
+import Link from 'next/link'
 
-export default function VoucherPage() {
+export default function VoucherPage({searchParams}) {
+  const {viewport} = searchParams
+  const isMobile = viewport === 'mobile'
   return (
-    <section className='p-[1.17rem] rounded-[0.58565rem] bg-white shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>
-      <div className='w-full h-[13.5rem] mb-[1.76rem] rounded-[0.58565rem] overflow-hidden'>
-        <Image
-          className='object-fill size-full'
-          src={'/account/banner-voucher.jpg'}
-          alt='voucher banner'
-          width={700}
-          height={200}
-        />
-      </div>
-      <div className='grid grid-cols-2 gap-x-[0.84rem]'>
-        <div>
-          <h3 className='mb-[0.81rem] caption font-medium text-greyscale-80'>
-            Voucher thành viên:
-          </h3>
-          <div className='space-y-[0.59rem]'>
-            {Array(4)
-              .fill(0)
-              .map((_, index) => (
-                <CardVoucher
-                  className='w-full'
-                  key={index}
-                />
-              ))}
-          </div>
-        </div>
-        <div>
-          <h3 className='mb-[0.81rem] caption font-medium text-greyscale-80'>
-            Voucher ngành hàng:
-          </h3>
-          <div className='space-y-[0.59rem]'>
-            {Array(4)
-              .fill(0)
-              .map((_, index) => (
-                <CardVoucher
-                  className='w-full'
-                  key={index}
-                />
-              ))}
-          </div>
-        </div>
-      </div>
-    </section>
+    <>
+      {isMobile && (
+        <>
+          <Link
+            href='/dash-board'
+            className='flex items-center pl-[0.59rem] h-[2.93rem] relative'
+          >
+            <ICArrowRightBlack className='rotate-180 size-[1.75rem] mr-[0.59rem]' />
+            <span className='font-medium h5 text-greyscale-50'>
+              Voucher của bạn
+            </span>
+          </Link>
+          <hr className='h-[0.06rem] w-full mt-[0.5rem] mb-[1.25rem] bg-[#ECECEC]' />
+        </>
+      )}
+      {isMobile ? <TabsVoucher /> : <IndexVoucher />}
+    </>
   )
 }
