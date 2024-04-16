@@ -10,7 +10,7 @@ import {useRef} from 'react'
 import {Autoplay, EffectFade, Pagination} from 'swiper/modules'
 import {Swiper, SwiperSlide} from 'swiper/react'
 
-export default function BannerLookUpOrder() {
+export default function BannerLookUpOrder({isMobile}) {
   const swiperRef = useRef(null)
   const handleNextSlide = () => {
     swiperRef.current?.slideNext()
@@ -19,7 +19,7 @@ export default function BannerLookUpOrder() {
     swiperRef.current?.slidePrev()
   }
   return (
-    <section className='h-[23.3rem] w-full relative'>
+    <section className='h-[23.3rem] w-full relative xmd:h-[20.5rem] xmd:mt-[1.17rem]'>
       <Swiper
         slidesPerView={1}
         spaceBetween={16}
@@ -45,10 +45,12 @@ export default function BannerLookUpOrder() {
             <SwiperSlide key={index}>
               <div className='flex items-start size-full'>
                 <Image
-                  className='w-full h-[21.5rem]'
+                  className='w-full h-[21.5rem] xmd:h-[18.7rem]'
                   src={
                     index === 1
                       ? '/product/banner.jpg'
+                      : isMobile
+                      ? '/lookuporder/banner-res.jpg'
                       : '/lookuporder/banner.jpg'
                   }
                   alt='banner'
@@ -60,12 +62,14 @@ export default function BannerLookUpOrder() {
             </SwiperSlide>
           ))}
       </Swiper>
-      <div className='container absolute z-10 -translate-x-1/2 -translate-y-1/2 pointer-events-none top-1/2 left-1/2'>
-        <NavigationCustom
-          handleNextSlide={handleNextSlide}
-          handlePrevSlide={handlePrevSlide}
-        />
-      </div>
+      {!isMobile && (
+        <div className='container absolute z-10 -translate-x-1/2 -translate-y-1/2 pointer-events-none top-1/2 left-1/2'>
+          <NavigationCustom
+            handleNextSlide={handleNextSlide}
+            handlePrevSlide={handlePrevSlide}
+          />
+        </div>
+      )}
     </section>
   )
 }

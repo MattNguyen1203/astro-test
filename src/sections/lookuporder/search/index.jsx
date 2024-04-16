@@ -9,7 +9,7 @@ export default function SearchTracking({isMobile}) {
   const pathName = usePathname()
   const searchParams = useSearchParams()
 
-  const tracking = decodeURI(searchParams.get('tracking'))
+  const tracking = decodeURI(searchParams.get('tracking') || '')
 
   const {data, error, isLoading} = useSWR(
     tracking
@@ -39,17 +39,17 @@ export default function SearchTracking({isMobile}) {
   }
   return (
     <>
-      <div className='mt-[1.76rem] xmd:mt-[2.34rem]'>
-        <div className='md:w-[43.7rem] mx-auto xmd:container'>
+      <div className='mt-[1.76rem] xmd:mt-[2.34rem] xmd:w-full xmd:px-[1.17rem]'>
+        <div className='md:w-[43.7rem] mx-auto'>
           <h1 className='text-center h4 tracking-[0.00568rem] text-greyscale-80 font-medium xmd:h5 xmd:font-semibold xmd:tracking-[0.00366rem]'>
             Tra cứu mã đơn hàng
           </h1>
           <form
             onSubmit={handleSubmit}
-            className='h-[3.51391rem] w-full flex my-[2.34rem] xmd:my-[1.17rem]'
+            className='h-[3.51391rem] w-full flex my-[2.34rem] xmd:my-[1.17rem] xmd:h-fit'
           >
-            <div className='w-full border border-solid border-greyscale-30 rounded-[0.58565rem] h-full flex justify-between xmd:border-blue-100'>
-              <div className='px-[1.02rem] flex items-center w-full'>
+            <div className='w-full border border-solid border-greyscale-30 rounded-[0.58565rem] h-full flex justify-between xmd:flex-col xmd:border-none'>
+              <div className='px-[1.02rem] flex items-center w-full xmd:py-[1.02rem] xmd:h-fit xmd:border xmd:border-solid xmd:border-blue-100 xmd:rounded-[0.58565rem]'>
                 <ICSearchAccessory
                   stroke={tracking ? '#262626' : '#A9A9A9'}
                   className='size-[1.46413rem] pointer-events-none'
@@ -61,37 +61,35 @@ export default function SearchTracking({isMobile}) {
                   defaultValue={tracking}
                 />
               </div>
-              {!isMobile && (
-                <button
-                  className={`${
-                    isLoading ? 'pointer-events-none cursor-not-allowed' : ''
-                  } w-[10.2489rem] flex-shrink-0 rounded-tr-[0.58565rem] rounded-br-[0.58565rem] bg-blue-600 button font-semibold text-white flex justify-center items-center`}
-                >
-                  {isLoading ? (
-                    <svg
-                      class='animate-spin h-[2rem] w-[2rem] text-white'
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                    >
-                      <circle
-                        class='opacity-25'
-                        cx='12'
-                        cy='12'
-                        r='10'
-                        stroke='currentColor'
-                        strokeWidth='4'
-                      ></circle>
-                      <path
-                        fill='currentColor'
-                        d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
-                      ></path>
-                    </svg>
-                  ) : (
-                    'TRA CỨU'
-                  )}
-                </button>
-              )}
+              <button
+                className={`${
+                  isLoading ? 'pointer-events-none cursor-not-allowed' : ''
+                } w-[10.2489rem] flex-shrink-0 rounded-tr-[0.58565rem] rounded-br-[0.58565rem] bg-blue-600 button font-semibold text-white flex justify-center items-center xmd:mt-[1.17rem] xmd:w-full xmd:h-[3.22108rem] xmd:rounded-[0.58565rem]`}
+              >
+                {isLoading ? (
+                  <svg
+                    class='animate-spin h-[2rem] w-[2rem] text-white'
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                  >
+                    <circle
+                      class='opacity-25'
+                      cx='12'
+                      cy='12'
+                      r='10'
+                      stroke='currentColor'
+                      strokeWidth='4'
+                    ></circle>
+                    <path
+                      fill='currentColor'
+                      d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+                    ></path>
+                  </svg>
+                ) : (
+                  'TRA CỨU'
+                )}
+              </button>
             </div>
           </form>
         </div>
@@ -100,10 +98,10 @@ export default function SearchTracking({isMobile}) {
         <>
           {/* page1 */}
           {!tracking && (
-            <div className='flex lg:flex-col items-center xmd:w-[22.47438rem]'>
-              <p className='mb-[0.58565rem] caption1 font-normal text-[#94A4B4] opacity-[0.45]'>
-                Đăng nhập tài khoản sẽ giúp bạn quản lý đơn hàng dễ dàng hơn!
-                <span className='lg:hidden caption1 font-medium text-[#204265] opacity-100'>
+            <div className='flex lg:flex-col items-center xmd:w-full xmd:px-[1.32rem]'>
+              <p className='mb-[0.58565rem] caption1 font-normal text-[#94A4B4]/45 xmd:text-center'>
+                Đăng nhập tài khoản sẽ giúp bạn quản lý đơn hàng dễ dàng hơn!{' '}
+                <span className='lg:hidden caption1 font-medium text-[#204265]'>
                   Đăng nhập ngay
                 </span>
               </p>
@@ -114,8 +112,8 @@ export default function SearchTracking({isMobile}) {
           )}
           {/* page 2 */}
           {tracking && data && (
-            <div className='flex w-[100rem] xmd:w-[27.45242rem] xmd:py-[1.1713rem ] xmd:px-[0] px-[24.52416rem] pb-[0.58565rem] justify-center items-center'>
-              <div className='flex w-[50.87848rem] xmd:w-[27.45242rem] p-[1.1713rem] flex-col items-start rounded-[0.58565rem] bg-white'>
+            <div className='flex w-[100rem] xmd:w-full xmd:py-[1.1713rem ] px-[24.52416rem] pb-[0.58565rem] justify-center items-center xmd:px-0'>
+              <div className='flex w-[50.87848rem] xmd:w-full p-[1.1713rem] flex-col items-start rounded-[0.58565rem] bg-white xmd:px-[0.88rem]'>
                 <div className='flex flex-col items-start mb-[1.76rem]'>
                   <div className='flex flex-col justify-start'>
                     <div className='flex items-center justify-between'>
@@ -199,10 +197,10 @@ export default function SearchTracking({isMobile}) {
                       </div>
                       <div className='flex items-start justify-between w-full'>
                         <p className='font-medium text-right caption1 text-greyscale-40'>
-                          Hình thức thanh toán:
+                          Phương thức vận chuyển:
                         </p>
                         <span className='font-semibold text-right caption1 text-greyscale-80'>
-                          COD
+                          Hỏa tốc
                         </span>
                       </div>
                     </div>
@@ -218,34 +216,26 @@ export default function SearchTracking({isMobile}) {
                       </div>
                       <div className='w-full my-[0.58565rem] flex justify-between items-center'>
                         <p className='font-medium text-right caption1 text-greyscale-40'>
-                          Tổng tiền hàng:
+                          Phí vận chuyển:
                         </p>
                         <span className='font-semibold text-right caption1 text-greyscale-80'>
-                          325.000đ
+                          40.000đ
                         </span>
                       </div>
                       <div className='flex items-center justify-between w-full'>
                         <p className='font-medium text-right caption1 text-greyscale-40'>
-                          Tổng tiền hàng:
+                          Voucher giảm giá
                         </p>
                         <span className='font-semibold text-right caption1 text-greyscale-80'>
-                          325.000đ
+                          -25.000đ
                         </span>
                       </div>
                       <div className='w-full my-[0.58565rem] flex justify-between items-center'>
                         <p className='font-medium text-right caption1 text-greyscale-40'>
-                          Tổng tiền hàng:
+                          Giảm giá vận chuyển:
                         </p>
                         <span className='font-semibold text-right caption1 text-greyscale-80'>
-                          325.000đ
-                        </span>
-                      </div>
-                      <div className='flex items-center justify-between w-full'>
-                        <p className='font-medium text-right caption1 text-greyscale-40'>
-                          Tổng tiền hàng:
-                        </p>
-                        <span className='font-semibold text-right caption1 text-greyscale-80'>
-                          325.000đ
+                          -15.000đ
                         </span>
                       </div>
                     </div>
@@ -256,7 +246,7 @@ export default function SearchTracking({isMobile}) {
                       Tổng thanh toán:
                     </p>
                     <span className='sub1 font-bold text-right text-[#D48E43]'>
-                      225.000đ
+                      325.000đ
                     </span>
                   </div>
                 </div>
