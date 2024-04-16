@@ -102,7 +102,7 @@ export default function SignUpIndex() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='space-y-[0.88rem]'
+          className='space-y-[0.88rem] xmd:space-y-[0.59rem]'
         >
           <FormField
             control={form.control}
@@ -112,7 +112,7 @@ export default function SignUpIndex() {
                 <FormControl>
                   <Input
                     type='email'
-                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik'
+                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik xmd:rounded-[0.58565rem]'
                     placeholder='Email của bạn *'
                     {...field}
                   />
@@ -128,7 +128,7 @@ export default function SignUpIndex() {
               <FormItem>
                 <FormControl>
                   <Input
-                    className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
+                    className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik xmd:rounded-[0.58565rem]'
                     placeholder='Số điện thoại *'
                     type='tel'
                     {...field}
@@ -145,7 +145,7 @@ export default function SignUpIndex() {
               <FormItem>
                 <FormControl>
                   <Input
-                    className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
+                    className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik xmd:rounded-[0.58565rem]'
                     placeholder='Mật khẩu *'
                     type='password'
                     {...field}
@@ -162,7 +162,7 @@ export default function SignUpIndex() {
               <FormItem>
                 <FormControl>
                   <Input
-                    className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
+                    className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik xmd:rounded-[0.58565rem]'
                     placeholder='Xác nhận mật khẩu *'
                     type='password'
                     {...field}
@@ -172,11 +172,11 @@ export default function SignUpIndex() {
               </FormItem>
             )}
           />
-          <span className='block font-normal opacity-50 caption1 text-greyscale-40'>
+          <span className='block font-normal opacity-50 caption1 text-greyscale-40 xmd:!mt-[0.88rem]'>
             Các mục có dấu (*) là những thông tin bắt buộc
           </span>
 
-          <div className='flex justify-between'>
+          <div className='flex justify-between xmd:!mt-[1.76rem]'>
             <BtnSubmit
               isPending={isPending}
               title='ĐĂNG KÝ'
@@ -209,7 +209,7 @@ export default function SignUpIndex() {
         </form>
       </Form>
 
-      <div className='flex items-center mx-auto w-fit mt-[2.93rem]'>
+      <div className='flex items-center mx-auto w-fit mt-[2.93rem] xmd:mt-[7rem]'>
         <span className='font-semibold text-blue-500 cpation1 opacity-45'>
           Bạn đã có tài khoản ?
         </span>
