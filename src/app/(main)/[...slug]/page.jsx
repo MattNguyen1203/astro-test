@@ -14,11 +14,14 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     `/okhub/v1/product/${slug}/attributes/detail`,
   )
 
-  const [dataProductDetail, dataProductVoucher, dataVariation] =
+  const bestCouponReq = getData(`/okhub/v1/coupon/product-detail/${slug}/best`)
+
+  const [dataProductDetail, dataProductVoucher, dataVariation, dataBestCoupon] =
     await Promise.all([
       dataProductDetailReq,
       dataProductVoucherReq,
       dataVariationReq,
+      bestCouponReq,
     ])
 
   return (
@@ -28,6 +31,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
         data={dataProductDetail}
         voucher={dataProductVoucher}
         variations={dataVariation}
+        bestCoupon={dataBestCoupon}
       />
     </main>
   )

@@ -17,6 +17,10 @@ import TabInfo from './SubInfo/TabInfo'
 import {useEffect, useMemo, useState} from 'react'
 import DialogProductCrossell from '../home/components/dialogCrossell'
 
+import CountDown from '@/components/countdown'
+import Progress from '@/components/progress'
+import RelatedProduct from '../preorderdetail/components/RelatedProduct'
+
 const prdOther = [
   {
     key: 'highlight',
@@ -39,7 +43,7 @@ const prdOther = [
   },
 ]
 
-const ProductDetail = ({isMobile, data, voucher, variations}) => {
+const ProductDetail = ({isMobile, data, voucher, variations, bestCoupon}) => {
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
   const [selectedPrd, setSelectedPrd] = useState({
@@ -48,19 +52,24 @@ const ProductDetail = ({isMobile, data, voucher, variations}) => {
     quantity: 1,
   })
 
+  const ordered = 35
+  const totalProd = 100
+
+  // create init list crossell product
   const [listCrossell, setListCrossell] = useState(
     data?.crossSellProducts || [],
   )
-
   //get list image
-  const listGallery = useMemo(() => {
-    const gallery = data?.galleryImgs.map((item) => item)
+  const [listGallery, isFlashSale] = useMemo(() => {
+    const gallery = data?.galleryImgs
 
     const listImgVariations = Object.values(variations?.variations)?.map(
       (item) => item.image.url,
     )
+    // check flash sale
+    const isFlashSale = data?.meta_detect?.flash_sale?.is_flash_sale
 
-    return gallery.concat(listImgVariations)
+    return [gallery.concat(listImgVariations), isFlashSale]
   }, [data])
 
   //check user select variation or not
@@ -94,7 +103,7 @@ const ProductDetail = ({isMobile, data, voucher, variations}) => {
   const handleAddToCart = () => {}
 
   return (
-    <div className='container mt-[8.1rem] bg-elevation-10 relative xmd:w-full'>
+    <div className='container mt-[8.1rem] md:pb-[4rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
         <BreadCrumb
           category='sản phẩm'
@@ -133,6 +142,7 @@ const ProductDetail = ({isMobile, data, voucher, variations}) => {
                 data?.price ||
                 0
               }
+              bestCoupon={bestCoupon}
             />
 
             <TemVoucher
@@ -145,6 +155,7 @@ const ProductDetail = ({isMobile, data, voucher, variations}) => {
                 data?.price ||
                 0
               }
+              bestCoupon={bestCoupon}
             />
 
             {data?.type === 'variable' && (
@@ -200,7 +211,24 @@ const ProductDetail = ({isMobile, data, voucher, variations}) => {
                 </button>
               </div>
             </div>
-
+            {isFlashSale && (
+              <div className='mb-[2rem] flex xmd:flex-col w-full xmd:mt-[1rem]'>
+                <div className='w-[18.08rem]'>
+                  <Progress
+                    ordered={ordered}
+                    totalProd={totalProd}
+                  />
+                </div>
+                <div className='ml-[0.59rem]'>
+                  <span className='caption1 font-medium text-greyscale-80 mr-[0.25rem]'>
+                    Còn
+                  </span>
+                  <span className='caption1 font-bold text-[#FFB84F]'>
+                    <CountDown endTime='2024-05-02T19:00:00Z' />
+                  </span>
+                </div>
+              </div>
+            )}
             <SubInfo />
           </div>
 
@@ -216,61 +244,70 @@ const ProductDetail = ({isMobile, data, voucher, variations}) => {
           />
 
           {/* sản phẩm mua kèm */}
-          <div className='subContainer'>
-            <div className='sub2 font-medium mb-[0.88rem]'>
-              Sản phẩm mua kèm phù hợp:
-            </div>
-            {listCrossell?.map((item, index) => (
-              <div
-                key={index}
-                className={cn(
-                  index === listCrossell?.length - 1
-                    ? ''
-                    : 'mb-[0.88rem] xmd:mb-[1.17rem]',
-                )}
-              >
-                <ItemProduct
-                  data={item}
-                  setIsOpen={setIsOpen}
-                  setActiveId={setActiveId}
+
+          {!isFlashSale && (
+            <div className='subContainer'>
+              <div className='sub2 font-medium mb-[0.88rem]'>
+                Sản phẩm mua kèm phù hợp:
+              </div>
+              {listCrossell?.map((item, index) => (
+                <div
+                  key={index}
+                  className={cn(
+                    index === listCrossell?.length - 1
+                      ? ''
+                      : 'mb-[0.88rem] xmd:mb-[1.17rem]',
+                  )}
+                >
+                  <ItemProduct
+                    data={item}
+                    setIsOpen={setIsOpen}
+                    setActiveId={setActiveId}
+                  />
+                </div>
+              ))}
+
+              <DialogProductCrossell
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                data={data?.crossSellProducts}
+                activeId={activeId}
+                setActiveId={setActiveId}
+                setListCrossell={setListCrossell}
+              ></DialogProductCrossell>
+
+              <div className='flex items-center justify-between mt-[1.17rem]'>
+                <div className='flex items-center xmd:flex-col xmd:items-start'>
+                  <span className='sub1 font-bold xmd:font-semibold text-greyscale-20 xmd:text-greyscale-50 mr-[0.59rem] xmd:mr-0 xmd:mb-[0.3rem]'>
+                    Tổng cộng:
+                  </span>
+                  <span className='h6 text-[#D48E43] font-bold xmd:font-semibold'>
+                    {formatToVND(totalCrossell || 0)}
+                  </span>
+                </div>
+
+                <AddToCartBtn
+                  className={{
+                    wrapper: 'text-greyscale-20 w-[12rem] mx-0',
+                    text: 'flex ml-[0.59rem]',
+                    img: 'smd:size-[1.1713rem]',
+                  }}
                 />
               </div>
-            ))}
-
-            <DialogProductCrossell
-              isOpen={isOpen}
-              setIsOpen={setIsOpen}
-              data={data?.crossSellProducts}
-              activeId={activeId}
-              setActiveId={setActiveId}
-              setListCrossell={setListCrossell}
-            ></DialogProductCrossell>
-
-            <div className='flex items-center justify-between mt-[1.17rem]'>
-              <div className='flex items-center xmd:flex-col xmd:items-start'>
-                <span className='sub1 font-bold xmd:font-semibold text-greyscale-20 xmd:text-greyscale-50 mr-[0.59rem] xmd:mr-0 xmd:mb-[0.3rem]'>
-                  Tổng cộng:
-                </span>
-                <span className='h6 text-[#D48E43] font-bold xmd:font-semibold'>
-                  {formatToVND(totalCrossell || 0)}
-                </span>
-              </div>
-
-              <AddToCartBtn
-                className={{
-                  wrapper: 'text-greyscale-20 w-[12rem] mx-0',
-                  text: 'flex ml-[0.59rem]',
-                  img: 'smd:size-[1.1713rem]',
-                }}
-              />
             </div>
-          </div>
+          )}
         </div>
 
         <div className='w-[21.22rem] flex flex-col items-center col h-full sticky top-[9rem] xmd:hidden'>
           <VoucherList voucher={voucher} />
         </div>
       </div>
+
+      {isFlashSale && (
+        <div className='xmd:hidden'>
+          <RelatedProduct />
+        </div>
+      )}
     </div>
   )
 }

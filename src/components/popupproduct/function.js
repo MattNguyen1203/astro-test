@@ -19,11 +19,8 @@ export const getListValueOutOfStock = (
     variationSelected.forEach((variant) => {
       if (variant.parentkey === lastKey) return
 
-      const isMatch = item?.attributes?.some(
-        (attr) =>
-          attr.taxonomy === variant.parentkey &&
-          attr.key === variant.selectedkey,
-      )
+      const isMatch =
+        item?.attributes?.[variant.parentkey].key === variant.selectedkey
 
       if (isMatch && !item.is_in_stock) match = true
     })
