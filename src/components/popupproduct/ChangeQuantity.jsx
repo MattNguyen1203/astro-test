@@ -2,27 +2,25 @@
 
 import {cn} from '@/lib/utils'
 import Image from 'next/image'
-import {memo, useEffect, useState} from 'react'
+import {useState} from 'react'
 
-const ChangeQuantity = ({stockQty, isAdd, setChangeQty}) => {
-  const [inputVal, setInputVal] = useState(1)
+const ChangeQuantity = ({stockQty, setChangeQty, quantity}) => {
+  const [inputVal, setInputVal] = useState(quantity || 1)
   const handleDec = () => {
     if (inputVal > 1) {
       setInputVal((prev) => Number(prev) - 1)
-      setChangeQty((prev) => ({...prev, quantity: inputVal}))
+      setChangeQty((prev) => {
+        return {...prev, quantity: inputVal - 1}
+      })
     }
   }
   const handleInc = () => {
     if (inputVal < stockQty) {
       setInputVal((prev) => Number(prev) + 1)
-      setChangeQty((prev) => ({...prev, quantity: inputVal}))
+      setChangeQty((prev) => ({...prev, quantity: inputVal + 1}))
     }
   }
 
-  // useEffect(() => {
-  //   console.log('inputVal', inputVal)
-  //   // setChangeQty((prev) => ({...prev, quantity: inputVal}))
-  // }, [inputVal])
   return (
     <div className='flex items-center justify-between xmd:w-full xmd:mb-[0.88rem]'>
       <span className='hidden font-medium xmd:flex caption1 text-greyscale-30 '>
@@ -43,11 +41,7 @@ const ChangeQuantity = ({stockQty, isAdd, setChangeQty}) => {
             alt='icon minus'
           />
         </div>
-        <div
-          className={`${
-            isAdd ? 'size-[2.92826rem]' : 'size-[2.3rem]'
-          } select-none`}
-        >
+        <div className={`size-[2.3rem] select-none`}>
           <input
             type='number'
             name='quantity'
@@ -56,7 +50,7 @@ const ChangeQuantity = ({stockQty, isAdd, setChangeQty}) => {
             onChange={(e) => {
               if (e.target.value <= stockQty) {
                 setInputVal(e.target.value)
-                setChangeQty((prev) => ({...prev, quantity: inputVal}))
+                setChangeQty((prev) => ({...prev, quantity: e.target.value}))
               }
             }}
           />
