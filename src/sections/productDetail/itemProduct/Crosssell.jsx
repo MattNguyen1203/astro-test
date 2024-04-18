@@ -7,10 +7,13 @@ import {DialogProduct} from '@/sections/home/components/dialog'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, {useEffect, useState} from 'react'
+import {handlePrice} from '../function'
 
 const ItemProduct = (props) => {
   const {data = {}, setIsOpen, setActiveId, type} = props
   const [isChecked, setIsChecked] = useState(false)
+
+  const [regularPriceResult, priceResult] = handlePrice(data)
 
   return (
     <div className='flex xmd:flex-col xmd:justify-start xmd:items-start justify-between items-center bg-white p-[1.17rem] xmd:p-[0.73rem] rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)]'>
@@ -55,17 +58,12 @@ const ItemProduct = (props) => {
 
           <div className='flex items-center mb-[0.44rem]'>
             <span className='sub2 font-semibold text-blue-600 mr-[0.59rem] xmd:text-[1.1713rem] xmd:leading-normal'>
-              {formatToVND(
-                data?.selectedVariations?.display_price || data?.price,
-              )}
+              {formatToVND(priceResult)}
             </span>
 
-            {data?.regular_price && (
+            {regularPriceResult && (
               <span className='caption1 line-through text-greyscale-40 xmd:font-medium xmd:text-greyscale-30 xmd:leading-normal'>
-                {formatToVND(
-                  data?.selectedVariations?.display_regular_price ||
-                    data?.regular_price,
-                )}
+                {formatToVND(regularPriceResult)}
               </span>
             )}
           </div>
@@ -79,34 +77,42 @@ const ItemProduct = (props) => {
             </span>
           </div>
 
-          {data?.type === 'variable' && data?.selectedVariations && (
-            <div className='flex xmd:hidden'>
-              {data?.selectedVariations?.attributes?.map((item, index) => (
-                <div
-                  key={index}
-                  className='caption1 text-greyscale-40 py-[0.44rem] px-[0.59rem] rounded-[0.43924rem] bg-elevation-20 mr-[0.59rem]'
-                >
-                  {item?.label}
-                </div>
-              ))}
-            </div>
-          )}
+          {data?.type === 'variable' &&
+            data?.selectedVariations &&
+            data?.selectedVariations?.attributes && (
+              <div className='flex xmd:hidden'>
+                {Object.values(data?.selectedVariations?.attributes)?.map(
+                  (item, index) => (
+                    <div
+                      key={index}
+                      className='caption1 text-greyscale-40 py-[0.44rem] px-[0.59rem] rounded-[0.43924rem] bg-elevation-20 mr-[0.59rem]'
+                    >
+                      {item?.label}
+                    </div>
+                  ),
+                )}
+              </div>
+            )}
         </div>
       </div>
 
       <div className='flex xmd:justify-between xmd:items-center xmd:w-full xmd:mt-[0.73rem]'>
-        {data?.type === 'variable' && data?.selectedVariations && (
-          <div className='hidden xmd:flex'>
-            {data?.selectedVariations?.attributes?.map((item, index) => (
-              <div
-                key={index}
-                className='caption1 text-greyscale-40 py-[0.44rem] px-[0.59rem] rounded-[0.43924rem] bg-elevation-20 mr-[0.59rem]'
-              >
-                {item?.label}
-              </div>
-            ))}
-          </div>
-        )}
+        {data?.type === 'variable' &&
+          data?.selectedVariations &&
+          data?.selectedVariations?.attributes && (
+            <div className='hidden xmd:flex'>
+              {Object.values(data?.selectedVariations?.attributes)?.map(
+                (item, index) => (
+                  <div
+                    key={index}
+                    className='caption1 text-greyscale-40 py-[0.44rem] px-[0.59rem] rounded-[0.43924rem] bg-elevation-20 mr-[0.59rem]'
+                  >
+                    {item?.label}
+                  </div>
+                ),
+              )}
+            </div>
+          )}
 
         <div
           className='size-[2.5rem] transition-all duration-300 p-[0.66rem] bg-elevation-20 hover:bg-[linear-gradient(151deg,#17395C_-0.57%,rgba(35,101,170,0.89)_57.41%)] rounded-full flex items-center justify-center cursor-pointer group'

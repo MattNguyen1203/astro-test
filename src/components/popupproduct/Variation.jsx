@@ -5,7 +5,7 @@ import Image from 'next/image'
 import {useEffect, useMemo, useState} from 'react'
 import {getLastKey, getListValueOutOfStock} from './function'
 
-const Variation = ({data = {}, setSelectedPrd}) => {
+const Variation = ({data = {}, setSelectedPrd, selectedPrd}) => {
   const [variationSelected, setVariationSelected] = useState([])
   const [listAttribute, setListAttribute] = useState([])
   const [listOutOfStock, setListOutOfStock] = useState({
@@ -13,6 +13,7 @@ const Variation = ({data = {}, setSelectedPrd}) => {
     value: [],
   })
 
+  // console.log('variationSelected', variationSelected)
   // handle attribute
   useEffect(() => {
     if (!data) return
@@ -23,38 +24,21 @@ const Variation = ({data = {}, setSelectedPrd}) => {
     // check attributes that appear in variations
     const finalRes = listAttr.map((attr) => {
       const parentKey = attr?.key
-      const listVal = attr.value.map((item) => {
+      const listVal = attr.value.filter((item) => {
         const isExist = listVariations?.some(
           (variant) => variant?.attributes?.[parentKey].key === item.slug,
         )
         if (isExist) return item
       })
 
-      return {
-        ...attr,
-        value: listVal,
+      if (listVal) {
+        return {
+          ...attr,
+          value: listVal,
+        }
       }
     })
     setListAttribute(finalRes)
-
-    //set default
-
-    listVariations?.forEach((item) => {
-      if (item?.default) {
-        const ListParentKey = Object.keys(item?.attributes)
-        const ListValue = Object.values(item?.attributes)
-
-        const listVariant = ListParentKey.map((key, index) => {
-          return {
-            parentkey: key,
-            selectedkey: ListValue?.[index]?.key,
-            selectedName: ListValue?.[index]?.label,
-          }
-        })
-
-        setVariationSelected(listVariant)
-      }
-    })
   }, [data])
 
   //handle Select variation
@@ -68,20 +52,19 @@ const Variation = ({data = {}, setSelectedPrd}) => {
       // If the variation for the parentkey already exists, update its selectedkey
       updatedVariationSelected[index] = {
         ...updatedVariationSelected[index],
-        selectedkey: item.slug,
-        selectedName: item.name,
+        selectedkey: item?.slug,
+        selectedName: item?.name,
       }
     } else {
       // If the variation for the parentkey doesn't exist, add it to the array
       updatedVariationSelected.push({
         parentkey,
-        selectedkey: item.slug,
-        selectedName: item.name,
+        selectedkey: item?.slug,
+        selectedName: item?.name,
       })
     }
     setVariationSelected(updatedVariationSelected)
   }
-
   //check variant selected or not
   const isSelected = (parentkey, itemkey) => {
     const findExistChild = variationSelected.find(
@@ -90,58 +73,84 @@ const Variation = ({data = {}, setSelectedPrd}) => {
     )
     return findExistChild ? true : false
   }
+
   useEffect(() => {
-    if (variationSelected.length < 1) return
-    // handle list out of stock
-    const listParentKey = listAttribute.map((item) => item.key)
-    const lastKey = getLastKey(variationSelected, listParentKey)
-    const listVariations = Object.values(data?.variations)
-    const listOutOfStock = getListValueOutOfStock(
-      listVariations,
-      variationSelected,
-      lastKey,
-    )
+    if (variationSelected.length < 1) {
+      if (selectedPrd?.selectedVariations?.attributes) {
+        const listVariant = Object.values(
+          selectedPrd?.selectedVariations?.attributes,
+        )?.map((item) => {
+          return {
+            parentkey: item.taxonomy,
+            selectedkey: item.key,
+            selectedName: item.label,
+          }
+        })
+        setVariationSelected(listVariant)
+      }
+    } else {
+      // handle list out of stock
+      const listParentKey = listAttribute.map((item) => item.key)
+      const lastKey = getLastKey(variationSelected, listParentKey)
+      const listVariations = Object.values(data?.variations)
+      const listOutOfStock = []
 
-    // console.log('listOutOfStock', listOutOfStock)
-    const listValueOutOfStock = listOutOfStock.map((item) => {
-      return item.attributes?.[lastKey].key
-    })
+      const listInstock = getListValueOutOfStock(
+        listVariations,
+        variationSelected,
+        lastKey,
+      )
 
-    setListOutOfStock({
-      key: lastKey,
-      value: listValueOutOfStock,
-    })
+      const listValueLastKey = listAttribute?.find(
+        (item) => item.key === lastKey,
+      )?.value
 
-    if (variationSelected.length === listParentKey.length) {
-      // when variationSelected change => if list out of stock have selectedkey => update selectedkey = ""
-      variationSelected.forEach((item, index) => {
-        if (
-          item.parentkey === lastKey &&
-          listValueOutOfStock.includes(item.selectedkey)
-        ) {
-          variationSelected[index].selectedkey = ''
+      const listValueInstock = listInstock?.map(
+        (item) => item.attributes?.[lastKey]?.key,
+      )
+
+      listValueLastKey.forEach((item) => {
+        if (!listValueInstock.includes(item.slug)) {
+          listOutOfStock.push(item.slug)
+        }
+      })
+
+      setListOutOfStock({
+        key: lastKey,
+        value: listOutOfStock,
+      })
+
+      if (variationSelected.length === listParentKey.length) {
+        // when variationSelected change => if list out of stock have selectedkey => update selectedkey = ""
+        variationSelected.forEach((item, index) => {
+          if (
+            item.parentkey === lastKey &&
+            listOutOfStock.includes(item.selectedkey)
+          ) {
+            variationSelected[index].selectedkey = ''
+            setSelectedPrd((prev) => ({
+              ...prev,
+              selectedVariations: {},
+            }))
+          }
+        })
+        const variationSelectedInfo = listVariations.find((variant) => {
+          if (
+            variationSelected.every(
+              (item) =>
+                variant.attributes?.[item.parentkey]?.key === item.selectedkey,
+            )
+          ) {
+            return variant
+          }
+        })
+
+        if (variationSelectedInfo)
           setSelectedPrd((prev) => ({
             ...prev,
-            selectedVariations: {},
+            selectedVariations: variationSelectedInfo,
           }))
-        }
-      })
-      const variationSelectedInfo = listVariations.find((variant) => {
-        if (
-          variationSelected.every(
-            (item) =>
-              variant.attributes?.[item.parentkey]?.key === item.selectedkey,
-          )
-        ) {
-          return variant
-        }
-      })
-
-      if (variationSelectedInfo)
-        setSelectedPrd((prev) => ({
-          ...prev,
-          selectedVariations: variationSelectedInfo,
-        }))
+      }
     }
   }, [variationSelected])
   return (

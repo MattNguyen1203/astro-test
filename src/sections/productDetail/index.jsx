@@ -6,7 +6,7 @@ import Variation from '@/components/popupproduct/Variation'
 import TemVoucher from '@/components/popupproduct/TemVoucher'
 import ChangeQuantity from '@/components/popupproduct/ChangeQuantity'
 import ItemProduct from './itemProduct/Crosssell'
-import {cn, formatToVND} from '@/lib/utils'
+import {cn, fetcher, formatToVND} from '@/lib/utils'
 import AddToCartBtn from './addToCartBtn'
 import WishListIcon from './Wishlist'
 import ProductPrice from '@/components/popupproduct/Price'
@@ -14,12 +14,14 @@ import SubInfo from './SubInfo/SubInfo'
 import TechnicalInfo from './SubInfo/TechnicalInfo'
 import VoucherList from './VoucherList'
 import TabInfo from './SubInfo/TabInfo'
-import {useEffect, useMemo, useState} from 'react'
-import DialogProductCrossell from '../home/components/dialogCrossell'
+import {useEffect, useMemo, useRef, useState} from 'react'
+import DialogProductCombo from '../home/components/dialogCrossell'
 
 import CountDown from '@/components/countdown'
 import Progress from '@/components/progress'
 import RelatedProduct from '../preorderdetail/components/RelatedProduct'
+
+import Loading from '@/components/loading'
 
 const prdOther = [
   {
@@ -46,10 +48,15 @@ const prdOther = [
 const ProductDetail = ({isMobile, data, voucher, variations, bestCoupon}) => {
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
+  const [isLoading, setIsLoading] = useState(true)
+
+  const firstLoadRef = useRef(true)
   const [selectedPrd, setSelectedPrd] = useState({
     ...data,
     variations: variations,
     quantity: 1,
+    selectedVariations:
+      Object.values(variations?.variations)?.find((item) => item.default) || {},
   })
 
   const ordered = 35
@@ -57,17 +64,16 @@ const ProductDetail = ({isMobile, data, voucher, variations, bestCoupon}) => {
 
   // create init list crossell product
   const [listCrossell, setListCrossell] = useState(
-    data?.crossSellProducts || [],
+    data?.crossSellProducts?.map((item) => ({...item, quantity: 1})) || [],
   )
   //get list image
   const [listGallery, isFlashSale] = useMemo(() => {
     const gallery = data?.galleryImgs
-
     const listImgVariations = Object.values(variations?.variations)?.map(
       (item) => item.image.url,
     )
     // check flash sale
-    const isFlashSale = data?.meta_detect?.flash_sale?.is_flash_sale
+    const isFlashSale = data?.meta_detect?.flash_sale?.is_flash_sale === 'yes'
 
     return [gallery.concat(listImgVariations), isFlashSale]
   }, [data])
@@ -100,7 +106,52 @@ const ProductDetail = ({isMobile, data, voucher, variations, bestCoupon}) => {
     return totalPrice
   }, [listCrossell])
 
+  //set default
+  useEffect(() => {
+    const listVariations = Object.values(variations?.variations)
+    listVariations?.forEach((item) => {
+      if (item?.default) {
+        setSelectedPrd((prev) => ({...prev, selectedVariations: item}))
+      }
+    })
+  }, [variations])
+
   const handleAddToCart = () => {}
+
+  // get data of crossell product
+  useEffect(() => {
+    if (firstLoadRef.current) {
+      const fetchVariations = async () => {
+        setIsLoading(true)
+        await Promise.all(
+          listCrossell.map(async (item, index) => {
+            if (item && item.slug && item.type === 'variable') {
+              const url = `${process.env.NEXT_PUBLIC_API}/okhub/v1/product/${item.slug}/attributes/detail`
+              const data = await fetcher(url)
+
+              if (data) {
+                const defaultValue = Object.values(data.variations || {}).find(
+                  (variation) => variation.default,
+                )
+                return {
+                  ...item,
+                  listVariations: data,
+                  selectedVariations: defaultValue,
+                }
+              }
+            }
+            return item
+          }),
+        ).then((updatedItems) => {
+          setListCrossell(updatedItems)
+          firstLoadRef.current = false
+          setIsLoading(false)
+        })
+      }
+
+      fetchVariations()
+    }
+  }, [])
 
   return (
     <div className='container mt-[8.1rem] md:pb-[4rem] bg-elevation-10 relative xmd:w-full'>
@@ -162,6 +213,7 @@ const ProductDetail = ({isMobile, data, voucher, variations, bestCoupon}) => {
               <Variation
                 data={variations}
                 setSelectedPrd={setSelectedPrd}
+                selectedPrd={selectedPrd}
               />
             )}
             <div className='absolute top-[1.17rem] right-[1.17rem] z-10'>
@@ -183,6 +235,7 @@ const ProductDetail = ({isMobile, data, voucher, variations, bestCoupon}) => {
                     selectedPrd.stock_quantity
                   }
                   setChangeQty={setSelectedPrd}
+                  quantity={selectedPrd.quantity}
                 />
               </div>
               <div className='flex xmd:flex-row-reverse h-[2.9282rem] xmd:h-[3.22108rem]'>
@@ -250,31 +303,37 @@ const ProductDetail = ({isMobile, data, voucher, variations, bestCoupon}) => {
               <div className='sub2 font-medium mb-[0.88rem]'>
                 Sản phẩm mua kèm phù hợp:
               </div>
-              {listCrossell?.map((item, index) => (
-                <div
-                  key={index}
-                  className={cn(
-                    index === listCrossell?.length - 1
-                      ? ''
-                      : 'mb-[0.88rem] xmd:mb-[1.17rem]',
-                  )}
-                >
-                  <ItemProduct
-                    data={item}
-                    setIsOpen={setIsOpen}
-                    setActiveId={setActiveId}
-                  />
+              {isLoading ? (
+                <div className='relative w-full min-h-[5rem]'>
+                  <Loading />
                 </div>
-              ))}
+              ) : (
+                listCrossell?.map((item, index) => (
+                  <div
+                    key={index}
+                    className={cn(
+                      index === listCrossell?.length - 1
+                        ? ''
+                        : 'mb-[0.88rem] xmd:mb-[1.17rem]',
+                    )}
+                  >
+                    <ItemProduct
+                      data={item}
+                      setIsOpen={setIsOpen}
+                      setActiveId={setActiveId}
+                    />
+                  </div>
+                ))
+              )}
 
-              <DialogProductCrossell
+              <DialogProductCombo
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                data={data?.crossSellProducts}
+                data={listCrossell}
+                setListCrossell={setListCrossell}
                 activeId={activeId}
                 setActiveId={setActiveId}
-                setListCrossell={setListCrossell}
-              ></DialogProductCrossell>
+              ></DialogProductCombo>
 
               <div className='flex items-center justify-between mt-[1.17rem]'>
                 <div className='flex items-center xmd:flex-col xmd:items-start'>

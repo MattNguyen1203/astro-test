@@ -51,7 +51,11 @@ const PreOrder = ({isMobile, data, voucher, variations}) => {
     ...data,
     variations: variations,
     quantity: 1,
+    selectedVariations:
+      Object.values(variations?.variations)?.find((item) => item.default) || {},
   })
+
+  console.log('selectedPrd', selectedPrd)
   //get list image
   const listGallery = useMemo(() => {
     const gallery = data?.galleryImgs.map((item) => item)
@@ -122,6 +126,7 @@ const PreOrder = ({isMobile, data, voucher, variations}) => {
                 <Variation
                   data={variations}
                   setSelectedPrd={setSelectedPrd}
+                  selectedPrd={selectedPrd}
                 />
               )}
               <div className='absolute top-[1.17rem] right-[1.17rem] z-10'>
@@ -150,7 +155,10 @@ const PreOrder = ({isMobile, data, voucher, variations}) => {
                     className={cn(
                       'caption1 font-semibold text-white flex items-center justify-center w-[10.688rem] xmd:w-full h-full rounded-[0.58565rem] bg-[#102841] px-[1.17rem] py-[0.73rem] uppercase ml-[0.88rem] xmd:ml-0',
                       !isHaveSelectedVar && 'opacity-50 pointer-events-none',
+                      !selectedPrd?.selectedVariations?.attributes &&
+                        'opacity-50',
                     )}
+                    disabled={!selectedPrd?.selectedVariations?.attributes}
                   >
                     Đặt trước
                   </button>

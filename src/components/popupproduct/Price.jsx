@@ -2,11 +2,9 @@ import {formatToVND} from '@/lib/utils'
 import React from 'react'
 
 const ProductPrice = ({regularPrice, price, bestCoupon}) => {
-  const finalPrice = Number(price) - Number(bestCoupon?.amount_discount)
+  const finalPrice = Number(price) - Number(bestCoupon?.amount_discount || 0)
   const savingMoney =
     regularPrice - finalPrice > 0 ? regularPrice - finalPrice : 0
-
-  // console.log('bestCoupon', bestCoupon)
 
   return (
     <>

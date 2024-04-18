@@ -2,8 +2,6 @@
 
 import Image from 'next/image'
 import ProductInfo from './ProductInfo'
-import useSWR from 'swr'
-import {fetcher} from '@/lib/utils'
 
 function PopupProduct(props) {
   const {
@@ -12,35 +10,20 @@ function PopupProduct(props) {
     type,
     setSelectedPrd,
     handleChangeVariation,
-  } = props
-  const {
-    data: listVariation,
-    error,
     isLoading,
-  } = useSWR(
-    data && data.slug && data.type === 'variable'
-      ? process.env.NEXT_PUBLIC_API +
-          `/okhub/v1/product/${data?.slug}/attributes/detail`
-      : null,
-    fetcher,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    },
-  )
+  } = props
 
   return (
     <>
       {isLoading ? (
         <svg
-          class='animate-spin h-[2rem] w-[2rem] text-black absolute top-1/2 left-1/2 -translate-1/2'
+          className='animate-spin h-[2rem] w-[2rem] text-black absolute top-1/2 left-1/2 -translate-1/2'
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
           viewBox='0 0 24 24'
         >
           <circle
-            class='opacity-25'
+            className='opacity-25'
             cx='12'
             cy='12'
             r='10'
@@ -56,7 +39,6 @@ function PopupProduct(props) {
         <ProductInfo
           data={data}
           type={type}
-          variations={listVariation}
           setSelectedPrd={setSelectedPrd}
           handleChangeVariation={handleChangeVariation}
           setIsOpen={setIsOpen}
