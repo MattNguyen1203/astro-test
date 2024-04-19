@@ -15,11 +15,13 @@ import {Input} from '@/components/ui/input'
 import Link from 'next/link'
 import Image from 'next/image'
 import {signIn} from 'next-auth/react'
-import {signUpForm} from '@/actions/signUpForm'
 
 import {useState, useTransition} from 'react'
 import {PopupRegister} from '../auth/components/popup/PopupRegister'
 import BtnSubmit from '../auth/components/btnsubmit'
+import {useRouter} from 'next/navigation'
+import {sendOTP} from '@/actions/sendOTP'
+import {convertPhone} from '@/lib/utils'
 
 const formSchema = z
   .object({
@@ -53,8 +55,11 @@ const formSchema = z
   })
 
 export default function SignUpIndex() {
+  const router = useRouter()
+
   const [isPending, startTransition] = useTransition()
   const [isSuccess, setIsSuccess] = useState(false)
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -65,35 +70,46 @@ export default function SignUpIndex() {
     },
   })
 
-  const values = form.watch()
-
   function onSubmit(values) {
     startTransition(() => {
-      signUpForm(values)
-        .then((res) => {
-          if (res?.user_id) {
-            // handle register success
-            setIsSuccess(true)
-          } else {
-            setIsSuccess(true)
-            // handle register failed
-            const resFailed = JSON.parse(res)
-            if (resFailed.code === 'email_exists') {
-              form.setError('email', {
-                type: 'validate',
-                message: 'Email này đã tồn tại!',
-              })
-            } else {
-              form.setError('confirmPassword', {
-                type: 'validate',
-                message: resFailed?.message,
-              })
-            }
+      let phoneEnd = convertPhone(values?.phone)
+
+      const body = JSON.stringify({
+        phone: phoneEnd,
+        email: values?.email,
+        type: 'register',
+      })
+      sendOTP(body).then((otp) => {
+        if (otp?.data?.status === 400) {
+          if (
+            otp?.code === 'phone_error_exsited' ||
+            otp?.code === 'phone_error_limit_code'
+          ) {
+            form.setError('phone', {
+              type: 'validate',
+              message: 'Số điện thoại này đã tồn tại!',
+            })
           }
-        })
-        .catch((err) => {
-          throw new Error(err)
-        })
+          if (otp?.code === 'email_error_exsited') {
+            form.setError('email', {
+              type: 'validate',
+              message: 'Email này đã tồn tại!',
+            })
+          }
+        } else {
+          if (otp?.message === 'Send OTP Success') {
+            localStorage.setItem('registerDraf', JSON.stringify(values))
+            return router.push(
+              `/otp?type=register&phone=${phoneEnd}&email=${values?.email}`,
+            )
+          } else {
+            form.setError('confirmPassword', {
+              type: 'validate',
+              message: otp?.message,
+            })
+          }
+        }
+      })
     })
   }
 
@@ -225,6 +241,7 @@ export default function SignUpIndex() {
         isOpen={isSuccess}
         setIsSuccess={setIsSuccess}
         isSignUp={true}
+        phone={form.watch().phone}
       />
     </article>
   )

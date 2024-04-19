@@ -44,7 +44,7 @@ export default function Account({user, isMobile}) {
             isOpen ? 'active' : ''
           } absolute w-[15.8858rem] -bottom-[0.66rem] translate-y-full left-1/2 -translate-x-1/2 z-50 rounded-[0.58565rem] bg-white shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)]`}
         >
-          <MenuUser />
+          <MenuUser setIsOpen={setIsOpen} />
         </div>
       )}
     </div>

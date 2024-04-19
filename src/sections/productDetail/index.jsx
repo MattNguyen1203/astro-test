@@ -69,7 +69,8 @@ const ProductDetail = ({isMobile, data, voucher, variations, bestCoupon}) => {
   //get list image
   const [listGallery, isFlashSale] = useMemo(() => {
     const gallery = data?.galleryImgs
-    const listImgVariations = Object.values(variations?.variations)?.map(
+
+    const listImgVariations = Object?.values(variations?.variations)?.map(
       (item) => item.image.url,
     )
     // check flash sale

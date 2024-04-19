@@ -24,11 +24,16 @@ const linkNavUp = [
   },
   {
     title: 'Chính sách',
-    href: '/chinh-sach',
+    href: '/tin-tuc/chinh-sach',
   },
 ]
 
-export default function BoxSearch({isMobile, productSuggest, categories}) {
+export default function BoxSearch({
+  isMobile,
+  productSuggest,
+  categories,
+  linkSocial,
+}) {
   const [value, setValue] = useState('')
   const isFocusSearchNav = useStore((state) => state.isFocusSearchNav)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
@@ -70,7 +75,9 @@ export default function BoxSearch({isMobile, productSuggest, categories}) {
             <li
               key={index}
               className={`${
-                index === 2 ? 'relative group before:absolute' : ''
+                index === 2
+                  ? 'relative group before:absolute before:w-full before:h-[2rem] before:bottom-0 before:left-0 before:translate-y-full'
+                  : ''
               }`}
             >
               {index === 2 ? (
@@ -78,7 +85,7 @@ export default function BoxSearch({isMobile, productSuggest, categories}) {
                   <span className='caption1 font-medium text-blue-800 p-[0.88rem]'>
                     {e.title}
                   </span>
-                  <PopupStore />
+                  <PopupStore linkSocial={linkSocial} />
                 </>
               ) : (
                 <Link

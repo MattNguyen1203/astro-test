@@ -47,6 +47,9 @@ export const {
 
       if (account?.provider === 'credentials') {
         token.accessToken = user?.token
+        token.picture = user?.avatar
+        token.email = user?.user_email
+        token.name = user?.display_name
       }
 
       // refresh-token trước khi hết hạn 5 phút
@@ -69,6 +72,9 @@ export const {
     },
     async session({token, session}) {
       session.accessToken = token?.accessToken
+      session.user.name = token.name
+      session.user.email = token.email
+      session.user.image = token.picture
       if (token.error === 'RefreshAccessTokenError') {
         throw new Error('RefreshAccessTokenError')
       }
@@ -92,7 +98,7 @@ export const {
         const res = await postData(
           '/custom/v1/customer/loginCustomer',
           JSON.stringify({
-            login: credentials?.email,
+            login: credentials?.login,
             password: credentials?.password,
             type: credentials?.type,
           }),

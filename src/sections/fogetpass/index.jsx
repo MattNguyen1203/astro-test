@@ -15,11 +15,14 @@ import {Input} from '@/components/ui/input'
 
 import {useState, useTransition} from 'react'
 import BtnSubmit from '../auth/components/btnsubmit'
+import {sendOTP} from '@/actions/sendOTP'
+import {convertPhone} from '@/lib/utils'
 
 const formSchema = z.object({
-  account: z.string().min(1, {
-    message: 'Nhập thông tin để tiếp tục!',
-  }),
+  phone: z
+    .string()
+    .min(1, {message: 'Vui lòng nhập số điện thoại!'})
+    .regex(/^[0-9]{6,15}$/, {message: 'Định dạng không hợp lệ!'}),
 })
 
 export default function FogetPassIndex() {
@@ -29,12 +32,46 @@ export default function FogetPassIndex() {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      account: '',
+      phone: '',
     },
   })
 
   function onSubmit(values) {
-    startTransition(() => {})
+    startTransition(() => {
+      const phone = convertPhone(values?.phone)
+      sendOTP(
+        JSON.stringify({
+          phone: phone,
+          type: 'change-password',
+        }),
+      ).then((otp) => {
+        if (otp?.data?.status === 400) {
+          if (otp?.code === 'phone_error_not_exsits') {
+            form.setError('phone', {
+              type: 'validate',
+              message: 'Không tìm thấy tài khoản này!',
+            })
+          } else {
+            form.setError('phone', {
+              type: 'validate',
+              message: otp?.message,
+            })
+          }
+        } else {
+          if (otp?.message === 'Send OTP Success') {
+            localStorage.setItem('registerDraf', JSON.stringify(values))
+            return router.push(
+              `/otp?type=password&phone=${phoneEnd}&email=${values?.email}`,
+            )
+          } else {
+            form.setError('confirmPassword', {
+              type: 'validate',
+              message: otp?.message,
+            })
+          }
+        }
+      })
+    })
   }
 
   return (
@@ -46,13 +83,13 @@ export default function FogetPassIndex() {
         >
           <FormField
             control={form.control}
-            name='account'
+            name='phone'
             render={({field}) => (
               <FormItem>
                 <FormControl>
                   <Input
-                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40  font-svnGraphik '
-                    placeholder='Nhập email/số điện thoại'
+                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik placeholder:text-greyscale-40/60 placeholder:text-[0.75rem] placeholder:font-medium placeholder:leading-[1.2] placeholder:tracking-[0.00375rem]'
+                    placeholder='Nhập số điện thoại'
                     {...field}
                   />
                 </FormControl>

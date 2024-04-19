@@ -97,6 +97,7 @@ module.exports = {
         'brown-700': '#876849',
         'brown-800': '#695139',
         'orange-0': '#D48E43',
+        'validate-error': '#FF424F',
       },
       borderRadius: {
         lg: 'var(--radius)',

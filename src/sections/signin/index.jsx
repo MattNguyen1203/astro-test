@@ -23,17 +23,14 @@ import BtnSubmit from '../auth/components/btnsubmit'
 import {PopupRegister} from '../auth/components/popup/PopupRegister'
 
 const formSchema = z.object({
-  email: z.string().email({message: 'Nhập đúng định dạng email!'}),
+  // email: z.string().email({message: 'Nhập đúng định dạng email!'}),
+  phone: z
+    .string()
+    .min(1, {message: 'Vui lòng nhập số điện thoại!'})
+    .regex(/^[0-9]{6,15}$/, {message: 'Định dạng không hợp lệ!'}),
   password: z
     .string()
     .min(6, {message: 'Mật khẩu phải có từ 6 kí tự trở lên!'}),
-  // .regex(/[a-z]/, {
-  //   message: 'Mật khẩu phải có ít nhất 1 chữ thường!',
-  // })
-  // .regex(/[A-Z]/, {
-  //   message: 'Mật khẩu phải có ít nhất 1 chữ hoa!',
-  // })
-  // .regex(/[0-9]/, {message: 'Mật khẩu phải có ít nhất 1 chữ số!'}),
 })
 
 export default function SignInIndex({status}) {
@@ -51,20 +48,21 @@ export default function SignInIndex({status}) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: 'duan@gmail.com',
-      password: 'admin@1231',
-      // email: '',
-      // password: '',
+      phone: '0333888825',
+      password: 'Duc123',
     },
   })
 
-  const values = form.watch()
-
   function onSubmit(values) {
     startTransition(() => {
-      loginForm(values)
-      // .then((res) => console.log('res', res))
-      // .catch((err) => console.log('err', err))
+      const payload = {
+        login: values?.phone,
+        password: values?.password,
+        type: 'phone',
+      }
+      loginForm(payload)
+        .then((res) => console.log('res', res))
+        .catch((err) => console.log('err', err))
     })
   }
 
@@ -77,13 +75,13 @@ export default function SignInIndex({status}) {
         >
           <FormField
             control={form.control}
-            name='email'
+            name='phone'
             render={({field}) => (
               <FormItem>
                 <FormControl>
                   <Input
                     className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik xmd:rounded-[0.58565rem]'
-                    placeholder='Nhập email /+84 | số điện thoại'
+                    placeholder='Nhập số điện thoại'
                     {...field}
                   />
                 </FormControl>

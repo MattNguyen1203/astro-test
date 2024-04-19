@@ -16,7 +16,7 @@ export default function GridAccessory({isMobile, products}) {
   const {data, error, isLoading} = useSWR(
     searchParams?.size
       ? process.env.NEXT_PUBLIC_API +
-          `/okhub/v1/product/filter/products?limit=19&page=1&keyword=${search}${
+          `/okhub/v1/product/filter/products?limit=19&exclude=["retro-digital-camera"]&page=1&keyword=${search}${
             orderby ? `&orderby=price&order=${sort}` : '&order=desc'
           }`
       : null,
@@ -28,7 +28,7 @@ export default function GridAccessory({isMobile, products}) {
     },
   )
 
-  const productsNew = search ? data?.item : products?.item
+  const productsNew = searchParams?.size ? data?.item : products?.item
   return (
     <>
       {searchParams.size && !data?.item?.length ? (

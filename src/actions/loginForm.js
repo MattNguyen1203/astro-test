@@ -4,9 +4,9 @@ import {signIn} from '@/auth'
 
 export const loginForm = async (values) => {
   await signIn('credentials', {
-    email: values?.email,
+    login: values?.login,
     password: values?.password,
-    type: 'default',
+    type: values?.type || 'default',
     redirectTo: '/',
   })
 }

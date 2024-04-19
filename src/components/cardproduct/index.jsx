@@ -3,14 +3,14 @@ import {formatToVND, handlePercentSale, renderPriceProduct} from '@/lib/utils'
 // import {DialogProduct} from '@/sections/home/components/dialog'
 import Image from 'next/image'
 import Link from 'next/link'
-import {useState} from 'react'
+import {memo, useState} from 'react'
 import dynamic from 'next/dynamic'
 import DialogProductCombo from '@/sections/home/components/dialogCrossell'
 const DialogProduct = dynamic(() =>
   import('@/sections/home/components/dialog').then((mod) => mod.DialogProduct),
 )
 
-export default function CardProduct({product, priority = false}) {
+function CardProduct({product, priority = false}) {
   const [isOpen, setIsOpen] = useState(false)
   const percentSale = handlePercentSale(product)
   const price = renderPriceProduct(product)
@@ -39,7 +39,7 @@ export default function CardProduct({product, priority = false}) {
           height={230}
           priority={priority}
         />
-        {percentSale && (
+        {!!percentSale && (
           <div className='bg-[linear-gradient(104deg,#E88B00_-3.95%,#CE7B00_106.72%)] w-[2.78184rem] h-[1.02489rem] rounded-full caption2 font-semibold text-white absolute top-[0.88rem] left-[0.88rem] xmd:top-[0.44rem] xmd:left-[0.44rem] z-10 flex justify-center items-start tracking-normal md:pt-[0.15rem] xmd:tracking-normal pt-[0.14rem]'>
             {percentSale + '%'}
           </div>
@@ -151,3 +151,4 @@ export default function CardProduct({product, priority = false}) {
     </div>
   )
 }
+export default memo(CardProduct)

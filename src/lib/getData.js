@@ -20,6 +20,5 @@ export default async function getData(api, revalidate = 60) {
     return res.json()
   } catch (error) {
     console.log(`${process.env.API}${api}`)
-    console.log('🚀 ~ getData ~ error:', error)
   }
 }
