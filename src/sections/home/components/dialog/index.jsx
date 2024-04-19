@@ -1,7 +1,20 @@
 import PopupProduct from '@/components/popupproduct'
 import {Dialog, DialogContent, DialogTrigger} from '@/components/ui/dialog'
+import {useEffect, useMemo, useState} from 'react'
 
 export function DialogProduct({children, isOpen, setIsOpen, type, data}) {
+  // const handleChangeVariation = () => {
+  //   setListCrossell((prev) => {
+  //     const newList = prev.map((item) =>
+  //       item?.id === dataActive?.id ? dataActive : item,
+  //     )
+  //     return newList
+  //   })
+
+  //   setIsOpen(false)
+  // }
+
+  const [selectedPrd, setSelectedPrd] = useState({})
   return (
     <Dialog
       open={isOpen}
@@ -13,6 +26,7 @@ export function DialogProduct({children, isOpen, setIsOpen, type, data}) {
           type={type}
           setIsOpen={setIsOpen}
           data={data}
+          setSelectedPrd={setSelectedPrd}
         />
       </DialogContent>
     </Dialog>

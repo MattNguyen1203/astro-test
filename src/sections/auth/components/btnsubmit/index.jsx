@@ -9,18 +9,18 @@ export default function BtnSubmit({
       type='submit'
       className={`${
         isPending ? 'pointer-events-none cursor-not-allowed' : ''
-      } ${className} w-[15.666rem] h-[2.928rem] rounded-[0.58565rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] text-white caption1 font-semibold flex justify-center items-center`}
+      } ${className} uppercase w-[15.666rem] h-[2.928rem] rounded-[0.58565rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] text-white caption1 font-semibold flex justify-center items-center`}
       {...props}
     >
       {isPending ? (
         <svg
-          class='animate-spin h-[2rem] w-[2rem] text-white'
+          className='animate-spin h-[2rem] w-[2rem] text-white'
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
           viewBox='0 0 24 24'
         >
           <circle
-            class='opacity-25'
+            className='opacity-25'
             cx='12'
             cy='12'
             r='10'

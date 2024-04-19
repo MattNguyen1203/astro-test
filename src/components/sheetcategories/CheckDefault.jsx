@@ -14,7 +14,7 @@ export default function CheckDefault({
       }}
       className={`${className} size-[1.75695rem] relative overflow-hidden cursor-pointer`}
     >
-      <ICBoxCheck className='size-full' />
+      <ICBoxCheck className='size-full opacity-30' />
       {isCheck && (
         <div className='absolute top-0 left-0 flex items-center justify-center bg-blue-700 size-full rounded-[0.25rem]'>
           <ICCheck className='w-[0.8rem] h-auto' />

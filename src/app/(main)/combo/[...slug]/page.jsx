@@ -16,12 +16,42 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
       dataProductVoucherReq,
       bestCouponReq,
     ])
+  let newDataProduct = {}
+  if (dataProductDetail) {
+    await Promise.all(
+      dataProductDetail?.grouped_products?.map((item) => {
+        if (item.type === 'variable') {
+          return getData(`/okhub/v1/product/${item.slug}/attributes/detail`)
+        } else {
+          return null
+        }
+      }),
+    ).then((result) => {
+      const groupPrd = dataProductDetail?.grouped_products?.map(
+        (item, index) => {
+          if (result[index] !== null) {
+            const defaultValue = Object.values(result[index]?.variations)?.find(
+              (item) => item.default,
+            )
+
+            return {
+              ...item,
+              listVariations: result[index],
+              selectedVariations: defaultValue || {},
+            }
+          } else return item
+        },
+      )
+
+      newDataProduct = {...dataProductDetail, grouped_products: groupPrd}
+    })
+  }
 
   return (
     <main className='bg-elevation-20'>
       <ComboDetail
         isMobile={isMobile}
-        data={dataProductDetail}
+        data={newDataProduct}
         voucher={dataProductVoucher}
         bestCoupon={dataBestCoupon}
       />

@@ -17,15 +17,17 @@ export default function SelectOptions({
 }) {
   // console.log('selectedPrd', selectedPrd)
 
+  // const placeholder = ''
   const placeholder = useMemo(() => {
+    if (!selectedPrd?.selectedVariations?.attributes)
+      return 'Vui lòng chọn option'
     const listAttr = selectedPrd.attributes
-
     let text = ''
 
     const result = listAttr.map((item) => {
       return {
         ...item,
-        value: selectedPrd?.selectedVariations?.attributes?.find(
+        value: Object.values(selectedPrd?.selectedVariations?.attributes)?.find(
           (attr) => attr.taxonomy === item.key,
         )?.label,
       }
@@ -42,6 +44,8 @@ export default function SelectOptions({
     return text
   }, [selectedPrd])
 
+  console.log('selectedPrd', selectedPrd)
+
   return (
     <div className={`${className} w-full h-full`}>
       <Select className='h-full'>
@@ -52,6 +56,7 @@ export default function SelectOptions({
           <Variation
             data={data}
             setSelectedPrd={setSelectedPrd}
+            selectedPrd={selectedPrd}
           />
         </SelectContent>
       </Select>

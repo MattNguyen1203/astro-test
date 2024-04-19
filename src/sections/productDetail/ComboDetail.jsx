@@ -3,23 +3,19 @@ import SlideMultiple from '@/components/slidemultiple'
 import SocialProduct from '../product/aside/SocialProduct'
 import BreadCrumb from '@/components/breadcrumb'
 import TemVoucher from '@/components/popupproduct/TemVoucher'
-import CardVoucher from '@/components/cardvoucher'
 import ChangeQuantity from '@/components/popupproduct/ChangeQuantity'
-import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
-import ShowMore from '@/components/showmore'
-import {cn} from '@/lib/utils'
+import {cn, fetcher} from '@/lib/utils'
 import AddToCartBtn from './addToCartBtn'
-import AccordionInfo from './Accordion'
 import WishListIcon from './Wishlist'
 import ProductPrice from '@/components/popupproduct/Price'
 import SubInfo from './SubInfo/SubInfo'
-import ComboItem from './itemProduct/ComboItem'
 import TechnicalInfo from './SubInfo/TechnicalInfo'
 import TabInfo from './SubInfo/TabInfo'
 import VoucherList from './VoucherList'
 import ItemProduct from './itemProduct/Crosssell'
-import {useMemo, useState} from 'react'
-import DialogProductCrossell from '../home/components/dialogCrossell'
+import {useEffect, useMemo, useRef, useState} from 'react'
+import DialogProductCombo from '../home/components/dialogCrossell'
+import {handlePrice} from './function'
 
 const prdOther = [
   {
@@ -43,7 +39,7 @@ const prdOther = [
   },
 ]
 
-const ComboDetail = ({isMobile, data, voucher, bestCoupon}) => {
+const ComboDetail = ({isMobile, data, voucher, bestCoupon, test}) => {
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
   const [selectedPrd, setSelectedPrd] = useState({
@@ -68,7 +64,32 @@ const ComboDetail = ({isMobile, data, voucher, bestCoupon}) => {
     return gallery.concat(listProductGallery)
   }, [data])
 
-  // console.log('listProduct', listProduct)
+  //calculate Price
+
+  const [regular_price, price] = useMemo(() => {
+    const isCalPrice = selectedPrd?.type_discount === 'Percentage'
+
+    if (isCalPrice) {
+      const regular_price = listProduct?.reduce((total, item) => {
+        const [regularPriceResult] = handlePrice(item)
+
+        return total + regularPriceResult * Number(item?.qty)
+      }, 0)
+
+      const price = listProduct?.reduce((total, item) => {
+        const [priceResult] = handlePrice(item)
+        return total + priceResult * Number(item?.qty)
+      }, 0)
+
+      return [
+        (regular_price * (100 - Number(selectedPrd.discount))) / 100,
+        (price * (100 - Number(selectedPrd.discount))) / 100,
+      ]
+    } else {
+      return [selectedPrd?.regular_price, selectedPrd?.price]
+    }
+  }, [listProduct, selectedPrd])
+
   return (
     <div className='container mt-[8.1rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
@@ -102,11 +123,11 @@ const ComboDetail = ({isMobile, data, voucher, bestCoupon}) => {
               <div className='xmd:hidden caption1 mb-[0.88rem] text-greyscale-40'>
                 Sản phẩm trong combo:
               </div>
-              {data?.grouped_products?.map((item, index) => (
+              {listProduct?.map((item, index) => (
                 <div
                   key={item.id}
                   className={cn(
-                    index === data?.grouped_products?.length - 1
+                    index === listProduct?.length - 1
                       ? ''
                       : 'mb-[0.88rem] xmd:mb-[1.17rem]',
                   )}
@@ -120,23 +141,24 @@ const ComboDetail = ({isMobile, data, voucher, bestCoupon}) => {
                 </div>
               ))}
             </div>
-            <DialogProductCrossell
+            <DialogProductCombo
               isOpen={isOpen}
               setIsOpen={setIsOpen}
               data={listProduct}
+              setListCrossell={setListProduct}
               activeId={activeId}
               setActiveId={setActiveId}
-              setListCrossell={setListProduct}
-            ></DialogProductCrossell>
+              type='wooco'
+            ></DialogProductCombo>
 
             <ProductPrice
-              regularPrice={data?.regular_price}
-              price={data?.price || 0}
+              regularPrice={regular_price}
+              price={price || 0}
               bestCoupon={bestCoupon}
             />
             <TemVoucher
-              regularPrice={data?.regular_price}
-              price={data?.price || 0}
+              regularPrice={regular_price}
+              price={price || 0}
               bestCoupon={bestCoupon}
             />
 

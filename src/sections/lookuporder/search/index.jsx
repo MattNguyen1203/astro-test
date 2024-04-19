@@ -68,13 +68,13 @@ export default function SearchTracking({isMobile}) {
               >
                 {isLoading ? (
                   <svg
-                    class='animate-spin h-[2rem] w-[2rem] text-white'
+                    className='animate-spin h-[2rem] w-[2rem] text-white'
                     xmlns='http://www.w3.org/2000/svg'
                     fill='none'
                     viewBox='0 0 24 24'
                   >
                     <circle
-                      class='opacity-25'
+                      className='opacity-25'
                       cx='12'
                       cy='12'
                       r='10'
@@ -99,8 +99,8 @@ export default function SearchTracking({isMobile}) {
           {/* page1 */}
           {!tracking && (
             <div className='flex lg:flex-col items-center xmd:w-full xmd:px-[1.32rem]'>
-              <p className='mb-[0.58565rem] caption1 font-normal text-[#94A4B4]/45 xmd:text-center'>
-                Đăng nhập tài khoản sẽ giúp bạn quản lý đơn hàng dễ dàng hơn!{' '}
+              <p className='mb-[0.58565rem] caption1 font-semibold text-[#204265]/45 xmd:text-center'>
+                Đăng nhập tài khoản sẽ giúp bạn quản lý đơn hàng dễ dàng hơn!
                 <span className='lg:hidden caption1 font-medium text-[#204265]'>
                   Đăng nhập ngay
                 </span>

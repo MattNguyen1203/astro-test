@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {memo, useState} from 'react'
 import dynamic from 'next/dynamic'
+import DialogProductCombo from '@/sections/home/components/dialogCrossell'
 const DialogProduct = dynamic(() =>
   import('@/sections/home/components/dialog').then((mod) => mod.DialogProduct),
 )
@@ -13,6 +14,16 @@ function CardProduct({product, priority = false}) {
   const [isOpen, setIsOpen] = useState(false)
   const percentSale = handlePercentSale(product)
   const price = renderPriceProduct(product)
+  const isCombo = product?.type === 'wooco'
+
+  const [selectedPrd, setSelectedPrd] = useState({
+    ...product,
+    quantity: 1,
+  })
+
+  const [listProduct, setListProduct] = useState(product?.grouped_product || [])
+
+  const [activeId, setActiveId] = useState('')
 
   return (
     <div className='w-full h-[28.2rem] xmd:h-[23.1rem] first:ml-0 rounded-[0.87848rem] md:border md:border-solid md:border-[#E5E7EB] group shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] md:hover:shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_32px_0px_rgba(12,46,112,0.08)] select-none xmd:shadow-[-6px_2px_28px_0px_rgba(12,46,112,0.08),2px_4px_16px_0px_rgba(12,46,112,0.04)]'>
@@ -56,41 +67,86 @@ function CardProduct({product, priority = false}) {
             </li>
           ))}
         </ul>
-        <DialogProduct
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          type='add'
-          data={product}
-        >
-          <button className='mt-[0.51rem] w-full h-[2.92826rem] rounded-[0.58565rem] bg-blue-50 md:group-hover:bg-blue-800 transition-all duration-500 py-[0.65886rem] px-[0.58565rem] flex justify-between items-center xmd:bg-[#10273F] xmd:absolute xmd:left-1/2 xmd:w-[calc(100%-0.88rem)] xmd:-translate-x-1/2 xmd:bottom-[0.44rem]'>
-            <div className='flex flex-col'>
-              <span className='font-semibold text-blue-800 transition-all duration-500 sub2 xmd:caption1 xmd:font-bold xmd:text-white size-full md:group-hover:text-white'>
-                {formatToVND(price?.sale) || formatToVND(price?.price)}
-              </span>
-              {!!percentSale && (
-                <span className='transition-all duration-500 giagoc size-full md:group-hover:text-greyscaletext-5-div xmd:font-workSans xmd:text-greyscaletext-5-div xmd:tracking-[0.00827rem] xmd:leading-[1.2] xmd:font-medium xmd:text-[0.65886rem]'>
-                  {formatToVND(price?.price)}
+
+        {isCombo ? (
+          <DialogProductCombo
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            type={product?.type}
+            data={listProduct}
+            setListCrossell={setListProduct}
+            activeId={activeId}
+            setActiveId={setActiveId}
+          >
+            <button className='mt-[0.51rem] w-full h-[2.92826rem] rounded-[0.58565rem] bg-blue-50 md:group-hover:bg-blue-800 transition-all duration-500 py-[0.65886rem] px-[0.58565rem] flex justify-between items-center xmd:bg-[#10273F] xmd:absolute xmd:left-1/2 xmd:w-[calc(100%-0.88rem)] xmd:-translate-x-1/2 xmd:bottom-[0.44rem]'>
+              <div className='flex flex-col'>
+                <span className='font-semibold text-blue-800 transition-all duration-500 sub2 xmd:caption1 xmd:font-bold xmd:text-white size-full md:group-hover:text-white'>
+                  {formatToVND(price?.sale) || formatToVND(price?.price)}
                 </span>
-              )}
-            </div>
-            <div className='size-[1.46413rem] relative'>
-              <Image
-                className='absolute top-0 left-0 object-contain transition-all duration-500 xmd:opacity-0 size-full md:group-hover:opacity-0'
-                src={'/home/cart.svg'}
-                alt='icon cart'
-                width={20}
-                height={20}
-              />
-              <Image
-                className='absolute top-0 left-0 object-contain transition-all duration-500 opacity-0 xmd:opacity-100 size-full md:group-hover:opacity-100'
-                src={'/home/cart-active.svg'}
-                alt='icon cart'
-                width={20}
-                height={20}
-              />
-            </div>
-          </button>
-        </DialogProduct>
+                {percentSale && (
+                  <span className='transition-all duration-500 giagoc size-full md:group-hover:text-greyscaletext-5-div xmd:font-workSans xmd:text-greyscaletext-5-div xmd:tracking-[0.00827rem] xmd:leading-[1.2] xmd:font-medium xmd:text-[0.65886rem]'>
+                    {formatToVND(price?.price)}
+                  </span>
+                )}
+              </div>
+              <div className='size-[1.46413rem] relative'>
+                <Image
+                  className='absolute top-0 left-0 object-contain transition-all duration-500 xmd:opacity-0 size-full md:group-hover:opacity-0'
+                  src={'/home/cart.svg'}
+                  alt='icon cart'
+                  width={20}
+                  height={20}
+                />
+                <Image
+                  className='absolute top-0 left-0 object-contain transition-all duration-500 opacity-0 xmd:opacity-100 size-full md:group-hover:opacity-100'
+                  src={'/home/cart-active.svg'}
+                  alt='icon cart'
+                  width={20}
+                  height={20}
+                />
+              </div>
+            </button>
+          </DialogProductCombo>
+        ) : (
+          <DialogProduct
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            type={product?.type}
+            data={listProduct}
+            setListCrossell={setListProduct}
+            activeId={activeId}
+            setActiveId={setActiveId}
+          >
+            <button className='mt-[0.51rem] w-full h-[2.92826rem] rounded-[0.58565rem] bg-blue-50 md:group-hover:bg-blue-800 transition-all duration-500 py-[0.65886rem] px-[0.58565rem] flex justify-between items-center xmd:bg-[#10273F] xmd:absolute xmd:left-1/2 xmd:w-[calc(100%-0.88rem)] xmd:-translate-x-1/2 xmd:bottom-[0.44rem]'>
+              <div className='flex flex-col'>
+                <span className='font-semibold text-blue-800 transition-all duration-500 sub2 xmd:caption1 xmd:font-bold xmd:text-white size-full md:group-hover:text-white'>
+                  {formatToVND(price?.sale) || formatToVND(price?.price)}
+                </span>
+                {percentSale && (
+                  <span className='transition-all duration-500 giagoc size-full md:group-hover:text-greyscaletext-5-div xmd:font-workSans xmd:text-greyscaletext-5-div xmd:tracking-[0.00827rem] xmd:leading-[1.2] xmd:font-medium xmd:text-[0.65886rem]'>
+                    {formatToVND(price?.price)}
+                  </span>
+                )}
+              </div>
+              <div className='size-[1.46413rem] relative'>
+                <Image
+                  className='absolute top-0 left-0 object-contain transition-all duration-500 xmd:opacity-0 size-full md:group-hover:opacity-0'
+                  src={'/home/cart.svg'}
+                  alt='icon cart'
+                  width={20}
+                  height={20}
+                />
+                <Image
+                  className='absolute top-0 left-0 object-contain transition-all duration-500 opacity-0 xmd:opacity-100 size-full md:group-hover:opacity-100'
+                  src={'/home/cart-active.svg'}
+                  alt='icon cart'
+                  width={20}
+                  height={20}
+                />
+              </div>
+            </button>
+          </DialogProduct>
+        )}
       </div>
     </div>
   )

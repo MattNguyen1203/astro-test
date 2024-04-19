@@ -1,10 +1,10 @@
 import PopupProduct from '@/components/popupproduct'
 import {Dialog, DialogContent, DialogTrigger} from '@/components/ui/dialog'
-import {cn, fetcher} from '@/lib/utils'
+import {cn} from '@/lib/utils'
 import {useEffect, useMemo, useState} from 'react'
 import Image from 'next/image'
 
-export default function DialogProductCrossell({
+export default function DialogProductCombo({
   children,
   isOpen,
   setIsOpen,
@@ -12,18 +12,21 @@ export default function DialogProductCrossell({
   activeId,
   setActiveId,
   setListCrossell,
+  type,
 }) {
   const listImg = useMemo(() => {
     return data?.map((item) => ({
-      key: item.id,
-      src: item.featuredImage.url || '/no-image.jpg',
+      key: item?.id,
+      src: item?.featuredImage.url || '/no-image.jpg',
     }))
   }, [data])
   const [dataActive, setDataActive] = useState(data?.[0] || {})
 
   useEffect(() => {
-    const activeData = data?.find((item) => item.id === activeId)
-    setDataActive(activeData)
+    if (activeId !== '') {
+      const activeData = data?.find((item) => item.id === activeId)
+      setDataActive(activeData)
+    }
   }, [activeId])
 
   const handleActive = (key) => {
@@ -75,6 +78,8 @@ export default function DialogProductCrossell({
             data={dataActive}
             setSelectedPrd={setDataActive}
             handleChangeVariation={handleChangeVariation}
+            type={type}
+            isLoading={false}
           />
         </div>
       </DialogContent>
