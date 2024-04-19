@@ -83,7 +83,7 @@ export default function SignInIndex({status}) {
                 <FormControl>
                   <Input
                     className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik xmd:rounded-[0.58565rem]'
-                    placeholder='Nhập email/số điện thoại'
+                    placeholder='Nhập email /+84 | số điện thoại'
                     {...field}
                   />
                 </FormControl>
@@ -153,7 +153,7 @@ export default function SignInIndex({status}) {
               id='forfet_password'
               name='forfet_password'
             />
-            <span className='text-blue-500 caption1 opacity-45 block w-fit ml-[0.44rem] select-none group-checked:opacity-1'>
+            <span className='text-blue-500 caption1 font-semibold opacity-45 block w-fit ml-[0.44rem] select-none group-checked:opacity-1'>
               Ghi nhớ mật khẩu
             </span>
           </label>

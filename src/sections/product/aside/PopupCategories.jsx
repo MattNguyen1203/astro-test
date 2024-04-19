@@ -31,7 +31,7 @@ export default function PopupCategories({
         <div className='absolute -bottom-[0.6rem] left-0 translate-y-full bg-white w-[19.03367rem] rounded-[0.58565rem] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.10)] z-50'>
           <NavigationMenu
             viewPortChild='!h-full'
-            viewPort='top-0 left-auto right-[0.6rem] translate-x-full w-[54.75842rem] !h-full popup_hover_categories_mega'
+            viewPort='top-0 left-auto right-[-0.6rem] translate-x-full w-[54.75842rem] !h-full popup_hover_categories_mega'
             className='justify-start w-full h-full max-w-full min-h-full'
             id='categories_mega_hover'
           >
@@ -47,7 +47,7 @@ export default function PopupCategories({
                   {category?.children?.length ? (
                     <>
                       <NavigationMenuTrigger
-                        className={`relative size-full p-0 hover:!bg-transparent`}
+                        className={`relative size-full p-0 hover:!bg-transparent before:absolute before:w-[2rem] before:h-[200%] before:top-0 before:right-[-2rem]`}
                       >
                         <div
                           onClick={() => {
