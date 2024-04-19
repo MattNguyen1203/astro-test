@@ -6,11 +6,10 @@ import FormContact from './FormContact'
 export default function IndexFormContact() {
   return (
     <div
-      className='flex flex-col xmd:container xmd:order-1 
-    lg:sticky h-fit w-[39.01903rem] xmd:w-[26.35432rem] lg:pt-[1.75695rem] pb-[3.51391rem] 
+      className='flex flex-col xmd:container xmd:order-1 lg:sticky h-fit w-[39.01903rem] xmd:w-[26.35432rem] lg:pt-[1.75695rem] pb-[3.51391rem] 
     items-start rounded-[0.87848rem] bg-white 
     shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] 
-    right-[6.08rem] top-[15rem] lg:translate-x-[-6.08rem] lg:translate-y-[-6.58858rem] 
+     top-[15rem] lg:translate-y-[-6.58858rem] 
     transition-all tablet:w-full tablet:bg-[#17395C] tablet:rounded-none tablet:items-center tablet:pb-[3rem]'
     >
       <div className='xmd:hidden absolute top-0 z-10 w-full h-[6.58858rem] rounded-tr-[0.87848rem] rounded-tl-[0.87848rem] bg-[rgba(232,235,239,0.80)]'></div>

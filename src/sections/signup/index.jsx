@@ -112,7 +112,7 @@ export default function SignUpIndex() {
                 <FormControl>
                   <Input
                     type='email'
-                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik xmd:rounded-[0.58565rem]'
+                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40  font-svnGraphik xmd:rounded-[0.58565rem]'
                     placeholder='Email của bạn *'
                     {...field}
                   />

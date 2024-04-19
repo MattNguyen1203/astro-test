@@ -24,7 +24,7 @@ export default function WatchReview({isMobile}) {
       {!isMobile && (
         <div className='my-[3.51rem] flex justify-center items-center rounded-[0.87848rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] px-[4.39rem] py-[1.17rem] w-fit mx-auto'>
           <h2 className='bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)] h6 font-bold bg-clip-text'>
-            SẢN PHẨM SẮP RA MẮT
+            CÙNG XEM REVIEW SẢN PHẨM
           </h2>
         </div>
       )}
@@ -54,7 +54,7 @@ export default function WatchReview({isMobile}) {
           {new Array(15).fill(0).map((_, index) => (
             <SwiperSlide key={index}>
               <div className='relative size-full'>
-                <div className='h-[29.43rem] xmd:h-[18.00878rem] w-full md:max-w-[25vw] xmd:max-w-[40vw] absolute top-1/2 -translate-y-1/2 -translate-x-1/2 left-1/2 origin-center frame_phone rounded-[0.58565rem] overflow-hidden z-10'>
+                <div className='bler h-[29.43rem] xmd:h-[18.00878rem] w-full md:max-w-[25vw] xmd:max-w-[40vw] absolute top-1/2 -translate-y-1/2 -translate-x-1/2 left-1/2 origin-center frame_phone rounded-[0.58565rem] overflow-hidden z-10'>
                   <Image
                     className='object-cover size-full'
                     src={'/preorder/poster.jpg'}

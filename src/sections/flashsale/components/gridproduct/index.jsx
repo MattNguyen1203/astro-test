@@ -32,7 +32,7 @@ export default function GridProductFL({isMobile, id, title}) {
           ))}
         </div>
         <Link
-          href={'/flashsale'}
+          href={'/san-pham?flashsale=true'}
           className='px-[1.46rem] py-[0.81rem] rounded-[7.5rem] bg-[#f2f2f2] w-fit mt-[2.34rem] xmd:mt-[1.17rem] mx-auto flex items-center'
         >
           <span className='font-semibold caption1 text-greyscale-80 inline-block mr-[0.59rem] xmd:tracking-[0.00439rem]'>

@@ -1,0 +1,39 @@
+.headphones {
+  animation: headphone 3s infinite alternate;
+}
+.heart {
+  animation: heart 1.5s infinite alternate;
+}
+.cardvisa {
+  animation: cardvisa 2s infinite alternate;
+}
+.camera {
+  animation: heart 2s infinite alternate;
+}
+
+@keyframes cardvisa {
+  0% {
+    transform: translate3d(0rem, 1rem, 0rem) rotate3d(0, 1, 0, 25deg);
+  }
+  100% {
+    transform: translate3d(0rem, -1rem, 0rem) rotate3d(1, -1, 0.5, 25deg);
+  }
+}
+
+@keyframes heart {
+  0% {
+    transform: rotate3d(0, 1, 0, 25deg);
+  }
+  100% {
+    transform: translate3d(0rem, -1rem, 0rem) rotate3d(1, -1, 0.5, 25deg);
+  }
+}
+
+@keyframes headphone {
+  0% {
+    transform: rotate3d(0, -1, -1, 25deg);
+  }
+  100% {
+    transform: rotate3d(0, 1, 1, 25deg);
+  }
+}
