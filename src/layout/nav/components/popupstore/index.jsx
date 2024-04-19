@@ -4,7 +4,7 @@ import ICPhone from '@/components/icon/ICPhone'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function PopupStore() {
+export default function PopupStore({linkSocial}) {
   return (
     <div className='absolute -bottom-[0.8rem] translate-y-full left-0 w-[29.4rem] h-fit p-[1.17rem] rounded-[0.58565rem] bg-white shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)] z-50 hidden group-hover:block'>
       <h2 className='sub1 font-medium text-[#212529] before:absolute before:left-[0.88rem] before:size-[0.8rem] before:bg-white before:top-0 before:-translate-y-1/2 before:rotate-45 '>
@@ -40,7 +40,9 @@ export default function PopupStore() {
           <ul className='flex'>
             <li className='group'>
               <Link
-                href={'/'}
+                href={linkSocial?.facebook}
+                prefetch={false}
+                target='_blank'
                 className='flex p-[0.44rem] justify-center items-center rounded-[0.51245rem] bg-[rgba(228,228,228,0.30)]'
               >
                 <Image
@@ -54,7 +56,9 @@ export default function PopupStore() {
             </li>
             <li className='mx-[0.88rem] group'>
               <Link
-                href={'/'}
+                href={linkSocial?.lazada}
+                prefetch={false}
+                target='_blank'
                 className='flex p-[0.44rem] justify-center items-center rounded-[0.51245rem] bg-[rgba(228,228,228,0.30)]'
               >
                 <Image
@@ -68,7 +72,9 @@ export default function PopupStore() {
             </li>
             <li className='group'>
               <Link
-                href={'/'}
+                href={linkSocial?.tiktok}
+                prefetch={false}
+                target='_blank'
                 className='flex p-[0.44rem] justify-center items-center rounded-[0.51245rem] bg-[rgba(228,228,228,0.30)]'
               >
                 <Image

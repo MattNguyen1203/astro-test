@@ -1,9 +1,7 @@
-export default function NavigationCustom({
-  handleNextSlide,
-  handlePrevSlide,
-  indexSlider = 0,
-  length = 0,
-}) {
+'use client'
+import {memo} from 'react'
+
+function NavigationCustom({handleNextSlide, handlePrevSlide}) {
   return (
     <>
       <button
@@ -52,3 +50,4 @@ export default function NavigationCustom({
     </>
   )
 }
+export default memo(NavigationCustom)

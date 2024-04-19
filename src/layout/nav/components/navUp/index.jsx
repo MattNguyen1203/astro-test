@@ -6,7 +6,13 @@ import MenuRes from './MenuRes'
 import Cart from './Cart'
 import getData from '@/lib/getData'
 
-export default async function NavUp({session, isMobile, referer, categories}) {
+export default async function NavUp({
+  session,
+  isMobile,
+  referer,
+  categories,
+  linkSocial,
+}) {
   const productSuggest = await getData(
     '/okhub/v1/product/allProduct?limit=6&order=desc&page=1',
   )
@@ -33,6 +39,7 @@ export default async function NavUp({session, isMobile, referer, categories}) {
         isMobile={isMobile}
         productSuggest={productSuggest}
         categories={categories}
+        linkSocial={linkSocial}
       />
       <div
         id='cart_and_user'
@@ -53,7 +60,7 @@ export default async function NavUp({session, isMobile, referer, categories}) {
           />
         ) : (
           <>
-            {session?.user?.name ? (
+            {session?.accessToken ? (
               <span className='font-normal caption1 text-greyscale-80 py-[0.44rem] pl-[0.44rem]'>
                 {session?.user?.name}
               </span>

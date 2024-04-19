@@ -38,7 +38,7 @@ const menuOptions = [
   },
 ]
 
-export default function MenuUser() {
+export default function MenuUser({setIsOpen = () => {}}) {
   const session = useSession()
   const pathName = usePathname()
   return (
@@ -53,6 +53,7 @@ export default function MenuUser() {
           } w-full h-fit rounded-[0.58565rem] block`}
         >
           <Link
+            onClick={() => setIsOpen(false)}
             href={e.href}
             className='flex items-center px-[0.88rem] py-[0.73rem]'
           >
@@ -76,7 +77,10 @@ export default function MenuUser() {
       ))}
       {session?.data?.accessToken ? (
         <div
-          onClick={() => logout()}
+          onClick={() => {
+            setIsOpen(false)
+            logout()
+          }}
           className={`w-full h-fit rounded-[0.58565rem] block`}
         >
           <button className='flex items-center px-[0.88rem] py-[0.73rem]'>

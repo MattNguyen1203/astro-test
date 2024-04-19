@@ -23,10 +23,11 @@ export default function BoxSort() {
   const searchParams = useSearchParams()
   const sort = searchParams.get('sort')
   const pathName = usePathname()
-  const flashsale = searchParams.get('flashsale')
   const [isOpen, setIsOpen] = useState(false)
   const [sideRef, isOutSide] = useClickOutSide()
   const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
+
+  const flashsale = searchParams.get('flashsale') === 'true'
 
   useEffect(() => {
     if (isOutSide) return setIsOpen(false)
@@ -59,21 +60,21 @@ export default function BoxSort() {
     return 0
   }
 
-  const handleFilterFlashsale = () => {
+  const handleFilterFlashsale = (flashsale) => {
     const paramNew = new URLSearchParams(searchParams)
     if (flashsale) {
       paramNew.delete('flashsale')
     } else {
       paramNew.set('flashsale', 'true')
     }
-    router.push(pathName + '?' + paramNew.toString(), {
+    return router.push(pathName + '?' + paramNew.toString(), {
       scroll: false,
     })
   }
   return (
     <div className='flex'>
       <button
-        onClick={handleFilterFlashsale}
+        onClick={() => handleFilterFlashsale(flashsale)}
         className={`${
           flashsale
             ? 'bg-[linear-gradient(180deg,#E0B181_0.72%,#BE9367_99.87%)] text-white'

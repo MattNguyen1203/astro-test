@@ -41,8 +41,8 @@ export default function ForgetPage({searchParams}) {
           <h1 className='font-semibold text-blue-900 h5'>Quên mật khẩu</h1>
         </div>
         <p className='mt-[0.59rem] text-greyscale-50/50 caption1 font-normal'>
-          Mã OTP sẽ được trả về số điện thoại/email bạn đã đăng ký với
-          AstroMazing. Vui lòng nhập đúng số điện thoại/email
+          Mã OTP sẽ được trả về số điện thoại bạn đã đăng ký với AstroMazing.
+          Vui lòng nhập đúng số điện thoại
         </p>
         <FogetPassIndex />
       </div>

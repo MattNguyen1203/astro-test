@@ -3,16 +3,17 @@ import {formatToVND, handlePercentSale, renderPriceProduct} from '@/lib/utils'
 // import {DialogProduct} from '@/sections/home/components/dialog'
 import Image from 'next/image'
 import Link from 'next/link'
-import {useState} from 'react'
+import {memo, useState} from 'react'
 import dynamic from 'next/dynamic'
 const DialogProduct = dynamic(() =>
   import('@/sections/home/components/dialog').then((mod) => mod.DialogProduct),
 )
 
-export default function CardProduct({product, priority = false}) {
+function CardProduct({product, priority = false}) {
   const [isOpen, setIsOpen] = useState(false)
   const percentSale = handlePercentSale(product)
   const price = renderPriceProduct(product)
+
   return (
     <div className='w-full h-[28.2rem] xmd:h-[23.1rem] first:ml-0 rounded-[0.87848rem] md:border md:border-solid md:border-[#E5E7EB] group shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] md:hover:shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_32px_0px_rgba(12,46,112,0.08)] select-none xmd:shadow-[-6px_2px_28px_0px_rgba(12,46,112,0.08),2px_4px_16px_0px_rgba(12,46,112,0.04)]'>
       <Link
@@ -27,7 +28,7 @@ export default function CardProduct({product, priority = false}) {
           height={230}
           priority={priority}
         />
-        {percentSale && (
+        {!!percentSale && (
           <div className='bg-[linear-gradient(104deg,#E88B00_-3.95%,#CE7B00_106.72%)] w-[2.78184rem] h-[1.02489rem] rounded-full caption2 font-semibold text-white absolute top-[0.88rem] left-[0.88rem] xmd:top-[0.44rem] xmd:left-[0.44rem] z-10 flex justify-center items-start tracking-normal md:pt-[0.15rem] xmd:tracking-normal pt-[0.14rem]'>
             {percentSale + '%'}
           </div>
@@ -66,7 +67,7 @@ export default function CardProduct({product, priority = false}) {
               <span className='font-semibold text-blue-800 transition-all duration-500 sub2 xmd:caption1 xmd:font-bold xmd:text-white size-full md:group-hover:text-white'>
                 {formatToVND(price?.sale) || formatToVND(price?.price)}
               </span>
-              {percentSale && (
+              {!!percentSale && (
                 <span className='transition-all duration-500 giagoc size-full md:group-hover:text-greyscaletext-5-div xmd:font-workSans xmd:text-greyscaletext-5-div xmd:tracking-[0.00827rem] xmd:leading-[1.2] xmd:font-medium xmd:text-[0.65886rem]'>
                   {formatToVND(price?.price)}
                 </span>
@@ -94,3 +95,4 @@ export default function CardProduct({product, priority = false}) {
     </div>
   )
 }
+export default memo(CardProduct)

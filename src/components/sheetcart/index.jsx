@@ -17,7 +17,7 @@ import {toast} from 'sonner'
 import useStore from '@/app/(store)/store'
 
 export default function SheetCart({children, isMobile = false, session}) {
-  const isAuth = session?.status === 'authenticated'
+  const isAuth = session?.accessToken === 'authenticated'
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const actionCart = useStore((state) => state.actionCart)
@@ -25,41 +25,39 @@ export default function SheetCart({children, isMobile = false, session}) {
   const [cart, setCart] = useState([])
   const [listCart, setListCart] = useState([])
 
+  const fetcher = (url) =>
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${session?.data?.accessToken}`,
+      },
+    }).then((res) => res.json())
+
+  // process.env.NEXT_PUBLIC_API + '/wc/store/v1/cart'
+  const {
+    data: dataCart,
+    isLoading,
+    error,
+  } = useSWR(
+    isAuth ? process.env.NEXT_PUBLIC_API + '/okhub/v1/cart' : null,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    },
+  )
+
   useEffect(() => {
     if (isOpen) {
       const localGet = JSON.parse(localStorage.getItem('cartAstro')) || []
 
       if (isAuth) {
-        setListCart([])
+        setListCart(dataCart)
       } else {
         setListCart(localGet)
       }
     }
   }, [isOpen, actionCart])
-
-  // const fetcher = (url) =>
-  //   fetch(url, {
-  //     headers: {
-  //       Authorization: `Bearer ${session?.accessToken}`,
-  //     },
-  //   }).then((res) => res.json())
-
-  // // process.env.NEXT_PUBLIC_API + '/wc/store/v1/cart'
-  // const {
-  //   data: dataItemCart,
-  //   isLoading,
-  //   error,
-  // } = useSWR(
-  //   session?.accessToken
-  //     ? process.env.NEXT_PUBLIC_API + '/wc/store/v1/cart'
-  //     : null,
-  //   fetcher,
-  //   {
-  //     revalidateIfStale: false,
-  //     revalidateOnFocus: false,
-  //     revalidateOnReconnect: false,
-  //   },
-  // )
 
   const handleCart = () => {
     if (cart?.length === 10) {

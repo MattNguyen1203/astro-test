@@ -2,6 +2,7 @@ export default function BtnSubmit({
   isPending = false,
   title = '',
   className = '',
+  ...props
 }) {
   return (
     <button
@@ -9,6 +10,7 @@ export default function BtnSubmit({
       className={`${
         isPending ? 'pointer-events-none cursor-not-allowed' : ''
       } ${className} w-[15.666rem] h-[2.928rem] rounded-[0.58565rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] text-white caption1 font-semibold flex justify-center items-center`}
+      {...props}
     >
       {isPending ? (
         <svg

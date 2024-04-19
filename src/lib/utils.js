@@ -4,6 +4,7 @@ import {twMerge} from 'tailwind-merge'
 export function cn(...inputs) {
   return twMerge(clsx(inputs))
 }
+
 export function handleViewPort(viewport, desktop, tablet, mobile) {
   if (viewport === 'desktop') {
     return desktop
@@ -17,6 +18,7 @@ export function handleViewPort(viewport, desktop, tablet, mobile) {
 export function handlePercentSale(product) {
   const isFlashsale =
     product?.meta_detect?.flash_sale?.is_flash_sale === 'yes' ? true : false
+
   if (isFlashsale) {
     const priceFlashsale = Number(
       product?.meta_detect?.flash_sale?.flash_sale_price,
@@ -26,11 +28,12 @@ export function handlePercentSale(product) {
         (Number(product?.regular_price) / 100),
     )
   }
-  if (Number(product?.salePrice)) {
-    return Math.floor(
-      (Number(product?.regular_price) - Number(product?.salePrice)) /
-        (Number(product?.regular_price) / 100),
-    )
+
+  if (Number(product?.price)) {
+    const price =
+      (Number(product?.regular_price) - Number(product?.price)) /
+      (Number(product?.regular_price) / 100)
+    return Math.floor(price)
   }
   return false
 }
@@ -38,21 +41,27 @@ export function handlePercentSale(product) {
 export function renderPriceProduct(product) {
   const isFlashsale =
     product?.meta_detect?.flash_sale?.is_flash_sale === 'yes' ? true : false
+
   if (isFlashsale) {
     return {
       price: product?.regular_price,
       sale: product?.meta_detect?.flash_sale?.flash_sale_price,
     }
   }
-  if (!Number(product?.salePrice))
+
+  if (
+    Number(product?.price) &&
+    Number(product?.price) < Number(product?.regular_price)
+  ) {
     return {
       price: product?.regular_price,
-      sale: 0,
+      sale: product?.price,
     }
+  }
 
   return {
     price: product?.regular_price,
-    sale: product?.salePrice,
+    sale: 0,
   }
 }
 
@@ -79,4 +88,14 @@ export function convertDateFormat(dateTimeStr) {
   const year = dateTime.getFullYear()
 
   return `${day}/${month}/${year}`
+}
+
+export function convertPhone(phone) {
+  if (!phone) return
+  let phoneEnd = phone?.startsWith('840')
+    ? phone?.replace('840', '0')
+    : phone?.startsWith('84')
+    ? phone?.replace('84', '0')
+    : ''
+  return phoneEnd
 }

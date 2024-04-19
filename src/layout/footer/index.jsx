@@ -11,16 +11,20 @@ import {IDGLOBALAPI} from '@/lib/IdPageAPI'
 export default async function Footer({isMobile}) {
   const data = await getData(`/wp/v2/pages/${IDGLOBALAPI}`, 3600)
   const footer = data?.acf?.footer
+  const linkSocial = data?.acf?.link_social
   return (
     <>
       <footer className='w-full overflow-x-hidden bg-elevation-20 xmd:bg-blue-800 xmd:rounded-tl-[0.87848rem] xmd:rounded-tr-[0.87848rem] xmd:pb-[3.22rem] relative z-10'>
         <div className='md:h-[4.46559rem] md:bg-[linear-gradient(0deg,#10273F_0%,#10273F_100%)] flex items-center'>
           <div className='container flex justify-between items-center md:pr-[0.95rem] xmd:flex-col xmd:full-mb'>
-            <Social isMobile={isMobile} />
+            <Social
+              isMobile={isMobile}
+              linkSocial={linkSocial}
+            />
             {isMobile && (
               <>
                 <Link
-                  href={'tel: 0947492020'}
+                  href={`tel: ${footer?.tong_dai_ho_tro?.phone}`}
                   className='container px-[0.88rem] py-[0.51rem] rounded-[0.58565rem] bg-white mt-[2.05rem] flex justify-between items-center'
                 >
                   <div className='size-[2.63543rem] rounded-full bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] flex justify-center items-center'>
@@ -34,10 +38,10 @@ export default async function Footer({isMobile}) {
                     />
                   </div>
                   <span className='font-semibold text-blue-500 body2'>
-                    Tư vấn bán hàng (9h-21h)
+                    {footer?.tong_dai_ho_tro?.title}
                   </span>
                   <span className='font-bold text-blue-500 body2'>
-                    094 749 2020
+                    {footer?.tong_dai_ho_tro?.phone}
                   </span>
                 </Link>
                 <hr className='h-[0.0366rem] bg-[#ECECEC66] w-full my-[2.05rem] opacity-40' />
