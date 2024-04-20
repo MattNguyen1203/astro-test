@@ -11,6 +11,7 @@ function PopupProduct(props) {
     setSelectedPrd,
     handleChangeVariation,
     isLoading,
+    isAddToCart,
   } = props
 
   return (
@@ -42,6 +43,7 @@ function PopupProduct(props) {
           setSelectedPrd={setSelectedPrd}
           handleChangeVariation={handleChangeVariation}
           setIsOpen={setIsOpen}
+          isAddToCart={isAddToCart}
         />
       )}
 

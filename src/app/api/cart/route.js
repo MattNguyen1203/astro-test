@@ -12,7 +12,10 @@ export async function GET(request) {
     redirect: 'follow',
   }
 
-  const res = await fetch(`${process.env.API}/wc/store/v1/cart`, requestOptions)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API}/okhub/v1/cart`,
+    requestOptions,
+  )
   const data = await res.json()
   return Response.json(data)
 }

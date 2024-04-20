@@ -24,6 +24,16 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
       bestCouponReq,
     ])
 
+  const productCat = dataProductDetail?.categories?.[0]
+
+  let relatedProduct
+
+  if (productCat && productCat?.length > 0) {
+    relatedProduct = await getData(
+      `/okhub/v1/product/productByCategory/${'but-cam-ung'}?limit=5&page=1`,
+    )
+  }
+
   return (
     <main className='bg-elevation-20'>
       <ProductDetail
@@ -32,6 +42,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
         voucher={dataProductVoucher}
         variations={dataVariation}
         bestCoupon={dataBestCoupon}
+        relatedProduct={relatedProduct}
       />
     </main>
   )
