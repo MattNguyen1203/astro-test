@@ -1,21 +1,30 @@
-export async function GET(request) {
-  const accessToken = request.headers.get('Authorization')
-  if (!accessToken) {
-    return new Response('Unauthorized', {status: 401})
-  }
-  const myHeaders = new Headers()
-  myHeaders.append('Authorization', accessToken)
-
+export async function getDataAuth(request) {
+  const accessToken = `Bearer ${request.token}`
   const requestOptions = {
     method: 'GET',
-    headers: myHeaders,
+    headers: {
+      'Content-Type': 'application/json',
+      ['Authorization']: accessToken,
+    },
     redirect: 'follow',
   }
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/okhub/v1/cart`,
-    requestOptions,
-  )
-  const data = await res.json()
-  return Response.json(data)
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API}${request.api}`,
+      requestOptions,
+    )
+
+    // Check if the response was successful
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`)
+    }
+
+    const data = await res.json()
+    return data
+  } catch (error) {
+    // Handle errors in fetching or data parsing
+    console.error('Failed to fetch data:', error.message)
+    throw error // Optionally re-throw the error if you want calling code to handle it
+  }
 }
