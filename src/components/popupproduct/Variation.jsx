@@ -184,7 +184,7 @@ const Variation = ({data = {}, setSelectedPrd, selectedPrd}) => {
                   >
                     <Image
                       src={'/components/checkVar.svg'}
-                      alt=''
+                      alt='astromazing'
                       width={12}
                       height={12}
                       className={`absolute top-[-0.43924rem] right-[-0.36603rem] z-10 ${
@@ -196,7 +196,7 @@ const Variation = ({data = {}, setSelectedPrd, selectedPrd}) => {
                     {item?.image && item?.image?.length > 0 ? (
                       <Image
                         src={item.image}
-                        alt=''
+                        alt='astromazing'
                         width={28}
                         height={27}
                         className='w-[2.04978rem] h-[1.97657rem] object-contain mr-[0.29rem]'

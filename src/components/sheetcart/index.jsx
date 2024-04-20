@@ -6,23 +6,25 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import ItemCart from '../itemcart'
-import {useEffect, useState} from 'react'
+import {useMemo, useState} from 'react'
 import ICDelete from '../icon/ICDelete'
 import {ScrollArea} from '../ui/scroll-area'
 import ICBoxCheck from '../icon/ICBoxCheck'
 import ICCheck from '../icon/ICCheck'
-import useSWR from 'swr'
 import {useRouter} from 'next/navigation'
 import {toast} from 'sonner'
-import useStore from '@/app/(store)/store'
-import {GET} from '@/app/api/cart/route'
+import Loading from '../loading'
+import {formatToVND} from '@/lib/utils'
 
-export default function SheetCart({children, isMobile = false, session}) {
-  const isAuth = session?.accessToken === 'authenticated'
+export default function SheetCart({
+  children,
+  isMobile = false,
+  listCart,
+  isLoading,
+  isAuth,
+}) {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
-  const actionCart = useStore((state) => state.actionCart)
-
   const [cart, setCart] = useState([])
   const [listCart, setListCart] = useState([])
 
@@ -51,17 +53,16 @@ export default function SheetCart({children, isMobile = false, session}) {
   }, [isOpen, actionCart])
 
   const handleCart = () => {
-    if (cart?.length === 10) {
+    if (cart?.length === listCart?.length) {
       setCart([])
     } else {
       let arr = []
-      Array(10)
-        .fill(0)
-        .map((_, index) => arr.push(index))
+      listCart.map((_, index) => arr.push(index))
       setCart(arr)
     }
   }
 
+  // handle redirect to payment page
   const handlePayment = () => {
     if (cart?.length) {
       const createOrder = cart.join('--')
@@ -73,6 +74,18 @@ export default function SheetCart({children, isMobile = false, session}) {
       })
     }
   }
+
+  const totalPrice = useMemo(() => {
+    const total = listCart.reduce((total, item) => {
+      return (
+        total + Number(item?.product_price || 0) * Number(item?.quantity || 1)
+      )
+    }, 0)
+
+    return total
+  }, [listCart])
+
+  console.log('totalPrice', totalPrice)
 
   return (
     <Sheet
@@ -94,7 +107,7 @@ export default function SheetCart({children, isMobile = false, session}) {
               >
                 <div className='size-[1.75695rem] relative overflow-hidden cursor-pointer '>
                   <ICBoxCheck className='size-full' />
-                  {cart?.length === 10 && (
+                  {cart?.length === listCart?.length && (
                     <div className='absolute top-0 left-0 flex items-center justify-center bg-blue-700 size-full rounded-[0.25rem]'>
                       <ICCheck className='w-[0.8rem] h-auto' />
                     </div>
@@ -104,7 +117,7 @@ export default function SheetCart({children, isMobile = false, session}) {
                   Chọn tất cả
                 </span>
                 <span className='text-[1.02489rem] tracking-[0.01025rem] leading-[1.2] font-semibold text-brown-500'>
-                  (5 sản phẩm)
+                  ({listCart?.length || 0} sản phẩm)
                 </span>
               </div>
               <div className='flex cursor-pointer items w-fit pl-[0.5rem]'>
@@ -121,19 +134,23 @@ export default function SheetCart({children, isMobile = false, session}) {
               type={isMobile ? 'never' : 'always'}
               className='w-full h-[calc(100vh-10rem-4rem)] xmd:h-[calc(100vh-10.17rem-3.6rem)] pl-[2.92rem] pr-[1.5rem] xmd:px-[0.59rem]'
             >
-              <div className='grid grid-cols-1 gap-y-[0.88rem] xmd:mb-[4rem]'>
-                {listCart?.map((item, index) => (
-                  <ItemCart
-                    key={index}
-                    index={index}
-                    setCart={setCart}
-                    cart={cart}
-                    isMobile={isMobile}
-                    item={item}
-                    isAuth={isAuth}
-                  />
-                ))}
-              </div>
+              {isLoading ? (
+                <Loading />
+              ) : (
+                <div className='grid grid-cols-1 gap-y-[0.88rem] xmd:mb-[4rem]'>
+                  {listCart?.map((item, index) => (
+                    <ItemCart
+                      key={index}
+                      index={index}
+                      setCart={setCart}
+                      cart={cart}
+                      isMobile={isMobile}
+                      item={item}
+                      isAuth={isAuth}
+                    />
+                  ))}
+                </div>
+              )}
             </ScrollArea>
           </div>
           <div className='border-t border-solid border-[#EFEFEF] mt-auto h-[4.39239rem] xmd:h-[4.97804rem] px-[2.92rem] flex justify-between items-center xmd:absolute xmd:bottom-0 xmd:left-0 xmd:z-20 xmd:px-[0.59rem] xmd:w-full bg-white'>
@@ -143,17 +160,17 @@ export default function SheetCart({children, isMobile = false, session}) {
                   Tổng tiền hàng:
                 </span>
                 <span className='text-[#D48E43] font-bold text-[1.1713rem] leading-[1.2] md:tracking-[0.00586rem] xmd:text-[1.02489rem]'>
-                  480.000đ
+                  {formatToVND(totalPrice)}
                 </span>
               </div>
-              <div className='flex items-center space-x-[0.29rem] mt-[0.44rem] xmd:mt-[0.29rem]'>
+              {/* <div className='flex items-center space-x-[0.29rem] mt-[0.44rem] xmd:mt-[0.29rem]'>
                 <span className='text-[0.8rem] font-medium leading-[1.2] tracking-[0.00329rem] text-[#6A6A6A] xmd:text-[0.73206rem]'>
                   Tiết kiệm:
                 </span>
                 <span className='text-[#D48E43] text-[0.8rem] font-bold leading-[1.2] md:tracking-[0.00329rem] xmd:text-[0.73206rem] xmd:font-semibold'>
                   40.000đ
                 </span>
-              </div>
+              </div> */}
             </div>
             <button
               onClick={handlePayment}

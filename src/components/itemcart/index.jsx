@@ -5,6 +5,9 @@ import BoxCheck from '../sheetcart/BoxCheck'
 import Variantion from './Variantion'
 import useStore from '@/app/(store)/store'
 import Variation from '../popupproduct/Variation'
+import {formatToVND} from '@/lib/utils'
+import ChangeQuantity from '../popupproduct/ChangeQuantity'
+import {useState} from 'react'
 
 export default function ItemCart({
   cart,
@@ -15,6 +18,8 @@ export default function ItemCart({
   isAuth = false,
 }) {
   const setActionCart = useStore((state) => state.setActionCart)
+
+  const [quantity, setQuantity] = useState(item.quantity || 1)
   const handleDeleteItemCart = () => {
     if (isAuth) {
     } else {
@@ -36,8 +41,8 @@ export default function ItemCart({
       <div className='w-[6.44217rem] xmd:w-[6.00293rem] bg-white rounded-[0.48023rem] overflow-hidden flex-shrink-0 xmd:border xmd:border-solid xmd:border-[#F6F6F6]'>
         <Image
           className='object-cover size-full'
-          src={item?.featuredImage?.url || '/home/item-product.jpg'}
-          alt={item?.featuredImage?.alt || item?.name}
+          src={item?.product_image || '/no-image.jpg'}
+          alt={item?.product_name || 'astromazing'}
           width={82}
           height={82}
         />
@@ -45,17 +50,19 @@ export default function ItemCart({
       <div className='flex justify-between w-full xmd:flex-col'>
         <div className='pl-[0.88rem] flex flex-col justify-center xmd:pl-[0.44rem]'>
           <div>
-            <h2 className='font-medium line-clamp-1 caption1 text-greyscale-40 xmd:text-greyscale-50 xmd:font-semibold leading-[1.2] xmd:tracking-[0.01025rem]'>
-              {item?.name}
+            <h2 className='capitalize font-medium line-clamp-1 caption1 text-greyscale-40 xmd:text-greyscale-50 xmd:font-semibold leading-[1.2] xmd:tracking-[0.01025rem]'>
+              {item?.product_name}
             </h2>
 
             <div className='flex items-center md:my-[0.5rem] xmd:space-x-[0.29rem]'>
               <span className='font-semibold text-blue-600 sub2 xmd:caption1 md:mr-[0.25rem]'>
-                65.000đ
+                {formatToVND(item?.product_price)}
               </span>
-              <span className='font-normal line-through giagoc text-greyscale-40 xmd:tracking-normal'>
-                130.000đ
-              </span>
+              {item?.regular_price && (
+                <span className='font-normal line-through giagoc text-greyscale-40 xmd:tracking-normal'>
+                  {formatToVND(item?.regular_price)}
+                </span>
+              )}
             </div>
           </div>
           <div className='relative flex w-full mt-auto xmd:mt-[0.44rem]'>
@@ -76,6 +83,11 @@ export default function ItemCart({
               height={24}
             />
           </button>
+          {/* <ChangeQuantity
+            quantity={quantity}
+            setChangeQty={setQuantity}
+            stockQty={item?.stock_quantity}
+          /> */}
           <ButtonChange />
         </div>
       </div>
