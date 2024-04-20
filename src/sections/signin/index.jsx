@@ -16,7 +16,7 @@ import {
 import {Input} from '@/components/ui/input'
 import Link from 'next/link'
 import Image from 'next/image'
-import {signIn} from 'next-auth/react'
+import {signIn, useSession} from 'next-auth/react'
 import {loginForm} from '@/actions/loginForm'
 import {useEffect, useState, useTransition} from 'react'
 import BtnSubmit from '../auth/components/btnsubmit'
@@ -36,6 +36,8 @@ const formSchema = z.object({
 export default function SignInIndex({status}) {
   const [isPending, startTransition] = useTransition()
   const [isFailed, setIsFailed] = useState(false)
+  const [notePass, setNotePass] = useState(false)
+  const session = useSession()
 
   useEffect(() => {
     if (Number(status) === 401) {
@@ -48,10 +50,19 @@ export default function SignInIndex({status}) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      phone: '0333888825',
-      password: 'Duc123',
+      phone: '',
+      password: '',
     },
   })
+
+  useEffect(() => {
+    const account = JSON.parse(localStorage.getItem('account'))
+    if (account) {
+      setNotePass(true)
+      form.setValue('phone', account?.login)
+      form.setValue('password', account?.password)
+    }
+  }, [])
 
   function onSubmit(values) {
     startTransition(() => {
@@ -60,8 +71,21 @@ export default function SignInIndex({status}) {
         password: values?.password,
         type: 'phone',
       }
+      if (notePass) {
+        localStorage.setItem(
+          'account',
+          JSON.stringify({
+            login: values?.phone,
+            password: values?.password,
+          }),
+        )
+      } else {
+        localStorage.removeItem('account')
+      }
       loginForm(payload)
-        .then((res) => console.log('res', res))
+        .then((res) => {
+          session.update()
+        })
         .catch((err) => console.log('err', err))
     })
   }
@@ -80,7 +104,7 @@ export default function SignInIndex({status}) {
               <FormItem>
                 <FormControl>
                   <Input
-                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik xmd:rounded-[0.58565rem]'
+                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik xmd:rounded-[0.58565rem] placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40'
                     placeholder='Nhập số điện thoại'
                     {...field}
                   />
@@ -147,6 +171,10 @@ export default function SignInIndex({status}) {
             className='flex items-center cursor-pointer w-fit'
           >
             <input
+              onChange={(e) => {
+                setNotePass(e?.target?.checked)
+              }}
+              checked={notePass}
               type='checkbox'
               id='forfet_password'
               name='forfet_password'

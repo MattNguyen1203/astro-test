@@ -40,6 +40,7 @@ const menuOptions = [
 
 export default function MenuUser({setIsOpen = () => {}}) {
   const session = useSession()
+  console.log('🚀 ~ MenuUser ~ session:', session)
   const pathName = usePathname()
   return (
     <div className='flex flex-col p-[0.88rem] mt-[0.6rem] *:mt-[0.44rem] *:first:mt-0 bg-white rounded-[0.58565rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>

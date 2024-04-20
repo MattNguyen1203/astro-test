@@ -60,9 +60,7 @@ export default function FogetPassIndex() {
         } else {
           if (otp?.message === 'Send OTP Success') {
             localStorage.setItem('registerDraf', JSON.stringify(values))
-            return router.push(
-              `/otp?type=password&phone=${phoneEnd}&email=${values?.email}`,
-            )
+            return router.push(`/otp?type=password&phone=${phone}`)
           } else {
             form.setError('confirmPassword', {
               type: 'validate',
@@ -88,7 +86,7 @@ export default function FogetPassIndex() {
               <FormItem>
                 <FormControl>
                   <Input
-                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik placeholder:text-greyscale-40/60 placeholder:text-[0.75rem] placeholder:font-medium placeholder:leading-[1.2] placeholder:tracking-[0.00375rem]'
+                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik placeholder:text-greyscale-40/60 placeholder:!text-[0.75rem] placeholder:font-medium placeholder:leading-[1.2] placeholder:tracking-[0.00375rem]'
                     placeholder='Nhập số điện thoại'
                     {...field}
                   />

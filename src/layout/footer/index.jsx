@@ -25,6 +25,7 @@ export default async function Footer({isMobile}) {
               <>
                 <Link
                   href={`tel: ${footer?.tong_dai_ho_tro?.phone}`}
+                  prefetch={false}
                   className='container px-[0.88rem] py-[0.51rem] rounded-[0.58565rem] bg-white mt-[2.05rem] flex justify-between items-center'
                 >
                   <div className='size-[2.63543rem] rounded-full bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] flex justify-center items-center'>
@@ -165,6 +166,7 @@ export default async function Footer({isMobile}) {
             <Link
               target='_blank'
               href={'https://okhub.vn/'}
+              prefetch={false}
             >
               | Cung cấp bởi OkHub Agency
             </Link>

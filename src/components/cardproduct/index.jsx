@@ -56,14 +56,14 @@ function CardProduct({product, priority = false}) {
         </Link>
         {/* {false && <Progress />} */}
         <ul className='mt-[0.4rem] flex flex-wrap *:mt-[0.29rem] *:ml-[0.29rem] *:px-[0.58565rem] *:py-[0.29283rem] *:rounded-[7.5rem] *:bg-[#F6F6F6] max-h-[3.8rem] h-[3.8rem] overflow-hidden md:*:h-fit md:*:whitespace-nowrap'>
-          {product?.categories?.slice(0, 4).map((category, index) => (
+          {product?.categories?.slice(0, 4)?.map((category, index) => (
             <li
               key={index}
               className='font-normal first:ml-0 caption1 text-greyscale-40 h-fit'
             >
               {index === 3 && product?.categories?.length >= 4
                 ? `+${product?.categories?.length - 3}`
-                : category}
+                : category?.name}
             </li>
           ))}
         </ul>

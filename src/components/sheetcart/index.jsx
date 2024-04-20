@@ -17,6 +17,7 @@ import {toast} from 'sonner'
 import useStore from '@/app/(store)/store'
 
 export default function SheetCart({children, isMobile = false, session}) {
+  console.log('🚀 ~ SheetCart ~ session:', session)
   const isAuth = session?.accessToken === 'authenticated'
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)

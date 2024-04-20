@@ -2,29 +2,37 @@ import Image from 'next/image'
 import Link from 'next/link'
 import SlideTechnology from './SlideTechnology'
 import getData from '@/lib/getData'
-const listSocial = [
-  {
-    title: 'Facebook',
-    src: '/home/fb.svg',
-    href: '/',
-    className: 'w-[1.31772rem] h-[2.2694rem]',
-  },
-  {
-    title: 'Lazada',
-    src: '/home/lazada.svg',
-    href: '/',
-    className: 'w-[2.82958rem] h-[2.32277rem]',
-  },
-  {
-    title: 'TikTok',
-    src: '/home/tiktok.svg',
-    href: '/',
-    className: 'size-[2.34261rem]',
-  },
-]
+import {IDGLOBALAPI} from '@/lib/IdPageAPI'
 
 export default async function TechnologyConner({isMobile}) {
-  const posts = await getData('/okhub/v1/post/postsByCategory/goc-cong-nghe')
+  const [posts, global] = await Promise.all([
+    getData('/okhub/v1/post/postsByCategory/goc-cong-nghe'),
+    getData(`/wp/v2/pages/${IDGLOBALAPI}`),
+  ])
+
+  const linkSocials = global?.acf?.link_social
+
+  const listSocial = [
+    {
+      title: 'Facebook',
+      src: '/home/fb.svg',
+      href: linkSocials?.facebook,
+      className: 'w-[1.31772rem] h-[2.2694rem]',
+    },
+    {
+      title: 'Lazada',
+      src: '/home/lazada.svg',
+      href: linkSocials?.lazada,
+      className: 'w-[2.82958rem] h-[2.32277rem]',
+    },
+    {
+      title: 'TikTok',
+      src: '/home/tiktok.svg',
+      href: linkSocials?.tiktok,
+      className: 'size-[2.34261rem]',
+    },
+  ]
+
   return (
     <div className='md:bg-elevation-20 pt-[4.39rem]'>
       <span className='block font-medium text-center text-blue-600 h6 xmd:sub1 xmd:tracking-[0.01464rem]'>
@@ -35,6 +43,8 @@ export default async function TechnologyConner({isMobile}) {
           <li key={index}>
             <Link
               href={e.href}
+              target='_blank'
+              prefetch={false}
               className='py-[1.17rem] px-[1.76rem] xmd:px-[0.81rem] xmd:py-[0.73rem] bg-white md:hover:bg-[#F4F4F4] transition-all duration-500 rounded-[0.58565rem] shadow-[1px_4px_32px_0px_rgba(0,0,0,0.08)] flex items-center xmd:flex-col xmd:justify-between'
             >
               <Image

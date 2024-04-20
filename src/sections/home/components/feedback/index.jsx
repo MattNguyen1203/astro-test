@@ -1,8 +1,11 @@
 import ICArrowRightWhite from '@/components/icon/ICArrowRightWhite'
+import {IDGLOBALAPI} from '@/lib/IdPageAPI'
+import getData from '@/lib/getData'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function FeedBack({isMobile}) {
+export default async function FeedBack({isMobile}) {
+  const data = await getData(`/wp/v2/pages/${IDGLOBALAPI}`)
   return (
     <div className='relative w-full h-[77.5rem] xmd:h-[67.13031rem]'>
       <Image
@@ -22,7 +25,9 @@ export default function FeedBack({isMobile}) {
           quality={100}
         />
         <Link
-          href={'/'}
+          href={data?.acf?.link_social?.shoppee || '/'}
+          target='_blank'
+          prefetch={false}
           className='flex items-center py-[0.63536rem] px-[1.27rem] xmd:py-[0.51rem] xmd:px-[1.01rem] rounded-[7.5rem] bg-white justify-center w-fit bottom-[14rem] left-[12.6rem] absolute z-50 xmd:left-[10.4rem] xmd:bottom-[12rem]'
         >
           <span className='text-[0.84714rem] tracking-[0.01061rem] leading-[1.2] font-bold text-greyscale-80 block w-fit mr-[0.64rem] xmd:mr-[0.51rem] xmd:text-[0.67548rem] xmd:tracking-[0.00842rem]'>
