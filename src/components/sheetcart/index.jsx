@@ -26,31 +26,6 @@ export default function SheetCart({
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [cart, setCart] = useState([])
-  const [listCart, setListCart] = useState([])
-
-  useEffect(() => {
-    if (isOpen) {
-      const localGet = JSON.parse(localStorage.getItem('cartAstro')) || []
-
-      if (isAuth) {
-        const fetchCart = async () => {
-          const res = await GET({
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: session?.accessToken,
-            },
-          })
-
-          console.log('res', res)
-        }
-
-        fetchCart()
-        setListCart([])
-      } else {
-        setListCart(localGet)
-      }
-    }
-  }, [isOpen, actionCart])
 
   const handleCart = () => {
     if (cart?.length === listCart?.length) {
