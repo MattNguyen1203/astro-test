@@ -18,11 +18,11 @@
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.swiper-slide img {
+#preview_swiper .swiper-slide img {
   opacity: 0.5;
 }
 
-.swiper-slide-active img {
+#preview_swiper .swiper-slide-active img {
   opacity: 1;
 }
 
