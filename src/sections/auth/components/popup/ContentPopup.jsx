@@ -50,10 +50,10 @@ export default function ContentPopup({
           </button>
         ) : (
           <Link
-            href='/'
+            href={`/`}
             className='w-[12.95754rem] h-[3.22108rem] flex items-center justify-center py-[0.73206rem] pr-[1.1713rem] pl-[1.46413rem] rounded-[0.58565rem] bg-gradient-to-l from-[#1359A1] to-[#102841] font-semibold text-center text-white button whitespace-nowrap'
           >
-            KHÁM PHÁ NGAY
+            Đăng nhập ngay
             <svg
               xmlns='http://www.w3.org/2000/svg'
               width='17'

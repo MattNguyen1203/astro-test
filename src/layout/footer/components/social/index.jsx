@@ -1,66 +1,66 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-const listSocial = [
-  {
-    src: '/layout/footer/f-fb.svg',
-    alt: 'icon facebook',
-    href: '/',
-    size: 'size-full',
-  },
-  {
-    src: '/layout/footer/f-ins.svg',
-    alt: 'icon instagram',
-    href: '/',
-    size: 'size-full',
-  },
-  {
-    src: '/layout/footer/f-shop.svg',
-    alt: 'icon shopee',
-    href: '/',
-    size: 'size-full',
-  },
-  {
-    src: '/layout/footer/f-tik.svg',
-    alt: 'icon tik tok',
-    href: '/',
-    size: 'size-full',
-  },
-]
+export default function Social({isMobile, linkSocial}) {
+  const listSocial = [
+    {
+      src: '/layout/footer/f-fb.svg',
+      alt: 'icon facebook',
+      href: linkSocial?.facebook,
+      size: 'size-full',
+    },
+    {
+      src: '/layout/footer/f-ins.svg',
+      alt: 'icon instagram',
+      href: linkSocial?.instagram,
+      size: 'size-full',
+    },
+    {
+      src: '/layout/footer/f-shop.svg',
+      alt: 'icon shopee',
+      href: linkSocial?.shoppee,
+      size: 'size-full',
+    },
+    {
+      src: '/layout/footer/f-tik.svg',
+      alt: 'icon tik tok',
+      href: linkSocial?.tiktok,
+      size: 'size-full',
+    },
+  ]
 
-const listSocialRes = [
-  {
-    src: '/home/fb.svg',
-    alt: 'icon facebook',
-    href: '/',
-    size: 'w-[1.69422rem] h-[1.8rem]',
-  },
-  {
-    src: '/layout/footer/f-ins-v2.svg',
-    alt: 'icon instagram',
-    href: '/',
-    size: 'size-[1.69422rem]',
-  },
-  {
-    src: '/home/icon-shoppe.svg',
-    alt: 'icon shoppe',
-    href: '/',
-    size: 'size-[1.69422rem]',
-  },
-  {
-    src: '/home/tiktok.svg',
-    alt: 'icon tik tok',
-    href: '/',
-    size: 'size-[1.69422rem]',
-  },
-  {
-    src: '/home/lazada.svg',
-    alt: 'icon lazada',
-    href: '/',
-    size: 'w-[2.07174rem] h-[2.07174rem]',
-  },
-]
-export default function Social({isMobile}) {
+  const listSocialRes = [
+    {
+      src: '/home/fb.svg',
+      alt: 'icon facebook',
+      href: linkSocial?.facebook,
+      size: 'w-[1.69422rem] h-[1.8rem]',
+    },
+    {
+      src: '/layout/footer/f-ins-v2.svg',
+      alt: 'icon instagram',
+      href: linkSocial?.instagram,
+      size: 'size-[1.69422rem]',
+    },
+    {
+      src: '/home/icon-shoppe.svg',
+      alt: 'icon shoppe',
+      href: linkSocial?.shoppee,
+      size: 'size-[1.69422rem]',
+    },
+    {
+      src: '/home/tiktok.svg',
+      alt: 'icon tik tok',
+      href: linkSocial?.tiktok,
+      size: 'size-[1.69422rem]',
+    },
+    {
+      src: '/home/lazada.svg',
+      alt: 'icon lazada',
+      href: linkSocial?.lazada,
+      size: 'w-[2.07174rem] h-[2.07174rem]',
+    },
+  ]
   const data = isMobile ? [...listSocialRes] : [...listSocial]
   return (
     <div className='flex items-center'>

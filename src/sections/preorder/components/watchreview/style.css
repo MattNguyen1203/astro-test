@@ -18,6 +18,14 @@
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+.swiper-slide img {
+  opacity: 0.5;
+}
+
+.swiper-slide-active img {
+  opacity: 1;
+}
+
 @media (max-width: 767px) {
   #preview_swiper .swiper-slide.swiper-slide-next .frame_phone {
     transform: translate(-5%, -50%) scaleY(1) scaleX(1.16);

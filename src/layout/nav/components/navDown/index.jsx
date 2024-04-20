@@ -10,16 +10,16 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function NavDown({categories}) {
+export default function NavDown({categories, categoryOptions}) {
   return (
     <NavigationMenu className='max-w-full'>
       <NavigationMenuList className='flex justify-between lg:min-w-[87.84773060029283rem] xl:min-w-[1200px]'>
-        {categories?.slice(0, 8)?.map((e, index) => (
+        {categoryOptions?.slice(0, 8)?.map((e, index) => (
           <NavigationMenuItem key={index}>
             <NavigationMenuTrigger className='px-0 py-[0.52rem] bg-transparent'>
               <Image
                 className='size-[1.21171rem] object-contain'
-                src={e?.icon || '/layout/nav/pen.svg'}
+                src={e?.thumbnail || '/layout/nav/pen.svg'}
                 alt={e?.name || 'icon category'}
                 priority
                 width={20}

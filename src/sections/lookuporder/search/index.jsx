@@ -99,8 +99,8 @@ export default function SearchTracking({isMobile}) {
           {/* page1 */}
           {!tracking && (
             <div className='flex lg:flex-col items-center xmd:w-full xmd:px-[1.32rem]'>
-              <p className='mb-[0.58565rem] caption1 font-normal text-[#94A4B4]/45 xmd:text-center'>
-                Đăng nhập tài khoản sẽ giúp bạn quản lý đơn hàng dễ dàng hơn!{' '}
+              <p className='mb-[0.58565rem] caption1 font-semibold text-[#204265]/45 xmd:text-center'>
+                Đăng nhập tài khoản sẽ giúp bạn quản lý đơn hàng dễ dàng hơn!
                 <span className='lg:hidden caption1 font-medium text-[#204265]'>
                   Đăng nhập ngay
                 </span>

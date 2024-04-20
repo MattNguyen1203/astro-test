@@ -2,7 +2,7 @@
 import {formatToVND, handlePercentSale, renderPriceProduct} from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
-import {useState} from 'react'
+import {memo, useState} from 'react'
 import dynamic from 'next/dynamic'
 import {useRouter} from 'next/navigation'
 
@@ -36,7 +36,7 @@ function CardProduct({product, priority = false}) {
           height={230}
           priority={priority}
         />
-        {percentSale && (
+        {!!percentSale && (
           <div className='bg-[linear-gradient(104deg,#E88B00_-3.95%,#CE7B00_106.72%)] w-[2.78184rem] h-[1.02489rem] rounded-full caption2 font-semibold text-white absolute top-[0.88rem] left-[0.88rem] xmd:top-[0.44rem] xmd:left-[0.44rem] z-10 flex justify-center items-start tracking-normal md:pt-[0.15rem] xmd:tracking-normal pt-[0.14rem]'>
             {percentSale + '%'}
           </div>
@@ -116,5 +116,5 @@ function CardProduct({product, priority = false}) {
     </div>
   )
 }
-
 export default CardProduct
+
