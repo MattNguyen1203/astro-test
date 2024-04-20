@@ -75,6 +75,7 @@ export default function Social({isMobile, linkSocial}) {
             key={index}
             href={e.href}
             target='_blank'
+            prefetch={false}
             className='flex size-[2.63543rem] xmd:size-[3.95315rem] xmd:justify-center xmd:items-center rounded-full xmd:bg-white xmd:first:ml-0 overflow-hidden'
           >
             <Image

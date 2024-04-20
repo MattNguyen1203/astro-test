@@ -38,8 +38,8 @@ export default function GridAccessory({isMobile, products}) {
       ) : (
         ''
       )}
-      <section className='md:w-[77rem] mx-auto flex justify-between mt-[3.51rem] pb-[3.81rem] relative'>
-        <div className='md:w-[69.9rem]'>
+      <section className='md:w-[77rem] mx-auto flex justify-between mt-[3.51rem] pb-[3.81rem] relative w-full'>
+        <div className='md:w-[69.9rem] w-full'>
           <div className='w-full xmd:py-[0.59rem] xmd:px-[0.88rem] xmd:bg-white xmd:h-fit xmd:flex xmd:justify-between xmd:relative'>
             <h2 className='font-medium text-center h5 text-greyscale-80 md:mb-[2.34rem] xmd:text-[1.31772rem] xmd:tracking-[0.01318rem] xmd:font-semibold'>
               {search

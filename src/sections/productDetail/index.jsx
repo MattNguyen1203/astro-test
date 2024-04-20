@@ -114,9 +114,9 @@ const ProductDetail = ({
     return totalPrice
   }, [listCrossell])
 
-  //set default
+  // set default
   useEffect(() => {
-    const listVariations = Object.values(variations?.variations)
+    const listVariations = Object?.values(variations?.variations)
     listVariations?.forEach((item) => {
       if (item?.default) {
         setSelectedPrd((prev) => ({...prev, selectedVariations: item}))
@@ -138,9 +138,9 @@ const ProductDetail = ({
               const data = await fetcher(url)
 
               if (data) {
-                const defaultValue = Object.values(data.variations || {}).find(
-                  (variation) => variation.default,
-                )
+                const defaultValue = Object?.values(
+                  data?.variations || {},
+                ).find((variation) => variation?.default)
                 return {
                   ...item,
                   listVariations: data,

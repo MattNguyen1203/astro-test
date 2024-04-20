@@ -5,7 +5,7 @@ import Image from 'next/image'
 export default function AddToCart({data}) {
   const session = useSession()
   console.log('🚀 ~ AddToCart ~ session:', session)
-  const isAuth = session?.status === 'authenticated'
+  const isAuth = session?.status === 'unauthenticated'
 
   const handleAddToCard = () => {
     if (isAuth) {

@@ -1,11 +1,13 @@
 'use client'
 import {loginForm} from '@/actions/loginForm'
 import {Dialog, DialogContent} from '@/components/ui/dialog'
+import {useSession} from 'next-auth/react'
 import Image from 'next/image'
 import {useTransition} from 'react'
 
 export function PopupRegister({isOpen, setIsSuccess}) {
   const [isPending, startTransition] = useTransition()
+  const session = useSession()
 
   const handleLogin = () => {
     startTransition(() => {
@@ -18,6 +20,7 @@ export function PopupRegister({isOpen, setIsSuccess}) {
       loginForm(values)
         .then((res) => {
           localStorage.removeItem('firstLogin')
+          session.update()
         })
         .catch((err) => console.log('err', err))
     })
@@ -59,13 +62,13 @@ export function PopupRegister({isOpen, setIsSuccess}) {
             >
               {isPending ? (
                 <svg
-                  class='animate-spin h-[2rem] w-[2rem] text-white'
+                  className='animate-spin h-[2rem] w-[2rem] text-white'
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
                   viewBox='0 0 24 24'
                 >
                   <circle
-                    class='opacity-25'
+                    className='opacity-25'
                     cx='12'
                     cy='12'
                     r='10'
