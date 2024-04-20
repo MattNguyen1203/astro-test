@@ -15,6 +15,7 @@ import useSWR from 'swr'
 import {useRouter} from 'next/navigation'
 import {toast} from 'sonner'
 import useStore from '@/app/(store)/store'
+import {GET} from '@/app/api/cart/route'
 
 export default function SheetCart({children, isMobile = false, session}) {
   console.log('🚀 ~ SheetCart ~ session:', session)
@@ -26,34 +27,26 @@ export default function SheetCart({children, isMobile = false, session}) {
   const [cart, setCart] = useState([])
   const [listCart, setListCart] = useState([])
 
-  const fetcher = (url) =>
-    fetch(url, {
-      headers: {
-        Authorization: `Bearer ${session?.data?.accessToken}`,
-      },
-    }).then((res) => res.json())
-
-  // process.env.NEXT_PUBLIC_API + '/wc/store/v1/cart'
-  const {
-    data: dataCart,
-    isLoading,
-    error,
-  } = useSWR(
-    isAuth ? process.env.NEXT_PUBLIC_API + '/okhub/v1/cart' : null,
-    fetcher,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    },
-  )
-
   useEffect(() => {
     if (isOpen) {
       const localGet = JSON.parse(localStorage.getItem('cartAstro')) || []
 
       if (isAuth) {
-        setListCart(dataCart)
+
+        console.log('res', res)
+        const fetchCart = async () => {
+          const res = await GET({
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: session?.accessToken,
+            },
+          })
+
+          console.log('res', res)
+        }
+
+        fetchCart()
+        setListCart([])
       } else {
         setListCart(localGet)
       }

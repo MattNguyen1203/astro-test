@@ -17,14 +17,16 @@ import Image from 'next/image'
 import {signIn} from 'next-auth/react'
 import {signUpForm} from '@/actions/signUpForm'
 
-import {useState, useTransition} from 'react'
+import {useEffect, useState, useTransition} from 'react'
 import {PopupRegister} from '@/sections/auth/components/popup/PopupRegister'
 import BtnSubmit from '@/sections/auth/components/btnsubmit'
 import SelectOptions from './SelectOptions'
 import {Textarea} from '@/components/ui/textarea'
+import {covertToText} from './function'
+import {toast} from 'sonner'
 
 const formSchema = z.object({
-  name: z.string().min(1, {message: 'Vui lòng không để trống!'}),
+  fullname: z.string().min(1, {message: 'Vui lòng không để trống!'}),
   email: z
     .string()
     .min(1, {message: 'Vui lòng nhập email!'})
@@ -35,27 +37,60 @@ const formSchema = z.object({
     .regex(/^[0-9]{6,15}$/, {message: 'Định dạng không hợp lệ!'}),
   options: z.string().min(1, {message: 'Vui lòng không để trống!'}),
   note: z.string(),
+  product: z.string(),
 })
 
 export default function FormPreOrder({data, setSelectedPrd, selectedPrd}) {
   const [isPending, startTransition] = useTransition()
   const [isSuccess, setIsSuccess] = useState(false)
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
+      fullname: '',
       email: '',
       phone: '',
       options: '',
       note: '',
+      product: selectedPrd?.name || '',
     },
   })
 
-  const values = form.watch()
+  useEffect(() => {
+    form.setValue('options', covertToText(selectedPrd) || '')
+  }, [selectedPrd, form])
 
-  function onSubmit(values) {
-    // startTransition(() => {
-    // })
+  const onSubmit = async (value) => {
+    await startTransition(async () => {
+      const formData = new FormData()
+
+      formData.append('fullname', value.fullname)
+      formData.append('email', value.email)
+      formData.append('phone', value.phone)
+      formData.append('options', value.options)
+      formData.append('note', value.note)
+      formData.append('product', value.product)
+      formData.append('_wpcf7_unit_tag', '997')
+
+      const reqOption = {
+        method: 'POST',
+        body: formData,
+      }
+      startTransition(true)
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API}/contact-form-7/v1/contact-forms/997/feedback`,
+        reqOption,
+      )
+      const result = await res.json()
+
+      if (result.status === 'mail_sent') {
+        toast.success('Gửi yêu cẩu thành công')
+        form.reset()
+      } else {
+        toast.error('Gửi yêu cẩu chưa thành công')
+      }
+    })
   }
 
   return (
@@ -73,9 +108,8 @@ export default function FormPreOrder({data, setSelectedPrd, selectedPrd}) {
             height={72}
           />
         </div>
-        <p className='font-medium line-clamp-2 body1 text-greyscale-50'>
-          [Paperlike nam châm] Miếng dán AstroMazing Paperfilm Paper like tháo
-          rời dành cho iPad Pro 11 12.9 Air 4 5 Gen 7 8 9 10
+        <p className='font-medium line-clamp-2 body1 text-greyscale-50 capitalize'>
+          {selectedPrd?.name}
         </p>
       </div>
       <Form {...form}>
@@ -86,7 +120,7 @@ export default function FormPreOrder({data, setSelectedPrd, selectedPrd}) {
           <div className='grid grid-cols-3 gap-[0.88rem] xmd:gap-0 xmd:flex xmd:flex-wrap xmd:space-y-[0.88rem]'>
             <FormField
               control={form.control}
-              name='name'
+              name='fullname'
               render={({field}) => (
                 <FormItem className='xmd:w-full'>
                   <FormControl>
@@ -101,6 +135,7 @@ export default function FormPreOrder({data, setSelectedPrd, selectedPrd}) {
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name='email'
@@ -125,7 +160,7 @@ export default function FormPreOrder({data, setSelectedPrd, selectedPrd}) {
                 <FormItem className='xmd:w-1/2  xmd:ml-[0.88rem]'>
                   <FormControl>
                     <Input
-                      className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
+                      className=' placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
                       placeholder='Số điện thoại *'
                       type='tel'
                       {...field}
@@ -142,6 +177,25 @@ export default function FormPreOrder({data, setSelectedPrd, selectedPrd}) {
               data={data}
               setSelectedPrd={setSelectedPrd}
               selectedPrd={selectedPrd}
+            />
+
+            <FormField
+              control={form.control}
+              name='options'
+              render={({field}) => (
+                <FormItem className='xmd:w-full'>
+                  <FormControl>
+                    <Input
+                      type='text'
+                      className='hidden !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik'
+                      placeholder='Options *'
+                      {...field}
+                      value=''
+                    />
+                  </FormControl>
+                  <FormMessage className='pl-[0.88rem] font-svnGraphik' />
+                </FormItem>
+              )}
             />
           </div>
           <div className='w-full'>

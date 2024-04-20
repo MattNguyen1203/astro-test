@@ -45,7 +45,14 @@ const prdOther = [
   },
 ]
 
-const ProductDetail = ({isMobile, data, voucher, variations, bestCoupon}) => {
+const ProductDetail = ({
+  isMobile,
+  data,
+  voucher,
+  variations,
+  bestCoupon,
+  relatedProduct,
+}) => {
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
   const [isLoading, setIsLoading] = useState(true)
@@ -365,7 +372,7 @@ const ProductDetail = ({isMobile, data, voucher, variations, bestCoupon}) => {
 
       {isFlashSale && (
         <div className='xmd:hidden'>
-          <RelatedProduct />
+          <RelatedProduct relatedProduct={relatedProduct?.item} />
         </div>
       )}
     </div>

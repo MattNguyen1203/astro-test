@@ -42,7 +42,7 @@ const prdOther = [
   },
 ]
 
-const PreOrder = ({isMobile, data, voucher, variations}) => {
+const PreOrder = ({isMobile, data, voucher, variations, relatedProduct}) => {
   const ordered = 35
   const totalProd = 100
   const [isOpen, setIsOpen] = useState(false) // open popup product
@@ -55,7 +55,7 @@ const PreOrder = ({isMobile, data, voucher, variations}) => {
       Object.values(variations?.variations)?.find((item) => item.default) || {},
   })
 
-  console.log('selectedPrd', selectedPrd)
+  // console.log('relatedProduct', relatedProduct)
   //get list image
   const listGallery = useMemo(() => {
     const gallery = data?.galleryImgs.map((item) => item)
@@ -210,7 +210,7 @@ const PreOrder = ({isMobile, data, voucher, variations}) => {
       </div>
 
       <div className='container pb-[4.39rem]'>
-        <RelatedProduct />
+        <RelatedProduct relatedProduct={relatedProduct?.item || []} />
       </div>
     </>
   )

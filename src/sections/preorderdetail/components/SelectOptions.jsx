@@ -7,6 +7,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import {useEffect, useMemo, useState} from 'react'
+import {covertToText} from './function'
 
 export default function SelectOptions({
   className = '',
@@ -15,42 +16,13 @@ export default function SelectOptions({
   setSelectedPrd,
   selectedPrd,
 }) {
-  // console.log('selectedPrd', selectedPrd)
-
-  // const placeholder = ''
-  const placeholder = useMemo(() => {
-    if (!selectedPrd?.selectedVariations?.attributes)
-      return 'Vui lòng chọn option'
-    const listAttr = selectedPrd.attributes
-    let text = ''
-
-    const result = listAttr.map((item) => {
-      return {
-        ...item,
-        value: Object.values(selectedPrd?.selectedVariations?.attributes)?.find(
-          (attr) => attr.taxonomy === item.key,
-        )?.label,
-      }
-    })
-
-    if (result) {
-      result.forEach((item, index) => {
-        text += `${item.label}: ${item.value || ''}${
-          index !== result.length - 1 ? ', ' : ''
-        }`
-      })
-    }
-
-    return text
-  }, [selectedPrd])
-
-  console.log('selectedPrd', selectedPrd)
+  const placeholder = useMemo(() => covertToText(selectedPrd), [selectedPrd])
 
   return (
     <div className={`${className} w-full h-full`}>
       <Select className='h-full'>
         <SelectTrigger className='w-full h-full bg-elevation-20 rounded-[0.43924rem]'>
-          <SelectValue placeholder={placeholder || ''} />
+          <SelectValue placeholder={placeholder || 'Vui lòng chọn option'} />
         </SelectTrigger>
         <SelectContent className='z-[999999] max-w-full p-[1rem]'>
           <Variation
