@@ -1,7 +1,7 @@
 'use client'
 import useStore from '@/app/(store)/store'
-import {getDataAuth} from '@/app/api/cart/route'
 import SheetCart from '@/components/sheetcart'
+import {getDataAuth} from '@/lib/getDataAuth'
 import {useSession} from 'next-auth/react'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
