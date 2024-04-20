@@ -3,7 +3,6 @@ import {logout} from '@/actions/logout'
 import Image from 'next/image'
 import Link from 'next/link'
 import {usePathname} from 'next/navigation'
-import {useSession} from 'next-auth/react'
 
 const menuOptions = [
   {
@@ -38,9 +37,7 @@ const menuOptions = [
   },
 ]
 
-export default function MenuUser({setIsOpen = () => {}}) {
-  const session = useSession()
-  console.log('🚀 ~ MenuUser ~ session:', session)
+export default function MenuUser({setIsOpen = () => {}, session}) {
   const pathName = usePathname()
   return (
     <div className='flex flex-col p-[0.88rem] mt-[0.6rem] *:mt-[0.44rem] *:first:mt-0 bg-white rounded-[0.58565rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>
@@ -76,7 +73,7 @@ export default function MenuUser({setIsOpen = () => {}}) {
           </Link>
         </div>
       ))}
-      {session?.data?.accessToken ? (
+      {session?.accessToken ? (
         <div
           onClick={() => {
             setIsOpen(false)

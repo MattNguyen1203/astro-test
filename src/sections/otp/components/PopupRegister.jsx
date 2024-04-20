@@ -1,13 +1,11 @@
 'use client'
 import {loginForm} from '@/actions/loginForm'
 import {Dialog, DialogContent} from '@/components/ui/dialog'
-import {useSession} from 'next-auth/react'
 import Image from 'next/image'
 import {useTransition} from 'react'
 
 export function PopupRegister({isOpen, setIsSuccess}) {
   const [isPending, startTransition] = useTransition()
-  const session = useSession()
 
   const handleLogin = () => {
     startTransition(() => {
@@ -20,7 +18,6 @@ export function PopupRegister({isOpen, setIsSuccess}) {
       loginForm(values)
         .then((res) => {
           localStorage.removeItem('firstLogin')
-          session.update()
         })
         .catch((err) => console.log('err', err))
     })
@@ -33,7 +30,7 @@ export function PopupRegister({isOpen, setIsSuccess}) {
       <DialogContent
         className='max-w-fit w-fit rounded-[0.87848rem] bg-white p-[2rem]'
         overlay='bg-black/10'
-        hiddenClose={true}
+        // hiddenClose={true}
       >
         <div className='flex w-[35.35871rem] p-[1.46413rem] justify-center items-center rounded-[0.87848rem] bg-white select-none'>
           <div className='flex flex-col items-center justify-center flex-1'>

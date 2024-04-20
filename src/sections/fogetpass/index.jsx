@@ -17,6 +17,7 @@ import {useState, useTransition} from 'react'
 import BtnSubmit from '../auth/components/btnsubmit'
 import {sendOTP} from '@/actions/sendOTP'
 import {convertPhone} from '@/lib/utils'
+import {useRouter} from 'next/navigation'
 
 const formSchema = z.object({
   phone: z
@@ -26,6 +27,7 @@ const formSchema = z.object({
 })
 
 export default function FogetPassIndex() {
+  const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [isSuccess, setIsSuccess] = useState(false)
 
@@ -45,11 +47,18 @@ export default function FogetPassIndex() {
           type: 'change-password',
         }),
       ).then((otp) => {
+        console.log('🚀 ~ ).then ~ otp:', otp)
         if (otp?.data?.status === 400) {
           if (otp?.code === 'phone_error_not_exsits') {
             form.setError('phone', {
               type: 'validate',
               message: 'Không tìm thấy tài khoản này!',
+            })
+          } else if (otp?.code === 'phone_error_limit_code') {
+            form.setError('phone', {
+              type: 'validate',
+              message:
+                'Bạn đã vượt quá giới hạn 5 lần/ngày. Vui lòng thử lại vào ngày mai!',
             })
           } else {
             form.setError('phone', {
@@ -62,7 +71,7 @@ export default function FogetPassIndex() {
             localStorage.setItem('registerDraf', JSON.stringify(values))
             return router.push(`/otp?type=password&phone=${phone}`)
           } else {
-            form.setError('confirmPassword', {
+            form.setError('phone', {
               type: 'validate',
               message: otp?.message,
             })
@@ -86,7 +95,7 @@ export default function FogetPassIndex() {
               <FormItem>
                 <FormControl>
                   <Input
-                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik placeholder:text-greyscale-40/60 placeholder:!text-[0.75rem] placeholder:font-medium placeholder:leading-[1.2] placeholder:tracking-[0.00375rem]'
+                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik placeholder:text-greyscale-40/60 placeholder:font-medium placeholder:leading-[1.2] placeholder:tracking-[0.00375rem]'
                     placeholder='Nhập số điện thoại'
                     {...field}
                   />

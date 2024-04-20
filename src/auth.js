@@ -18,9 +18,7 @@ export const {
       if (user?.data?.status === 401) return '/dang-nhap?status=401'
       return true
     },
-    async jwt({token, account, user, session, trigger}) {
-      console.log('🚀 ~ jwt ~ session:', session)
-      console.log('🚀 ~ jwt ~ trigger:', trigger)
+    async jwt({token, account, user}) {
       // Chỉ thực hiện khi người dùng đăng nhập và có thông tin từ provider
       // Khi người dùng đăng nhập bằng Google, lưu access token vào token
       if (account?.provider === 'google') {
@@ -70,7 +68,6 @@ export const {
           token.error = 'RefreshAccessTokenError'
         }
       }
-      console.log('🚀 ~ jwt ~ token:', token)
       return token
     },
     async session({token, session}) {
@@ -82,7 +79,6 @@ export const {
       if (token.error === 'RefreshAccessTokenError') {
         throw new Error('RefreshAccessTokenError')
       }
-      console.log('🚀 ~ session ~ session:', session)
       return session
     },
   },

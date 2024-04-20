@@ -41,29 +41,29 @@ export default function NavAuth({children}) {
             className='headphones absolute top-0 left-[2.86rem]'
             alt='icon phone'
             src={'/auth/headphones.png'}
-            width={86.781}
-            height={97.045}
+            width={86}
+            height={97}
           />
           <Image
             className='heart absolute bottom-[3.54rem] left-0'
             alt='icon heart'
             src={'/auth/layer1.png'}
-            width={76.464}
-            height={67.401}
+            width={76}
+            height={671}
           />
           <Image
-            className='cardvisa absolute top-0 right-0'
+            className='absolute top-0 right-0 cardvisa'
             alt='icon cardvisa'
             src={'/auth/cardvisa.png'}
-            width={145.941}
-            height={120.279}
+            width={145}
+            height={120}
           />
           <Image
             className='camera absolute bottom-[3rem] right-[3.27rem]'
             alt='icon camera'
             src={'/auth/camera.png'}
-            width={94.72}
-            height={74.129}
+            width={94}
+            height={74}
           />
         </div>
         <Image

@@ -83,12 +83,41 @@ export default function OTP({isMobile}) {
       }
       // handle case send OTP change password
       if (type === 'password') {
+        sendOTP(
+          JSON.stringify({
+            phone: phone,
+            type: 'change-password',
+          }),
+        ).then((otp) => {
+          console.log('🚀 ~ ).then ~ otp:', otp)
+          if (otp?.code === 'phone_error_limit_code') {
+            setIsLock(true)
+            toast.error(
+              'Bạn đã vượt quá giới hạn 5 lần/ngày. Vui lòng thử lại vào ngày mai!',
+              {
+                duration: 5000,
+                position: 'bottom-center',
+              },
+            )
+          }
+          if (otp?.code === 'phone_error_not_exsits') {
+            setIsLock(true)
+            toast.error('Số điện thoại này không tồn tại!', {
+              duration: 5000,
+              position: 'bottom-center',
+            })
+          }
+          if (otp?.message === 'Send OTP Success') {
+            setIsReCount(!isReCount)
+            isLock && setIsLock(false)
+          }
+        })
       }
     })
   }
 
   const handleSubmitOTP = () => {
-    if (!phone || !type || !email)
+    if (!phone || !type)
       return setValidate('Vui lòng quay lại bước trước đó và thử lại!')
     if (value?.length !== 6) return setValidate('Vui lòng điền OTP!')
     const registerDraf = JSON.parse(localStorage.getItem('registerDraf'))
@@ -99,34 +128,41 @@ export default function OTP({isMobile}) {
       return
 
     startTransition(() => {
-      const body = JSON.stringify({
-        phone: phone,
-        type: type,
-        otp: value,
-        email: email,
-        password: registerDraf?.password,
-        re_password: registerDraf?.password,
-      })
-      signUpForm(body)
-        .then((res) => {
-          if (res?.user_id) {
-            // handle register success
-            localStorage.setItem('firstLogin', JSON.stringify(registerDraf))
-            localStorage.removeItem('registerDraf')
-            setIsSuccess(true)
-          } else {
-            if (res?.code === 'invalid_otp_not_found') {
-              return setValidate('OTP chưa chính xác!')
-            }
-            if (res?.code === 'phone_error_exsited') {
-              return toast.warning('Tài khoản đã tồn tại. Vui lòng đăng nhập!')
-            }
-            // handle register failed
-          }
+      if (type === 'register') {
+        const body = JSON.stringify({
+          phone: phone,
+          type: type,
+          otp: value,
+          email: email,
+          password: registerDraf?.password,
+          re_password: registerDraf?.password,
         })
-        .catch((err) => {
-          console.log(err)
-        })
+        signUpForm(body)
+          .then((res) => {
+            if (res?.user_id) {
+              // handle register success
+              localStorage.setItem('firstLogin', JSON.stringify(registerDraf))
+              localStorage.removeItem('registerDraf')
+              setIsSuccess(true)
+            } else {
+              if (res?.code === 'invalid_otp_not_found') {
+                return setValidate('OTP chưa chính xác!')
+              }
+              if (res?.code === 'phone_error_exsited') {
+                return toast.warning(
+                  'Tài khoản đã tồn tại. Vui lòng đăng nhập!',
+                )
+              }
+              // handle register failed
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
+      if (type === 'password') {
+        return router.push(`/dat-lai-mat-khau?phone=${phone}&otp=${value}`)
+      }
     })
   }
 

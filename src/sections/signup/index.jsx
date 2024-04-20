@@ -17,7 +17,6 @@ import Image from 'next/image'
 import {signIn} from 'next-auth/react'
 
 import {useState, useTransition} from 'react'
-import {PopupRegister} from '../auth/components/popup/PopupRegister'
 import BtnSubmit from '../auth/components/btnsubmit'
 import {useRouter} from 'next/navigation'
 import {sendOTP} from '@/actions/sendOTP'
@@ -58,7 +57,6 @@ export default function SignUpIndex() {
   const router = useRouter()
 
   const [isPending, startTransition] = useTransition()
-  const [isSuccess, setIsSuccess] = useState(false)
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -236,13 +234,6 @@ export default function SignUpIndex() {
           Đăng nhập
         </Link>
       </div>
-
-      <PopupRegister
-        isOpen={isSuccess}
-        setIsSuccess={setIsSuccess}
-        isSignUp={true}
-        phone={form.watch().phone}
-      />
     </article>
   )
 }

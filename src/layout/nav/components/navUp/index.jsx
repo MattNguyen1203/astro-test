@@ -50,7 +50,7 @@ export default async function NavUp({
           isMobile={isMobile}
         />
         <Account
-          user={session?.user}
+          session={session}
           isMobile={isMobile}
         />
         {isMobile ? (
