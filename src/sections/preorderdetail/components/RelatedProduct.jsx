@@ -2,8 +2,8 @@ import CardProduct from '@/components/cardproduct'
 import Image from 'next/image'
 import React from 'react'
 
-const RelatedProduct = () => {
-  const relatedProduct = new Array(5).fill(0)
+const RelatedProduct = ({relatedProduct}) => {
+  // const relatedProduct = new Array(5).fill(0)
   return (
     <>
       <div className='flex justify-between items-center bg-white py-[0.22rem] px-[0.59rem] rounded-[0.58565rem] mb-[0.88rem]'>
@@ -32,7 +32,7 @@ const RelatedProduct = () => {
               className='xmd:w-[15rem] xmd:mr-[0.88rem]'
               key={index}
             >
-              <CardProduct />
+              <CardProduct product={item} />
             </div>
           ))}
         </div>

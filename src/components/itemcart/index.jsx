@@ -4,6 +4,7 @@ import ButtonChange from './ButtonChange'
 import BoxCheck from '../sheetcart/BoxCheck'
 import Variantion from './Variantion'
 import useStore from '@/app/(store)/store'
+import Variation from '../popupproduct/Variation'
 
 export default function ItemCart({
   cart,
@@ -31,22 +32,10 @@ export default function ItemCart({
           cart={cart}
           index={index}
         />
-        <button
-          onClick={handleDeleteItemCart}
-          className='w-[1.75695rem] h-fit block mt-[0.88rem] xmd:w-[1.5rem]'
-        >
-          <Image
-            className='w-full h-auto'
-            src={'/components/delete.svg'}
-            alt='icon delete'
-            width={24}
-            height={24}
-          />
-        </button>
       </div>
       <div className='w-[6.44217rem] xmd:w-[6.00293rem] bg-white rounded-[0.48023rem] overflow-hidden flex-shrink-0 xmd:border xmd:border-solid xmd:border-[#F6F6F6]'>
         <Image
-          className='object-contain size-full'
+          className='object-cover size-full'
           src={item?.featuredImage?.url || '/home/item-product.jpg'}
           alt={item?.featuredImage?.alt || item?.name}
           width={82}
@@ -59,21 +48,34 @@ export default function ItemCart({
             <h2 className='font-medium line-clamp-1 caption1 text-greyscale-40 xmd:text-greyscale-50 xmd:font-semibold leading-[1.2] xmd:tracking-[0.01025rem]'>
               {item?.name}
             </h2>
+
+            <div className='flex items-center md:my-[0.5rem] xmd:space-x-[0.29rem]'>
+              <span className='font-semibold text-blue-600 sub2 xmd:caption1 md:mr-[0.25rem]'>
+                65.000đ
+              </span>
+              <span className='font-normal line-through giagoc text-greyscale-40 xmd:tracking-normal'>
+                130.000đ
+              </span>
+            </div>
           </div>
           <div className='relative flex w-full mt-auto xmd:mt-[0.44rem]'>
             <Variantion className='mr-[0.59rem]' />
             <Variantion />
           </div>
         </div>
-        <div className='flex justify-between md:flex-col xmd:pl-[0.44rem] xmd:mt-[0.59rem]'>
-          <div className='flex items-center md:flex-col xmd:space-x-[0.29rem]'>
-            <span className='font-semibold text-blue-600 sub2 xmd:caption1'>
-              65.000đ
-            </span>
-            <span className='font-normal line-through giagoc text-greyscale-40 xmd:tracking-normal'>
-              130.000đ
-            </span>
-          </div>
+        <div className='flex md:h-full justify-between md:flex-col md:items-end xmd:pl-[0.44rem] xmd:mt-[0.59rem]'>
+          <button
+            onClick={handleDeleteItemCart}
+            className='w-[1.45695rem] h-fit block xmd:w-[1.5rem]'
+          >
+            <Image
+              className='w-full h-auto'
+              src={'/components/delete.svg'}
+              alt='icon delete'
+              width={24}
+              height={24}
+            />
+          </button>
           <ButtonChange />
         </div>
       </div>
