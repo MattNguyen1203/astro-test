@@ -18,7 +18,6 @@ import useStore from '@/app/(store)/store'
 import {GET} from '@/app/api/cart/route'
 
 export default function SheetCart({children, isMobile = false, session}) {
-  console.log('🚀 ~ SheetCart ~ session:', session)
   const isAuth = session?.accessToken === 'authenticated'
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
@@ -32,8 +31,6 @@ export default function SheetCart({children, isMobile = false, session}) {
       const localGet = JSON.parse(localStorage.getItem('cartAstro')) || []
 
       if (isAuth) {
-
-        console.log('res', res)
         const fetchCart = async () => {
           const res = await GET({
             headers: {

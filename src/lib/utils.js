@@ -96,6 +96,6 @@ export function convertPhone(phone) {
     ? phone?.replace('840', '0')
     : phone?.startsWith('84')
     ? phone?.replace('84', '0')
-    : ''
+    : phone
   return phoneEnd
 }

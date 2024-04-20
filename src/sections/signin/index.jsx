@@ -20,7 +20,7 @@ import {signIn, useSession} from 'next-auth/react'
 import {loginForm} from '@/actions/loginForm'
 import {useEffect, useState, useTransition} from 'react'
 import BtnSubmit from '../auth/components/btnsubmit'
-import {PopupRegister} from '../auth/components/popup/PopupRegister'
+import {PopupResetPass} from '../auth/components/popup/PopupResetPass'
 
 const formSchema = z.object({
   // email: z.string().email({message: 'Nhập đúng định dạng email!'}),
@@ -34,10 +34,10 @@ const formSchema = z.object({
 })
 
 export default function SignInIndex({status}) {
+  const {update} = useSession()
   const [isPending, startTransition] = useTransition()
   const [isFailed, setIsFailed] = useState(false)
   const [notePass, setNotePass] = useState(false)
-  const session = useSession()
 
   useEffect(() => {
     if (Number(status) === 401) {
@@ -56,6 +56,7 @@ export default function SignInIndex({status}) {
   })
 
   useEffect(() => {
+    update()
     const account = JSON.parse(localStorage.getItem('account'))
     if (account) {
       setNotePass(true)
@@ -83,10 +84,11 @@ export default function SignInIndex({status}) {
         localStorage.removeItem('account')
       }
       loginForm(payload)
-        .then((res) => {
-          session.update()
+        .then((res) => {})
+        .catch((err) => {
+          console.log('err', err)
+          setIsFailed(true)
         })
-        .catch((err) => console.log('err', err))
     })
   }
 
@@ -202,7 +204,7 @@ export default function SignInIndex({status}) {
           Đăng ký
         </Link>
       </div>
-      <PopupRegister
+      <PopupResetPass
         isLogin={true}
         isOpen={isFailed}
         setIsSuccess={setIsFailed}

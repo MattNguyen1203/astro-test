@@ -108,7 +108,7 @@ export default function FormPreOrder({data, setSelectedPrd, selectedPrd}) {
             height={72}
           />
         </div>
-        <p className='font-medium line-clamp-2 body1 text-greyscale-50 capitalize'>
+        <p className='font-medium capitalize line-clamp-2 body1 text-greyscale-50'>
           {selectedPrd?.name}
         </p>
       </div>

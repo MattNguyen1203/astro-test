@@ -1,3 +1,4 @@
+import {auth} from '@/auth'
 import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
 import {TabsProfile} from '@/components/tabprofile'
 import getDataProxy from '@/lib/getDataProxy'
@@ -8,10 +9,11 @@ export default async function AccountPage({searchParams}) {
   const {viewport} = searchParams
   const isMobile = viewport === 'mobile'
 
-  const [province, district, commune] = await Promise.all([
+  const [province, district, commune, session] = await Promise.all([
     getDataProxy('/api/province'),
     getDataProxy('/api/district'),
     getDataProxy('/api/commune'),
+    auth(),
   ])
   return (
     <>

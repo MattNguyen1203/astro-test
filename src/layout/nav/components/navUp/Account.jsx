@@ -8,7 +8,8 @@ import {useEffect, useState} from 'react'
 import dynamic from 'next/dynamic'
 const MenuUser = dynamic(() => import('@/sections/account/components/menuuser'))
 
-export default function Account({user, isMobile}) {
+export default function Account({session, isMobile}) {
+  const {user} = session
   const [isOpen, setIsOpen] = useState(false)
   const [sideRef, isOutSide] = useClickOutSide(false)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
@@ -44,7 +45,10 @@ export default function Account({user, isMobile}) {
             isOpen ? 'active' : ''
           } absolute w-[15.8858rem] -bottom-[0.66rem] translate-y-full left-1/2 -translate-x-1/2 z-50 rounded-[0.58565rem] bg-white shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)]`}
         >
-          <MenuUser setIsOpen={setIsOpen} />
+          <MenuUser
+            setIsOpen={setIsOpen}
+            session={session}
+          />
         </div>
       )}
     </div>

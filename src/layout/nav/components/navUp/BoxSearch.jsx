@@ -3,11 +3,12 @@
 import Link from 'next/link'
 import InputSearchNav from './InputSearchNav'
 import PopupResult from './PopupResult'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import useStore from '@/app/(store)/store'
 import PopupStore from '../popupstore'
 import useSWR from 'swr'
 import {fetcher} from '@/lib/utils'
+import {useSession} from 'next-auth/react'
 
 const linkNavUp = [
   {
@@ -37,6 +38,11 @@ export default function BoxSearch({
   const [value, setValue] = useState('')
   const isFocusSearchNav = useStore((state) => state.isFocusSearchNav)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
+  const {update} = useSession()
+
+  useEffect(() => {
+    update()
+  }, [])
 
   const {data, error, isLoading} = useSWR(
     value
