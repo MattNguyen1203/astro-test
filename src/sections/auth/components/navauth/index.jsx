@@ -36,30 +36,30 @@ export default function NavAuth({children}) {
           priority
           quality={100}
         />
-        <div className='absolute w-[34.00564rem] h-[26.2429rem] top-[11.5688rem] left-[15.2988rem]'>
+        <div className='absolute w-[34.00564rem] h-[26.2429rem] top-[11.5688vh] left-[12.76vw]'>
           <Image
-            className='headphones absolute top-0 left-[2.86rem]'
+            className='headphones absolute top-0 left-[2.86vw] w-[6.35293rem] h-[7.10432rem]'
             alt='icon phone'
             src={'/auth/headphones.png'}
             width={86}
             height={97}
           />
           <Image
-            className='heart absolute bottom-[3.54rem] left-0'
+            className='heart absolute bottom-[3.54vh] left-0 h-[4.20212rem] w-[4.86559rem]'
             alt='icon heart'
             src={'/auth/layer1.png'}
             width={76}
             height={671}
           />
           <Image
-            className='absolute top-0 right-0 cardvisa'
+            className='absolute top-0 right-0 cardvisa w-[10.68382rem] h-[8.8052rem]'
             alt='icon cardvisa'
             src={'/auth/cardvisa.png'}
             width={145}
             height={120}
           />
           <Image
-            className='camera absolute bottom-[3rem] right-[3.27rem]'
+            className='camera absolute bottom-[3vh] right-[3.27vw] w-[6.93411rem] h-[5.42672rem]'
             alt='icon camera'
             src={'/auth/camera.png'}
             width={94}

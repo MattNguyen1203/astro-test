@@ -23,7 +23,7 @@ export default function WatchReview({isMobile}) {
     <section className='w-full overflow-hidden'>
       {!isMobile && (
         <div className='my-[3.51rem] flex justify-center items-center rounded-[0.87848rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] px-[4.39rem] py-[1.17rem] w-fit mx-auto'>
-          <h2 className='bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)] h6 font-bold bg-clip-text'>
+          <h2 className='bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)] h6 font-bold font-svnGraphik bg-clip-text'>
             CÙNG XEM REVIEW SẢN PHẨM
           </h2>
         </div>

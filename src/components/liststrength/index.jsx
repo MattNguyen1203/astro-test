@@ -10,7 +10,7 @@ export default async function ListStrength() {
   return (
     <section className='py-[2.71rem] xmd:py-[3.22rem] bg-white relative z-10'>
       <div
-        className='container flex justify-between xmd:grid xmd:grid-cols-2 xmd:gap-[0.59rem]
+        className='container xmd:mx-[0.59rem] flex justify-between xmd:grid xmd:grid-cols-2 xmd:gap-[0.59rem]
       tablet:grid tablet:grid-cols-2 tablet:gap-[2rem]'
       >
         {listCardStrength?.map((e, index) => (

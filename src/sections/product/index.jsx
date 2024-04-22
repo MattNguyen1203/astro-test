@@ -11,7 +11,7 @@ export default function IndexProduct({products, isMobile, categories}) {
         <div className='mb-[1.76rem] xmd:mb-[1.16rem] xlg:hidden xmd:block'>
           <BreadCrumb name={'Sản phẩm'} />
         </div>
-        <div className='w-full h-[11.35747rem] xmd:h-[9.9063rem] rounded-[0.58565rem] shadow-[1.714px_3.429px_17.143px_0px_rgba(0,0,0,0.02),-5.143px_1.714px_27.429px_0px_rgba(0,0,0,0.06)] mb-[1.82rem]'>
+        <div className='w-full h-[11.35747rem] xmd:h-[9.9063rem] rounded-[0.58565rem] shadow-[1.714px_3.429px_17.143px_0px_rgba(0,0,0,0.02),-5.143px_1.714px_27.429px_0px_rgba(0,0,0,0.06)] mb-[1.82rem] xmd:mb-[1.18rem]'>
           <Image
             className='size-full object-cover rounded-[0.58565rem]'
             src={'/product/banner.jpg'}

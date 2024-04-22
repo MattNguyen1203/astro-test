@@ -4,8 +4,8 @@ import Link from 'next/link'
 export default function ProductPreOrder() {
   return (
     <section className='container relative z-10'>
-      <div className='my-[3.51rem] flex justify-center items-center rounded-[0.87848rem] md:bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] px-[4.39rem] py-[1.17rem] w-fit mx-auto xmd:mt-[2.34rem] xmd:mb-[1.17rem] xmd:w-full xmd:bg-[rgba(244,244,244,0.90)]'>
-        <h2 className='md:bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)] h6 font-bold md:bg-clip-text xmd:rounded-[0.58565rem] xmd:sub2 xmd:tracking-[0.01025rem] xmd:text-greyscale-80'>
+      <div className='my-[3.51rem] flex justify-center items-center rounded-[0.87848rem] md:bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] px-[4.39rem] py-[1.17rem] xmd:py-[0.73206rem] w-fit mx-auto xmd:mt-[2.34rem] xmd:mb-[1.17rem] xmd:w-full xmd:bg-[rgba(244,244,244,0.90)]'>
+        <h2 className='md:bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)] h6 font-bold font-svnGraphik md:bg-clip-text xmd:rounded-[0.58565rem] xmd:sub2 xmd:tracking-[0.01025rem] xmd:text-greyscale-80 xmd:font-semibold'>
           SẢN PHẨM SẮP RA MẮT
         </h2>
       </div>
@@ -16,7 +16,7 @@ export default function ProductPreOrder() {
       </div>
       <Link
         className='w-fit px-[1.46rem] py-[0.81rem] rounded-[7.5rem] bg-[#F2F2F2] flex items-center caption1 font-semibold text-greyscale-80 mx-auto mt-[2.93rem] hover:bg-[#dddddd] transition-all duration-200 xmd:mt-[1.17rem]'
-        href={'/'}
+        href={'/san-pham'}
       >
         + 16 SẢN PHẨM
         <svg

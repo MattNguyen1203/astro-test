@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default function GridProductFL({isMobile, id, title}) {
   return (
-    <section className='container h-[77.28843rem] xmd:h-fit relative mt-[6.16rem] xmd:mt-[3.51rem]'>
+    <section className='container xmd:mx-[0.62rem] h-[77.28843rem] xmd:h-fit relative mt-[6.16rem] xmd:mt-[3.51rem]'>
       <div
         id={id}
         className='absolute top-0 left-0 -translate-y-[18rem] xmd:-translate-y-[10rem]'
