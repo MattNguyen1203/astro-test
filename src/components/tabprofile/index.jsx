@@ -2,7 +2,14 @@ import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
 import IndexAccount from '@/sections/account'
 import ChangePassWord from '@/sections/account/components/changepassword'
 
-export function TabsProfile({isMobile, province, district, commune}) {
+export function TabsProfile({
+  isMobile,
+  province,
+  district,
+  commune,
+  profile,
+  session,
+}) {
   return (
     <Tabs
       defaultValue='info'
@@ -27,14 +34,19 @@ export function TabsProfile({isMobile, province, district, commune}) {
         value='info'
       >
         <IndexAccount
+          profile={profile}
           isMobile={isMobile}
           province={province}
           district={district}
           commune={commune}
+          session={session}
         />
       </TabsContent>
       <TabsContent value='password'>
-        <ChangePassWord />
+        <ChangePassWord
+          profile={profile}
+          session={session}
+        />
       </TabsContent>
     </Tabs>
   )

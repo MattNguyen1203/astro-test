@@ -10,15 +10,17 @@ import {
 import {Input} from '@/components/ui/input'
 import BtnSubmit from '@/sections/auth/components/btnsubmit'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {useState} from 'react'
+import {useState, useTransition} from 'react'
 import {useForm} from 'react-hook-form'
 import {z} from 'zod'
 
 const formSchema = z.object({
   voucher: z.string().min(1, {message: 'Bạn chưa nhập Voucher!'}),
 })
-export default function ChangePassWord() {
+export default function ChangePassWord({profile, session}) {
   const [isEdit, setIsEdit] = useState(false)
+  const [isPending, setTransition] = useTransition()
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -27,7 +29,14 @@ export default function ChangePassWord() {
       passwordConfirm: '',
     },
   })
-  function onSubmit(values) {}
+
+  function onSubmit(values) {
+    setTransition(() => {
+      const request = {
+        token: session?.accessToken,
+      }
+    })
+  }
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -58,6 +67,7 @@ export default function ChangePassWord() {
                     <Input
                       className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
                       placeholder='***********05'
+                      disabled={!isEdit}
                       {...field}
                     />
                   </FormControl>
@@ -82,6 +92,7 @@ export default function ChangePassWord() {
                     <Input
                       className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
                       placeholder='***********05'
+                      disabled={!isEdit}
                       {...field}
                     />
                   </FormControl>
@@ -106,6 +117,7 @@ export default function ChangePassWord() {
                     <Input
                       className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
                       placeholder='***********05'
+                      disabled={!isEdit}
                       {...field}
                     />
                   </FormControl>
@@ -126,6 +138,7 @@ export default function ChangePassWord() {
             <BtnSubmit
               title='LƯU THAY ĐỔI'
               className='!w-[8.63836rem] !h-[2.4rem] !bg-[linear-gradient(90deg,rgba(16,40,65,1)_100%,rgba(16,40,65,1)_100%)] rounded-[0.43924rem] caption font-semibold'
+              isPending={isPending}
             />
           </div>
         ) : (
