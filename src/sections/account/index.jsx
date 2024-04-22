@@ -25,7 +25,13 @@ import PopupCommune from '../payment/PopupCommune'
 const formSchema = z.object({
   voucher: z.string().min(1, {message: 'Bạn chưa nhập Voucher!'}),
 })
-export default function IndexAccount({isMobile, province, district, commune}) {
+export default function IndexAccount({
+  isMobile,
+  province,
+  district,
+  commune,
+  profile,
+}) {
   const [isEdit, setIsEdit] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [valueProvince, setValueProvince] = useState(null)
@@ -75,7 +81,7 @@ export default function IndexAccount({isMobile, province, district, commune}) {
                       Tên đăng nhập:
                     </span>
                     <span className='block font-medium caption1 text-greyscale-80'>
-                      0338 277 705
+                      {profile?.phone || profile?.email}
                     </span>
                   </div>
                   <div className='flex items-center'>

@@ -1,19 +1,15 @@
-export async function getDataAuth(request) {
-  const accessToken = `Bearer ${request?.token}`
-  const requestOptions = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      ['Authorization']: accessToken,
-    },
-    redirect: 'follow',
-  }
-
+export async function getDataProfile(request) {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API}${request?.api}`,
-      requestOptions,
-    )
+    const myHeaders = new Headers()
+    myHeaders.append('Content-Type', 'application/json')
+    myHeaders.append('Authorization', `Bearer ${request?.token}`)
+
+    const requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow',
+    }
+    const res = await fetch(`${process.env.API}${request?.api}`, requestOptions)
 
     // Check if the response was successful
     if (!res.ok) {

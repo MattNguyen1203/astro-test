@@ -5,7 +5,6 @@ import getData from '@/lib/getData'
 export default async function ListStrength() {
   const data = await getData(`/wp/v2/pages/${IDGLOBALAPI}`, 3600)
   const listCardStrength = data?.acf?.infomation
-  console.log('🚀 ~ ListStrength ~ listCardStrength:', listCardStrength)
 
   return (
     <section className='py-[2.71rem] xmd:py-[3.22rem] bg-white relative z-10'>
