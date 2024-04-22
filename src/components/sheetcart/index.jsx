@@ -60,7 +60,7 @@ export default function SheetCart({
     return total
   }, [listCart])
 
-  console.log('totalPrice', totalPrice)
+  // console.log('totalPrice', totalPrice)
 
   return (
     <Sheet
