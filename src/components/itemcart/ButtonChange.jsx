@@ -3,21 +3,19 @@
 import {useState} from 'react'
 import {toast} from 'sonner'
 
-export default function ButtonChange() {
-  const [count, setCount] = useState(1)
-
+export default function ButtonChange({quantity, setQuantity}) {
   const handleDecre = () => {
-    if (count === 1) {
+    if (quantity === 1) {
       return toast.info('Số lượng sản phẩm đã giảm đến mức tối thiểu!', {
         position: 'bottom-left',
       })
     } else {
-      setCount((prev) => prev - 1)
+      setQuantity((prev) => prev - 1)
     }
   }
 
   const handleIncre = () => {
-    setCount((prev) => prev + 1)
+    setQuantity((prev) => prev + 1)
   }
   return (
     <div className='flex items-center w-fit'>
@@ -45,7 +43,7 @@ export default function ButtonChange() {
       </button>
       <div className='w-[2.05rem] relative xmd:w-[1.9rem]'>
         <span className='absolute font-semibold text-black -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 button xmd:caption1'>
-          {count}
+          {quantity}
         </span>
       </div>
       <button
