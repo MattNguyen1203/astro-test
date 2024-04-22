@@ -50,6 +50,12 @@ export const {
         token.picture = user?.avatar
         token.email = user?.user_email
         token.name = user?.display_name
+        token.userId = user?.user_id
+        token.firstName = user?.first_name
+        token.lastName = user?.last_name
+        token.userRegistered = user?.user_registered
+        token.userLogin = user?.user_login
+        token.status = 'authenticated'
       }
 
       // refresh-token trước khi hết hạn 5 phút
@@ -68,6 +74,7 @@ export const {
           token.error = 'RefreshAccessTokenError'
         }
       }
+
       return token
     },
     async session({token, session}) {
@@ -75,10 +82,17 @@ export const {
       session.user.name = token.name
       session.user.email = token.email
       session.user.image = token.picture
+      session.userId = token.userId
+      session.firstName = token.firstName
+      session.lastName = token.lastName
+      session.userRegistered = token.userRegistered
+      session.userLogin = token.userLogin
+      session.status = token.status
 
       if (token.error === 'RefreshAccessTokenError') {
         throw new Error('RefreshAccessTokenError')
       }
+
       return session
     },
   },
@@ -105,7 +119,19 @@ export const {
           }),
         )
         if (res?.user_id) {
-          return res
+          return {
+            ...res,
+            user: {
+              user_id: res?.user_id,
+              avatar: res?.avatar,
+              display_name: res?.display_name,
+              first_name: res?.first_name,
+              last_name: res?.last_name,
+              user_email: res?.user_email,
+              user_registered: res?.user_registered,
+              user_login: res?.user_login,
+            },
+          }
         } else {
           return JSON.parse(res)
         }

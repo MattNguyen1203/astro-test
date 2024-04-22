@@ -47,14 +47,13 @@ function CardProduct({product, priority = false}) {
           href={product?.slug || '/'}
           className='block w-full h-fit'
         >
-          <h2 className='font-medium line-clamp-2 text-greyscale-60 caption1 h-[2.1rem] xmd:h-[2.05rem] xmd:tracking-[0.00439rem]'>
+          <h2 className='font-medium line-clamp-2 text-greyscale-60 caption1 h-[2.1rem] xmd:h-[2.05rem] xmd:tracking-[0.00439rem] xmd:font-semibold'>
             {product?.name || 'Chưa có thông tin!'}
           </h2>
         </Link>
         {/* {false && <Progress />} */}
         <ul className='mt-[0.4rem] flex flex-wrap *:mt-[0.29rem] *:ml-[0.29rem] *:px-[0.58565rem] *:py-[0.29283rem] *:rounded-[7.5rem] *:bg-[#F6F6F6] max-h-[3.8rem] h-[3.8rem] overflow-hidden md:*:h-fit md:*:whitespace-nowrap'>
           {product?.categories?.slice(0, 4)?.map((category, index) => (
-
             <li
               key={index}
               className='font-normal first:ml-0 caption1 text-greyscale-40 h-fit'
@@ -118,4 +117,3 @@ function CardProduct({product, priority = false}) {
   )
 }
 export default memo(CardProduct)
-

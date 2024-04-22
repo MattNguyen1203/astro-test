@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic'
 const MenuUser = dynamic(() => import('@/sections/account/components/menuuser'))
 
 export default function Account({session, isMobile}) {
-  const {user} = session
+  const user = session?.user
   const [isOpen, setIsOpen] = useState(false)
   const [sideRef, isOutSide] = useClickOutSide(false)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)

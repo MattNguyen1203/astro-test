@@ -3,8 +3,8 @@ import MenuUser from '../menuuser'
 import {auth} from '@/auth'
 
 export default async function InfoAccount() {
-  const {user} = await auth()
-  console.log('🚀 ~ InfoAccount ~ user:', user)
+  const session = await auth()
+  const user = session?.user
   return (
     <aside className='w-[21.30307rem] h-fit sticky top-[9.52rem] left-0'>
       <div className='p-[1.17rem] rounded-[0.58565rem] bg-white shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>
