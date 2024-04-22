@@ -8,6 +8,7 @@ import Variation from '../popupproduct/Variation'
 import {formatToVND} from '@/lib/utils'
 import ChangeQuantity from '../popupproduct/ChangeQuantity'
 import {useState} from 'react'
+import {DialogProduct} from '@/sections/home/components/dialog'
 
 export default function ItemCart({
   cart,
@@ -20,6 +21,9 @@ export default function ItemCart({
   const setActionCart = useStore((state) => state.setActionCart)
 
   const [quantity, setQuantity] = useState(item.quantity || 1)
+
+  const [isOpen, setIsOpen] = useState(false)
+
   const handleDeleteItemCart = () => {
     if (isAuth) {
     } else {
@@ -66,8 +70,16 @@ export default function ItemCart({
             </div>
           </div>
           <div className='relative flex w-full mt-auto xmd:mt-[0.44rem]'>
-            <Variantion className='mr-[0.59rem]' />
-            <Variantion />
+            <DialogProduct
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+            >
+              {new Array(2).fill(0).map((item) => (
+                <div>Gen 10</div>
+              ))}
+            </DialogProduct>
+            {/* <Variantion className='mr-[0.59rem]' />
+            <Variantion /> */}
           </div>
         </div>
         <div className='flex md:h-full justify-between md:flex-col md:items-end xmd:pl-[0.44rem] xmd:mt-[0.59rem]'>
@@ -83,11 +95,6 @@ export default function ItemCart({
               height={24}
             />
           </button>
-          {/* <ChangeQuantity
-            quantity={quantity}
-            setChangeQty={setQuantity}
-            stockQty={item?.stock_quantity}
-          /> */}
           <ButtonChange
             quantity={quantity}
             setQuantity={setQuantity}
