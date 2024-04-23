@@ -2,9 +2,11 @@
 import {Dialog, DialogContent, DialogTrigger} from '@/components/ui/dialog'
 import {Slider} from '@/components/ui/slider'
 import {useRef, useState} from 'react'
+import {toPng} from 'html-to-image'
 
-export function DialogAvatar({children, isOpen, setIsOpen}) {
+export function DialogAvatar({children, isOpen, setIsOpen, setBase64}) {
   const fileRef = useRef(null)
+  const pictureRef = useRef(null)
   const [src, setSrc] = useState('')
   const [size, setSize] = useState(50)
 
@@ -19,6 +21,47 @@ export function DialogAvatar({children, isOpen, setIsOpen}) {
 
   const handleChangeFile = (file) => {
     setSrc(URL.createObjectURL(file.target.files[0]))
+  }
+
+  //handle convert base64 to file
+  // function base64ToFile(base64String, filename) {
+  //   // Tách metadata và lấy ra phần dữ liệu base64 thuần túy
+  //   let base64Data = base64String.split(';base64,').pop()
+
+  //   // Chuyển base64Data thành một chuỗi binary
+  //   let binaryString = window.atob(base64Data)
+
+  //   // Chuyển chuỗi binary thành một mảng array buffer
+  //   let length = binaryString.length
+  //   let bytes = new Uint8Array(length)
+
+  //   for (let i = 0; i < length; i++) {
+  //     bytes[i] = binaryString.charCodeAt(i)
+  //   }
+
+  //   // Tạo một file mới từ array buffer
+  //   let file = new Blob([bytes], {type: 'application/octet-stream'})
+
+  //   // Gán tên file nếu nó được cung cấp
+  //   if (filename) {
+  //     file = new File([file], filename, {type: 'application/octet-stream'})
+  //   }
+
+  //   return file
+  // }
+
+  const handleChangeAvatar = () => {
+    // setIsOpen(false)
+    toPng(pictureRef?.current)
+      .then(function (dataUrl) {
+        setBase64(dataUrl.slice(dataUrl.indexOf('base64,') + 7))
+        //convert base64 to file
+        // let filename = 'myFile.txt' // Tên file bạn muốn tạo
+        // let file = base64ToFile(dataUrl, filename)
+      })
+      .catch(function (error) {
+        console.error('oops, something went wrong!', error)
+      })
   }
 
   return (
@@ -65,17 +108,22 @@ export function DialogAvatar({children, isOpen, setIsOpen}) {
             } transition-all duration-200 h-full`}
           >
             {src && (
-              <div className='border border-blue-200 border-dashed size-fit cursor-grab'>
-                <picture className='size-[13.46999rem] overflow-hidden relative flex-shrink-0 rounded-full active:cursor-grabbing'>
-                  <img
-                    style={{
-                      transform: `translate(-50%,-50%) scale(${size / 50})`,
-                    }}
-                    className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-[20rem] w-[20rem] h-auto object-fill block transition-all duration-100 origin-center'
-                    src={src}
-                    alt='avatar customer'
-                  />
-                </picture>
+              <div className=' border border-blue-200 border-dashed size-fit cursor-grab w-[13.46999rem] flex-shrink-0'>
+                <div className='overflow-hidden rounded-full size-full'>
+                  <picture
+                    ref={pictureRef}
+                    className='size-[13.46999rem] relative flex-shrink-0 active:cursor-grabbing'
+                  >
+                    <img
+                      style={{
+                        transform: `translate(-50%,-50%) scale(${size / 50})`,
+                      }}
+                      className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-[20rem] w-[20rem] h-auto object-fill block transition-all duration-100 origin-center'
+                      src={src}
+                      alt='avatar customer'
+                    />
+                  </picture>
+                </div>
               </div>
             )}
             <div
@@ -162,9 +210,7 @@ export function DialogAvatar({children, isOpen, setIsOpen}) {
                 HUỶ BỎ
               </button>
               <button
-                onClick={() => {
-                  setIsOpen(false)
-                }}
+                onClick={handleChangeAvatar}
                 className='rounded-[0.43924rem] border border-solid border-blue-800 text-white bg-blue-800 flex justify-center items-center caption font-semibold h-[2.4rem]'
               >
                 LƯU THAY ĐỔI

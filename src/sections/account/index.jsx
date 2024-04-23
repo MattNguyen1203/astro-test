@@ -39,20 +39,24 @@ export default function IndexAccount({
   const [valueDistrict, setValueDistrict] = useState(null)
   const [idDistrict, setIdDistrict] = useState(null)
   const [valueCommune, setValueCommune] = useState(null)
+  const [base64, setBase64] = useState('')
 
+  const birthDay = profile?.birthday?.split('/')
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      nickname: '',
-      fullName: '',
-      email: '',
-      phone: '',
+      nickname: profile?.nickname,
+      fullName: profile?.display_name,
+      email: profile?.email,
+      phone: profile?.phone,
       address: '',
       street: '',
-      PhoneShip: '',
+      phoneShip: profile?.billing_address?.phone,
     },
   })
-  function onSubmit(values) {}
+  function onSubmit(values) {
+    console.log('🚀 ~ onSubmit ~ values:', values)
+  }
 
   const renderArrayDate = (start, end, before = '') => {
     const arr = []
@@ -60,6 +64,14 @@ export default function IndexAccount({
       arr.push(before + index)
     }
     return arr
+  }
+
+  const convertDefaultValue = (date, before = '') => {
+    if (!date) return null
+    if (date?.startsWith('0')) {
+      return before + date?.slice(1)
+    }
+    return before + date
   }
   return (
     <section>
@@ -100,6 +112,7 @@ export default function IndexAccount({
                             <Input
                               className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
                               placeholder='Thêm nick name'
+                              disabled={!isEdit}
                               {...field}
                             />
                           </FormControl>
@@ -124,6 +137,7 @@ export default function IndexAccount({
                             <Input
                               className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
                               placeholder='Trịnh Văn Đức'
+                              disabled={!isEdit}
                               {...field}
                             />
                           </FormControl>
@@ -136,21 +150,35 @@ export default function IndexAccount({
                 <DialogAvatar
                   isOpen={isOpen}
                   setIsOpen={setIsOpen}
+                  setBase64={setBase64}
                 >
                   <div
                     onClick={() => {
                       setIsEdit(true)
                       setIsOpen(true)
                     }}
-                    className='size-[8.63836rem]'
+                    className='size-[8.63836rem] relative'
                   >
                     <Image
-                      className='object-cover cursor-pointer size-full'
-                      src={'/account/avatar-edit.svg'}
-                      alt='icon avatar default'
+                      className='object-cover rounded-full cursor-pointer size-full'
+                      src={
+                        profile?.picture_profile ||
+                        profile?.avatar_url ||
+                        '/account/avatar-edit.svg'
+                      }
+                      alt={profile?.display_name || 'icon avatar default'}
                       width={120}
                       height={120}
                     />
+                    {(profile?.picture_profile || profile?.avatar_url) && (
+                      <Image
+                        className='absolute size-[1.90337rem] bottom-0 right-0 cursor-pointer'
+                        src={'/account/edit-avatar.svg'}
+                        alt='icon edit avatar'
+                        width={36}
+                        height={36}
+                      />
+                    )}
                   </div>
                 </DialogAvatar>
               </div>
@@ -170,7 +198,8 @@ export default function IndexAccount({
                         <FormControl>
                           <Input
                             className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
-                            placeholder='finn*****@gmail.com'
+                            placeholder='Email của bạn'
+                            disabled={!isEdit}
                             {...field}
                           />
                         </FormControl>
@@ -194,7 +223,8 @@ export default function IndexAccount({
                         <FormControl>
                           <Input
                             className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
-                            placeholder='***********05'
+                            placeholder='Số điện thoại của bạn'
+                            disabled={!isEdit}
                             {...field}
                           />
                         </FormControl>
@@ -208,34 +238,35 @@ export default function IndexAccount({
                     Giới tính:
                   </span>
                   <RadioGroup
-                    defaultValue=''
+                    defaultValue={profile?.gender == '1' ? 'female' : 'male'}
                     className='grid grid-cols-2 gap-[0.59rem] mt-[1.17rem]'
+                    disabled={!isEdit}
                   >
                     <Label
-                      htmlFor='in'
+                      htmlFor='male'
                       className='flex items-center px-[0.88rem] py-[0.73rem] cursor-pointer'
                     >
                       <RadioGroupItem
                         className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
-                        value='in'
-                        id='in'
+                        value='male'
+                        id='male'
                       />
 
-                      <span className='font-medium caption1 text-greyscale-40'>
+                      <span className='font-medium caption1 text-greyscale-40 inline-block w-fit ml-[0.59rem]'>
                         Nam
                       </span>
                     </Label>
                     <Label
-                      htmlFor='out'
+                      htmlFor='female'
                       className='flex items-center px-[0.88rem] py-[0.73rem] cursor-pointer'
                     >
                       <RadioGroupItem
                         className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
-                        value='out'
-                        id='out'
+                        value='female'
+                        id='female'
                       />
 
-                      <span className='font-medium caption1 text-greyscale-40'>
+                      <span className='font-medium caption1 text-greyscale-40 inline-block w-fit ml-[0.59rem]'>
                         Nữ
                       </span>
                     </Label>
@@ -247,14 +278,21 @@ export default function IndexAccount({
                   Ngày sinh:
                 </span>
                 <div className='w-full grid grid-cols-3 gap-x-[0.75rem]'>
-                  <PopupDate data={renderArrayDate(1, 31)} />
+                  <PopupDate
+                    data={renderArrayDate(1, 31)}
+                    defaultValue={convertDefaultValue(birthDay?.[0]) || '1'}
+                  />
                   <PopupDate
                     data={renderArrayDate(1, 13, 'Tháng ')}
                     type={1}
+                    defaultValue={
+                      convertDefaultValue(birthDay?.[1], 'Tháng ') || 'Tháng 1'
+                    }
                   />
                   <PopupDate
                     data={renderArrayDate(1910, new Date().getFullYear())}
                     type={2}
+                    defaultValue={convertDefaultValue(birthDay?.[2]) || '1990'}
                   />
                 </div>
               </div>
@@ -296,7 +334,7 @@ export default function IndexAccount({
               </div>
               <div className='flex items-center my-[0.56rem]'>
                 <FormLabel
-                  htmlFor='fullName'
+                  htmlFor='street'
                   className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'
                 >
                   Địa chỉ cụ thể:
@@ -310,6 +348,7 @@ export default function IndexAccount({
                         <Input
                           className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
                           placeholder='Số nhà, tên đường*'
+                          disabled={!isEdit}
                           {...field}
                         />
                       </FormControl>
@@ -320,20 +359,21 @@ export default function IndexAccount({
               </div>
               <div className='flex items-center'>
                 <FormLabel
-                  htmlFor='fullName'
+                  htmlFor='phoneShip'
                   className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'
                 >
                   Số điện thoại:
                 </FormLabel>
                 <FormField
                   control={form.control}
-                  name='PhoneShip'
+                  name='phoneShip'
                   render={({field}) => (
                     <FormItem className='relative w-full'>
                       <FormControl>
                         <Input
                           className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
-                          placeholder='***********05'
+                          placeholder='Số điện thoại nhận hàng'
+                          disabled={!isEdit}
                           {...field}
                         />
                       </FormControl>
