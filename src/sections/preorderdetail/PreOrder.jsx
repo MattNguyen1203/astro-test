@@ -64,7 +64,7 @@ const PreOrder = ({isMobile, data, voucher, variations, relatedProduct}) => {
       (item) => item.image.url,
     )
 
-    return gallery.concat(listImgVariations)
+    if (gallery) return gallery?.concat(listImgVariations)
   }, [data])
 
   //check user select variation or not

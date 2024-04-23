@@ -1,8 +1,8 @@
 'use server'
 
-import {postDataProfile} from '@/lib/postDataProfile'
+import {postDataWishlist} from '@/lib/postDataWishlist'
 
 export const addWishlist = async (request) => {
-  const res = await postDataProfile(request)
+  const res = await postDataWishlist(request)
   return res
 }

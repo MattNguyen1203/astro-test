@@ -1,5 +1,7 @@
 import {auth} from '@/auth'
 import getData from '@/lib/getData'
+import {getDataAuth} from '@/lib/getDataAuth'
+import {getDataProfile} from '@/lib/getDataProfile'
 import ProductDetail from '@/sections/productDetail'
 export async function generateStaticParams() {
   const products = await getData('/okhub/v1/product')
@@ -39,6 +41,12 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     auth(),
   ])
 
+  const request = {
+    api: '/custom/v1/wistlist/getWishlist',
+    token: session?.accessToken,
+  }
+  const wishList = await getDataProfile(request)
+
   const productCat = dataProductDetail?.categories?.[0]
 
   let relatedProduct
@@ -59,6 +67,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
         bestCoupon={dataBestCoupon}
         relatedProduct={relatedProduct}
         session={session}
+        wishList={wishList}
       />
     </main>
   )

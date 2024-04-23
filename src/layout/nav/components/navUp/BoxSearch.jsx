@@ -8,7 +8,7 @@ import useStore from '@/app/(store)/store'
 import PopupStore from '../popupstore'
 import useSWR from 'swr'
 import {fetcher} from '@/lib/utils'
-import {useSession} from 'next-auth/react'
+import {addWishlist} from '@/actions/addWishlist'
 
 const linkNavUp = [
   {
@@ -34,14 +34,59 @@ export default function BoxSearch({
   productSuggest,
   categories,
   linkSocial,
+  session,
 }) {
   const [value, setValue] = useState('')
   const isFocusSearchNav = useStore((state) => state.isFocusSearchNav)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
-  const {update} = useSession()
 
   useEffect(() => {
-    update()
+    // handle miss wishlist
+    if (session?.status === 'authenticated') {
+      const objWishList = JSON.parse(localStorage.getItem('wishlist'))
+      if (objWishList) {
+        if (objWishList?.type === 'add') {
+          const request = {
+            api: '/custom/v1/wistlist/addProductToWishlist',
+            token: session?.accessToken,
+            body: JSON.stringify({
+              product_id: objWishList?.productId,
+            }),
+          }
+
+          addWishlist(request)
+            .then((res) => {
+              if (res?.message?.includes('Successfully')) {
+                localStorage.removeItem('wishlist')
+              }
+            })
+            .catch((err) => err)
+        } else {
+          if (id) {
+            const request = {
+              api: '/custom/v1/wistlist/deleteWishlist',
+              method: 'DELETE',
+              token: session?.accessToken,
+              body: JSON.stringify({
+                wishlist_items: [
+                  {
+                    id: objWishList?.id,
+                  },
+                ],
+              }),
+            }
+
+            addWishlist(request)
+              .then((res) => {
+                if (res?.message?.includes('Successfully')) {
+                  localStorage.removeItem('wishlist')
+                }
+              })
+              .catch((err) => err)
+          }
+        }
+      }
+    }
   }, [])
 
   const {data, error, isLoading} = useSWR(

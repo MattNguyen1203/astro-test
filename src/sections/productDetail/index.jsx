@@ -53,6 +53,7 @@ const ProductDetail = ({
   bestCoupon,
   relatedProduct,
   session,
+  wishList,
 }) => {
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
@@ -85,7 +86,7 @@ const ProductDetail = ({
     // check flash sale
     const isFlashSale = data?.meta_detect?.flash_sale?.is_flash_sale === 'yes'
 
-    return [gallery.concat(listImgVariations), isFlashSale]
+    if (gallery) return [gallery?.concat(listImgVariations), isFlashSale]
   }, [data])
 
   //check user select variation or not
@@ -228,12 +229,15 @@ const ProductDetail = ({
                 selectedPrd={selectedPrd}
               />
             )}
-            <div className='absolute top-[1.17rem] right-[1.17rem] z-10'>
-              <WishListIcon
-                data={data}
-                session={session}
-              />
-            </div>
+            {session?.accessToken && (
+              <div className='absolute top-[1.17rem] right-[1.17rem] z-10'>
+                <WishListIcon
+                  data={data}
+                  session={session}
+                  wishList={wishList}
+                />
+              </div>
+            )}
             <div className='border-y xmd:border-none border-[rgba(236,236,236,0.70)] py-[1.46rem] xmd:py-0 flex items-center my-[1.46rem] xmd:mb-0 xmd:flex-col xmd:justify-start xmd:items-start'>
               <div
                 className={cn(
