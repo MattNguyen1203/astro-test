@@ -1,6 +1,5 @@
 import {cn} from '@/lib/utils'
 import Image from 'next/image'
-import React from 'react'
 
 const Progress = ({ordered, totalProd, icon, className}) => {
   const percent = (ordered / totalProd) * 100

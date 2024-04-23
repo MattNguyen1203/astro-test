@@ -2,7 +2,7 @@
 
 import {cn} from '@/lib/utils'
 import Image from 'next/image'
-import React, {useState, useRef, useEffect, memo} from 'react'
+import {useState, useRef, useEffect, memo} from 'react'
 
 const ShowMore = ({
   children,

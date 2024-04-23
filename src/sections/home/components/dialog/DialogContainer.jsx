@@ -1,6 +1,6 @@
 import PopupProduct from '@/components/popupproduct'
 import {fetcher} from '@/lib/utils'
-import React from 'react'
+
 import useSWR from 'swr'
 
 const DialogContainer = ({setIsOpen, data, setActiveData, type}) => {

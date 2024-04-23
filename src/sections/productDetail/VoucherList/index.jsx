@@ -1,5 +1,4 @@
 import CardVoucher from '@/components/cardvoucher'
-import React from 'react'
 
 const VoucherList = ({voucher}) => {
   return (
