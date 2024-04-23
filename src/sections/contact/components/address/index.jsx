@@ -13,7 +13,7 @@ export default function AddressContact() {
       <div className='flex flex-col lg:h-[36.45681rem] mt-[2.34rem] xmd:mb-[2.64rem] tablet:w-[94%] tablet:mt-[3rem]'>
         <div className='mb-[1.75695rem] tablet:mb-[2.6rem] flex flex-col items-start'>
           <div className='mb-[0.87848rem] tablet:mb-[2rem] lg:w-[38.10622rem] flex items-start px-[0.58565rem]'>
-            <p className='sub1 font-medium text-[#454545] flex-1 xmd:w-[24.92679rem] tablet:text-[2rem] tablet:font-semibold'>
+            <p className='sub1 xmd:body1 font-medium xmd:font-semibold text-[#454545] flex-1 xmd:w-[24.92679rem] tablet:text-[2rem] tablet:font-semibold'>
               CÔNG TY TNHH ASTROMAZING VIETNAM:
             </p>
           </div>

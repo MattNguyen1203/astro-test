@@ -56,8 +56,8 @@ export default function SearchTracking({isMobile}) {
                 />
                 <input
                   type='text'
-                  className='size-full pl-[0.59rem] placeholder:!text-greyscale-30 placeholder:sub2 placeholder:font-medium text-greyscale-80 sub2 font-medium'
-                  placeholder='Nhập mã đơn hàng'
+                  className='size-full pl-[0.59rem] placeholder:!text-greyscale-30 placeholder:sub2 xmd:placeholder:button xmd:placeholder:font-normal placeholder:font-medium text-greyscale-80 sub2 font-medium'
+                  placeholder='Nhập mã đơn hàng của bạn'
                   defaultValue={tracking}
                 />
               </div>
@@ -99,13 +99,13 @@ export default function SearchTracking({isMobile}) {
           {/* page1 */}
           {!tracking && (
             <div className='flex lg:flex-col items-center xmd:w-full xmd:px-[1.32rem]'>
-              <p className='mb-[0.58565rem] caption1 font-semibold text-[#204265]/45 xmd:text-center'>
-                Đăng nhập tài khoản sẽ giúp bạn quản lý đơn hàng dễ dàng hơn!
-                <span className='lg:hidden caption1 font-medium text-[#204265]'>
+              <p className='mb-[0.58565rem] caption1 font-svnGraphik xmd:font-normal font-semibold text-[#204265]/45 xmd:text-center'>
+                Đăng nhập tài khoản sẽ giúp bạn quản lý đơn hàng dễ dàng hơn!{' '}
+                <span className='lg:hidden caption1 font-medium text-[#204265] font-svnGraphik'>
                   Đăng nhập ngay
                 </span>
               </p>
-              <span className='xmd:hidden caption1 font-semibold text-[#0D1F33]'>
+              <span className='xmd:hidden caption1 font-semibold text-[#0D1F33] font-svnGraphik'>
                 Đăng nhập ngay
               </span>
             </div>

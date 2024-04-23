@@ -46,9 +46,9 @@ export default function MenuNewsLink({
           href='/tin-tuc'
           className={`${
             categoryCurrent
-              ? 'bg-[#F2F2F2] text-greyscale-80'
+              ? 'bg-[#F2F2F2] text-greyscale-30'
               : 'bg-blue-700 text-white'
-          } font-semibold caption1 py-[0.81rem] px-[1.46rem] rounded-[7.5rem] whitespace-nowrap xmd:h-[2.635rem]`}
+          } font-semibold font-svnGraphik uppercase caption1 py-[0.81rem] px-[1.46rem] rounded-[7.5rem] whitespace-nowrap xmd:h-[2.635rem]`}
         >
           Mới nhất
         </Link>
@@ -64,8 +64,8 @@ export default function MenuNewsLink({
             className={`${
               categoryCurrent === category?.slug
                 ? 'bg-blue-700 text-white'
-                : 'bg-[#F2F2F2] text-greyscale-80'
-            } font-semibold caption1 py-[0.81rem] px-[1.46rem] rounded-[7.5rem] whitespace-nowrap ml-[1.17rem] xmd:h-[2.635rem]`}
+                : 'bg-[#F2F2F2] text-greyscale-30'
+            } font-semibold font-svnGraphik uppercase caption1 py-[0.81rem] px-[1.46rem] rounded-[7.5rem] whitespace-nowrap ml-[1.17rem] xmd:h-[2.635rem]`}
           >
             {category?.name}
           </Link>

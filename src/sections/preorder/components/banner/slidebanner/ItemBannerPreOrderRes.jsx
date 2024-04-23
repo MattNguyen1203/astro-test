@@ -30,14 +30,14 @@ export default function ItemBannerPreOrderRes({isPriority}) {
       </div>
       <button className='absolute bottom-[0.45rem] z-30 -translate-x-1/2 left-1/2 w-[10.61493rem]'>
         <div className='w-[7.02782rem] h-[2.70864rem] bg-[linear-gradient(180deg,#FBEFCD_0%,#CCB17B_53.93%,#DFD3B1_100%)] rounded-[0.29283rem] relative flex flex-col justify-center items-start pl-[0.59rem] pt-[0.3rem]'>
-          <span className='line-through text-[0.73206rem] text-[#132F4C] font-normal leading-[1.2] block'>
+          <span className='line-through text-[0.73206rem] font-svnGraphik text-[#132F4C] font-normal leading-[1.2] block'>
             265.000đ
           </span>
-          <span className='body2 font-bold tracking-[0.00256rem] text-[#132F4C] block -translate-y-[0.25rem]'>
+          <span className='body2 font-svnGraphik font-bold tracking-[0.00256rem] text-[#132F4C] block -translate-y-[0.25rem]'>
             165.000đ
           </span>
           <div className='bg-[linear-gradient(95deg,#EEF8FF_0%,rgba(255,245,237,0.90)_100%)] border border-solid border-[#FBEFCD] rounded-[0.29283rem] flex justify-center items-center w-[4.75842rem] h-[3.51391rem] absolute right-[1rem] top-1/2 -translate-y-1/2 z-10 translate-x-full'>
-            <span className='button font-bold bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] bg-clip-text inline-block'>
+            <span className='button font-svnGraphik font-bold bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] bg-clip-text inline-block'>
               ĐẶT NGAY
             </span>
           </div>

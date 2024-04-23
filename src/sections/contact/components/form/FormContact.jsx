@@ -128,7 +128,7 @@ export default function FormContact() {
             name='note'
             render={({field}) => (
               <FormItem>
-                <FormLabel className='!font-svnGraphik sub2 tablet:text-[2rem] font-medium text-blue-600 mb-[0.88rem] block w-fit'>
+                <FormLabel className='!font-svnGraphik sub2 tablet:text-[2rem] xmd:sub2 font-medium text-blue-600 mb-[0.88rem] block w-fit'>
                   Yêu cầu
                 </FormLabel>
                 <FormControl>

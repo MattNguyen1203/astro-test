@@ -27,7 +27,7 @@ export default function BannerPreOrder({isMobile}) {
             />
           )}
           {isMobile ? <SlideBannerRes /> : <SlideBannerPreOrder />}
-          <div className='bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)] rounded-[0.87848rem] h6 font-bold text-greyscale-80 text-center w-fit absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 md:px-[4.39rem] md:py-[1.17rem] xmd:sub1 xmd:tracking-[0.01464rem] xmd:container xmd:h-[2.56223rem] xmd:rounded-[0.58565rem] xmd:flex xmd:justify-center xmd:items-center'>
+          <div className='bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)] rounded-[0.87848rem] h6 font-svnGraphik font-bold text-greyscale-80 xmd:text-[#0D2033] text-center w-fit absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 md:px-[4.39rem] md:py-[1.17rem] xmd:sub1 xmd:tracking-[0.01464rem] xmd:container xmd:h-[2.56223rem] xmd:rounded-[0.58565rem] xmd:flex xmd:justify-center xmd:items-center'>
             SẢN PHẨM NỔI BẬT
           </div>
         </div>

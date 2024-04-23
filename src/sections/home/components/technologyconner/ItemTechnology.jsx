@@ -2,7 +2,9 @@ import {convertDateFormat} from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 
+// prominent ( nổi bật) thêm mới để hiện một số cái phần trang tin tức
 export default function ItemTechnology({
+  prominent = false,
   post,
   className = '',
   boxClass = '',
@@ -20,7 +22,9 @@ export default function ItemTechnology({
         index === 11
           ? 'before:absolute relative before:size-full before:rounded-[0.58565rem] before:bg-[#D9D9D9] before:z-10 before:pointer-events-none before:opacity-40 hover:before:opacity-0 before:transition-all before:duration-200'
           : ''
-      } ${className} size-full rounded-[0.58565rem] xmd:rounded-[1.1713rem] lg:relative group !overflow-hidden block select-none`}
+      } ${className} ${
+        prominent && 'xmd:relative xmd:!rounded-none'
+      } size-full rounded-[0.58565rem] xmd:rounded-[1.1713rem] lg:relative group !overflow-hidden block select-none`}
     >
       <div
         className={`relative size-full ${widthHeightImg} overflow-hidden xmd:rounded-[1.1713rem] xmd:mb-[0.58rem]`}
@@ -34,7 +38,9 @@ export default function ItemTechnology({
         />
       </div>
       <div
-        className={`${boxClass} xlg:absolute xlg:bottom-0 xlg:size-full lg:absolute xmd:overflow-hidden top-0 z-10 lg:size-full lg:px-[0.59rem] xlg:pb-[1.54rem] xlg:pt-[0.59rem] lg:pb-[1.54rem] lg:pt-[0.59rem] flex flex-col xmd:justify-start justify-between xmd:relative`}
+        className={`${boxClass} ${
+          prominent ? 'xmd:static' : 'xmd:relative'
+        } xlg:absolute xlg:bottom-0 xlg:size-full lg:absolute xmd:overflow-hidden top-0 z-10 lg:size-full lg:px-[0.59rem] xlg:pb-[1.54rem] xlg:pt-[0.59rem] lg:pb-[1.54rem] lg:pt-[0.59rem] flex flex-col xmd:justify-start justify-between`}
       >
         {!mbCard ? (
           <div className='flex xmd:absolute relative top-[1.83rem] left-[1.76rem] xmd:top-[0.73rem] xmd:left-[0.73rem] items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] p-[0.59rem] bg-white/85 backdrop-blur-[2.5px] w-fit'>
@@ -46,12 +52,16 @@ export default function ItemTechnology({
               width={16}
               height={16}
             />
-            <span className='caption1 ml-[0.29rem] text-greyscale-80 font-medium block w-fit -mb-[0.4px] xmd:ml-[0.29283rem]'>
+            <span className='caption1 ml-[0.29rem] text-greyscale-80 font-medium block w-fit -mb-[0.4px] xmd:ml-[0.29283rem] font-svnGraphik'>
               {convertDateFormat(post?.post_date)}
             </span>
           </div>
         ) : (
-          <div className='flex items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] p-[0.59rem] bg-white/85 backdrop-blur-[2.5px] w-fit'>
+          <div
+            className={`${
+              isOther && 'opacity-50'
+            } flex items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] p-[0.59rem] bg-white/85 backdrop-blur-[2.5px] w-fit`}
+          >
             <Image
               className='size-[1.02489rem] object-contain'
               src={'/home/calendar.svg'}
@@ -60,7 +70,7 @@ export default function ItemTechnology({
               width={16}
               height={16}
             />
-            <span className='caption1 ml-[0.29rem] text-greyscale-80 font-medium block w-fit -mb-[0.4px] xmd:ml-[0.29283rem]'>
+            <span className='caption1 ml-[0.29rem] text-greyscale-80 font-medium block w-fit -mb-[0.4px] xmd:ml-[0.29283rem] font-svnGraphik'>
               {convertDateFormat(post?.post_date)}
             </span>
           </div>
@@ -74,13 +84,17 @@ export default function ItemTechnology({
           <h2
             className={`${
               isOther ? 'xmd:button xmd:mb-0' : 'xmd:h5'
-            } line-clamp-2 lg:h-[2.78184rem] sub1 font-medium xmd:font-semibold text-white xmd:text-greyscale-80 mb-[0.88rem] relative z-10`}
+            } line-clamp-2 lg:h-[2.78184rem] sub1 font-medium xmd:font-semibold text-white xmd:text-greyscale-80 mb-[0.88rem] relative z-10 xmd:text-[1.46413rem] xmd:leading-[1.2] font-svnGraphik`}
           >
             {post?.title}
           </h2>
 
           {post?.post_excerpt && !isOther && (
-            <p className='xmd:h-[3.00146rem] w-full xmd:overflow-hidden line-clamp-2 body2 font-normal text-greyscaletext-5-div xmd:text-greyscale-30 lg:relative z-10 xmd:text-ellipsis xmd:whitespace-nowrap'>
+            <p
+              className={`xmd:h-[3.00146rem] w-full xmd:overflow-hidden line-clamp-2 body2 font-normal text-greyscaletext-5-div xmd:text-greyscale-30 lg:relative z-10 xmd:text-ellipsis ${
+                !prominent && 'xmd:whitespace-nowrap'
+              }`}
+            >
               {post?.post_excerpt}
             </p>
           )}

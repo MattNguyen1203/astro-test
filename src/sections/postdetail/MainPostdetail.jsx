@@ -45,12 +45,12 @@ const MainPostdetail = ({data}) => {
             </clipPath>
           </defs>
         </svg>
-        <div className={'caption font-medium xmd:text-black text-[#EBF0F7]  '}>
+        <div className={'caption font-medium xmd:text-black text-[#EBF0F7]'}>
           {data?.post_date.split(' ')[0]}
         </div>
       </div>
       {/* main title */}
-      <div className='self-stretch font-semibold h4 xmd:h6 text-greyscale-80 '>
+      <div className='self-stretch font-semibold h4 xmd:h5 text-greyscale-80 font-svnGraphik'>
         {data?.post_title}
       </div>
 
