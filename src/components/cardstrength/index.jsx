@@ -27,7 +27,7 @@ export default function CardStrength({
         />
       </picture>
       <div className='h-[3.58712rem] flex flex-col justify-between xmd:mt-[0.59rem] xmd:h-fit'>
-        <h2 className='tablet:mb-[0.5rem] font-semibold text-blue-600 uppercase sub2 tablet:text-[1.875rem] xmd:text-center xmd:mb-[0.29rem] xmd:caption2'>
+        <h2 className='tablet:mb-[0.5rem] font-semibold text-blue-600 uppercase sub2 tablet:text-[1.875rem] xmd:text-center xmd:mb-[0.29rem] xmd:caption2 font-svnGraphik'>
           {item?.title}
         </h2>
         <Description description={item?.description} />

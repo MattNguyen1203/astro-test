@@ -26,7 +26,7 @@ export default function HandBook({posts, categories}) {
   return (
     <section className='mt-[1.76rem] container xmd:full-mb'>
       <div className='xmd:flex-col h-[4.97804rem]  xmd:h-[6.3rem] bg-white rounded-[0.87848rem] flex justify-between items-center xmd:items-start lg:px-[1.76rem] mb-[1.76rem] xmd:mb-[1.2rem]'>
-        <h2 className='font-semibold text-blue-700 h5 whitespace-nowrap xmd:px-[0.59rem] xmd:mb-[0.88rem]'>
+        <h2 className='font-semibold text-blue-700 h5 xmd:text-[2.34261rem] font-svnGraphik xmd:leading-[1.2] whitespace-nowrap xmd:px-[0.59rem] xmd:mb-[0.88rem]'>
           Cẩm nang sử dụng
         </h2>
         <MenuNews

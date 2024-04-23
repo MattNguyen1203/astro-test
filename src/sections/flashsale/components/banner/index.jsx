@@ -40,7 +40,7 @@ export default function BannerFlashSale({isMobile}) {
     <section className='relative'>
       <Image
         className='w-full object-cover h-[41.28843rem] 3xl:h-[56.28843rem] xmd:h-[22.98682rem]'
-        src={isMobile ? '/flashsale/banner-res.jpg' : '/flashsale/banner.jpg'}
+        src={isMobile ? '/flashsale/banner-mb.jpg' : '/flashsale/banner.jpg'}
         alt='banner'
         width={isMobile ? 380 : 1400}
         height={isMobile ? 320 : 600}
@@ -48,48 +48,48 @@ export default function BannerFlashSale({isMobile}) {
         priority
       />
       <div className='absolute top-0 left-0 size-full'>
-        <div className='flex size-full justify-center items-center space-x-[1.17rem]'>
-          <div className='flex flex-col justify-center items-center size-[4.68521rem] rounded-[0.58565rem] bg-gradient-to-b from-[#FFF0D8] to-[#FFD797] shadow-[2px_2px_4px_0px_rgba(25,22,18,0.20)_inset]'>
-            <span className='h5 font-bold text-[#17395C]'>
+        <div className='flex size-full translate-y-[1rem] justify-center items-center space-x-[1.17rem] xmd:space-x-[0.59rem]'>
+          <div className='flex flex-col justify-center items-center size-[4.68521rem] xmd:size-[3.29429rem] rounded-[0.58565rem] bg-gradient-to-b from-[#FFF0D8] to-[#FFD797] shadow-[2px_2px_4px_0px_rgba(25,22,18,0.20)_inset]'>
+            <span className='h5 xmd:sub1 font-bold text-[#17395C]'>
               {timeLeft?.days && formatTime(timeLeft?.days)}
             </span>
-            <span className='sub2 font-medium bg-clip-text bg-gradient-to-t from-[#102841] to-[#1359A1]'>
+            <span className='sub2 xmd:caption font-medium bg-clip-text bg-gradient-to-t from-[#102841] to-[#1359A1]'>
               ngày
             </span>
           </div>
           <div className='flex flex-col justify-center space-y-[0.59rem] h-[4.68521rem]'>
-            <div className='size-[0.58565rem] bg-gradient-to-t from-[#FFF0D8] to-[#FFD797] rounded-full'></div>
-            <div className='size-[0.58565rem] bg-gradient-to-t from-[#FFF0D8] to-[#FFD797] rounded-full'></div>
+            <div className='size-[0.58565rem] xmd:size-[0.29283rem] bg-gradient-to-t from-[#FFF0D8] to-[#FFD797] rounded-full'></div>
+            <div className='size-[0.58565rem] xmd:size-[0.29283rem] bg-gradient-to-t from-[#FFF0D8] to-[#FFD797] rounded-full'></div>
           </div>
-          <div className='flex flex-col justify-center items-center size-[4.68521rem] rounded-[0.58565rem] bg-gradient-to-b from-[#FFF0D8] to-[#FFD797] shadow-[2px_2px_4px_0px_rgba(25,22,18,0.20)_inset]'>
-            <span className='h5 font-bold text-[#17395C]'>
+          <div className='flex flex-col justify-center items-center size-[4.68521rem] xmd:size-[3.29429rem] rounded-[0.58565rem] bg-gradient-to-b from-[#FFF0D8] to-[#FFD797] shadow-[2px_2px_4px_0px_rgba(25,22,18,0.20)_inset]'>
+            <span className='h5 xmd:sub1 font-bold text-[#17395C]'>
               {timeLeft?.hours && formatTime(timeLeft?.hours)}
             </span>
-            <span className='sub2 font-medium bg-clip-text bg-gradient-to-t from-[#102841] to-[#1359A1]'>
+            <span className='sub2 xmd:caption font-medium bg-clip-text bg-gradient-to-t from-[#102841] to-[#1359A1]'>
               giờ
             </span>
           </div>
           <div className='flex flex-col justify-center space-y-[0.59rem] h-[4.68521rem]'>
-            <div className='size-[0.58565rem] bg-gradient-to-t from-[#FFF0D8] to-[#FFD797] rounded-full'></div>
-            <div className='size-[0.58565rem] bg-gradient-to-t from-[#FFF0D8] to-[#FFD797] rounded-full'></div>
+            <div className='size-[0.58565rem] xmd:size-[0.29283rem] bg-gradient-to-t from-[#FFF0D8] to-[#FFD797] rounded-full'></div>
+            <div className='size-[0.58565rem] xmd:size-[0.29283rem] bg-gradient-to-t from-[#FFF0D8] to-[#FFD797] rounded-full'></div>
           </div>
-          <div className='flex flex-col justify-center items-center size-[4.68521rem] rounded-[0.58565rem] bg-gradient-to-b from-[#FFF0D8] to-[#FFD797] shadow-[2px_2px_4px_0px_rgba(25,22,18,0.20)_inset]'>
-            <span className='h5 font-bold text-[#17395C]'>
+          <div className='flex flex-col justify-center items-center size-[4.68521rem] xmd:size-[3.29429rem] rounded-[0.58565rem] bg-gradient-to-b from-[#FFF0D8] to-[#FFD797] shadow-[2px_2px_4px_0px_rgba(25,22,18,0.20)_inset]'>
+            <span className='h5 xmd:sub1 font-bold text-[#17395C]'>
               {timeLeft?.minutes && formatTime(timeLeft?.minutes)}
             </span>
-            <span className='sub2 font-medium bg-clip-text bg-gradient-to-t from-[#102841] to-[#1359A1]'>
+            <span className='sub2 xmd:caption font-medium bg-clip-text bg-gradient-to-t from-[#102841] to-[#1359A1]'>
               phút
             </span>
           </div>
           <div className='flex flex-col justify-center space-y-[0.59rem] h-[4.68521rem]'>
-            <div className='size-[0.58565rem] bg-gradient-to-t from-[#FFF0D8] to-[#FFD797] rounded-full'></div>
-            <div className='size-[0.58565rem] bg-gradient-to-t from-[#FFF0D8] to-[#FFD797] rounded-full'></div>
+            <div className='size-[0.58565rem] xmd:size-[0.29283rem] bg-gradient-to-t from-[#FFF0D8] to-[#FFD797] rounded-full'></div>
+            <div className='size-[0.58565rem] xmd:size-[0.29283rem] bg-gradient-to-t from-[#FFF0D8] to-[#FFD797] rounded-full'></div>
           </div>
-          <div className='flex flex-col justify-center items-center size-[4.68521rem] rounded-[0.58565rem] bg-gradient-to-b from-[#FFF0D8] to-[#FFD797] shadow-[2px_2px_4px_0px_rgba(25,22,18,0.20)_inset]'>
-            <span className='h5 font-bold text-[#17395C]'>
+          <div className='flex flex-col justify-center items-center size-[4.68521rem] xmd:size-[3.29429rem] rounded-[0.58565rem] bg-gradient-to-b from-[#FFF0D8] to-[#FFD797] shadow-[2px_2px_4px_0px_rgba(25,22,18,0.20)_inset]'>
+            <span className='h5 xmd:sub1 font-bold text-[#17395C]'>
               {timeLeft?.seconds && formatTime(timeLeft?.seconds)}
             </span>
-            <span className='sub2 font-medium bg-clip-text bg-gradient-to-t from-[#102841] to-[#1359A1]'>
+            <span className='sub2 xmd:caption font-medium bg-clip-text bg-gradient-to-t from-[#102841] to-[#1359A1]'>
               giây
             </span>
           </div>

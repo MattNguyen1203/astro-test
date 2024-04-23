@@ -39,11 +39,11 @@ export default function AllNews({posts, categories, before, url}) {
   return (
     <section
       ref={boxRef}
-      className='container relative flex xmd:flex-col xmd:items-center xlg:flex-col xlg:items-center lg:flex-row w-full h-fit pt-[11.51rem] justify-between lg:pb-[6.59rem] -mt-[8rem]'
+      className='container xmd:bg-white relative flex xmd:flex-col xmd:items-center xlg:flex-col xlg:items-center lg:flex-row w-full h-fit pt-[11.51rem] xmd:pt-[1.76rem] justify-between lg:pb-[6.59rem] -mt-[8rem] xmd:mt-0'
     >
       <div className='flex flex-col lg:w-[62.4451rem] xmd:mb-[1.76rem] xlg:mb-[1.76rem] xmd:w-full'>
         <div className='h-[4.97804rem] xlg:h-[6.3rem] xmd:h-[6.3rem] bg-white rounded-[0.87848rem] flex xmd:flex-col xlg:flex-col justify-between xmd:justify-between items-center xlg:items-start xmd:items-start lg:px-[1.76rem] mb-[0.88rem] xmd:mb-[1.2rem] xlg:mb-[1.76rem]'>
-          <h2 className='font-semibold text-blue-700 h5 whitespace-nowrap xmd:px-[0.59rem] xmd:mb-[0.88rem]'>
+          <h2 className='font-semibold text-blue-700 h5 xmd:text-[2.34261rem] font-svnGraphik xmd:leading-[1.2] whitespace-nowrap xmd:px-[0.59rem] xmd:mb-[0.88rem]'>
             Tin tức
           </h2>
           <MenuNewsLink
@@ -55,7 +55,7 @@ export default function AllNews({posts, categories, before, url}) {
             }
           />
         </div>
-        <div className='w-full bg-white lg:p-[1.76rem] rounded-[0.87848rem] xmd:px-[0.59rem] xmd:pb-[1.76rem]'>
+        <div className='w-full bg-white lg:p-[1.46413rem] rounded-[0.87848rem] xmd:px-[0.59rem] xmd:pb-[1.76rem]'>
           <GridNews postsNew={postsNew} />
           {Number(countPage) > 1 && (
             <div className='mt-[2.34rem] flex justify-center'>
@@ -72,7 +72,7 @@ export default function AllNews({posts, categories, before, url}) {
         </div>
       </div>
       <aside className='w-[22.47438rem] xmd:w-full xlg:w-full sticky top-[9.76rem] left-0 flex-shrink-0 xlg:flex xlg:flex-col xlg:items-center xmd:flex xmd:flex-col xmd:items-center h-fit'>
-        <div className='flex flex-col items-start w-[22.47438rem] xlg:w-[46.28111rem] xmd:w-[26.28111rem] mb-[1.17rem]'>
+        <div className='flex flex-col items-start w-[22.47438rem] xlg:w-[46.28111rem] xmd:w-[26.28111rem] mb-[1.17rem] xmd:pt-[2rem] xmd:border-t-[1px] xmd:border-solid xmd:border-[#EBF0F7]'>
           <div className='mb-[0.87848rem] flex w-full items-center py-[0.58565rem] pr-[1.1713rem] pl-[1.1713rem] rounded-[0.87848rem] bg-[#17395C]'>
             <div className='flex items-center w-[20.57101rem]'>
               <p className='py-[0.65886rem] px-[0.43924rem] sub2 font-semibold text-white'>
@@ -149,7 +149,7 @@ export default function AllNews({posts, categories, before, url}) {
           </div>
         </div>
         {/* san pham moi nhat */}
-        <div className='flex items-start flex-col p-[1.75695rem] xmd:w-[26.28111rem] xmd:px-[0.87848rem] xmd:py-[1.76rem] rounded-[0.87848rem] bg-white'>
+        <div className='flex xmd:bg-[#FAFAFA] items-start flex-col p-[1.75695rem] xmd:w-[26.28111rem] xmd:px-[0.87848rem] xmd:py-[1.76rem] rounded-[0.87848rem] bg-white'>
           <h2 className='sub1 font-medium text-[#102841] mb-[1.76rem]'>
             SẢN PHẨM MỚI NHẤT
           </h2>

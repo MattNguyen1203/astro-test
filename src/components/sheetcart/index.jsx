@@ -60,6 +60,7 @@ export default function SheetCart({
     return total
   }, [listCart])
 
+
   return (
     <Sheet
       open={isOpen}

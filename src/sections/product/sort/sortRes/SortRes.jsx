@@ -14,7 +14,9 @@ export default function SortRes({categories = []}) {
           height={20}
           priority
         />
-        <span className='font-medium caption1 text-greyscale-70 '>Bộ lọc</span>
+        <span className='font-medium xmd:font-svnGraphik caption1 text-greyscale-70 '>
+          Bộ lọc
+        </span>
       </button>
     </SheetSort>
   )
