@@ -60,7 +60,7 @@ export default function SignInIndex({status}) {
     const account = JSON.parse(localStorage.getItem('account'))
     if (account) {
       setNotePass(true)
-      form.setValue('phone', account?.login)
+      form.setValue('phone', account?.phone)
       form.setValue('password', account?.password)
     }
   }, [])
@@ -68,7 +68,7 @@ export default function SignInIndex({status}) {
   function onSubmit(values) {
     startTransition(() => {
       const payload = {
-        login: values?.phone,
+        phone: values?.phone,
         password: values?.password,
         type: 'phone',
       }
@@ -76,7 +76,7 @@ export default function SignInIndex({status}) {
         localStorage.setItem(
           'account',
           JSON.stringify({
-            login: values?.phone,
+            phone: values?.phone,
             password: values?.password,
           }),
         )

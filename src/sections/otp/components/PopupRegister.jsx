@@ -11,7 +11,7 @@ export function PopupRegister({isOpen, setIsSuccess}) {
     startTransition(() => {
       const firstLogin = JSON.parse(localStorage.getItem('firstLogin'))
       const values = {
-        login: firstLogin?.phone,
+        phone: firstLogin?.phone,
         password: firstLogin?.password,
         type: 'phone',
       }

@@ -43,7 +43,7 @@ export default function MenuUser2() {
   const session = useSession()
   const pathName = usePathname()
   return (
-    <div className='flex flex-col p-[0.88rem] mt-[1rem] *:mt-[0.44rem] *:first:mt-0 bg-white rounded-[0.58565rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] xmd:p-[0.75rem] xmd:*:mt-0'>
+    <div className='flex flex-col p-[0.88rem] mt-[1rem] *:mt-[0.44rem] *:first:mt-0 bg-white rounded-[0.58565rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] xmd:p-[0.75rem] xmd:*:mt-0 select-none'>
       {menuOptions.map((e, index) => (
         <Fragment key={index}>
           <div

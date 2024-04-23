@@ -47,7 +47,7 @@ export const {
 
       if (account?.provider === 'credentials') {
         token.accessToken = user?.token
-        token.picture = user?.avatar
+        token.picture = user?.picture_profile || user?.avatar
         token.email = user?.user_email
         token.name = user?.display_name
         token.userId = user?.user_id
@@ -92,7 +92,6 @@ export const {
       if (token.error === 'RefreshAccessTokenError') {
         throw new Error('RefreshAccessTokenError')
       }
-
       return session
     },
   },
@@ -113,7 +112,7 @@ export const {
         const res = await postData(
           '/custom/v1/customer/loginCustomer',
           JSON.stringify({
-            login: credentials?.login,
+            phone: credentials?.phone,
             password: credentials?.password,
             type: credentials?.type,
           }),
@@ -124,6 +123,7 @@ export const {
             user: {
               user_id: res?.user_id,
               avatar: res?.avatar,
+              picture_profile: res?.picture_profile,
               display_name: res?.display_name,
               first_name: res?.first_name,
               last_name: res?.last_name,

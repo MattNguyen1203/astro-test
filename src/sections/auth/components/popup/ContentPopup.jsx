@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function ContentPopup({onOpenChange, isLogin}) {
+export default function ContentPopup({onOpenChange, isLogin, isChange}) {
   return (
     <div className='flex w-[35.35871rem] p-[1.46413rem] justify-center items-center rounded-[0.87848rem] bg-white select-none'>
       <div className='flex flex-col items-center justify-center flex-1'>
@@ -23,12 +23,18 @@ export default function ContentPopup({onOpenChange, isLogin}) {
               isLogin ? 'text-[#de5f5f]' : 'text-[#36BA61]'
             } mt-[0.58565rem] text-[1.46413rem] leading-[1.2] font-semibold `}
           >
-            {isLogin ? 'Đăng nhập thất bại!' : 'Đặt lại mật khẩu thành công'}
+            {isLogin
+              ? 'Đăng nhập thất bại!'
+              : isChange
+              ? 'Đổi mật khẩu thành công!'
+              : 'Đặt lại mật khẩu thành công'}
           </h3>
         </div>
         <p className='body2 font-normal text-center text-blue-800/80 my-[1.46413rem]'>
           {isLogin
             ? 'Vui lòng kiểm tra lại thông tin đăng nhập!'
+            : isChange
+            ? 'Chúc mừng bạn đã đổi lại mật khẩu thành công. Cùng Astro khám phá những sản phẩm công nghệ mới nhé!'
             : 'Chúc mừng bạn đã đặt lại mật khẩu thành công. Cùng Astro khám phá những sản phẩm công nghệ mới nhé!'}
         </p>
         {isLogin ? (
@@ -37,6 +43,13 @@ export default function ContentPopup({onOpenChange, isLogin}) {
             className='w-[12.95754rem] h-[3.22108rem] flex items-center justify-center py-[0.73206rem] pr-[1.1713rem] pl-[1.46413rem] rounded-[0.58565rem] bg-gradient-to-l from-[#1359A1] to-[#102841] font-semibold text-center text-white button whitespace-nowrap'
           >
             ĐĂNG NHẬP LẠI
+          </button>
+        ) : isChange ? (
+          <button
+            onClick={() => onOpenChange(false)}
+            className='w-[12.95754rem] h-[3.22108rem] flex items-center justify-center py-[0.73206rem] pr-[1.1713rem] pl-[1.46413rem] rounded-[0.58565rem] bg-gradient-to-l from-[#1359A1] to-[#102841] font-semibold text-center text-white button whitespace-nowrap'
+          >
+            Đóng
           </button>
         ) : (
           <Link
