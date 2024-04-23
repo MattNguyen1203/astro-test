@@ -2,19 +2,15 @@
 import useStore from '@/app/(store)/store'
 import SheetCart from '@/components/sheetcart'
 import {getDataAuth} from '@/lib/getDataAuth'
-import {useSession} from 'next-auth/react'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
 
-export default function Cart({isMobile}) {
-  const session = useSession()
+export default function Cart({isMobile, session}) {
   const isAuth = session?.status === 'authenticated'
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
   const actionCart = useStore((state) => state.actionCart)
   const listCart = useStore((state) => state.listCart)
   const setListCart = useStore((state) => state.setListCart)
-
-  // const [listCart, setListCart] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -33,16 +29,17 @@ export default function Cart({isMobile}) {
       }
       fetchCart()
     } else {
-      const localGet = JSON.parse(localStorage.getItem('cartAstro')) || []
+      const localGet = localStorage.getItem('cartAstro')
+        ? JSON.parse(localStorage.getItem('cartAstro'))
+        : []
       setListCart(localGet)
     }
-  }, [])
+  }, [actionCart])
 
   return (
     <SheetCart
       isMobile={isMobile}
       session={session}
-      listCart={listCart}
       isLoading={isLoading}
       isAuth={isAuth}
     >

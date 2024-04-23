@@ -1,15 +1,16 @@
-export async function getDataAuth(request) {
+export async function putDataAuth(request) {
+  const accessToken = `Bearer ${request?.token}`
+  const requestOptions = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      ['Authorization']: accessToken,
+    },
+    body: JSON.stringify(request.body),
+    redirect: 'follow',
+  }
+
   try {
-    const accessToken = `Bearer ${request?.token}`
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        ['Authorization']: accessToken,
-      },
-      redirect: 'follow',
-      revalidate: request?.revalidate || 60,
-    }
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API}${request?.api}`,
       requestOptions,

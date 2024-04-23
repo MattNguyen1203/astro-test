@@ -14,18 +14,23 @@ import ICCheck from '../icon/ICCheck'
 import {useRouter} from 'next/navigation'
 import {toast} from 'sonner'
 import Loading from '../loading'
-import {formatToVND} from '@/lib/utils'
+import {cn, formatToVND} from '@/lib/utils'
+import useStore from '@/app/(store)/store'
+import {deleteDataAuth} from '@/lib/deleteData'
 
 export default function SheetCart({
   children,
   isMobile = false,
-  listCart,
   isLoading,
   isAuth,
+  session,
 }) {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [cart, setCart] = useState([])
+  const [isLoadingCart, setIsLoadingCart] = useState(false)
+  const listCart = useStore((state) => state.listCart)
+  const setListCart = useStore((state) => state.setListCart)
 
   const handleCart = () => {
     if (cart?.length === listCart?.length) {
@@ -60,7 +65,40 @@ export default function SheetCart({
     return total
   }, [listCart])
 
+  const handleClearCart = async () => {
+    if (cart?.length <= 0) return
 
+    console.log('listCart', listCart)
+    const newListCart = listCart?.filter(
+      (item, index) => !cart?.includes(index),
+    )
+
+    if (isAuth) {
+      const listKeyDelete = cart.map((item) => ({key: listCart[item].key}))
+      setIsLoadingCart(true)
+      const res = await deleteDataAuth({
+        api: '/okhub/v1/cart',
+        token: session?.accessToken,
+        body: {cart_items: listKeyDelete},
+      })
+      setIsLoadingCart(false)
+
+      if (res.success) {
+        setListCart(newListCart)
+        toast.success('Đã xóa sản phẩm', {
+          duration: 3000,
+          position: 'top-center',
+        })
+      } else {
+        toast.error('Có lỗi xảy ra', {
+          duration: 3000,
+          position: 'top-center',
+        })
+      }
+    } else {
+      localStorage.setItem('cartAstro', newListCart)
+    }
+  }
   return (
     <Sheet
       open={isOpen}
@@ -94,7 +132,13 @@ export default function SheetCart({
                   ({listCart?.length || 0} sản phẩm)
                 </span>
               </div>
-              <div className='flex cursor-pointer items w-fit pl-[0.5rem]'>
+              <div
+                className={cn(
+                  'flex cursor-pointer items w-fit pl-[0.5rem]',
+                  listCart?.length === 0 && 'pointer-events-none',
+                )}
+                onClick={listCart?.length > 0 && handleClearCart}
+              >
                 <ICDelete className='w-[0.83272rem] h-auto' />
                 <span className='w-fit ml-[0.46rem] leading-[1.2] tracking-[0.00878rem] font-semibold text-[0.87848rem] text-[#262626] block translate-y-[22.5%] select-none'>
                   Xoá
@@ -108,7 +152,7 @@ export default function SheetCart({
               type={isMobile ? 'never' : 'always'}
               className='w-full h-[calc(100vh-10rem-4rem)] xmd:h-[calc(100vh-10.17rem-3.6rem)] pl-[2.92rem] pr-[1.5rem] xmd:px-[0.59rem]'
             >
-              {isLoading ? (
+              {isLoading || isLoadingCart ? (
                 <Loading />
               ) : (
                 <div className='grid grid-cols-1 gap-y-[0.88rem] xmd:mb-[4rem]'>

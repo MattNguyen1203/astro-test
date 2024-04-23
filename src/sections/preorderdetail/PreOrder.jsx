@@ -51,7 +51,7 @@ const PreOrder = ({isMobile, data, voucher, variations, relatedProduct}) => {
     ...data,
     variations: variations,
     quantity: 1,
-    selectedVariations:
+    variation:
       Object.values(variations?.variations)?.find((item) => item.default) || {},
   })
 
@@ -71,7 +71,7 @@ const PreOrder = ({isMobile, data, voucher, variations, relatedProduct}) => {
   const isHaveSelectedVar = useMemo(() => {
     if (data.type === 'variable') {
       return (
-        selectedPrd?.selectedVariations &&
+        selectedPrd?.variation &&
         selectedPrd.attributes &&
         selectedPrd.attributes.length > 0
       )
@@ -94,7 +94,7 @@ const PreOrder = ({isMobile, data, voucher, variations, relatedProduct}) => {
             <div className='sticky top-[9rem] right-0 mb-[2rem]'>
               <SlideMultiple
                 listGallery={listGallery}
-                activeImage={selectedPrd?.selectedVariations?.image?.url}
+                activeImage={selectedPrd?.variation?.image?.url}
               />
               <div className='xmd:hidden sub2 font-medium tracking-[0.01025rem] mt-[1.32rem] mb-[0.59rem] text-greyscale-30'>
                 Ghé thăm gian hàng tại:
@@ -112,13 +112,11 @@ const PreOrder = ({isMobile, data, voucher, variations, relatedProduct}) => {
               </h2>
               <ProductPrice
                 regularPrice={
-                  selectedPrd?.selectedVariations?.display_regular_price ||
+                  selectedPrd?.variation?.display_regular_price ||
                   data?.regular_price
                 }
                 price={
-                  selectedPrd?.selectedVariations?.display_price ||
-                  data?.price ||
-                  0
+                  selectedPrd?.variation?.display_price || data?.price || 0
                 }
               />
 
@@ -136,15 +134,15 @@ const PreOrder = ({isMobile, data, voucher, variations, relatedProduct}) => {
                 <div
                   className={cn(
                     data?.type === 'variable' &&
-                      (!selectedPrd?.selectedVariations ||
-                        !selectedPrd?.selectedVariations.max_qty)
+                      (!selectedPrd?.variation ||
+                        !selectedPrd?.variation.max_qty)
                       ? 'pointer-events-none opacity-40 cursor-not-allowed'
                       : '',
                   )}
                 >
                   <ChangeQuantity
                     stockQty={
-                      selectedPrd?.selectedVariations?.max_qty ||
+                      selectedPrd?.variation?.max_qty ||
                       selectedPrd.stock_quantity
                     }
                     setChangeQty={setSelectedPrd}
@@ -155,10 +153,9 @@ const PreOrder = ({isMobile, data, voucher, variations, relatedProduct}) => {
                     className={cn(
                       'caption1 font-semibold text-white flex items-center justify-center w-[10.688rem] xmd:w-full h-full rounded-[0.58565rem] bg-[#102841] px-[1.17rem] py-[0.73rem] uppercase ml-[0.88rem] xmd:ml-0',
                       !isHaveSelectedVar && 'opacity-50 pointer-events-none',
-                      !selectedPrd?.selectedVariations?.attributes &&
-                        'opacity-50',
+                      !selectedPrd?.variation?.attributes && 'opacity-50',
                     )}
-                    disabled={!selectedPrd?.selectedVariations?.attributes}
+                    disabled={!selectedPrd?.variation?.attributes}
                   >
                     Đặt trước
                   </button>
