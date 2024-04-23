@@ -1,12 +1,12 @@
 export function covertToText(data) {
-  if (!data?.selectedVariations?.attributes) return null
+  if (!data?.variation?.attributes) return null
   const listAttr = data.attributes
   let text = ''
 
   const result = listAttr.map((item) => {
     return {
       ...item,
-      value: Object.values(data?.selectedVariations?.attributes)?.find(
+      value: Object.values(data?.variation?.attributes)?.find(
         (attr) => attr.taxonomy === item.key,
       )?.label,
     }

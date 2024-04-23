@@ -1,13 +1,13 @@
-export async function getDataAuth(request) {
+export async function putDataAuth(request) {
   const accessToken = `Bearer ${request?.token}`
   const requestOptions = {
-    method: 'GET',
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       ['Authorization']: accessToken,
     },
+    body: JSON.stringify(request.body),
     redirect: 'follow',
-    revalidate: request?.revalidate || 60,
   }
 
   try {

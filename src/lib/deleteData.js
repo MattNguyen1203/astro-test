@@ -1,13 +1,13 @@
-export async function getDataAuth(request) {
+export async function deleteDataAuth(request) {
   const accessToken = `Bearer ${request?.token}`
   const requestOptions = {
-    method: 'GET',
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
       ['Authorization']: accessToken,
     },
+    body: JSON.stringify(request.body),
     redirect: 'follow',
-    revalidate: request?.revalidate || 60,
   }
 
   try {

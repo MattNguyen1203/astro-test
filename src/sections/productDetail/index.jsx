@@ -62,8 +62,10 @@ const ProductDetail = ({
     ...data,
     variations: variations,
     quantity: 1,
-    selectedVariations:
-      Object.values(variations?.variations)?.find((item) => item.default) || {},
+    variation:
+      Object.values(variations?.variations || {})?.find(
+        (item) => item.default,
+      ) || {},
   })
 
   const ordered = 35
@@ -73,24 +75,31 @@ const ProductDetail = ({
   const [listCrossell, setListCrossell] = useState(
     data?.crossSellProducts?.map((item) => ({...item, quantity: 1})) || [],
   )
+
+  const [listCrossellIndex, setCrossellIndex] = useState([])
   //get list image
   const [listGallery, isFlashSale] = useMemo(() => {
     const gallery = data?.galleryImgs
 
-    const listImgVariations = Object?.values(variations?.variations)?.map(
-      (item) => item.image.url,
-    )
-    // check flash sale
     const isFlashSale = data?.meta_detect?.flash_sale?.is_flash_sale === 'yes'
+    if (selectedPrd.type === 'variable') {
+      const listImgVariations = Object?.values(variations?.variations)?.map(
+        (item) => item.image.url,
+      )
 
-    return [gallery.concat(listImgVariations), isFlashSale]
+      return [gallery.concat(listImgVariations), isFlashSale]
+    } else {
+      return [gallery, isFlashSale]
+    }
+
+    // check flash sale
   }, [data])
 
   //check user select variation or not
   const isHaveSelectedVar = useMemo(() => {
     if (data.type === 'variable') {
       return (
-        selectedPrd?.selectedVariations &&
+        selectedPrd?.variation &&
         selectedPrd.attributes &&
         selectedPrd.attributes.length > 0
       )
@@ -101,11 +110,8 @@ const ProductDetail = ({
   const totalCrossell = useMemo(() => {
     const totalPrice = listCrossell?.reduce((value, currentValue) => {
       const quantity = Number(currentValue.quantity) || 1
-      if (currentValue?.selectedVariations?.display_price) {
-        return (
-          Number(currentValue?.selectedVariations?.display_price) * quantity +
-          value
-        )
+      if (currentValue?.variation?.display_price) {
+        return Number(currentValue?.variation?.display_price) * quantity + value
       } else {
         return Number(currentValue?.price) * quantity + value
       }
@@ -116,15 +122,14 @@ const ProductDetail = ({
 
   // set default
   useEffect(() => {
+    if (selectedPrd.type === 'simple') return
     const listVariations = Object?.values(variations?.variations)
     listVariations?.forEach((item) => {
       if (item?.default) {
-        setSelectedPrd((prev) => ({...prev, selectedVariations: item}))
+        setSelectedPrd((prev) => ({...prev, variation: item}))
       }
     })
   }, [variations])
-
-  const handleAddToCart = () => {}
 
   // get data of crossell product
   useEffect(() => {
@@ -144,7 +149,7 @@ const ProductDetail = ({
                 return {
                   ...item,
                   listVariations: data,
-                  selectedVariations: defaultValue,
+                  variation: defaultValue,
                 }
               }
             }
@@ -161,6 +166,10 @@ const ProductDetail = ({
     }
   }, [])
 
+  const listCrossellAddToCart = useMemo(() => {
+    return listCrossellIndex.map((item) => listCrossell[item])
+  }, [listCrossellIndex, listCrossell])
+
   return (
     <div className='container mt-[8.1rem] md:pb-[4rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
@@ -175,7 +184,7 @@ const ProductDetail = ({
           <div className='sticky top-[9rem] right-0 mb-[2rem]'>
             <SlideMultiple
               listGallery={listGallery}
-              activeImage={selectedPrd?.selectedVariations?.image?.url}
+              activeImage={selectedPrd?.variation?.image?.url}
             />
             <div className='xmd:hidden sub2 font-medium tracking-[0.01025rem] mt-[1.32rem] mb-[0.59rem] text-greyscale-30'>
               Ghé thăm gian hàng tại:
@@ -193,27 +202,19 @@ const ProductDetail = ({
             </h2>
             <ProductPrice
               regularPrice={
-                selectedPrd?.selectedVariations?.display_regular_price ||
+                selectedPrd?.variation?.display_regular_price ||
                 data?.regular_price
               }
-              price={
-                selectedPrd?.selectedVariations?.display_price ||
-                data?.price ||
-                0
-              }
+              price={selectedPrd?.variation?.display_price || data?.price || 0}
               bestCoupon={bestCoupon}
             />
 
             <TemVoucher
               regularPrice={
-                selectedPrd?.selectedVariations?.display_regular_price ||
+                selectedPrd?.variation?.display_regular_price ||
                 data?.regular_price
               }
-              price={
-                selectedPrd?.selectedVariations?.display_price ||
-                data?.price ||
-                0
-              }
+              price={selectedPrd?.variation?.display_price || data?.price || 0}
               bestCoupon={bestCoupon}
             />
 
@@ -231,15 +232,14 @@ const ProductDetail = ({
               <div
                 className={cn(
                   data?.type === 'variable' &&
-                    (!selectedPrd?.selectedVariations ||
-                      !selectedPrd?.selectedVariations.max_qty)
+                    (!selectedPrd?.variation || !selectedPrd?.variation.max_qty)
                     ? 'pointer-events-none opacity-40 cursor-not-allowed'
                     : '',
                 )}
               >
                 <ChangeQuantity
                   stockQty={
-                    selectedPrd?.selectedVariations?.max_qty ||
+                    selectedPrd?.variation?.max_qty ||
                     selectedPrd.stock_quantity
                   }
                   setChangeQty={setSelectedPrd}
@@ -249,7 +249,9 @@ const ProductDetail = ({
               <div className='flex xmd:flex-row-reverse h-[2.9282rem] xmd:h-[3.22108rem]'>
                 <div
                   className={cn(
-                    !isHaveSelectedVar && 'opacity-50 pointer-events-none',
+                    !isHaveSelectedVar &&
+                      selectedPrd.type === 'variable' &&
+                      'opacity-50 pointer-events-none',
                   )}
                 >
                   <AddToCartBtn
@@ -259,6 +261,7 @@ const ProductDetail = ({
                       text: 'xmd:hidden',
                       img: 'xmd:size-[2rem]',
                     }}
+                    listProduct={[selectedPrd]}
                   />
                 </div>
 
@@ -329,6 +332,9 @@ const ProductDetail = ({
                       data={item}
                       setIsOpen={setIsOpen}
                       setActiveId={setActiveId}
+                      listCrossellIndex={listCrossellIndex}
+                      setCrossellIndex={setCrossellIndex}
+                      index={index}
                     />
                   </div>
                 ))
@@ -359,6 +365,7 @@ const ProductDetail = ({
                     text: 'flex ml-[0.59rem]',
                     img: 'smd:size-[1.1713rem]',
                   }}
+                  listProduct={listCrossellAddToCart}
                 />
               </div>
             </div>
