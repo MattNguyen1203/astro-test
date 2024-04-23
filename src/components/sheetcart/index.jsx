@@ -17,15 +17,14 @@ import Loading from '../loading'
 import {cn, formatToVND} from '@/lib/utils'
 import useStore from '@/app/(store)/store'
 import {deleteDataAuth} from '@/lib/deleteData'
-import {useSession} from 'next-auth/react'
 
 export default function SheetCart({
   children,
   isMobile = false,
   isLoading,
   isAuth,
+  session,
 }) {
-  const session = useSession()
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [cart, setCart] = useState([])
@@ -79,7 +78,7 @@ export default function SheetCart({
       setIsLoadingCart(true)
       const res = await deleteDataAuth({
         api: '/okhub/v1/cart',
-        token: session?.data?.accessToken,
+        token: session?.accessToken,
         body: {cart_items: listKeyDelete},
       })
       setIsLoadingCart(false)
