@@ -5,7 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import React, {useState} from 'react'
+import {useState} from 'react'
 import ShowMore from '@/components/showmore'
 
 const AccordionInfo = ({data}) => {

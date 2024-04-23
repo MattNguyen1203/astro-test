@@ -1,5 +1,3 @@
-import React from 'react'
-
 const RelatedButton = ({text, bg, color}) => {
   return (
     <div

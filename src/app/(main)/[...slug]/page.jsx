@@ -1,5 +1,14 @@
+import {auth} from '@/auth'
 import getData from '@/lib/getData'
 import ProductDetail from '@/sections/productDetail'
+export async function generateStaticParams() {
+  const products = await getData('/okhub/v1/product')
+  const productsNew = products?.filter((e) => e?.type !== 'grouped')
+
+  return productsNew.map((product) => ({
+    slug: product.slug,
+  }))
+}
 
 const ProductDetailPage = async ({searchParams, params: {slug}}) => {
   const {viewport} = searchParams
@@ -16,13 +25,19 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
 
   const bestCouponReq = getData(`/okhub/v1/coupon/product-detail/${slug}/best`)
 
-  const [dataProductDetail, dataProductVoucher, dataVariation, dataBestCoupon] =
-    await Promise.all([
-      dataProductDetailReq,
-      dataProductVoucherReq,
-      dataVariationReq,
-      bestCouponReq,
-    ])
+  const [
+    dataProductDetail,
+    dataProductVoucher,
+    dataVariation,
+    dataBestCoupon,
+    session,
+  ] = await Promise.all([
+    dataProductDetailReq,
+    dataProductVoucherReq,
+    dataVariationReq,
+    bestCouponReq,
+    auth(),
+  ])
 
   const productCat = dataProductDetail?.categories?.[0]
 
@@ -43,6 +58,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
         variations={dataVariation}
         bestCoupon={dataBestCoupon}
         relatedProduct={relatedProduct}
+        session={session}
       />
     </main>
   )

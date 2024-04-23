@@ -1,6 +1,5 @@
 import CardProduct from '@/components/cardproduct'
 import Image from 'next/image'
-import React from 'react'
 
 const RelatedProduct = ({relatedProduct}) => {
   // const relatedProduct = new Array(5).fill(0)

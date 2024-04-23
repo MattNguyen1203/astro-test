@@ -3,7 +3,7 @@
 import {Swiper, SwiperSlide} from 'swiper/react'
 import {FreeMode} from 'swiper/modules'
 import 'swiper/css'
-import React, {useRef, useState} from 'react'
+import {useRef, useState} from 'react'
 import Image from 'next/image'
 import NavigationCustom from '@/components/navigationcustom'
 import CardRelatedArticle from './CardRelatedArticle'

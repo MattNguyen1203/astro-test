@@ -1,6 +1,5 @@
 import Progress from '@/components/progress'
 import Image from 'next/image'
-import React from 'react'
 
 const data =
   '<h3><strong>Điều kiện nhận quà tặng khi đặt hàng trước ngày  20.01.2024</strong></h3><ul><li> 50 chiếc túi bảo vệ màn hình tặng kèm cho 50 đơn hàng đầu tiên</li><li> 50 chiếc túi bảo vệ màn hình tặng kèm cho 50 đơn hàng đầu tiên</li><li> 50 chiếc túi bảo vệ màn hình tặng kèm cho 50 đơn hàng đầu tiên</li></ul>'

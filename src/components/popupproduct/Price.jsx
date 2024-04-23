@@ -1,5 +1,4 @@
 import {formatToVND} from '@/lib/utils'
-import React from 'react'
 
 const ProductPrice = ({regularPrice, price, bestCoupon}) => {
   const finalPrice = Number(price) - Number(bestCoupon?.amount_discount || 0)
