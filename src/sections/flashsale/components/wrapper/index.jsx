@@ -23,9 +23,9 @@ export default function WrapperFlashSale({isMobile}) {
         <div className='relative flex mx-auto w-fit mb-[1.76rem] xmd:mb-[1.46rem] font-workSans'>
           <div className='text-[2.92826rem] xmd:text-[1.46413rem] xmd:tracking-[0.11713rem] font-bold text-white leading-[1.2] tracking-[0.23426rem] font-workSans fl mr-[1rem] relative'>
             FL
-            <div className='size-[10rem] absolute top-[50%] left-[-0.3rem] -translate-y-1/2 xmd:size-[5rem] xmd:-left-[0.2rem] pointer-events-none'>
+            <div className='size-[10rem] absolute top-[50%] left-[-0.5rem] -translate-y-1/2 xmd:size-[5rem] xmd:-left-[0.2rem] pointer-events-none'>
               <Image
-                className='size-full'
+                className='size-full scale-[1.3]'
                 src={'/home/electric.svg'}
                 alt='tia set'
                 width={80}

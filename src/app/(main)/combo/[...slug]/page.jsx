@@ -1,6 +1,15 @@
 import getData from '@/lib/getData'
 import ComboDetail from '@/sections/productDetail/ComboDetail'
 
+export async function generateStaticParams() {
+  const products = await getData('/okhub/v1/product')
+  const productsNew = products?.filter((e) => e?.type === 'grouped')
+
+  return productsNew.map((product) => ({
+    slug: [product.slug],
+  }))
+}
+
 const ProductDetailPage = async ({searchParams, params: {slug}}) => {
   const {viewport} = searchParams
   const isMobile = viewport.includes('mobile')
@@ -29,10 +38,10 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     ).then((result) => {
       const groupPrd = dataProductDetail?.grouped_products?.map(
         (item, index) => {
-          if (result[index] !== null) {
-            const defaultValue = Object.values(result[index]?.variations)?.find(
-              (item) => item.default,
-            )
+          if (result?.[index] !== null) {
+            const defaultValue = Object.values(
+              result?.[index]?.variations,
+            )?.find((item) => item.default)
 
             return {
               ...item,

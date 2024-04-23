@@ -47,7 +47,7 @@ function CardProduct({product, priority = false}) {
           href={product?.slug || '/'}
           className='block w-full h-fit'
         >
-          <h2 className='font-medium line-clamp-2 text-greyscale-60 caption1 h-[2.1rem] xmd:h-[2.05rem] xmd:tracking-[0.00439rem] xmd:font-semibold'>
+          <h2 className='font-medium xmd:font-semibold line-clamp-2 text-greyscale-60 caption1 h-[2.1rem] xmd:h-[2.05rem] xmd:tracking-[0.00439rem]'>
             {product?.name || 'Chưa có thông tin!'}
           </h2>
         </Link>

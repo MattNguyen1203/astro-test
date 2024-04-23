@@ -1,7 +1,7 @@
 import {Dialog, DialogContent} from '@/components/ui/dialog'
 import ContentPopup from './ContentPopup'
 
-export function PopupResetPass({isOpen, setIsSuccess, isLogin}) {
+export function PopupResetPass({isOpen, setIsSuccess, isLogin, isChange}) {
   return (
     <Dialog
       open={isOpen}
@@ -15,6 +15,7 @@ export function PopupResetPass({isOpen, setIsSuccess, isLogin}) {
         <ContentPopup
           onOpenChange={setIsSuccess}
           isLogin={isLogin}
+          isChange={isChange}
         />
       </DialogContent>
     </Dialog>

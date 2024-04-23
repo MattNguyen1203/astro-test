@@ -3,7 +3,7 @@
 import {Swiper, SwiperSlide} from 'swiper/react'
 import {FreeMode} from 'swiper/modules'
 import 'swiper/css'
-import React, {useRef, useState} from 'react'
+import {useRef, useState} from 'react'
 import Image from 'next/image'
 import NavigationCustom from '@/components/navigationcustom'
 import CardRelatedArticle from './CardRelatedArticle'
@@ -31,7 +31,7 @@ const RelatedArticle = ({isMobile}) => {
             isMobile ? 'flex justify-start flex-col space-y-[0.87848rem] ' : ' '
           }
         >
-          <h2 className='font-medium h6 xmd:h3 xmd:font-semibold xmd:text-blue-700 xmd:uppercase'>
+          <h2 className='font-medium h6 xmd:text-[2.34261rem] font-svnGraphik xmd:font-semibold xmd:text-blue-700 xmd:uppercase'>
             {isMobile ? 'Tin Tức Liên Quan' : 'Bài viết liên quan'}
           </h2>
           {isMobile && (
@@ -39,7 +39,7 @@ const RelatedArticle = ({isMobile}) => {
               <div className='w-max pb-2  flex items-start  gap-[0.87848rem]'>
                 <RelatedButton
                   text='mới nhất'
-                  bg='#153454'
+                  bg='bg-[#153454]'
                   color='#fff'
                 />
                 <RelatedButton

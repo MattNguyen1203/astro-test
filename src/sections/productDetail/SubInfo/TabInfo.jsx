@@ -1,4 +1,4 @@
-import React, {memo} from 'react'
+import {memo} from 'react'
 import AccordionInfo from '../Accordion'
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
 import ShowMore from '@/components/showmore'

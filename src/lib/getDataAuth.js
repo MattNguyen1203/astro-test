@@ -1,16 +1,15 @@
 export async function getDataAuth(request) {
-  const accessToken = `Bearer ${request?.token}`
-  const requestOptions = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      ['Authorization']: accessToken,
-    },
-    redirect: 'follow',
-    revalidate: request?.revalidate || 60,
-  }
-
   try {
+    const accessToken = `Bearer ${request?.token}`
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        ['Authorization']: accessToken,
+      },
+      redirect: 'follow',
+      revalidate: request?.revalidate || 60,
+    }
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API}${request?.api}`,
       requestOptions,

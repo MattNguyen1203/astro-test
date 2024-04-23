@@ -2,13 +2,10 @@
 import useStore from '@/app/(store)/store'
 import SheetCart from '@/components/sheetcart'
 import {getDataAuth} from '@/lib/getDataAuth'
-import {useSession} from 'next-auth/react'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
 
-export default function Cart({isMobile}) {
-  const session = useSession()
-  // console.log('🚀 ~ Cart ~ session:', session)
+export default function Cart({isMobile, session}) {
   const isAuth = session?.status === 'authenticated'
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
   const actionCart = useStore((state) => state.actionCart)

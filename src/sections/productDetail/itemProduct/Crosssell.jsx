@@ -6,7 +6,7 @@ import {formatToVND} from '@/lib/utils'
 import {DialogProduct} from '@/sections/home/components/dialog'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {handlePrice} from '../function'
 
 const ItemProduct = (props) => {

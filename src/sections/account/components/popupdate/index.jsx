@@ -11,7 +11,7 @@ import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover'
 import {ScrollArea} from '@/components/ui/scroll-area'
 import {useState} from 'react'
 
-export default function PopupDate({data, type = 0}) {
+export default function PopupDate({data, type = 0, defaultValue}) {
   const [value, setValue] = useState('')
   const [open, setOpen] = useState(false)
   return (
@@ -30,7 +30,7 @@ export default function PopupDate({data, type = 0}) {
               : 'text-greyscale-20 hover:text-greyscale-20'
           } text-[0.87848rem] tracking-[0.00878rem] leading-[1.2] font-medium justify-start flex-1 p-[0.88rem] h-fit rounded-[0.58565rem] bg-elevation-20 font-svnGraphik relative`}
         >
-          {value ? value : type === 1 ? 'Tháng 1' : type === 2 ? '1990' : '1'}
+          {value ? value : defaultValue}
           <svg
             xmlns='http://www.w3.org/2000/svg'
             width='15'

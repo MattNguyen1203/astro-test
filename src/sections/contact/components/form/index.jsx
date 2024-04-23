@@ -28,7 +28,7 @@ export default function IndexFormContact() {
               src={'/contact/mess.svg'}
             />
           </div>
-          <p className='flex-1 font-medium sub1 xmd:body2 xmd:text-greyscale-50 text-greyscale-80 tablet:text-[2rem]'>
+          <p className='flex-1 font-medium xmd:font-semibold sub1 xmd:body2 xmd:text-greyscale-50 text-greyscale-80 tablet:text-[2rem]'>
             Gửi thắc mắc của bạn tới AstroMazing, chúng tôi sẽ giúp bạn giải đáp
             thắc mắc trong thời gian sớm nhất
           </p>

@@ -1,21 +1,14 @@
 import useStore from '@/app/(store)/store'
 import {handleCart} from '@/components/itemcart/handleCart'
 import Loading from '@/components/loading'
-import postData from '@/lib/postData'
 import {cn} from '@/lib/utils'
 import {useSession} from 'next-auth/react'
 import Image from 'next/image'
 import React, {useState} from 'react'
-import {toast} from 'sonner'
 
 const AddToCartBtn = ({className, listProduct}) => {
   const [isLoading, setIsLoading] = useState(false)
-
   const session = useSession()
-
-  // const isAuth = session.status === 'authenticated'
-
-  const isAuth = true
 
   const listCart = useStore((state) => state.listCart)
   const setListCart = useStore((state) => state.setListCart)

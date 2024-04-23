@@ -75,12 +75,13 @@ export default function ResetPassIndex() {
       })
       signUpForm(body)
         .then((res) => {
+          console.log('🚀 ~ .then ~ res:', res)
           if (res?.message?.includes('success')) {
             // handle register success
             localStorage.setItem(
               'account',
               JSON.stringify({
-                login: phone,
+                phone: phone,
                 password: values?.password,
               }),
             )

@@ -1,20 +1,20 @@
 export async function postDataProfile(request) {
   try {
     const myHeaders = new Headers()
-    myHeaders.append('Content-Type', 'application/json')
+    // myHeaders.append('Content-Type', 'application/json')
     myHeaders.append('Authorization', `Bearer ${request?.token}`)
 
     const requestOptions = {
       method: 'POST',
       headers: myHeaders,
-      redirect: 'follow',
       body: request?.body,
+      redirect: 'follow',
     }
     const res = await fetch(`${process.env.API}${request?.api}`, requestOptions)
 
     // Check if the response was successful
     if (!res.ok) {
-      return res.text()
+      return res.json()
       // throw new Error(`HTTP error! status: ${res.status}`)
     }
 

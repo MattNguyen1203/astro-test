@@ -1,10 +1,17 @@
 import Image from 'next/image'
 import MenuUser from '../menuuser'
 import {auth} from '@/auth'
+import ItemRank from './ItemRank'
+import {getDataProfile} from '@/lib/getDataProfile'
 
 export default async function InfoAccount() {
   const session = await auth()
+  const profile = await getDataProfile({
+    api: `/custom/v1/customer/customer?user_id=${session?.userId}`,
+    token: session?.acessToken,
+  })
   const user = session?.user
+  console.log('🚀 ~ InfoAccount ~ user:', user)
   return (
     <aside className='w-[21.30307rem] h-fit sticky top-[9.52rem] left-0'>
       <div className='p-[1.17rem] rounded-[0.58565rem] bg-white shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>
@@ -25,24 +32,14 @@ export default async function InfoAccount() {
             )}
           </div>
           <div className='flex flex-col ml-[0.88rem]'>
-            {user?.email && (
+            {profile?.user_id && (
               <span className='font-medium caption1 text-greyscale-50'>
-                {user?.name || user?.email?.split('@')?.[0]}
+                {profile?.nickname ||
+                  profile?.display_name ||
+                  user?.email?.split('@')?.[0]}
               </span>
             )}
-            <div className='flex items-center px-[0.6rem] py-[0.3rem] rounded-[7.4rem] bg-[linear-gradient(99deg,#058FF2_0%,#81AFFF_59%,#00E0FF_100%)] w-fit mt-[0.44rem]'>
-              <Image
-                className='size-[0.87848rem] object-contain'
-                src={'/account/cup-kc.svg'}
-                alt='cup kim cương'
-                width={12}
-                height={12}
-                priority
-              />
-              <span className='block ml-[0.29rem] caption2 font-normal text-white w-fit'>
-                Thành viên kim cương
-              </span>
-            </div>
+            <ItemRank rank={Number(profile?.member_level) || 0} />
           </div>
         </div>
       </div>
