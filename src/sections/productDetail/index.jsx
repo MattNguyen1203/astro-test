@@ -85,9 +85,9 @@ const ProductDetail = ({
 
     const isFlashSale = data?.meta_detect?.flash_sale?.is_flash_sale === 'yes'
     if (selectedPrd.type === 'variable') {
-      const listImgVariations = Object?.values(variations?.variations)?.map(
-        (item) => item.image.url,
-      )
+      const listImgVariations =
+        variations?.variations &&
+        Object?.values(variations?.variations)?.map((item) => item.image.url)
       if (gallery) return [gallery.concat(listImgVariations), isFlashSale]
     } else {
       return [gallery, isFlashSale]
@@ -124,7 +124,8 @@ const ProductDetail = ({
   // set default
   useEffect(() => {
     if (selectedPrd.type === 'simple') return
-    const listVariations = Object?.values(variations?.variations)
+    const listVariations =
+      variations?.variations && Object?.values(variations?.variations)
     listVariations?.forEach((item) => {
       if (item?.default) {
         setSelectedPrd((prev) => ({...prev, variation: item}))
@@ -144,9 +145,11 @@ const ProductDetail = ({
               const data = await fetcher(url)
 
               if (data) {
-                const defaultValue = Object?.values(
-                  data?.variations || {},
-                ).find((variation) => variation?.default)
+                const defaultValue =
+                  data?.variations &&
+                  Object?.values(data?.variations || {}).find(
+                    (variation) => variation?.default,
+                  )
                 return {
                   ...item,
                   listVariations: data,

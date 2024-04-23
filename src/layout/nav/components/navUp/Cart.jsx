@@ -18,12 +18,12 @@ export default function Cart({isMobile, session}) {
       const fetchCart = async () => {
         setIsLoading(true)
         const res = await getDataAuth({
-          token: session?.data?.accessToken,
+          token: session?.accessToken,
           api: `/okhub/v1/cart`,
         })
 
         if (res) {
-          setListCart(res || [])
+          setListCart(Array.isArray(res) ? res : [])
         }
         setIsLoading(false)
       }

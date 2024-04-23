@@ -5,7 +5,7 @@ import {getDataProfile} from '@/lib/getDataProfile'
 import ProductDetail from '@/sections/productDetail'
 export async function generateStaticParams() {
   const products = await getData('/okhub/v1/product')
-  const productsNew = products?.filter((e) => e?.type !== 'grouped')
+  const productsNew = products?.filter((e) => e?.type !== 'wooco')
 
   return productsNew.map((product) => ({
     slug: [product.slug],
@@ -56,6 +56,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
       `/okhub/v1/product/productByCategory/${'but-cam-ung'}?limit=5&page=1`,
     )
   }
+  console.log('🚀 ~ ProductDetailPage ~ dataProductDetail:', dataProductDetail)
 
   return (
     <main className='bg-elevation-20'>

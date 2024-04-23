@@ -60,7 +60,7 @@ export default function SheetSort({children, isMobile = false, categories}) {
     const isSpecial = localStorage.getItem('isSpecial')
 
     if (isSpecial) {
-      localStorage.setItem('filterType', JSON.stringify(['simple', 'grouped']))
+      localStorage.setItem('filterType', JSON.stringify(['simple', 'wooco']))
     } else {
       if (type) {
         localStorage.setItem('filterType', JSON.stringify([type]))

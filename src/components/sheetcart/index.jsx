@@ -56,13 +56,15 @@ export default function SheetCart({
   }
 
   const totalPrice = useMemo(() => {
-    const total = listCart.reduce((total, item) => {
-      return (
-        total + Number(item?.product_price || 0) * Number(item?.quantity || 1)
-      )
-    }, 0)
+    if (Array.isArray(listCart)) {
+      const total = listCart?.reduce((total, item) => {
+        return (
+          total + Number(item?.product_price || 0) * Number(item?.quantity || 1)
+        )
+      }, 0)
 
-    return total
+      return total
+    }
   }, [listCart])
 
   const handleClearCart = async () => {

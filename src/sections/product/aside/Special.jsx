@@ -3,7 +3,7 @@ import ItemSpecial from './ItemSpecial'
 const specials = [
   {
     name: 'Sản phẩm combo',
-    slug: 'grouped',
+    slug: 'wooco',
   },
   {
     name: 'Sản phẩm lẻ',

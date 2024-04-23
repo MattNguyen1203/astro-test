@@ -11,6 +11,7 @@ const DialogProduct = dynamic(() =>
 )
 
 function CardProduct({product, priority = false}) {
+  console.log('🚀 ~ CardProduct ~ product:', product)
   const [isOpen, setIsOpen] = useState(false)
   const percentSale = handlePercentSale(product)
   const price = renderPriceProduct(product)
@@ -25,7 +26,7 @@ function CardProduct({product, priority = false}) {
   return (
     <div className='w-full h-[28.2rem] xmd:h-[23.1rem] first:ml-0 rounded-[0.87848rem] md:border md:border-solid md:border-[#E5E7EB] group shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] md:hover:shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_32px_0px_rgba(12,46,112,0.08)] select-none xmd:shadow-[-6px_2px_28px_0px_rgba(12,46,112,0.08),2px_4px_16px_0px_rgba(12,46,112,0.04)]'>
       <Link
-        href={product?.slug || '/'}
+        href={isCombo ? `/combo/${product?.slug}` : product?.slug || '/'}
         className='h-[16.82284rem] xmd:h-[12.00586rem] w-full rounded-tl-[0.87848rem] rounded-tr-[0.87848rem] overflow-hidden relative block'
       >
         <Image
@@ -44,7 +45,7 @@ function CardProduct({product, priority = false}) {
       </Link>
       <div className='p-[0.73206rem] xmd:p-[0.44rem] bg-white rounded-bl-[0.87848rem] rounded-br-[0.87848rem] xmd:h-[calc(23.1rem-12.00586rem)] relative'>
         <Link
-          href={product?.slug || '/'}
+          href={isCombo ? `/combo/${product?.slug}` : product?.slug || '/'}
           className='block w-full h-fit'
         >
           <h2 className='font-medium xmd:font-semibold line-clamp-2 text-greyscale-60 caption1 h-[2.1rem] xmd:h-[2.05rem] xmd:tracking-[0.00439rem]'>
