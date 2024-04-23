@@ -6,7 +6,7 @@ export async function generateStaticParams() {
   const productsNew = products?.filter((e) => e?.type === 'grouped')
 
   return productsNew.map((product) => ({
-    slug: product.slug,
+    slug: [product.slug],
   }))
 }
 
