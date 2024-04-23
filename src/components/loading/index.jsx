@@ -1,7 +1,12 @@
-const Loading = () => {
+import {cn} from '@/lib/utils'
+
+const Loading = ({className}) => {
   return (
     <svg
-      className='animate-spin h-[2rem] w-[2rem] text-black absolute top-1/2 left-1/2 -translate-1/2'
+      className={cn(
+        'animate-spin h-[2rem] w-[2rem] text-black absolute top-1/2 left-1/2 !-translate-1/2',
+        className,
+      )}
       xmlns='http://www.w3.org/2000/svg'
       fill='none'
       viewBox='0 0 24 24'

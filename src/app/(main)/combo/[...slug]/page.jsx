@@ -46,7 +46,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
             return {
               ...item,
               listVariations: result[index],
-              selectedVariations: defaultValue || {},
+              variation: defaultValue || {},
             }
           } else return item
         },

@@ -90,6 +90,8 @@ const ComboDetail = ({isMobile, data, voucher, bestCoupon, test}) => {
     }
   }, [listProduct, selectedPrd])
 
+  // console.log('selectedPrd', selectedPrd)
+
   return (
     <div className='container mt-[8.1rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
@@ -178,6 +180,9 @@ const ComboDetail = ({isMobile, data, voucher, bestCoupon, test}) => {
                     text: 'xmd:hidden',
                     img: 'xmd:size-[2rem]',
                   }}
+                  listProduct={[
+                    {...selectedPrd, grouped_products: listProduct},
+                  ]}
                 />
                 <button className='caption1 font-semibold text-white flex items-center justify-center w-[10.688rem] xmd:w-[21.3rem] h-full rounded-[0.58565rem] bg-[#102841] px-[1.17rem] py-[0.73rem] uppercase'>
                   Mua ngay

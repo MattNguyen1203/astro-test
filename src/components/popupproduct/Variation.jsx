@@ -76,9 +76,9 @@ const Variation = ({data = {}, setSelectedPrd, selectedPrd}) => {
 
   useEffect(() => {
     if (variationSelected.length < 1) {
-      if (selectedPrd?.selectedVariations?.attributes) {
+      if (selectedPrd?.variation?.attributes) {
         const listVariant = Object.values(
-          selectedPrd?.selectedVariations?.attributes,
+          selectedPrd?.variation?.attributes,
         )?.map((item) => {
           return {
             parentkey: item.taxonomy,
@@ -130,7 +130,7 @@ const Variation = ({data = {}, setSelectedPrd, selectedPrd}) => {
             variationSelected[index].selectedkey = ''
             setSelectedPrd((prev) => ({
               ...prev,
-              selectedVariations: {},
+              variation: {},
             }))
           }
         })
@@ -148,7 +148,7 @@ const Variation = ({data = {}, setSelectedPrd, selectedPrd}) => {
         if (variationSelectedInfo)
           setSelectedPrd((prev) => ({
             ...prev,
-            selectedVariations: variationSelectedInfo,
+            variation: variationSelectedInfo,
           }))
       }
     }

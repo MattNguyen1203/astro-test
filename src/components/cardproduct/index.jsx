@@ -110,6 +110,7 @@ function CardProduct({product, priority = false}) {
             type={product?.type}
             productSelected={productSelected}
             setProductSelected={setProductSelected}
+            isAddToCart={true}
           />
         )}
       </div>

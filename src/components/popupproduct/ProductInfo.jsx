@@ -5,10 +5,10 @@ import Variation from './Variation'
 import ChangeQuantity from './ChangeQuantity'
 import ProductPrice from './Price'
 import Link from 'next/link'
-import AddToCart from './AddToCart'
 import {useMemo} from 'react'
 import {handlePrice} from '@/sections/productDetail/function'
 import {cn} from '@/lib/utils'
+import AddToCartBtn from '@/sections/productDetail/addToCartBtn'
 
 export default function ProductInfo({
   type,
@@ -33,12 +33,10 @@ export default function ProductInfo({
   const [regularPriceResult, priceResult] = handlePrice(data)
 
   return (
-    <div className='xmd:flex-col xmd:flex px-[1.17rem] xmd:p-[0] xmd:pt-[0.73rem] xmd:pb-[9rem] pt-[1.17rem] pb-[1.14rem] rounded-[0.87848rem] bg-elevation-20 xmd:bg-white w-fit xmd:w-full h-fit flex xmd:overflow-hidden'>
+    <div className='xmd:flex-col md:justify-between xmd:flex px-[1.17rem] xmd:p-[0] xmd:pt-[0.73rem] xmd:pb-[9rem] pt-[1.17rem] pb-[1.14rem] rounded-[0.87848rem] bg-elevation-20 xmd:bg-white w-full h-fit min-h-[20rem] flex xmd:overflow-hidden'>
       <SlideMultiple
         listGallery={listGallery}
-        activeImage={
-          data?.selectedVariations ? data?.selectedVariations?.image?.url : ''
-        }
+        activeImage={data?.variation ? data?.variation?.image?.url : ''}
       />
 
       <div className='w-[28.25769rem] relative xmd:w-full xmd:mt-[1.17rem]'>
@@ -74,9 +72,7 @@ export default function ProductInfo({
           {!isCombo && (
             <div className='flex xmd:px-[0.73rem] xmd:w-full'>
               <ChangeQuantity
-                stockQty={
-                  data?.selectedVariations?.max_qty || data?.stock_quantity
-                }
+                stockQty={data?.variation?.max_qty || data?.stock_quantity}
                 setChangeQty={setSelectedPrd}
                 quantity={data.quantity}
               />
@@ -84,7 +80,7 @@ export default function ProductInfo({
           )}
 
           {isAddToCart ? (
-            <AddToCart data={data} />
+            <AddToCartBtn listProduct={[data]} />
           ) : (
             <div className='flex xmd:flex-col-reverse xmd:fixed xmd:left-0 xmd:bottom-0 xmd:bg-white xmd:w-full z-10 xmd:p-[0.73rem] '>
               <button
@@ -95,10 +91,12 @@ export default function ProductInfo({
               </button>
               <button
                 onClick={handleChangeVariation}
-                disabled={!data?.selectedVariations?.attributes}
+                disabled={!data?.variation?.attributes}
                 className={cn(
                   'w-[8.63836rem] xmd:w-full h-[2.34261rem] xmd:h-[2.928rem] p-[0.73206rem] xmd:px-[1.17rem] xmd:mb-[0.59rem] flex items-center justify-center rounded-[0.43924rem] bg-blue-700 caption1 font-semibold text-white select-none xmd:uppercase',
-                  !data?.selectedVariations?.attributes && 'opacity-50',
+                  !data?.variation?.attributes &&
+                    data?.type === 'variable' &&
+                    'opacity-50',
                 )}
               >
                 Lưu thay đổi

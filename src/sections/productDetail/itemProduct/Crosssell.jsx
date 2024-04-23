@@ -10,10 +10,25 @@ import {useEffect, useState} from 'react'
 import {handlePrice} from '../function'
 
 const ItemProduct = (props) => {
-  const {data = {}, setIsOpen, setActiveId, type} = props
-  const [isChecked, setIsChecked] = useState(false)
+  const {
+    data = {},
+    setIsOpen,
+    setActiveId,
+    type,
+    setCrossellIndex,
+    listCrossellIndex,
+    index,
+  } = props
 
   const [regularPriceResult, priceResult] = handlePrice(data)
+
+  const handleClick = () => {
+    setCrossellIndex((prev) => {
+      if (prev.includes(index)) {
+        return prev.filter((item) => item !== index)
+      } else return [...prev, index]
+    })
+  }
 
   return (
     <div className='flex xmd:flex-col xmd:justify-start xmd:items-start justify-between items-center bg-white p-[1.17rem] xmd:p-[0.73rem] rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)]'>
@@ -21,7 +36,7 @@ const ItemProduct = (props) => {
         {type !== 'combo' && (
           <div className='relative size-[1.75695rem] xmd:size-[1.46413rem] mr-[0.88rem] xmd:absolute xmd:bottom-[0.4rem] xmd:left-[0.4rem] xmd:mr-0'>
             <ICBoxCheck className='size-full' />
-            {isChecked && (
+            {listCrossellIndex.includes(index) && (
               <div className='absolute top-0 left-0 flex items-center justify-center bg-blue-700 size-full rounded-[0.25rem]'>
                 <ICCheck className='w-[0.8rem] h-auto' />
               </div>
@@ -31,14 +46,14 @@ const ItemProduct = (props) => {
               type='checkbox'
               name='product'
               className='opacity-0 absolute top-0 left-0 w-full h-full z-10'
-              onClick={() => setIsChecked((prev) => !prev)}
+              onClick={handleClick}
             />
           </div>
         )}
 
         <Image
           src={
-            data?.selectedVariations?.image?.url ||
+            data?.variation?.image?.url ||
             data?.featuredImage?.url ||
             '/no-image.jpg'
           }
@@ -78,10 +93,10 @@ const ItemProduct = (props) => {
           </div>
 
           {data?.type === 'variable' &&
-            data?.selectedVariations &&
-            data?.selectedVariations?.attributes && (
+            data?.variation &&
+            data?.variation?.attributes && (
               <div className='flex xmd:hidden'>
-                {Object.values(data?.selectedVariations?.attributes)?.map(
+                {Object.values(data?.variation?.attributes)?.map(
                   (item, index) => (
                     <div
                       key={index}
@@ -98,10 +113,10 @@ const ItemProduct = (props) => {
 
       <div className='flex xmd:justify-between xmd:items-center xmd:w-full xmd:mt-[0.73rem]'>
         {data?.type === 'variable' &&
-          data?.selectedVariations &&
-          data?.selectedVariations?.attributes && (
+          data?.variation &&
+          data?.variation?.attributes && (
             <div className='hidden xmd:flex'>
-              {Object.values(data?.selectedVariations?.attributes)?.map(
+              {Object.values(data?.variation?.attributes)?.map(
                 (item, index) => (
                   <div
                     key={index}
