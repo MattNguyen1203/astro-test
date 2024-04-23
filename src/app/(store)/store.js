@@ -74,5 +74,14 @@ const useStore = create((set) => ({
       }
     })
   },
+
+  setListCart: (data) => {
+    set((state) => {
+      return {
+        ...state,
+        listCart: data,
+      }
+    })
+  },
 }))
 export default useStore

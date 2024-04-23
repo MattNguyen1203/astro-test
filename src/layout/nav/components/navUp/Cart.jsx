@@ -8,11 +8,16 @@ import {useEffect, useState} from 'react'
 
 export default function Cart({isMobile}) {
   const session = useSession()
+  console.log('🚀 ~ Cart ~ session:', session)
   const isAuth = session?.status === 'authenticated'
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
   const actionCart = useStore((state) => state.actionCart)
-  const [listCart, setListCart] = useState([])
+  const listCart = useStore((state) => state.listCart)
+  const setListCart = useStore((state) => state.setListCart)
+
+  // const [listCart, setListCart] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+
   useEffect(() => {
     if (isAuth) {
       const fetchCart = async () => {
@@ -32,7 +37,8 @@ export default function Cart({isMobile}) {
       const localGet = JSON.parse(localStorage.getItem('cartAstro')) || []
       setListCart(localGet)
     }
-  }, [actionCart])
+  }, [])
+
   return (
     <SheetCart
       isMobile={isMobile}

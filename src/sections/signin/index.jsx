@@ -83,7 +83,6 @@ export default function SignInIndex({status}) {
       } else {
         localStorage.removeItem('account')
       }
-      session.update()
       loginForm(payload)
         .then((res) => {})
         .catch((err) => {

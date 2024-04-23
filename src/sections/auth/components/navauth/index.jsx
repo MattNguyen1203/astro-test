@@ -76,7 +76,7 @@ export default function NavAuth({children}) {
           quality={100}
         />
         <div className='container relative z-10 h-full xmd:full-mb'>
-          <div className='absolute bottom-0 right-[7rem] w-[28.9rem] h-[42rem] xmd:w-full xmd:h-fit xmd:bg-white xmd:rounded-tl-[1.46413rem] xmd:rounded-tr-[1.46413rem] xmd:pt-[3.51rem] xmd:pb-[3.73rem]'>
+          <div className='absolute bottom-0 right-[7rem] xmd:right-0 w-[28.9rem] h-[42rem] xmd:w-full xmd:h-fit xmd:bg-white xmd:rounded-tl-[1.46413rem] xmd:rounded-tr-[1.46413rem] xmd:pt-[3.51rem] xmd:pb-[3.73rem]'>
             <Image
               className='z-0 object-cover size-full xmd:hidden'
               src={'/auth/border-auth.png'}

@@ -88,7 +88,10 @@ export default function ItemCart({
             setChangeQty={setQuantity}
             stockQty={item?.stock_quantity}
           /> */}
-          <ButtonChange />
+          <ButtonChange
+            quantity={quantity}
+            setQuantity={setQuantity}
+          />
         </div>
       </div>
     </article>

@@ -1,7 +1,7 @@
 import {auth} from '@/auth'
 import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
 import {TabsProfile} from '@/components/tabprofile'
-import {getDataAuth} from '@/lib/getDataAuth'
+import {getDataProfile} from '@/lib/getDataProfile'
 import getDataProxy from '@/lib/getDataProxy'
 import AvatarRes from '@/sections/account/components/avatarres'
 import Link from 'next/link'
@@ -16,8 +16,9 @@ export default async function AccountPage({searchParams}) {
     getDataProxy('/api/commune'),
     auth(),
   ])
-  const profile = await getDataAuth({
-    api: '/custom/v1/customer/customer',
+
+  const profile = await getDataProfile({
+    api: `/custom/v1/customer/customer?user_id=${session?.userId}`,
     token: session?.acessToken,
   })
   console.log('🚀 ~ AccountPage ~ profile:', profile)
@@ -38,10 +39,12 @@ export default async function AccountPage({searchParams}) {
         </>
       )}
       <TabsProfile
+        profile={profile}
         isMobile={isMobile}
         province={province}
         district={district}
         commune={commune}
+        session={session}
       />
     </>
   )
