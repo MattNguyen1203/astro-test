@@ -1,6 +1,7 @@
 import PopupProduct from '@/components/popupproduct'
 import {Dialog, DialogContent, DialogTrigger} from '@/components/ui/dialog'
 import {cn, fetcher} from '@/lib/utils'
+import {useEffect, useState} from 'react'
 import useSWR from 'swr'
 
 export function DialogProduct({
@@ -13,7 +14,10 @@ export function DialogProduct({
   className,
   isAddToCart,
   handleChangeVariation,
+  session,
 }) {
+  const [initData, setInitData] = useState(productSelected || {})
+
   const {
     data: listVariations,
     error,
@@ -30,7 +34,23 @@ export function DialogProduct({
       revalidateOnReconnect: false,
     },
   )
-  console.log('productSelected', productSelected)
+
+  useEffect(() => {
+    if (listVariations) {
+      setInitData((prev) => ({
+        ...prev,
+        listVariations: listVariations ? listVariations : {},
+      }))
+    }
+  }, [listVariations])
+
+  useEffect(() => {
+    if (isAddToCart) {
+      setProductSelected(initData)
+    }
+  }, [initData])
+
+  // console.log('initData', initData)
 
   return (
     <Dialog
@@ -50,11 +70,12 @@ export function DialogProduct({
             <PopupProduct
               type={type}
               setIsOpen={setIsOpen}
-              data={{...productSelected, listVariations: listVariations}}
-              setSelectedPrd={setProductSelected}
+              data={initData}
+              setSelectedPrd={setInitData}
               isLoading={isLoading}
               isAddToCart={isAddToCart}
               handleChangeVariation={handleChangeVariation}
+              session={session}
             />
           </div>
         </div>

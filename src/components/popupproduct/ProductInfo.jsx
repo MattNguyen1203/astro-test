@@ -17,13 +17,13 @@ export default function ProductInfo({
   handleChangeVariation,
   setIsOpen,
   isAddToCart,
+  session,
 }) {
   const isCombo = type === 'wooco'
   //get list image
   const listGallery = useMemo(() => {
     const gallery = data?.galleryImgs?.map((item) => item)
-    if (!data?.listVariations) return gallery
-
+    if (!data?.listVariations?.variations) return gallery
     const listImgVariations = Object.values(
       data?.listVariations?.variations,
     )?.map((item) => item.image.url)
@@ -80,7 +80,10 @@ export default function ProductInfo({
           )}
 
           {isAddToCart ? (
-            <AddToCartBtn listProduct={[data]} />
+            <AddToCartBtn
+              listProduct={[data]}
+              session={session}
+            />
           ) : (
             <div className='flex xmd:flex-col-reverse xmd:fixed xmd:left-0 xmd:bottom-0 xmd:bg-white xmd:w-full z-10 xmd:p-[0.73rem] '>
               <button
@@ -90,7 +93,7 @@ export default function ProductInfo({
                 Hủy bỏ
               </button>
               <button
-                onClick={handleChangeVariation}
+                onClick={() => handleChangeVariation(data)}
                 disabled={!data?.variation?.attributes}
                 className={cn(
                   'w-[8.63836rem] xmd:w-full h-[2.34261rem] xmd:h-[2.928rem] p-[0.73206rem] xmd:px-[1.17rem] xmd:mb-[0.59rem] flex items-center justify-center rounded-[0.43924rem] bg-blue-700 caption1 font-semibold text-white select-none xmd:uppercase',

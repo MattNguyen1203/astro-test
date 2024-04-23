@@ -4,26 +4,31 @@ import ButtonChange from './ButtonChange'
 import BoxCheck from '../sheetcart/BoxCheck'
 import useStore from '@/app/(store)/store'
 import {formatToVND} from '@/lib/utils'
-import {useEffect, useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import {DialogProduct} from '@/sections/home/components/dialog'
-import {useSession} from 'next-auth/react'
 import {deleteDataAuth} from '@/lib/deleteData'
 import {toast} from 'sonner'
 import Loading from '../loading'
 import {putDataAuth} from '@/lib/putData'
 import Link from 'next/link'
+import {handleUpdateCart} from './handleUpdateCart'
 
-export default function ItemCart({cart, setCart, index, isMobile, item}) {
-  const session = useSession()
-
+export default function ItemCart({
+  cart,
+  setCart,
+  index,
+  isMobile,
+  item,
+  session,
+}) {
   const isAuth = session?.status === 'authenticated'
   const setActionCart = useStore((state) => state.setActionCart)
+  const actionCart = useStore((state) => state.actionCart)
   const setListCart = useStore((state) => state.setListCart)
   const listCart = useStore((state) => state.listCart)
   const [quantity, setQuantity] = useState(item.quantity || 1)
   const [isOpen, setIsOpen] = useState(false)
   const [productSelected, setProductSelected] = useState({})
-
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -35,7 +40,7 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
       setIsLoading(true)
       const res = await deleteDataAuth({
         api: '/okhub/v1/cart',
-        token: session?.data?.accessToken,
+        token: session?.accessToken,
         body: {
           ['cart_items']: [{key: key}],
         },
@@ -63,39 +68,50 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
     }
   }
 
-  const handleChangeVariation = async () => {
-    if (isAuth) {
-      if (!productSelected?.variation?.attributes) {
-        toast.error('Vui lòng chọn biến thể', {
-          duration: 3000,
-          position: 'top-center',
-        })
-      }
-
-      const variation = Object.fromEntries(
-        Object.entries(productSelected?.variation?.attributes).map(
-          ([key, val]) => [key, val.key],
-        ),
-      )
-      const res = await putDataAuth({
-        token: session?.data?.accessToken,
-        api: `/okhub/v1/cart`,
-        body: {
-          product_id: productSelected?.id,
-          variation: variation,
-          quantity: productSelected.quantity,
-        },
-      })
-    } else {
-    }
+  const handleChangeVariation = (data) => {
+    handleUpdateCart(
+      session,
+      listCart,
+      setListCart,
+      setActionCart,
+      actionCart,
+      data,
+      setIsLoading,
+      index,
+    )
   }
+
+  const handleQuantity = (quantity) => {
+    const newProduct = {...productSelected, quantity: quantity}
+    handleUpdateCart(
+      session,
+      listCart,
+      setListCart,
+      setActionCart,
+      actionCart,
+      newProduct,
+      setIsLoading,
+      index,
+    )
+  }
+
+  const [price, regular_price] = useMemo(() => {
+    if (isAuth || productSelected?.type === 'simple') {
+      return [productSelected?.price, productSelected?.regular_price]
+    } else {
+      return [
+        productSelected?.variation?.display_price,
+        productSelected?.variation?.display_regular_price,
+      ]
+    }
+  }, [productSelected])
 
   if (isLoading) {
     return <Loading />
   }
 
   return (
-    <article className='rounded-[0.58565rem] bg-white shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)] py-[0.73rem] pl-[0.59rem] pr-[1.17rem] flex xmd:px-[0.73rem] xmd:py-[0.59rem] xmd:shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)]'>
+    <article className='rounded-[0.58565rem] bg-white shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)] py-[0.73rem] pl-[0.59rem] pr-[1.17rem] flex xmd:px-[0.73rem] xmd:py-[0.59rem] xmd:shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] md:min-h-[7rem]'>
       <div className='flex flex-col items-center justify-center md:px-[0.59rem] xmd:mr-[0.44rem]'>
         <BoxCheck
           setCart={setCart}
@@ -132,11 +148,11 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
 
             <div className='flex items-center md:my-[0.5rem] xmd:space-x-[0.29rem]'>
               <span className='font-semibold text-blue-600 sub2 xmd:caption1 md:mr-[0.25rem]'>
-                {formatToVND(productSelected?.price)}
+                {formatToVND(price)}
               </span>
-              {productSelected?.regular_price && (
+              {regular_price && (
                 <span className='font-normal line-through giagoc text-greyscale-40 xmd:tracking-normal'>
-                  {formatToVND(productSelected?.regular_price)}
+                  {formatToVND(regular_price)}
                 </span>
               )}
             </div>
@@ -171,6 +187,7 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
                 type='cart'
                 isAddToCart={false}
                 handleChangeVariation={handleChangeVariation}
+                session={session}
               />
             )}
 
@@ -196,8 +213,8 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
             />
           </button>
           <ButtonChange
-            quantity={quantity}
-            setQuantity={setQuantity}
+            handleQuantity={handleQuantity}
+            initQuantity={item.quantity || 1}
           />
         </div>
       </div>

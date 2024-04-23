@@ -10,8 +10,8 @@ const DialogProduct = dynamic(() =>
   import('@/sections/home/components/dialog').then((mod) => mod.DialogProduct),
 )
 
-function CardProduct({product, priority = false}) {
-  console.log('🚀 ~ CardProduct ~ product:', product)
+function CardProduct({product, priority = false, session}) {
+  // console.log('🚀 ~ CardProduct ~ product:', product)
   const [isOpen, setIsOpen] = useState(false)
   const percentSale = handlePercentSale(product)
   const price = renderPriceProduct(product)
@@ -112,6 +112,7 @@ function CardProduct({product, priority = false}) {
             productSelected={productSelected}
             setProductSelected={setProductSelected}
             isAddToCart={true}
+            session={session}
           />
         )}
       </div>

@@ -272,6 +272,7 @@ const ProductDetail = ({
                       img: 'xmd:size-[2rem]',
                     }}
                     listProduct={[selectedPrd]}
+                    session={session}
                   />
                 </div>
 
@@ -357,6 +358,7 @@ const ProductDetail = ({
                 setListCrossell={setListCrossell}
                 activeId={activeId}
                 setActiveId={setActiveId}
+                session={session}
               ></DialogProductCombo>
 
               <div className='flex items-center justify-between mt-[1.17rem]'>
@@ -376,6 +378,7 @@ const ProductDetail = ({
                     img: 'smd:size-[1.1713rem]',
                   }}
                   listProduct={listCrossellAddToCart}
+                  session={session}
                 />
               </div>
             </div>

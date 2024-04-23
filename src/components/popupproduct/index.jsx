@@ -12,6 +12,7 @@ function PopupProduct(props) {
     handleChangeVariation,
     isLoading,
     isAddToCart,
+    session,
   } = props
 
   return (
@@ -44,6 +45,7 @@ function PopupProduct(props) {
           handleChangeVariation={handleChangeVariation}
           setIsOpen={setIsOpen}
           isAddToCart={isAddToCart}
+          session={session}
         />
       )}
 
