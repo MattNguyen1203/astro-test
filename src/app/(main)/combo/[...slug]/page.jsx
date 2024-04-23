@@ -29,10 +29,10 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     ).then((result) => {
       const groupPrd = dataProductDetail?.grouped_products?.map(
         (item, index) => {
-          if (result[index] !== null) {
-            const defaultValue = Object.values(result[index]?.variations)?.find(
-              (item) => item.default,
-            )
+          if (result?.[index] !== null) {
+            const defaultValue = Object.values(
+              result?.[index]?.variations,
+            )?.find((item) => item.default)
 
             return {
               ...item,

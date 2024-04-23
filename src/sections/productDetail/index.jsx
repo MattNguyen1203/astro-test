@@ -62,8 +62,9 @@ const ProductDetail = ({
     ...data,
     variations: variations,
     quantity: 1,
-    selectedVariations:
-      Object.values(variations?.variations)?.find((item) => item.default) || {},
+    selectedVariations: variations?.variations
+      ? Object.values(variations?.variations)?.find((item) => item.default)
+      : {},
   })
 
   const ordered = 35
@@ -77,9 +78,9 @@ const ProductDetail = ({
   const [listGallery, isFlashSale] = useMemo(() => {
     const gallery = data?.galleryImgs
 
-    const listImgVariations = Object?.values(variations?.variations)?.map(
-      (item) => item.image.url,
-    )
+    const listImgVariations = variations?.variations
+      ? Object?.values(variations?.variations)?.map((item) => item.image.url)
+      : []
     // check flash sale
     const isFlashSale = data?.meta_detect?.flash_sale?.is_flash_sale === 'yes'
 
@@ -116,12 +117,14 @@ const ProductDetail = ({
 
   // set default
   useEffect(() => {
-    const listVariations = Object?.values(variations?.variations)
-    listVariations?.forEach((item) => {
-      if (item?.default) {
-        setSelectedPrd((prev) => ({...prev, selectedVariations: item}))
-      }
-    })
+    if (variations?.variations) {
+      const listVariations = Object?.values(variations?.variations)
+      listVariations?.forEach((item) => {
+        if (item?.default) {
+          setSelectedPrd((prev) => ({...prev, selectedVariations: item}))
+        }
+      })
+    }
   }, [variations])
 
   const handleAddToCart = () => {}
