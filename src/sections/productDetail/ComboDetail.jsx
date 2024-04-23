@@ -39,7 +39,7 @@ const prdOther = [
   },
 ]
 
-const ComboDetail = ({isMobile, data, voucher, bestCoupon, test}) => {
+const ComboDetail = ({isMobile, data, voucher, bestCoupon, session}) => {
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
   const [selectedPrd, setSelectedPrd] = useState({
@@ -151,6 +151,7 @@ const ComboDetail = ({isMobile, data, voucher, bestCoupon, test}) => {
               activeId={activeId}
               setActiveId={setActiveId}
               type='wooco'
+              session={session}
             ></DialogProductCombo>
 
             <ProductPrice
@@ -183,6 +184,7 @@ const ComboDetail = ({isMobile, data, voucher, bestCoupon, test}) => {
                   listProduct={[
                     {...selectedPrd, grouped_products: listProduct},
                   ]}
+                  session={session}
                 />
                 <button className='caption1 font-semibold text-white flex items-center justify-center w-[10.688rem] xmd:w-[21.3rem] h-full rounded-[0.58565rem] bg-[#102841] px-[1.17rem] py-[0.73rem] uppercase'>
                   Mua ngay

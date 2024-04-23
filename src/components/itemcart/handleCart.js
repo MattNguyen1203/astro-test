@@ -11,7 +11,7 @@ export const handleCart = async (
   setIsLoading,
   type,
 ) => {
-  const isAuth = session.status === 'authenticated'
+  const isAuth = session?.status === 'authenticated'
   // const isAuth = true
   if (!listProduct) return
 
@@ -26,7 +26,7 @@ export const handleCart = async (
           // console.log('reqBody', reqBody)
           return await postData('/okhub/v1/cart', JSON.stringify(reqBody), {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${session?.data?.accessToken}`,
+            Authorization: `Bearer ${session?.accessToken}`,
           })
         }),
       )
@@ -82,7 +82,6 @@ export const handleCart = async (
             ),
           )
 
-          console.log('variation', variation)
           lineItem[subProduct.id] = {
             product_id: subProduct?.id,
             variation_id: subProduct?.variation?.variation_id,
@@ -123,6 +122,19 @@ export const handleCart = async (
   const addProductsLocally = () => {
     if (listProduct.length <= 0) {
       toast.error('Vui lòng chọn sản phẩm', {
+        duration: 3000,
+        position: 'top-center',
+      })
+
+      return
+    }
+
+    if (
+      listProduct.some(
+        (item) => item?.type === 'variable' && !item?.variation?.attributes,
+      )
+    ) {
+      toast.error('Vui lòng chọn option sản phẩm', {
         duration: 3000,
         position: 'top-center',
       })
