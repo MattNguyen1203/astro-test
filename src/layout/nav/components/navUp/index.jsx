@@ -40,6 +40,7 @@ export default async function NavUp({
         productSuggest={productSuggest}
         categories={categories}
         linkSocial={linkSocial}
+        session={session}
       />
       <div
         id='cart_and_user'

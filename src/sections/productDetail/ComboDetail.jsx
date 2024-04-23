@@ -61,7 +61,7 @@ const ComboDetail = ({isMobile, data, voucher, bestCoupon, test}) => {
       }
     })
 
-    return gallery.concat(listProductGallery)
+    if (gallery) return gallery?.concat(listProductGallery)
   }, [data])
 
   //calculate Price
@@ -115,7 +115,7 @@ const ComboDetail = ({isMobile, data, voucher, bestCoupon, test}) => {
         </div>
 
         <div className='col w-[43.48rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[6.6rem] xmd:mb-[1.17rem] '>
-          <div className='xmd:flex xmd:flex-col w-full xmd:rounded-0 md:relative bg-white subContainer'>
+          <div className='w-full bg-white xmd:flex xmd:flex-col xmd:rounded-0 md:relative subContainer'>
             <h2 className='md:w-[38rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'>
               {data?.name}
             </h2>

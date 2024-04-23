@@ -27,7 +27,7 @@ export default function ProductInfo({
     const listImgVariations = Object.values(
       data?.listVariations?.variations,
     )?.map((item) => item.image.url)
-    return gallery.concat(listImgVariations)
+    if (gallery) return gallery?.concat(listImgVariations)
   }, [data])
 
   const [regularPriceResult, priceResult] = handlePrice(data)

@@ -83,7 +83,7 @@ export default function SlideMultiple({listGallery = [], activeImage}) {
           >
             {listGallery?.map((item, index) => (
               <SwiperSlide
-                className='bg-white overflow-hidden rounded-[0.46728rem]'
+                className='bg-white overflow-hidden rounded-[0.46728rem] cursor-pointer'
                 key={index}
               >
                 <Image

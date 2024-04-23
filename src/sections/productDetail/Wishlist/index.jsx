@@ -2,27 +2,129 @@
 
 import {addWishlist} from '@/actions/addWishlist'
 import Image from 'next/image'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
+import {toast} from 'sonner'
 
-const WishListIcon = ({data, session}) => {
-  console.log('🚀 ~ WishListIcon ~ data:', data)
-  console.log('🚀 ~ WishListIcon ~ session:', session)
-  const [isActive, setIsActive] = useState(false)
+const WishListIcon = ({data, session, wishList}) => {
+  const [isActive, setIsActive] = useState(
+    wishList?.some((e) => e?.product?.id === data?.id),
+  )
+  const [id, setId] = useState(
+    wishList?.find((e) => e?.product?.id === data?.id)?.wishlist_id,
+  )
+
+  useEffect(() => {
+    return () => {
+      if (session?.status === 'authenticated') {
+        if (isActive) {
+          const request = {
+            api: '/custom/v1/wistlist/addProductToWishlist',
+            token: session?.accessToken,
+            body: JSON.stringify({
+              product_id: data?.id,
+            }),
+          }
+
+          addWishlist(request)
+            .then((res) => {
+              if (res?.message?.includes('Successfully')) {
+                setId(Number(res?.id))
+              }
+            })
+            .catch((err) => err)
+        } else {
+          if (id) {
+            const request = {
+              api: '/custom/v1/wistlist/deleteWishlist',
+              method: 'DELETE',
+              token: session?.accessToken,
+              body: JSON.stringify({
+                wishlist_items: [
+                  {
+                    id: id,
+                  },
+                ],
+              }),
+            }
+
+            addWishlist(request)
+              .then((res) => res)
+              .catch((err) => err)
+          }
+        }
+      }
+    }
+  }, [])
 
   const handleWishlist = () => {
-    setIsActive((prev) => !prev)
-    const request = {
-      api: '/custom/v1/wistlist/addProductToWishlist',
-      token: session?.accessToken,
-      body: JSON.stringify({
-        product_id: data?.id,
-      }),
-    }
-    console.log('🚀 ~ handleWishlist ~ request:', request)
+    if (isActive) {
+      //delete
+      // init request
+      const request = {
+        api: '/custom/v1/wistlist/deleteWishlist',
+        method: 'DELETE',
+        token: session?.accessToken,
+        body: JSON.stringify({
+          wishlist_items: [
+            {
+              id: id,
+            },
+          ],
+        }),
+      }
 
-    addWishlist(request)
-      .then((res) => console.log('res', res))
-      .catch((err) => console.log(err))
+      toast.warning('Đã xoá khỏi danh sách yêu thích!', {
+        duration: 5000,
+        position: 'bottom-center',
+      })
+      setIsActive((prev) => !prev)
+
+      localStorage.setItem(
+        'wishlist',
+        JSON.stringify({
+          type: 'delete',
+          id: id,
+          productId: data?.id,
+        }),
+      )
+      addWishlist(request)
+        .then((res) => {
+          // if (res?.message?.includes('Successfully')) {
+          // }
+          return res
+        })
+        .catch((err) => err)
+    } else {
+      //add
+      const request = {
+        api: '/custom/v1/wistlist/addProductToWishlist',
+        token: session?.accessToken,
+        body: JSON.stringify({
+          product_id: data?.id,
+        }),
+      }
+
+      toast.success('Thêm vào danh sách yêu thích thành công!', {
+        duration: 5000,
+        position: 'bottom-center',
+      })
+      setIsActive((prev) => !prev)
+      localStorage.setItem(
+        'wishlist',
+        JSON.stringify({
+          type: 'add',
+          id: id,
+          productId: data?.id,
+        }),
+      )
+      addWishlist(request)
+        .then((res) => {
+          if (res?.message?.includes('Successfully')) {
+            setId(Number(res?.id))
+          }
+        })
+        .catch((err) => err)
+    }
   }
   return (
     <div

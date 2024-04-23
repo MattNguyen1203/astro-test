@@ -1,11 +1,23 @@
+import {auth} from '@/auth'
 import CardProduct from '@/components/cardproduct'
 import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
+import {getDataProfile} from '@/lib/getDataProfile'
 import PaginationIndex from '@/sections/account/components/pagination'
+import GridWishlist from '@/sections/wishlist/GridWishlist'
+import PaginationWishlist from '@/sections/wishlist/PaginationWishlist'
 import Link from 'next/link'
 
-export default function LikePage({searchParams}) {
+export default async function LikePage({searchParams}) {
   const {viewport} = searchParams
   const isMobile = viewport === 'mobile'
+
+  const session = await auth()
+  const request = {
+    api: '/custom/v1/wistlist/getWishlist',
+    token: session?.accessToken,
+  }
+  const wishList = await getDataProfile(request)
+
   return (
     <>
       {isMobile && (
@@ -22,26 +34,12 @@ export default function LikePage({searchParams}) {
           <hr className='h-[0.06rem] w-full mt-[0.5rem] mb-[1.25rem] bg-[#ECECEC]' />
         </>
       )}
-      <section className='w-full rounded-[0.58565rem] bg-white p-[1.17rem] xmd:bg-transparent xmd:p-0'>
-        {!isMobile && (
-          <>
-            <span className='font-medium sub2 text-greyscale-80 inline-block mr-[0.44rem]'>
-              Sản phẩm yêu thích
-            </span>
-            <span className='font-normal sub2 text-greyscale-20'>
-              (3 sản phẩm)
-            </span>
-            <hr className='bg-[#ECECECB2] h-[0.07rem] w-full my-[1.17rem] block' />
-          </>
-        )}
-        <div className='grid grid-cols-3 grid-rows-4 gap-x-[0.73rem] gap-y-[1.17rem] xmd:grid-cols-2'>
-          {new Array(12).fill(0).map((e, index) => (
-            <CardProduct key={index} />
-          ))}
-        </div>
-      </section>
+      <GridWishlist
+        wishList={wishList}
+        isMobile={isMobile}
+      />
       <div className='mt-[1.25rem]'>
-        <PaginationIndex />
+        <PaginationWishlist pageCount={Math.ceil(wishList?.length / 12)} />
       </div>
     </>
   )

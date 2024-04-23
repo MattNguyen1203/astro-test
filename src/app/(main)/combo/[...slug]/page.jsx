@@ -3,7 +3,7 @@ import ComboDetail from '@/sections/productDetail/ComboDetail'
 
 export async function generateStaticParams() {
   const products = await getData('/okhub/v1/product')
-  const productsNew = products?.filter((e) => e?.type === 'grouped')
+  const productsNew = products?.filter((e) => e?.type === 'wooco')
 
   return productsNew.map((product) => ({
     slug: [product.slug],

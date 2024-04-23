@@ -4,7 +4,7 @@ import Loading from '@/components/loading'
 import {cn} from '@/lib/utils'
 import {useSession} from 'next-auth/react'
 import Image from 'next/image'
-import React, {useState} from 'react'
+import {useState} from 'react'
 
 const AddToCartBtn = ({className, listProduct}) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -37,7 +37,7 @@ const AddToCartBtn = ({className, listProduct}) => {
       {isLoading ? (
         <Loading className='top-[20%] left-[40%]' />
       ) : (
-        <div className='items-center flex justify-center relative z-10 '>
+        <div className='relative z-10 flex items-center justify-center '>
           <Image
             src='/components/btnCartIcon.png'
             alt='button cart icon'
