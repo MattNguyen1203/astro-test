@@ -12,18 +12,15 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import {Input} from '@/components/ui/input'
-import Link from 'next/link'
 import Image from 'next/image'
-import {signIn} from 'next-auth/react'
-import {signUpForm} from '@/actions/signUpForm'
 
 import {useEffect, useState, useTransition} from 'react'
-import {PopupRegister} from '@/sections/auth/components/popup/PopupRegister'
 import BtnSubmit from '@/sections/auth/components/btnsubmit'
 import SelectOptions from './SelectOptions'
 import {Textarea} from '@/components/ui/textarea'
 import {covertToText} from './function'
 import {toast} from 'sonner'
+import {PopupRegister} from '@/sections/otp/components/PopupRegister'
 
 const formSchema = z.object({
   fullname: z.string().min(1, {message: 'Vui lòng không để trống!'}),
