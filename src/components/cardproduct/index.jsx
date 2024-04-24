@@ -11,7 +11,6 @@ const DialogProduct = dynamic(() =>
 )
 
 function CardProduct({product, priority = false}) {
-  console.log('🚀 ~ CardProduct ~ product:', product)
   const [isOpen, setIsOpen] = useState(false)
   const percentSale = handlePercentSale(product)
   const price = renderPriceProduct(product)

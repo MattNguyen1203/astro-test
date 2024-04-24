@@ -25,6 +25,7 @@ import ShipTC from './ShipTC'
 import {toast} from 'sonner'
 import {createOrder} from '@/actions/payment'
 import {useRouter} from 'next/navigation'
+import useStore from '@/app/(store)/store'
 
 // name: '',
 //       phone: '',
@@ -71,6 +72,9 @@ export default function PaymentIndex({
   const [ship, setShip] = useState('in')
   const [payment, setPayment] = useState()
   const [carts, setCarts] = useState([])
+  const listCart = useStore((state) => state.listCart)
+  console.log('🚀 ~ listCart:', listCart)
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
