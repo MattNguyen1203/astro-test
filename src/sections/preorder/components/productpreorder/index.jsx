@@ -1,7 +1,7 @@
 import CardProduct from '@/components/cardproduct'
 import Link from 'next/link'
 
-export default function ProductPreOrder() {
+export default function ProductPreOrder({session}) {
   return (
     <section className='container relative z-10'>
       <div className='my-[3.51rem] flex justify-center items-center rounded-[0.87848rem] md:bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] px-[4.39rem] py-[1.17rem] xmd:py-[0.73206rem] w-fit mx-auto xmd:mt-[2.34rem] xmd:mb-[1.17rem] xmd:w-full xmd:bg-[rgba(244,244,244,0.90)]'>
@@ -11,7 +11,10 @@ export default function ProductPreOrder() {
       </div>
       <div className='grid grid-cols-5 grid-rows-2 gap-x-[0.88rem] gap-y-[1.17rem] w-full xmd:grid-cols-2 xmd:grid-rows-4 xmd:gap-[0.59rem]'>
         {new Array(10).fill(0).map((e, index) => (
-          <CardProduct key={index} />
+          <CardProduct
+            key={index}
+            session={session}
+          />
         ))}
       </div>
       <Link

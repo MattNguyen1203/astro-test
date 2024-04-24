@@ -3,7 +3,7 @@ import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function GridProductFL({isMobile, id, title}) {
+export default function GridProductFL({isMobile, id, title, session}) {
   return (
     <section className='container xmd:mx-[0.62rem] h-[77.28843rem] xmd:h-fit relative mt-[6.16rem] xmd:mt-[3.51rem]'>
       <div
@@ -28,7 +28,10 @@ export default function GridProductFL({isMobile, id, title}) {
       <div className='relative z-10 mx-auto pt-[7.75rem] w-[69.91215rem] xmd:pt-[1.17rem] xmd:w-full'>
         <div className='w-full grid grid-cols-4 grid-rows-2 gap-[1.17rem] xmd:gap-[0.59rem] xmd:grid-cols-2 xnd:grid-rows-4'>
           {new Array(8).fill(0).map((e, index) => (
-            <CardProduct key={index} />
+            <CardProduct
+              key={index}
+              session={session}
+            />
           ))}
         </div>
         <Link

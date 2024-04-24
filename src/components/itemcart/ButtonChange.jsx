@@ -1,10 +1,14 @@
 'use client'
 
+import useDebounce from '@/hooks/useDebounce'
 import {useEffect, useState} from 'react'
 import {toast} from 'sonner'
 
-export default function ButtonChange({handleQuantity, initQuantity}) {
+export default function ButtonChange({handleQuantity, initQuantity, stockQty}) {
   const [quantity, setQuantity] = useState(1)
+  const [action, setAction] = useState(false)
+
+  const debounceQuantity = useDebounce(quantity, 300)
 
   useEffect(() => {
     setQuantity(initQuantity)
@@ -12,18 +16,30 @@ export default function ButtonChange({handleQuantity, initQuantity}) {
   const handleDecre = () => {
     if (quantity === 1) {
       return toast.info('Số lượng sản phẩm đã giảm đến mức tối thiểu!', {
-        position: 'bottom-left',
+        position: 'top-center',
       })
     } else {
       setQuantity((prev) => prev - 1)
-      handleQuantity(quantity - 1)
+      setAction(true)
     }
   }
 
   const handleIncre = () => {
+    if (stockQty === quantity || !stockQty) {
+      toast.info('Số lượng tồn kho không đủ!', {
+        position: 'top-center',
+      })
+      return
+    }
     setQuantity((prev) => prev + 1)
-    handleQuantity(quantity + 1)
+    setAction(true)
   }
+
+  useEffect(() => {
+    if (action) {
+      handleQuantity(debounceQuantity, 'updateQty')
+    }
+  }, [debounceQuantity])
   return (
     <div className='flex items-center w-fit'>
       <button
