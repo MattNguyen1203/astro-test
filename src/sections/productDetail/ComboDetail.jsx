@@ -17,29 +17,14 @@ import {useEffect, useMemo, useRef, useState} from 'react'
 import DialogProductCombo from '../home/components/dialogCrossell'
 import {handlePrice} from './function'
 
-const prdOther = [
-  {
-    key: 'highlight',
-    label: 'Đặc điểm nổi bật',
-    content: `<img src="${'/product/draft.jpg'}" alt=""/><div>Với xu hướng công nghệ phát triển như hiện nay, chuột và bàn phím là những phụ kiện không thể thiếu đối với những tín đồ công nghệ. Hiểu được vấn đề này, nhà Astro đem đến cho bạn một chiếc bàn phím sử dụng bluetooth 3.0 tích hợp chế độ tiết kiệm pin và chuột không dây siêu êm với vẻ ngoài nhỏ nhắn, gọn gàng. Cùng tham khảo ngay mẫu sản phẩm combo chuột và bàn phím AstroMazing bluetooth size mini cho các thiết bị điện tử sau đây nhé!</div>`,
-  },
-
-  {
-    key: 'detail',
-    label: 'Thông tin chi tiết',
-    content:
-      '<div>Với xu hướng công nghệ phát triển như hiện nay, chuột và bàn phím là những phụ kiện không thể thiếu đối với những tín đồ công nghệ. Hiểu được vấn đề này, nhà Astro đem đến cho bạn một chiếc bàn phím sử dụng bluetooth 3.0 tích hợp chế độ tiết kiệm pin và chuột không dây siêu êm với vẻ ngoài nhỏ nhắn, gọn gàng. Cùng tham khảo ngay mẫu sản phẩm combo chuột và bàn phím AstroMazing bluetooth size mini cho các thiết bị điện tử sau đây nhé!</div>',
-  },
-
-  {
-    key: 'warranty',
-    label: 'Cách sử dụng & bảo hành',
-    content:
-      '<div>Với xu hướng công nghệ phát triển như hiện nay, chuột và bàn phím là những phụ kiện không thể thiếu đối với những tín đồ công nghệ. Hiểu được vấn đề này, nhà Astro đem đến cho bạn một chiếc bàn phím sử dụng bluetooth 3.0 tích hợp chế độ tiết kiệm pin và chuột không dây siêu êm với vẻ ngoài nhỏ nhắn, gọn gàng. Cùng tham khảo ngay mẫu sản phẩm combo chuột và bàn phím AstroMazing bluetooth size mini cho các thiết bị điện tử sau đây nhé!</div>',
-  },
-]
-
-const ComboDetail = ({isMobile, data, voucher, bestCoupon, session}) => {
+const ComboDetail = ({
+  isMobile,
+  data,
+  voucher,
+  bestCoupon,
+  session,
+  mainData,
+}) => {
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
   const [selectedPrd, setSelectedPrd] = useState({
@@ -196,12 +181,12 @@ const ComboDetail = ({isMobile, data, voucher, bestCoupon, session}) => {
 
           {/* thông tin kĩ thuật */}
           <div className='subContainer mt-[0.88rem] mb-[1.46rem] xmd:my-[1.17rem]'>
-            <TechnicalInfo />
+            <TechnicalInfo techInfo={mainData?.[0]?.acf?.tech_info} />
           </div>
 
           {/* thông tin khác */}
           <TabInfo
-            info={prdOther}
+            data={mainData?.[0]?.acf}
             isMobile={isMobile}
           />
         </div>

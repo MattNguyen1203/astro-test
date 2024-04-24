@@ -25,6 +25,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
   )
 
   const bestCouponReq = getData(`/okhub/v1/coupon/product-detail/${slug}/best`)
+  const mainDataReq = getData(`/wp/v2/product?slug=${slug}`)
 
   const [
     dataProductDetail,
@@ -32,12 +33,14 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     dataVariation,
     dataBestCoupon,
     session,
+    mainData,
   ] = await Promise.all([
     dataProductDetailReq,
     dataProductVoucherReq,
     dataVariationReq,
     bestCouponReq,
     auth(),
+    mainDataReq,
   ])
 
   const request = {
@@ -55,7 +58,6 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
       `/okhub/v1/product/productByCategory/${'but-cam-ung'}?limit=5&page=1`,
     )
   }
-  console.log('🚀 ~ ProductDetailPage ~ dataProductDetail:', dataProductDetail)
 
   return (
     <main className='bg-elevation-20'>
@@ -68,6 +70,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
         relatedProduct={relatedProduct}
         session={session}
         wishList={wishList}
+        mainData={mainData}
       />
     </main>
   )
