@@ -16,7 +16,7 @@ const Variation = ({data = {}, setSelectedPrd, selectedPrd}) => {
   // console.log('variationSelected', variationSelected)
   // handle attribute
   useEffect(() => {
-    if (!data) return
+    if (!data || !data?.list_attributes || !data?.variations) return
     // get init list attribute
     const listAttr = Object.values(data?.list_attributes)
     const listVariations = Object.values(data?.variations)

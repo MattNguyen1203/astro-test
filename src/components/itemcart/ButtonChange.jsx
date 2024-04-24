@@ -1,9 +1,14 @@
 'use client'
 
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {toast} from 'sonner'
 
-export default function ButtonChange({quantity, setQuantity}) {
+export default function ButtonChange({handleQuantity, initQuantity}) {
+  const [quantity, setQuantity] = useState(1)
+
+  useEffect(() => {
+    setQuantity(initQuantity)
+  }, [initQuantity])
   const handleDecre = () => {
     if (quantity === 1) {
       return toast.info('Số lượng sản phẩm đã giảm đến mức tối thiểu!', {
@@ -11,11 +16,13 @@ export default function ButtonChange({quantity, setQuantity}) {
       })
     } else {
       setQuantity((prev) => prev - 1)
+      handleQuantity(quantity - 1)
     }
   }
 
   const handleIncre = () => {
     setQuantity((prev) => prev + 1)
+    handleQuantity(quantity + 1)
   }
   return (
     <div className='flex items-center w-fit'>

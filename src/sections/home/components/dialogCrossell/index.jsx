@@ -13,6 +13,7 @@ export default function DialogProductCombo({
   setActiveId,
   setListCrossell,
   type,
+  session,
 }) {
   const listImg = useMemo(() => {
     return data?.map((item) => ({
@@ -80,6 +81,7 @@ export default function DialogProductCombo({
             handleChangeVariation={handleChangeVariation}
             type={type}
             isLoading={false}
+            session={session}
           />
         </div>
       </DialogContent>

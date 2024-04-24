@@ -1,3 +1,4 @@
+import {auth} from '@/auth'
 import getData from '@/lib/getData'
 import ComboDetail from '@/sections/productDetail/ComboDetail'
 
@@ -19,11 +20,12 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
   )
   const dataProductVoucherReq = getData(`/okhub/v1/product/coupon/${slug}`)
   const bestCouponReq = getData(`/okhub/v1/coupon/product-detail/${slug}/best`)
-  const [dataProductDetail, dataProductVoucher, dataBestCoupon] =
+  const [dataProductDetail, dataProductVoucher, dataBestCoupon, session] =
     await Promise.all([
       dataProductDetailReq,
       dataProductVoucherReq,
       bestCouponReq,
+      auth(),
     ])
   let newDataProduct = {}
   if (dataProductDetail) {
@@ -63,6 +65,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
         data={newDataProduct}
         voucher={dataProductVoucher}
         bestCoupon={dataBestCoupon}
+        session={session}
       />
     </main>
   )

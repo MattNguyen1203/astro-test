@@ -167,6 +167,7 @@ export default function SheetCart({
                       isMobile={isMobile}
                       item={item}
                       isAuth={isAuth}
+                      session={session}
                     />
                   ))}
                 </div>

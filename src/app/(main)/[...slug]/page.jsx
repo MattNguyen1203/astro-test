@@ -1,6 +1,5 @@
 import {auth} from '@/auth'
 import getData from '@/lib/getData'
-import {getDataAuth} from '@/lib/getDataAuth'
 import {getDataProfile} from '@/lib/getDataProfile'
 import ProductDetail from '@/sections/productDetail'
 export async function generateStaticParams() {
