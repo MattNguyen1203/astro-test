@@ -8,8 +8,13 @@ import AllBill from '@/sections/bill/AllBill'
 import DoneBill from '@/sections/bill/DoneBill'
 import FailedBill from '@/sections/bill/FailedBill'
 
-export function TabsBill({isMobile}) {
+export function TabsBill({isMobile,dataOrder}) {
   const [status, setStatus] = useState('all')
+  const [dataAllOrder,setAllDataOrder] =useState(dataOrder?.data)
+  const completedOrders = dataOrder?.data?.filter(order => order.order_status === 'completed');
+  const processingOrders = dataOrder?.data?.filter(order => order.order_status === 'processing'|| order.order_status === 'pending');
+
+
   return (
     <Tabs
       defaultValue={'all'}
@@ -57,18 +62,18 @@ export function TabsBill({isMobile}) {
         </TabsTrigger>
         {!isMobile && (
           <div className='absolute top-1/2 right-[1.25rem] -translate-y-1/2 text-greyscale-40 sub2 font-medium font-svnGraphik'>
-            2 đơn hàng
+            4 đơn hàng
           </div>
         )}
       </TabsList>
       <TabsContent value='all'>
-        <AllBill />
+        <AllBill  data={dataAllOrder} />
       </TabsContent>
       <TabsContent value='done'>
-        <DoneBill />
+        <DoneBill data={completedOrders}/>
       </TabsContent>
-      <TabsContent value='failed'>
-        <FailedBill />
+      <TabsContent value='failed' >
+        <FailedBill data={processingOrders} />
       </TabsContent>
     </Tabs>
   )
