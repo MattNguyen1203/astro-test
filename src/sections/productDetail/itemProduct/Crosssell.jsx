@@ -65,7 +65,7 @@ const ItemProduct = (props) => {
 
         <div className=''>
           <Link
-            href={`/san-pham/${data?.slug}`}
+            href={`/${data?.slug}`}
             className='caption1 font-medium text-greyscale-40 mb-[0.29rem] xmd:text-[1.02489rem] xmd:font-semibold line-clamp-3'
           >
             {data?.name}
@@ -88,7 +88,7 @@ const ItemProduct = (props) => {
               Số lượng:
             </span>
             <span className='caption1 text-greyscale-80 font-medium'>
-              {data?.quantity || 1}
+              {data?.quantity || data?.qty || 1}
             </span>
           </div>
 

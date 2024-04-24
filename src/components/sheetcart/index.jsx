@@ -31,6 +31,8 @@ export default function SheetCart({
   const [isLoadingCart, setIsLoadingCart] = useState(false)
   const listCart = useStore((state) => state.listCart)
   const setListCart = useStore((state) => state.setListCart)
+  const actionCart = useStore((state) => state.actionCart)
+  const setActionCart = useStore((state) => state.setActionCart)
 
   const handleCart = () => {
     if (cart?.length === listCart?.length) {
@@ -69,24 +71,25 @@ export default function SheetCart({
 
   const handleClearCart = async () => {
     if (cart?.length <= 0) return
-
-    console.log('listCart', listCart)
     const newListCart = listCart?.filter(
       (item, index) => !cart?.includes(index),
     )
 
+    console.log('newListCart', newListCart)
+
     if (isAuth) {
       const listKeyDelete = cart.map((item) => ({key: listCart[item].key}))
-      setIsLoadingCart(true)
+      // setIsLoadingCart(true)
       const res = await deleteDataAuth({
         api: '/okhub/v1/cart',
         token: session?.accessToken,
         body: {cart_items: listKeyDelete},
       })
-      setIsLoadingCart(false)
+      // setIsLoadingCart(false)
 
       if (res.success) {
         setListCart(newListCart)
+        setCart([])
         toast.success('Đã xóa sản phẩm', {
           duration: 3000,
           position: 'top-center',
@@ -98,7 +101,9 @@ export default function SheetCart({
         })
       }
     } else {
-      localStorage.setItem('cartAstro', newListCart)
+      localStorage.setItem('cartAstro', JSON.stringify(newListCart))
+      setActionCart(!actionCart)
+      setCart([])
     }
   }
   return (
@@ -159,16 +164,17 @@ export default function SheetCart({
               ) : (
                 <div className='grid grid-cols-1 gap-y-[0.88rem] xmd:mb-[4rem]'>
                   {listCart?.map((item, index) => (
-                    <ItemCart
-                      key={index}
-                      index={index}
-                      setCart={setCart}
-                      cart={cart}
-                      isMobile={isMobile}
-                      item={item}
-                      isAuth={isAuth}
-                      session={session}
-                    />
+                    <div key={index}>
+                      <ItemCart
+                        index={index}
+                        setCart={setCart}
+                        cart={cart}
+                        isMobile={isMobile}
+                        item={item}
+                        isAuth={isAuth}
+                        session={session}
+                      />
+                    </div>
                   ))}
                 </div>
               )}

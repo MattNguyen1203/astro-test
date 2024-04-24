@@ -6,7 +6,7 @@ import NavigationCustom from '@/components/navigationcustom'
 import CardProduct from '@/components/cardproduct'
 import {FreeMode} from 'swiper/modules'
 
-export default function SlideProduct({isMobile, products}) {
+export default function SlideProduct({isMobile, products, session}) {
   const swiperRef = useRef(null)
   const [indexSlider, setIndexSlider] = useState(0)
 
@@ -54,7 +54,7 @@ export default function SlideProduct({isMobile, products}) {
             >
               <div className='flex items-center size-full xmd:px-[0.295rem]'>
                 {isMobile ? (
-                  <CardProduct />
+                  <CardProduct session={session} />
                 ) : (
                   <div className='grid grid-cols-5 gap-x-[0.88rem] h-[28.2rem]'>
                     {products?.item
@@ -63,6 +63,7 @@ export default function SlideProduct({isMobile, products}) {
                         <CardProduct
                           key={idx}
                           product={product}
+                          session={session}
                         />
                       ))}
                   </div>

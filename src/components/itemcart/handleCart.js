@@ -17,6 +17,11 @@ export const handleCart = async (
 
   //handle request to Add item with token
   const addProductsWithAuth = async () => {
+    const isError = checkProduct(listProduct, listCart, 'add', isAuth)
+
+    console.log('isError', isError)
+
+    if (isError) return
     setIsLoading(true)
     try {
       const result = await Promise.all(
@@ -26,7 +31,7 @@ export const handleCart = async (
           // console.log('reqBody', reqBody)
           return await postData('/okhub/v1/cart', JSON.stringify(reqBody), {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${session?.accessToken}`,
+            Authorization: `Bearer ${session?.data?.accessToken}`,
           })
         }),
       )
@@ -120,39 +125,46 @@ export const handleCart = async (
 
   // add item to localStorage if not login
   const addProductsLocally = () => {
-    if (listProduct.length <= 0) {
-      toast.error('Vui lòng chọn sản phẩm', {
-        duration: 3000,
-        position: 'top-center',
-      })
+    const isError = checkProduct(listProduct, listCart, 'add')
 
-      return
-    }
+    if (isError) return
+    let updatedCart
+    const isCombo =
+      listProduct?.length === 1 &&
+      !!listProduct[0] &&
+      listProduct[0].type === 'wooco'
 
-    if (
-      listProduct.some(
-        (item) => item?.type === 'variable' && !item?.variation?.attributes,
+    if (isCombo) {
+      const listGroupProduct = listProduct[0]?.grouped_products
+
+      if (!listGroupProduct || !Array.isArray(listGroupProduct)) {
+        const findIndex = listCart.findIndex((itemCart) => {
+          if (itemCart.type !== 'wooco') return
+          if (itemCart.id === listProduct[0].id) {
+            const itemCartGroup = itemCart?.grouped_products
+
+            let isMatch = false
+
+            listGroupProduct.forEach((product) => {})
+          } else {
+            return false
+          }
+        })
+      }
+    } else {
+      updatedCart = listProduct.reduce(
+        (cart, product) => {
+          const index = findProductIndex(cart, product)
+          if (index >= 0) {
+            cart[index].quantity += product.quantity
+          } else {
+            cart.push(product)
+          }
+          return cart
+        },
+        [...listCart],
       )
-    ) {
-      toast.error('Vui lòng chọn option sản phẩm', {
-        duration: 3000,
-        position: 'top-center',
-      })
-
-      return
     }
-    const updatedCart = listProduct.reduce(
-      (cart, product) => {
-        const index = findProductIndex(cart, product)
-        if (index >= 0) {
-          cart[index].quantity += product.quantity
-        } else {
-          cart.push(product)
-        }
-        return cart
-      },
-      [...listCart],
-    )
 
     localStorage.setItem('cartAstro', JSON.stringify(updatedCart))
     setActionCart(!actionCart)
@@ -160,30 +172,6 @@ export const handleCart = async (
       duration: 3000,
       position: 'top-center',
     })
-  }
-  //check product is existed in cart
-  const findProductIndex = (cart, product) => {
-    if (product.type === 'variable') {
-      return cart.findIndex(
-        (item) =>
-          item.id === product.id &&
-          (!product?.variation ||
-            (item?.variation?.variation_id ===
-              product?.variation?.variation_id &&
-              areAttributesMatching(item, product))),
-      )
-    } else if (product.type === 'simple') {
-      return cart.findIndex((item) => item.id === product.id)
-    }
-  }
-
-  const areAttributesMatching = (item, product) => {
-    const keys = Object.keys(product?.variation?.attributes)
-    return keys.every(
-      (key) =>
-        item?.variation?.attributes[key].key ===
-        product?.variation?.attributes[key]?.key,
-    )
   }
 
   if (isAuth) {
@@ -195,4 +183,127 @@ export const handleCart = async (
       addProductsLocally()
     }
   }
+}
+
+// validate list product: variant, quantity
+export function checkProduct(listProduct, listCart, type, isAuth) {
+  if (!listProduct) return
+  if (listProduct.length <= 0) {
+    toast.error('Vui lòng chọn sản phẩm', {
+      duration: 3000,
+      position: 'top-center',
+    })
+    return true
+  }
+  //validate for combo product
+
+  if (
+    listProduct.length === 1 &&
+    !!listProduct[0] &&
+    listProduct[0]?.type == 'wooco'
+  ) {
+    const isHaveVariant = listProduct[0]?.grouped_products?.some(
+      (item) => item.type === 'variable' && !item.variation.attributes,
+    )
+
+    if (isHaveVariant) {
+      toast.error('Vui lòng chọn option sản phẩm', {
+        duration: 3000,
+        position: 'top-center',
+      })
+      return true
+    } else {
+      return
+    }
+  }
+
+  if (
+    listProduct.some(
+      (item) => item?.type === 'variable' && !item?.variation?.attributes,
+    )
+  ) {
+    toast.error('Vui lòng chọn option sản phẩm', {
+      duration: 3000,
+      position: 'top-center',
+    })
+    return true
+  }
+
+  const isOverStock = listProduct.some((product) => {
+    const index = findProductIndex(listCart, product, isAuth)
+    const stockQty = product?.variation?.max_qty || product?.stock_quantity
+
+    if (!stockQty) {
+      return true
+    }
+
+    if (index < 0 && Number(product.quantity) > Number(stockQty)) {
+      return true
+    }
+
+    if (
+      index >= 0 &&
+      Number(product.quantity) + Number(listCart?.[index]?.quantity) > stockQty
+    ) {
+      if (
+        type === 'add' &&
+        Number(product.quantity) + Number(listCart?.[index]?.quantity) >
+          stockQty
+      ) {
+        return true
+      } else if (type === 'update' && Number(product.quantity) > stockQty) {
+        return true
+      }
+    }
+  })
+
+  if (isOverStock) {
+    toast.info('Số lượng tồn kho không đủ', {
+      duration: 3000,
+      position: 'top-center',
+    })
+    return true
+  }
+}
+
+//check product is existed in cart
+export const findProductIndex = (cart, product, isAuth) => {
+  if (product.type === 'variable') {
+    return cart.findIndex((item) => {
+      if (isAuth) {
+        return (
+          item.id === product.id &&
+          (!product?.variation ||
+            (item?.variation_id === product?.variation?.variation_id &&
+              areAttributesMatching(item, product, isAuth)))
+        )
+      } else {
+        return (
+          item.id === product.id &&
+          (!product?.variation ||
+            (item?.variation?.variation_id ===
+              product?.variation?.variation_id &&
+              areAttributesMatching(item, product)))
+        )
+      }
+    })
+  } else if (product.type === 'simple') {
+    return cart.findIndex((item) => item.id === product.id)
+  }
+}
+
+export const areAttributesMatching = (item, product, isAuth) => {
+  const keys = Object.keys(product?.variation?.attributes)
+  return keys.every((key) => {
+    if (isAuth) {
+      return (
+        item?.variation?.[key].key === product?.variation?.attributes[key]?.key
+      )
+    } else {
+      return (
+        item?.variation?.attributes[key].key ===
+        product?.variation?.attributes[key]?.key
+      )
+    }
+  })
 }

@@ -3,7 +3,7 @@
 import Cardproduct from '@/components/cardproduct'
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
 
-export default function GridWishlist({wishList, isMobile}) {
+export default function GridWishlist({wishList, isMobile, session}) {
   const router = useRouter()
   const pathName = usePathname()
   const searchParams = useSearchParams()
@@ -32,6 +32,7 @@ export default function GridWishlist({wishList, isMobile}) {
           <Cardproduct
             key={index}
             product={item?.product}
+            session={session}
           />
         ))}
       </div>

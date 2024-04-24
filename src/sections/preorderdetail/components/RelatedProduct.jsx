@@ -1,7 +1,7 @@
 import CardProduct from '@/components/cardproduct'
 import Image from 'next/image'
 
-const RelatedProduct = ({relatedProduct}) => {
+const RelatedProduct = ({relatedProduct, session}) => {
   // const relatedProduct = new Array(5).fill(0)
   return (
     <>
@@ -31,7 +31,10 @@ const RelatedProduct = ({relatedProduct}) => {
               className='xmd:w-[15rem] xmd:mr-[0.88rem]'
               key={index}
             >
-              <CardProduct product={item} />
+              <CardProduct
+                product={item}
+                session={session}
+              />
             </div>
           ))}
         </div>

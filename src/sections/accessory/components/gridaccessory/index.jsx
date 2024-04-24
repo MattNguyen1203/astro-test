@@ -6,7 +6,7 @@ import useSWR from 'swr'
 import {fetcher} from '@/lib/utils'
 import {useSearchParams} from 'next/navigation'
 
-export default function GridAccessory({isMobile, products}) {
+export default function GridAccessory({isMobile, products, session}) {
   const searchParams = useSearchParams()
 
   const sort = searchParams.get('sort')
@@ -84,6 +84,7 @@ export default function GridAccessory({isMobile, products}) {
               <CardProduct
                 product={product}
                 key={index}
+                session={session}
               />
             ))}
           </div>

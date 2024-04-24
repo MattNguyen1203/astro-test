@@ -2,12 +2,15 @@ import Image from 'next/image'
 import BannerFlashSale from './components/banner'
 import WrapperFlashSale from './components/wrapper'
 
-export default function IndexFlashSale({isMobile}) {
+export default function IndexFlashSale({isMobile, session}) {
   return (
     <>
       <main className='pt-[8rem] xmd:pt-[4.1rem] xmd:bg-transparent relative z-10'>
         <BannerFlashSale isMobile={isMobile} />
-        <WrapperFlashSale isMobile={isMobile} />
+        <WrapperFlashSale
+          isMobile={isMobile}
+          session={session}
+        />
       </main>
       {isMobile && (
         <Image

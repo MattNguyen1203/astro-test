@@ -109,7 +109,7 @@ const Variation = ({data = {}, setSelectedPrd, selectedPrd}) => {
         (item) => item.attributes?.[lastKey]?.key,
       )
 
-      listValueLastKey.forEach((item) => {
+      listValueLastKey?.forEach((item) => {
         if (!listValueInstock.includes(item.slug)) {
           listOutOfStock.push(item.slug)
         }
