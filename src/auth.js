@@ -19,6 +19,7 @@ export const {
       return true
     },
     async jwt({token, account, user}) {
+      console.log('🚀 ~ jwt ~ user:', user)
       // Chỉ thực hiện khi người dùng đăng nhập và có thông tin từ provider
       // Khi người dùng đăng nhập bằng Google, lưu access token vào token
       if (account?.provider === 'google') {
@@ -52,8 +53,12 @@ export const {
         token.name = user?.display_name
         token.userId = user?.user_id
         token.firstName = user?.first_name
+        token.nickname = user?.nickname
         token.lastName = user?.last_name
+        token.gender = user?.gender
         token.userRegistered = user?.user_registered
+        token.memberlevel = user?.member_level
+        token.memberTotalCharge = user?.member_total_charge
         token.userLogin = user?.user_login
         token.status = 'authenticated'
       }
@@ -77,15 +82,20 @@ export const {
 
       return token
     },
+
     async session({token, session}) {
-      session.accessToken = token?.accessToken
+      session.accessToken = token.accessToken
       session.user.name = token.name
       session.user.email = token.email
       session.user.image = token.picture
       session.userId = token.userId
       session.firstName = token.firstName
       session.lastName = token.lastName
+      session.nickname = token.nickname
+      session.gender = token.gender
       session.userRegistered = token.userRegistered
+      session.memberlevel = token.memberlevel
+      session.memberTotalCharge = token.memberTotalCharge
       session.userLogin = token.userLogin
       session.status = token.status
 
@@ -118,20 +128,21 @@ export const {
           }),
         )
         if (res?.user_id) {
-          return {
-            ...res,
-            user: {
-              user_id: res?.user_id,
-              avatar: res?.avatar,
-              picture_profile: res?.picture_profile,
-              display_name: res?.display_name,
-              first_name: res?.first_name,
-              last_name: res?.last_name,
-              user_email: res?.user_email,
-              user_registered: res?.user_registered,
-              user_login: res?.user_login,
-            },
-          }
+          return res
+          // return {
+          //   ...res,
+          //   user: {
+          //     user_id: res?.user_id,
+          //     avatar: res?.avatar,
+          //     picture_profile: res?.picture_profile,
+          //     display_name: res?.display_name,
+          //     first_name: res?.first_name,
+          //     last_name: res?.last_name,
+          //     user_email: res?.user_email,
+          //     user_registered: res?.user_registered,
+          //     user_login: res?.user_login,
+          //   },
+          // }
         } else {
           return JSON.parse(res)
         }
