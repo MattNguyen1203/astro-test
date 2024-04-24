@@ -11,16 +11,11 @@ import {toast} from 'sonner'
 import Loading from '../loading'
 import {putDataAuth} from '@/lib/putData'
 import Link from 'next/link'
-import {handleUpdateCart} from './handleUpdateCart'
+import {checkAttrVariant, handleUpdateCart} from './handleUpdateCart'
+import {useSession} from 'next-auth/react'
 
-export default function ItemCart({
-  cart,
-  setCart,
-  index,
-  isMobile,
-  item,
-  session,
-}) {
+export default function ItemCart({cart, setCart, index, isMobile, item}) {
+  const session = useSession()
   const isAuth = session?.status === 'authenticated'
   const setActionCart = useStore((state) => state.setActionCart)
   const actionCart = useStore((state) => state.actionCart)
@@ -35,19 +30,19 @@ export default function ItemCart({
     setProductSelected(item)
   }, [item])
 
-  const handleDeleteItemCart = async (key) => {
+  //handle delete item
+  const handleDeleteItemCart = async (key, index) => {
     if (isAuth) {
-      setIsLoading(true)
-      const res = await deleteDataAuth({
+      const result = await deleteDataAuth({
         api: '/okhub/v1/cart',
-        token: session?.accessToken,
+        token: session?.data?.accessToken,
         body: {
           ['cart_items']: [{key: key}],
         },
       })
       setIsLoading(false)
 
-      if (res.success) {
+      if (result.success) {
         const newListCart = listCart.filter((item) => item.key !== key)
         setListCart(newListCart)
         toast.success('Đã xóa sản phẩm', {
@@ -61,10 +56,16 @@ export default function ItemCart({
         })
       }
     } else {
-      const localGet = JSON.parse(localStorage.getItem('cartAstro')) || []
-      localGet?.splice(localGet?.findIndex((e) => e?.slug === item?.slug))
-      localStorage.setItem('cartAstro', JSON.stringify(localGet))
+      const newListCart = listCart.filter(
+        (item, cartIndex) => cartIndex !== index,
+      )
+      localStorage.setItem('cartAstro', JSON.stringify(newListCart))
       setActionCart((prev) => !prev)
+
+      toast.success('Xóa sản phẩm thành công', {
+        duration: 3000,
+        position: 'top-center',
+      })
     }
   }
 
@@ -78,37 +79,83 @@ export default function ItemCart({
       data,
       setIsLoading,
       index,
+      setIsOpen,
     )
   }
 
-  const handleQuantity = (quantity) => {
+  const handleQuantity = async (quantity, type) => {
     const newProduct = {...productSelected, quantity: quantity}
-    handleUpdateCart(
-      session,
-      listCart,
-      setListCart,
-      setActionCart,
-      actionCart,
-      newProduct,
-      setIsLoading,
-      index,
-    )
+    // update only quantity when logged in
+    if (type === 'updateQty' && isAuth) {
+      const stockQty = newProduct?.stock_quantity
+
+      if (quantity > stockQty) {
+        toast.info('Số lượng vượt quá tồn kho', {
+          duration: 3000,
+          position: 'top-center',
+        })
+      } else {
+        const putData = async () => {
+          const result = await putDataAuth({
+            token: session?.data?.accessToken,
+            api: `/okhub/v1/cart`,
+            body: {
+              cart_items: [
+                {
+                  quantity: quantity,
+                  key: listCart[index].key,
+                },
+              ],
+            },
+          })
+
+          if (!result?.data?.status) {
+            setIsLoading(false)
+            toast.success('Đã update thông tin sản phẩm', {
+              duration: 3000,
+              position: 'top-center',
+            })
+            setActionCart(!actionCart)
+          } else {
+            toast.error('Có lỗi xảy ra', {
+              duration: 3000,
+              position: 'top-center',
+            })
+          }
+        }
+
+        putData()
+      }
+    } else {
+      // update variable & quantity
+      handleUpdateCart(
+        session,
+        listCart,
+        setListCart,
+        setActionCart,
+        actionCart,
+        newProduct,
+        setIsLoading,
+        index,
+        setIsOpen,
+      )
+    }
   }
 
   const [price, regular_price] = useMemo(() => {
-    if (isAuth || productSelected?.type === 'simple') {
-      return [productSelected?.price, productSelected?.regular_price]
+    if (productSelected?.type === 'wooco') {
+      const priceTotal =
+        Number(productSelected?.line_total) / Number(productSelected.quantity)
+
+      return [priceTotal, '']
     } else {
       return [
-        productSelected?.variation?.display_price,
-        productSelected?.variation?.display_regular_price,
+        productSelected?.variation?.display_price || productSelected?.price,
+        productSelected?.variation?.display_regular_price ||
+          productSelected?.regular_price,
       ]
     }
   }, [productSelected])
-
-  if (isLoading) {
-    return <Loading />
-  }
 
   return (
     <article className='rounded-[0.58565rem] bg-white shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)] py-[0.73rem] pl-[0.59rem] pr-[1.17rem] flex xmd:px-[0.73rem] xmd:py-[0.59rem] xmd:shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] md:min-h-[7rem]'>
@@ -201,7 +248,7 @@ export default function ItemCart({
         </div>
         <div className='flex md:h-full justify-between md:flex-col md:items-end xmd:pl-[0.44rem] xmd:mt-[0.59rem]'>
           <button
-            onClick={() => handleDeleteItemCart(item.key)}
+            onClick={() => handleDeleteItemCart(item.key, index)}
             className='w-[1.45695rem] h-fit block xmd:w-[1.5rem]'
           >
             <Image
@@ -215,6 +262,7 @@ export default function ItemCart({
           <ButtonChange
             handleQuantity={handleQuantity}
             initQuantity={item.quantity || 1}
+            stockQty={item?.variation?.max_qty || item?.stock_quantity}
           />
         </div>
       </div>

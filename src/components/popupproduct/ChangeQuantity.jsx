@@ -3,6 +3,7 @@
 import {cn} from '@/lib/utils'
 import Image from 'next/image'
 import {useState} from 'react'
+import {toast} from 'sonner'
 
 const ChangeQuantity = ({stockQty, setChangeQty, quantity}) => {
   const [inputVal, setInputVal] = useState(quantity || 1)
@@ -15,10 +16,29 @@ const ChangeQuantity = ({stockQty, setChangeQty, quantity}) => {
     }
   }
   const handleInc = () => {
-    if (inputVal < stockQty) {
-      setInputVal((prev) => Number(prev) + 1)
-      setChangeQty((prev) => ({...prev, quantity: inputVal + 1}))
+    if (inputVal >= stockQty || !stockQty) {
+      toast.info('Số lượng sản phẩm vượt quá tồn kho', {
+        duration: 3000,
+        position: 'top-center',
+      })
+      return
     }
+
+    setInputVal((prev) => Number(prev) + 1)
+    setChangeQty((prev) => ({...prev, quantity: inputVal + 1}))
+  }
+
+  const handleChange = (value) => {
+    if (value >= stockQty || !stockQty) {
+      toast.info('Số lượng sản phẩm vượt quá tồn kho', {
+        duration: 3000,
+        position: 'top-center',
+      })
+      return
+    }
+
+    setInputVal(value)
+    setChangeQty((prev) => ({...prev, quantity: value}))
   }
 
   return (
@@ -47,12 +67,7 @@ const ChangeQuantity = ({stockQty, setChangeQty, quantity}) => {
             name='quantity'
             value={inputVal}
             className='input-hidden sub2 font-semibold text-[#000] flex items-center justify-center w-full h-full text-center px-[0.5rem]'
-            onChange={(e) => {
-              if (e.target.value <= stockQty) {
-                setInputVal(e.target.value)
-                setChangeQty((prev) => ({...prev, quantity: e.target.value}))
-              }
-            }}
+            onChange={(e) => handleChange(e.target.value)}
           />
         </div>
         <div

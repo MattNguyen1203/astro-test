@@ -4,7 +4,7 @@ import GridProductFL from '../gridproduct'
 import VoucherSlideRes from '@/sections/home/components/flashvoucher/slidevoucherres'
 import BtnScroll from '../btnscroll'
 
-export default function WrapperFlashSale({isMobile}) {
+export default function WrapperFlashSale({isMobile, session}) {
   return (
     <section className='relative min-h-screen bg-[#08131e] pb-[4.66rem] xmd:bg-transparent'>
       <div className='flex justify-center md:py-[1.54rem] bg-[#0A1A29] xmd:h-[5.49048rem] z-[50] xmd:overflow-x-auto hidden-scrollbar sticky top-[8.1rem] xmd:top-[4.1rem] left-0'>
@@ -46,16 +46,19 @@ export default function WrapperFlashSale({isMobile}) {
           isMobile={isMobile}
           id='ipad1'
           title={'Phụ kiện iPad 1'}
+          session={session}
         />
         <GridProductFL
           isMobile={isMobile}
           id='ipad2'
           title={'Phụ kiện iPad 2'}
+          session={session}
         />
         <GridProductFL
           isMobile={isMobile}
           id='ipad3'
           title={'Phụ kiện iPad 3'}
+          session={session}
         />
       </div>
     </section>

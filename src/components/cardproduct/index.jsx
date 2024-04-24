@@ -5,13 +5,13 @@ import Link from 'next/link'
 import {memo, useState} from 'react'
 import dynamic from 'next/dynamic'
 import {useRouter} from 'next/navigation'
+import {useSession} from 'next-auth/react'
 
 const DialogProduct = dynamic(() =>
   import('@/sections/home/components/dialog').then((mod) => mod.DialogProduct),
 )
 
-function CardProduct({product, priority = false, session}) {
-  // console.log('🚀 ~ CardProduct ~ product:', product)
+function CardProduct({product, priority = false}) {
   const [isOpen, setIsOpen] = useState(false)
   const percentSale = handlePercentSale(product)
   const price = renderPriceProduct(product)
@@ -112,7 +112,6 @@ function CardProduct({product, priority = false, session}) {
             productSelected={productSelected}
             setProductSelected={setProductSelected}
             isAddToCart={true}
-            session={session}
           />
         )}
       </div>

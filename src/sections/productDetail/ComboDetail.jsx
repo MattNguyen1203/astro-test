@@ -71,13 +71,14 @@ const ComboDetail = ({isMobile, data, voucher, bestCoupon, session}) => {
 
     if (isCalPrice) {
       const regular_price = listProduct?.reduce((total, item) => {
-        const [regularPriceResult] = handlePrice(item)
+        const [regularPriceResult, priceResult] = handlePrice(item)
 
         return total + regularPriceResult * Number(item?.qty)
       }, 0)
 
       const price = listProduct?.reduce((total, item) => {
-        const [priceResult] = handlePrice(item)
+        const [regularPriceResult, priceResult] = handlePrice(item)
+
         return total + priceResult * Number(item?.qty)
       }, 0)
 
@@ -89,8 +90,6 @@ const ComboDetail = ({isMobile, data, voucher, bestCoupon, session}) => {
       return [selectedPrd?.regular_price, selectedPrd?.price]
     }
   }, [listProduct, selectedPrd])
-
-  // console.log('selectedPrd', selectedPrd)
 
   return (
     <div className='container mt-[8.1rem] bg-elevation-10 relative xmd:w-full'>
