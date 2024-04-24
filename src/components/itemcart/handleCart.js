@@ -128,30 +128,69 @@ export const handleCart = async (
     const isError = checkProduct(listProduct, listCart, 'add')
 
     if (isError) return
+
     let updatedCart
     const isCombo =
       listProduct?.length === 1 &&
       !!listProduct[0] &&
       listProduct[0].type === 'wooco'
 
+    //product is combo
     if (isCombo) {
       const listGroupProduct = listProduct[0]?.grouped_products
 
-      if (!listGroupProduct || !Array.isArray(listGroupProduct)) {
-        const findIndex = listCart.findIndex((itemCart) => {
-          if (itemCart.type !== 'wooco') return
-          if (itemCart.id === listProduct[0].id) {
-            const itemCartGroup = itemCart?.grouped_products
+      if (!listGroupProduct || !Array.isArray(listGroupProduct)) return
 
-            let isMatch = false
+      const findIndex = listCart.findIndex((itemCart) => {
+        if (itemCart.type !== 'wooco' || itemCart.id !== listProduct[0].id)
+          return
 
-            listGroupProduct.forEach((product) => {})
+        const itemCartGroup = itemCart?.grouped_products
+
+        let isMatch = true
+        listGroupProduct.forEach((product) => {
+          if (product.type !== 'variable') return
+
+          const findItem = itemCartGroup.find(
+            (item) =>
+              item.id === product.id &&
+              item?.variation?.variation_id ===
+                product?.variation?.variation_id,
+          )
+
+          if (findItem) {
+            const productAttr = product?.variation?.attributes
+            const itemCartAttr = findItem?.variation?.attributes
+
+            if (
+              !Object.keys(productAttr).every(
+                (attr) => productAttr[attr]?.key === itemCartAttr[attr]?.key,
+              )
+            )
+              isMatch = false
           } else {
-            return false
+            isMatch = false
           }
         })
+
+        return isMatch
+      })
+
+      if (findIndex < 0) {
+        updatedCart = [...listCart, listProduct[0]]
+      } else {
+        const newItem = {
+          ...listProduct[0],
+          quantity:
+            Number(listProduct[0].quantity) +
+            Number(listCart[findIndex].quantity),
+        }
+        updatedCart = listCart.map((item, index) =>
+          index === findIndex ? newItem : item,
+        )
       }
     } else {
+      //other product
       updatedCart = listProduct.reduce(
         (cart, product) => {
           const index = findProductIndex(cart, product)
