@@ -5,7 +5,11 @@ export default function ItemProductPayment({item}) {
     <div className='p-[0.59rem] h-fit w-full flex space-x-[0.88rem]'>
       <Image
         className='object-contain rounded-[0.3631rem] size-[5.27086rem]'
-        src={item?.featuredImage?.url || '/home/item-product.jpg'}
+        src={
+          item?.featuredImage?.url ||
+          item?.product_image ||
+          '/home/item-product.jpg'
+        }
         alt={item?.featuredImage?.alt || item?.name}
         width={72}
         height={72}

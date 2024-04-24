@@ -90,14 +90,15 @@ export default function PaymentIndex({
 
   useEffect(() => {
     if (isAuth) {
+      setCarts(listCart)
     } else {
       const localGet = JSON.parse(localStorage.getItem('cartAstro')) || []
-      const listCart = []
+      const listCartNew = []
       if (listIdItemCart?.length) {
         listIdItemCart?.forEach((e) => {
-          listCart.push(localGet[Number(e)])
+          listCartNew.push(localGet[Number(e)])
         })
-        setCarts(listCart)
+        setCarts(listCartNew)
       }
     }
   }, [])
