@@ -26,14 +26,14 @@ import {toast} from 'sonner'
 import {createOrder} from '@/actions/payment'
 import {useRouter} from 'next/navigation'
 import useStore from '@/app/(store)/store'
-
-// name: '',
-//       phone: '',
-//       email: '',
-//       address: '',
-//       street: '',
-//       note: '',
-//       password: '',
+import {
+  defaultPriceShip,
+  formOrder,
+  propertyPayment,
+  propertyShip,
+  rangeFreeShip,
+} from '@/lib/constants'
+import {handlePriceTotalOrder} from '@/lib/utils'
 
 const formSchema = z.object({
   name: z.string(),
@@ -59,6 +59,7 @@ export default function PaymentIndex({
   commune,
   listIdItemCart,
   session,
+  dataCarts,
 }) {
   const router = useRouter()
 
@@ -71,9 +72,10 @@ export default function PaymentIndex({
   const [valueCommune, setValueCommune] = useState(null)
   const [ship, setShip] = useState('in')
   const [payment, setPayment] = useState()
-  const [carts, setCarts] = useState([])
+  const [carts, setCarts] = useState(isAuth ? dataCarts : [])
+  console.log('🚀 ~ carts:', carts)
+
   const listCart = useStore((state) => state.listCart)
-  console.log('🚀 ~ listCart:', listCart)
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -89,9 +91,7 @@ export default function PaymentIndex({
   })
 
   useEffect(() => {
-    if (isAuth) {
-      setCarts(listCart)
-    } else {
+    if (!isAuth) {
       const localGet = JSON.parse(localStorage.getItem('cartAstro')) || []
       const listCartNew = []
       if (listIdItemCart?.length) {
@@ -101,9 +101,86 @@ export default function PaymentIndex({
         setCarts(listCartNew)
       }
     }
-  }, [])
+  }, [listIdItemCart])
+
+  // useEffect(() => {
+  //   if (isAuth) {
+  //     if (listCart?.length) {
+  //       const listCartNew = []
+  //       listIdItemCart?.forEach((e) => {
+  //         listCartNew.push(listCart[Number(e)])
+  //       })
+  //       setCarts(listCartNew)
+  //     }
+  //   }
+  // }, [listCart, listIdItemCart])
 
   const values = form.watch()
+
+  const handleGenderVariation = (variation) => {
+    let variationNew = {}
+    for (const key in variation) {
+      variationNew[key] = variation?.[key]?.key
+    }
+    return variationNew
+  }
+
+  const handleChildrenWooco = (product) => {
+    if (product?.type === 'simple') {
+      return {
+        product_id: product?.id,
+        quantity: product?.quantity,
+      }
+    }
+    if (product?.type === 'variable') {
+      return {
+        product_id: product?.id,
+        variation_id: product?.variant_id,
+        quantity: product?.quantity,
+        variation: handleGenderVariation(product?.variation, isAuth),
+      }
+    }
+  }
+
+  const handleGenderWooco = (products) => {
+    let productNew = []
+    products?.forEach((product) => {
+      const obj = {}
+      obj[product?.id] = handleChildrenWooco(product)
+      productNew.push(obj)
+    })
+    return productNew
+  }
+
+  const handleGenderObjProduct = (product, isAuth) => {
+    if (product?.type === 'variable') {
+      return {
+        product_id: product?.id,
+        variation_id: product?.variant_id,
+        quantity: product?.quantity,
+        variation: handleGenderVariation(product?.variation, isAuth),
+        cart_key: isAuth ? product?.key : '',
+      }
+    }
+    if (product?.type === 'simple') {
+      return {
+        product_id: product?.id,
+        quantity: product?.quantity,
+        cart_key: isAuth ? product?.key : '',
+      }
+    }
+    if (product?.type === 'wooco') {
+      const lineItem = handleGenderWooco(product?.children)
+      return {
+        product_id: product?.id,
+        quantity: product?.quantity,
+        line_item: {
+          ...lineItem,
+        },
+        cart_key: isAuth ? product?.key : '',
+      }
+    }
+  }
 
   function onSubmit(valueForm) {
     form.setValue(
@@ -117,59 +194,42 @@ export default function PaymentIndex({
     }
 
     const productIds = []
-    carts?.forEach((e) =>
-      productIds.push({
-        product_id: e?.id,
-        quantity: 1,
-        cart_key: '',
-      }),
-    )
-    const body = {
-      customer_id: '0',
-      payment_method: 'onepay',
-      payment_method_title: 'One Pay',
-      customer_note: values?.note,
-      url_redirect: 'http://localhost:3000',
-      coupon_lines: [
-        {
-          code: 'mycouponcode',
-        },
-      ],
-      shipping_lines: [
-        {
-          method_id: 'flat_rate',
-          method_title: 'Flat Rate',
-          total: '10.00',
-        },
-      ],
-      billing_address: {
-        first_name: values?.name,
-        last_name: '',
-        email: values?.email,
-        address_1: values?.street + ' - ' + valueCommune,
-        address_2: valueDistrict,
-        city: valueProvince,
-        state: valueProvince,
-        postcode: '100000',
-        country: 'Việt Nam',
-        phone: values?.phone,
-      },
-      shipping_information: {
-        first_name: values?.name,
-        last_name: '',
-        email: values?.email,
-        address_1: values?.street + ' - ' + valueCommune,
-        address_2: valueDistrict,
-        city: valueProvince,
-        state: valueProvince,
-        postcode: '100000',
-        country: 'Việt Nam',
-        phone: values?.phone,
-      },
-      products: [...productIds],
-      url_redirect: 'http://localhost:3000/payment',
-      card_list: null,
+    if (isAuth) {
+      carts?.forEach((e) => productIds.push(handleGenderObjProduct(e, isAuth)))
+    } else {
+      carts?.forEach((e) =>
+        productIds.push({
+          product_id: e?.id,
+          quantity: 1,
+          cart_key: '',
+        }),
+      )
     }
+    const totalPrice = handlePriceTotalOrder(carts)
+
+    const isFreeShip = totalPrice >= rangeFreeShip
+    console.log('🚀 ~ onSubmit ~ productIds:', productIds)
+
+    const body = formOrder({
+      isAuth: isAuth,
+      userId: session?.userId,
+      values: values,
+      valueCommune: valueCommune,
+      valueDistrict: valueDistrict,
+      valueProvince: valueProvince,
+      productIds: [...productIds],
+      priceShip: isFreeShip ? '0' : defaultPriceShip.toString(),
+      urlRedirect: 'http://localhost:3000/payment',
+      method: payment === 'cod' ? 'cod' : 'onepay',
+      titleMethod:
+        payment === 'ck'
+          ? 'Direct Bank Transfer'
+          : payment === 'credit'
+          ? 'Cash on delivery'
+          : 'One Pay',
+    })
+    console.log('🚀 ~ onSubmit ~ body:', body)
+
     createOrder(JSON.stringify(body))
       .then((res) => {
         if (res?.success) {
@@ -369,86 +429,29 @@ export default function PaymentIndex({
             onValueChange={(value) => setPayment(value)}
             className='grid grid-cols-2 gap-[0.59rem] mt-[1.17rem]'
           >
-            <Label
-              htmlFor='r1'
-              className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer select-none'
-            >
-              <RadioGroupItem
-                className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
-                value='cod'
-                id='r1'
-              />
-              <Image
-                className='w-[1.46413rem] h-auto object-contain block ml-[0.88rem] mr-[0.44rem]'
-                src={'/account/car.svg'}
-                alt='icon car'
-                width={24}
-                height={24}
-              />
-              <span className='font-medium caption1 text-greyscale-40'>
-                Thanh toán khi nhận hàng (COD)
-              </span>
-            </Label>
-            <Label
-              htmlFor='r2'
-              className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer select-none'
-            >
-              <RadioGroupItem
-                className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
-                value='ck'
-                id='r2'
-              />
-              <Image
-                className='w-[1.46413rem] h-auto object-contain block ml-[0.88rem] mr-[0.44rem]'
-                src={'/payment/banking.svg'}
-                alt='icon banking'
-                width={24}
-                height={24}
-              />
-              <span className='font-medium caption1 text-greyscale-40'>
-                Chuyển khoản
-              </span>
-            </Label>
-            <Label
-              htmlFor='r3'
-              className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer select-none'
-            >
-              <RadioGroupItem
-                className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
-                value='momo'
-                id='r3'
-              />
-              <Image
-                className='w-[1.46413rem] h-auto object-contain block ml-[0.88rem] mr-[0.44rem]'
-                src={'/payment/momo.svg'}
-                alt='icon car'
-                width={24}
-                height={24}
-              />
-              <span className='font-medium caption1 text-greyscale-40'>
-                Momo
-              </span>
-            </Label>
-            <Label
-              htmlFor='r4'
-              className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer select-none'
-            >
-              <RadioGroupItem
-                className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
-                value='credit'
-                id='r4'
-              />
-              <Image
-                className='w-[1.46413rem] h-auto object-contain block ml-[0.88rem] mr-[0.44rem]'
-                src={'/payment/credit.svg'}
-                alt='icon credit'
-                width={24}
-                height={24}
-              />
-              <span className='font-medium caption1 text-greyscale-40'>
-                Credit card
-              </span>
-            </Label>
+            {propertyPayment?.map((e, index) => (
+              <Label
+                key={index}
+                htmlFor={e?.id}
+                className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer select-none'
+              >
+                <RadioGroupItem
+                  className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
+                  value={e?.value}
+                  id={e?.id}
+                />
+                <Image
+                  className='w-[1.46413rem] h-auto object-contain block ml-[0.88rem] mr-[0.44rem]'
+                  src={e?.icon}
+                  alt={e?.title}
+                  width={24}
+                  height={24}
+                />
+                <span className='font-medium caption1 text-greyscale-40'>
+                  {e?.title}
+                </span>
+              </Label>
+            ))}
           </RadioGroup>
         </div>
         <div className='bg-white rounded-[0.58565rem] p-[1.76rem]'>
@@ -462,46 +465,29 @@ export default function PaymentIndex({
             }}
             className='grid grid-cols-2 gap-[0.59rem] mt-[1.17rem]'
           >
-            <Label
-              htmlFor='in'
-              className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer select-none'
-            >
-              <RadioGroupItem
-                className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
-                value='in'
-                id='in'
-              />
-              <Image
-                className='w-[1.46413rem] h-auto object-contain block ml-[0.88rem] mr-[0.44rem]'
-                src={'/payment/car-flash.svg'}
-                alt='icon car flash'
-                width={24}
-                height={24}
-              />
-              <span className='font-medium caption1 text-greyscale-40'>
-                Hỏa tốc (khu vực HCM)
-              </span>
-            </Label>
-            <Label
-              htmlFor='out'
-              className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer select-none'
-            >
-              <RadioGroupItem
-                className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
-                value='out'
-                id='out'
-              />
-              <Image
-                className='w-[1.46413rem] h-auto object-contain block ml-[0.88rem] mr-[0.44rem]'
-                src={'/account/car.svg'}
-                alt='icon car'
-                width={24}
-                height={24}
-              />
-              <span className='font-medium caption1 text-greyscale-40'>
-                Tiêu chuẩn
-              </span>
-            </Label>
+            {propertyShip?.map((e, index) => (
+              <Label
+                key={index}
+                htmlFor={e?.value}
+                className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer select-none'
+              >
+                <RadioGroupItem
+                  className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
+                  value={e?.value}
+                  id={e?.value}
+                />
+                <Image
+                  className='w-[1.46413rem] h-auto object-contain block ml-[0.88rem] mr-[0.44rem]'
+                  src={e?.icon}
+                  alt={e?.title}
+                  width={24}
+                  height={24}
+                />
+                <span className='font-medium caption1 text-greyscale-40'>
+                  {e?.title}
+                </span>
+              </Label>
+            ))}
           </RadioGroup>
           <div className='rounded-[0.58565rem] bg-elevation-20 p-[0.88rem] mt-[1.17rem]'>
             {ship === 'out' ? <ShipTC /> : <ShipHT />}
@@ -511,6 +497,8 @@ export default function PaymentIndex({
       <InfoOrder
         carts={carts}
         onSubmit={onSubmit}
+        ship={propertyShip?.find((e) => e?.value === ship)?.label}
+        payment={propertyPayment?.find((e) => e?.value === payment)?.label}
       />
     </section>
   )

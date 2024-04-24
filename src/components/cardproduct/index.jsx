@@ -79,7 +79,7 @@ function CardProduct({product, priority = false, session}) {
             <span className='font-semibold text-blue-800 transition-all duration-500 sub2 xmd:caption1 xmd:font-bold xmd:text-white size-full md:group-hover:text-white'>
               {formatToVND(price?.sale) || formatToVND(price?.price)}
             </span>
-            {percentSale && (
+            {!!percentSale && (
               <span className='transition-all duration-500 giagoc size-full md:group-hover:text-greyscaletext-5-div xmd:font-workSans xmd:text-greyscaletext-5-div xmd:tracking-[0.00827rem] xmd:leading-[1.2] xmd:font-medium xmd:text-[0.65886rem]'>
                 {formatToVND(price?.price)}
               </span>

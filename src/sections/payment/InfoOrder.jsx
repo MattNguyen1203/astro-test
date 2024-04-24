@@ -1,7 +1,19 @@
+import {formatToVND, handlePriceTotalOrder} from '@/lib/utils'
 import ItemProductPayment from './ItemProductPayment'
+import {defaultPriceShip, rangeFreeShip} from '@/lib/constants'
 
-export default function InfoOrder({carts, onSubmit}) {
+export default function InfoOrder({carts, onSubmit, ship, payment}) {
   console.log('🚀 ~ InfoOrder ~ carts:', carts)
+
+  const totalPrice = handlePriceTotalOrder(carts)
+
+  const isFreeShip = totalPrice >= rangeFreeShip
+
+  const handleTotalPayment = () => {
+    const priceShip = isFreeShip ? 0 : defaultPriceShip
+    return totalPrice + priceShip
+  }
+
   return (
     <aside className='w-[34.91947rem] flex-shrink-0 h-fit sticky top-[9.76rem] right-0 rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] p-[1.17rem]'>
       <h3 className='font-medium sub2 text-greyscale-80'>
@@ -13,7 +25,7 @@ export default function InfoOrder({carts, onSubmit}) {
           Danh sách sản phẩm :
         </span>
         <span className='font-normal caption1 text-greyscale-30'>
-          3 sản phẩm
+          {carts?.length} sản phẩm
         </span>
       </div>
       <div className='mt-[0.59rem]'>
@@ -34,14 +46,16 @@ export default function InfoOrder({carts, onSubmit}) {
           <span className='font-medium caption1 text-greyscale-40'>
             Hình thức thanh toán:
           </span>
-          <span className='font-semibold caption1 text-greyscale-80'>COD</span>
+          <span className='font-semibold caption1 text-greyscale-80'>
+            {payment || 'Null'}
+          </span>
         </div>
         <div className='flex items-center justify-between'>
           <span className='font-medium caption1 text-greyscale-40'>
             Phương thức vận chuyển:
           </span>
           <span className='font-semibold caption1 text-greyscale-80'>
-            Hỏa tốc
+            {ship}
           </span>
         </div>
 
@@ -51,7 +65,7 @@ export default function InfoOrder({carts, onSubmit}) {
             Tổng tiền hàng:
           </span>
           <span className='font-semibold caption1 text-greyscale-80'>
-            325.000đ
+            {formatToVND(totalPrice)}
           </span>
         </div>
         <div className='flex items-center justify-between'>
@@ -59,7 +73,7 @@ export default function InfoOrder({carts, onSubmit}) {
             Phí vận chuyển:
           </span>
           <span className='font-semibold caption1 text-greyscale-80'>
-            40.000đ
+            {formatToVND(defaultPriceShip)}
           </span>
         </div>
         <div className='flex items-center justify-between'>
@@ -67,23 +81,25 @@ export default function InfoOrder({carts, onSubmit}) {
             Voucher giảm giá
           </span>
           <span className='font-semibold caption1 text-greyscale-80'>
-            - 40.000đ
+            {/* - 40.000đ */}
+            0đ
           </span>
         </div>
-        <div className='flex items-center justify-between'>
+        {/* <div className='flex items-center justify-between'>
           <span className='font-medium caption1 text-greyscale-40'>
             Khuyến mãi hạng thành viên
           </span>
           <span className='font-semibold caption1 text-greyscale-80'>
             - 80.000đ
           </span>
-        </div>
+        </div> */}
         <div className='flex items-center justify-between'>
           <span className='font-medium caption1 text-greyscale-40'>
             Giảm giá vận chuyển:
           </span>
           <span className='font-semibold caption1 text-greyscale-80'>
-            -20.000đ
+            {isFreeShip ? '-' : ''}
+            {formatToVND(defaultPriceShip)}
           </span>
         </div>
         <hr className='h-[0.07321rem] bg-[#1E417C29] my-[0.29rem]' />
@@ -91,7 +107,9 @@ export default function InfoOrder({carts, onSubmit}) {
           <span className='font-semibold sub2 text-greyscale-50'>
             Tổng thanh toán:
           </span>
-          <span className='sub1 font-bold text-[#D48E43]'>225.000đ</span>
+          <span className='sub1 font-bold text-[#D48E43]'>
+            {formatToVND(handleTotalPayment())}
+          </span>
         </div>
       </div>
       <button

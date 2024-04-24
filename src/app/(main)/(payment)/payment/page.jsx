@@ -1,8 +1,34 @@
+import {auth} from '@/auth'
+import {getDataProfile} from '@/lib/getDataProfile'
 import ItemProductPayment from '@/sections/payment/ItemProductPayment'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function PaymentPage() {
+export default async function PaymentPage({searchParams}) {
+  const tracking = searchParams?.tracking
+  const session = await auth()
+  const request = {
+    api: `/okhub/v1/order/${tracking}`,
+    token: session?.accessToken,
+  }
+  const detailOrder = await getDataProfile(request)
+  console.log('🚀 ~ PaymentPage ~ detailOrder:', detailOrder)
+
+  const handleDate = (dateString) => {
+    // Tạo một đối tượng Date từ chuỗi ngày tháng
+    const date = new Date(dateString)
+
+    // Định dạng lại ngày tháng
+    const formattedDate =
+      (date.getDate() < 10 ? '0' : '') +
+      date.getDate() +
+      '/' +
+      ((date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1)) +
+      '/' +
+      date.getFullYear()
+    return formattedDate
+  }
+
   return (
     <section className='container relative flex justify-between'>
       <article className='sticky top-[9.76rem] left-0 w-[50.87848rem] space-y-[0.88rem]'>
@@ -53,10 +79,10 @@ export default function PaymentPage() {
         <div className=' p-[1.46rem] rounded-[0.58565rem] bg-white'>
           <div className='flex items-center'>
             <span className='block w-fit mr-[0.59rem] sub2 font-semibold text-greyscale-80'>
-              THÔNG TIN ĐƠN HÀNG:
+              THÔNG TIN MÃ ĐƠN HÀNG:
             </span>
             <span className='font-semibold sub2 text-brown-500'>
-              #112211212
+              #{detailOrder?.id}
             </span>
           </div>
           <hr className='my-[0.59rem] bg-[#ECECECB2] h-[0.07321rem]' />
@@ -66,7 +92,8 @@ export default function PaymentPage() {
                 - Khách hàng:
               </span>
               <span className='font-normal caption1 text-greyscale-40'>
-                Hoàng Văn Như
+                {detailOrder?.billing?.first_name +
+                  detailOrder?.billing?.last_name}
               </span>
             </li>
             <li className='flex'>
@@ -74,7 +101,7 @@ export default function PaymentPage() {
                 - Số điện thoại:
               </span>
               <span className='font-normal caption1 text-greyscale-40'>
-                099222555
+                {detailOrder?.billing?.phone}
               </span>
             </li>
             <li className='flex'>
@@ -82,7 +109,7 @@ export default function PaymentPage() {
                 - Email:
               </span>
               <span className='font-normal caption1 text-greyscale-40'>
-                nhuhoang12@gmail.com
+                {detailOrder?.billing?.email}
               </span>
             </li>
             <li className='flex'>
@@ -90,15 +117,19 @@ export default function PaymentPage() {
                 - Ngày đặt hàng:
               </span>
               <span className='font-normal caption1 text-greyscale-40'>
-                20/1/2024
+                {handleDate(detailOrder?.date_created)}
               </span>
             </li>
             <li className='flex'>
               <span className='w-[12.1rem] caption1 font-semibold text-greyscale-80 flex-shrink-0'>
                 - Địa chỉ nhận hàng:
               </span>
-              <span className='font-normal caption1 text-greyscale-40'>
-                376 đường Nguyễn Thị Minh Khai, Phường 5 Quận 3, Tp. Hồ Chí Minh
+              <span className='font-normal capitalize caption1 text-greyscale-40'>
+                {detailOrder?.billing?.address_1 +
+                  ', ' +
+                  detailOrder?.billing?.address_2 +
+                  ', ' +
+                  detailOrder?.billing?.city}
               </span>
             </li>
           </ul>
