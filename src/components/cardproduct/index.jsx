@@ -11,6 +11,7 @@ const DialogProduct = dynamic(() =>
   import('@/sections/home/components/dialog').then((mod) => mod.DialogProduct),
 )
 
+
 function CardProduct({product, priority = false}) {
   const [isOpen, setIsOpen] = useState(false)
   const percentSale = handlePercentSale(product)

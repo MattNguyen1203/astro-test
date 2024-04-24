@@ -1,6 +1,7 @@
 import ItemProductPayment from './ItemProductPayment'
 
 export default function InfoOrder({carts, onSubmit}) {
+  console.log('🚀 ~ InfoOrder ~ carts:', carts)
   return (
     <aside className='w-[34.91947rem] flex-shrink-0 h-fit sticky top-[9.76rem] right-0 rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] p-[1.17rem]'>
       <h3 className='font-medium sub2 text-greyscale-80'>

@@ -6,16 +6,19 @@ import NavDown from './components/navDown'
 import NavUp from './components/navUp'
 import WrapNav from './components/wrapnav'
 import getData from '@/lib/getData'
-import {IDGLOBALAPI, IDHOMEPAGE} from '@/lib/IdPageAPI'
+import {IDGLOBALAPI} from '@/lib/IdPageAPI'
 
 export default async function Nav({isMobile, referer}) {
   const [session, categories, categoryOptions, global] = await Promise.all([
     auth(),
     getData('/okhub/v1/category/category'),
-    getData(`/okhub/v1/acf-categories/${IDHOMEPAGE}`),
+    getData(
+      `/okhub/v1/acf-categories/?page_id=${IDGLOBALAPI}&cat_slug=navbar&cat_slug=product_cat`,
+    ),
     getData(`/wp/v2/pages/${IDGLOBALAPI}`),
   ])
   console.log('🚀 ~ Nav ~ session:', session)
+
   const linkSocial = global?.acf?.link_social
   return (
     <header
