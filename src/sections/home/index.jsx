@@ -23,7 +23,7 @@ import TechnologyConner from './components/technologyconner'
 import ListStrength from '@/components/liststrength'
 import WrapperPromotionSlide from './components/promotions/WrapperPromotionSlide'
 
-export default function HomeIndex({viewport, products}) {
+export default function HomeIndex({viewport}) {
   const isMobile = viewport === 'mobile'
   const isTablet = viewport === 'tablet'
   return (
@@ -38,10 +38,7 @@ export default function HomeIndex({viewport, products}) {
       <section>
         <FlashVoucher isMobile={isMobile} />
         {isMobile && <CategoriesProduct />}
-        <Accessory
-          isMobile={isMobile}
-          products={products}
-        />
+        <Accessory isMobile={isMobile} />
       </section>
       {!isMobile && (
         <section>

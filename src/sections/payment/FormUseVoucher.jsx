@@ -11,18 +11,33 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import {useForm} from 'react-hook-form'
 import * as z from 'zod'
 import BtnSubmit from '../auth/components/btnsubmit'
+import {applyCoupon} from '@/actions/applyCoupon'
+import {useTransition} from 'react'
 
 const formSchema = z.object({
   voucher: z.string().min(1, {message: 'Bạn chưa nhập Voucher!'}),
 })
-export default function FormUseVoucher() {
+export default function FormUseVoucher({setCouponSearch}) {
+  const [isPending, setTransition] = useTransition()
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       voucher: '',
     },
   })
-  function onSubmit(values) {}
+  function onSubmit(values) {
+    console.log('🚀 ~ onSubmit ~ values:', values)
+    setTransition(() => {
+      applyCoupon(values?.voucher)
+        .then((res) => {
+          console.log('🚀 ~ .then ~ res:', res)
+          if (res?.code) {
+            setCouponSearch(res)
+          }
+        })
+        .catch((err) => console.log(err))
+    })
+  }
   return (
     <Form {...form}>
       <form

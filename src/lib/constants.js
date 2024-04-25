@@ -63,6 +63,7 @@ const formOrder = ({
   titleMethod,
   propertyShip,
   cardList = null,
+  coupon,
 }) => {
   return {
     customer_id: isAuth ? userId : '0',
@@ -71,7 +72,7 @@ const formOrder = ({
     customer_note: values?.note,
     coupon_lines: [
       {
-        code: 'mycouponcode',
+        code: coupon || '',
       },
     ],
     shipping_lines: [

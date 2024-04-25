@@ -1,5 +1,6 @@
 import getData from '@/lib/getData'
 import GridAccessory from './components/gridaccessory'
+import {auth} from '@/auth'
 
 export default async function WrapperGridAccessory({isMobile}) {
   const [products, session] = await Promise.all([

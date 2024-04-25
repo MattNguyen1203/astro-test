@@ -33,6 +33,7 @@ import {
   rangeFreeShip,
 } from '@/lib/constants'
 import {handlePriceTotalOrder} from '@/lib/utils'
+import {bestCouponOrder} from '@/actions/bestCouponOrder'
 
 const formSchema = z.object({
   name: z.string(),
@@ -102,7 +103,9 @@ export default function PaymentIndex({
   const [ship, setShip] = useState('in')
   const [payment, setPayment] = useState()
   const [carts, setCarts] = useState(isAuth ? dataCarts : [])
-  console.log('🚀 ~ carts:', carts)
+  const [coupon, setCoupon] = useState(null)
+  const [couponSearch, setCouponSearch] = useState(null)
+  console.log('🚀 ~ coupon:', coupon)
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -116,6 +119,26 @@ export default function PaymentIndex({
       password: '',
     },
   })
+
+  useEffect(() => {
+    const productIds = handleGenderCoupon(carts)
+    console.log('🚀 ~ useEffect ~ productIds:', productIds)
+
+    const request = {
+      api: '/okhub/v1/coupon/cart',
+      body: JSON.stringify({
+        products: productIds,
+      }),
+    }
+    bestCouponOrder(request)
+      .then((res) => {
+        console.log('🚀 ~ .then ~ res:', res)
+        if (res) {
+          setCoupon(res)
+        }
+      })
+      .catch((err) => console.log(err))
+  }, [carts])
 
   useEffect(() => {
     if (!isAuth) {
@@ -210,6 +233,37 @@ export default function PaymentIndex({
     }
   }
 
+  const handleGenderCoupon = (carts) => {
+    return carts?.map((product) => {
+      if (product?.type === 'wooco') {
+        const lineItem = handleGenderWooco(product?.children)
+        const convertedObject = {}
+
+        lineItem?.forEach((item) => {
+          const key = Object.keys(item)?.[0] // Lấy key từ object
+          convertedObject[key] = item[key] // Gán vào đối tượng mới
+        })
+        return {
+          product_id: product?.id,
+          quantity: product?.quantity,
+          line_item: convertedObject,
+        }
+      } else if (product?.type === 'variable') {
+        return {
+          product_id: product?.id,
+          variation_id: product?.variant_id,
+          quantity: product?.quantity,
+          variation: handleGenderVariation(product?.variation),
+        }
+      } else {
+        return {
+          product_id: product?.id,
+          quantity: product?.quantity,
+        }
+      }
+    })
+  }
+
   function onSubmit(valueForm) {
     if (!payment) {
       return toast.error('Vui lòng chọn phương thức thanh toán!', {
@@ -258,6 +312,7 @@ export default function PaymentIndex({
         valueDistrict: valueDistrict,
         valueProvince: valueProvince,
         productIds: [...productIds],
+        coupon: coupon?.code,
         priceShip:
           ship === 'in' ? '0' : isFreeShip ? '0' : defaultPriceShip.toString(),
         urlRedirect: 'http://localhost:3000/payment',
@@ -269,7 +324,14 @@ export default function PaymentIndex({
             ? 'Cash on delivery'
             : 'One Pay',
         propertyShip: ship === 'in' ? shipIn : isFreeShip ? shipFree : '',
-        cardList: payment === 'ck' ? 'DOMESTIC' : null,
+        cardList:
+          payment === 'ck'
+            ? 'DOMESTIC'
+            : payment === 'credit'
+            ? 'INTERNATIONAL'
+            : payment === 'momo'
+            ? 'MOMO'
+            : null,
       })
       console.log('🚀 ~ setTransition ~ productIds:', body)
 
@@ -467,7 +529,7 @@ export default function PaymentIndex({
             <span className='inline-block mb-[0.59rem]'>
               Hoặc nhập mã Voucher
             </span>
-            <FormUseVoucher />
+            <FormUseVoucher setCouponSearch={setCouponSearch} />
           </div>
         </div>
         <div className='bg-white rounded-[0.58565rem] p-[1.76rem]'>
@@ -552,6 +614,7 @@ export default function PaymentIndex({
         payment={propertyPayment?.find((e) => e?.value === payment)?.label}
         isCOD={payment === 'cod'}
         isPending={isPending}
+        coupon={couponSearch || coupon}
       />
     </section>
   )

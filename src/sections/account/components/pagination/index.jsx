@@ -18,10 +18,9 @@ const PaginationIndex = forwardRef(
     const handleRouter = (page) => {
       const paramNew = new URLSearchParams(searchParams)
       const url = '/san-pham/'
-      const before = ''
       if (page <= 1) {
         if (params?.category?.length > 1) {
-          const pathNameNew = url + before + params?.category[0]
+          const pathNameNew = url + params?.category?.[0]
           setIsFilterProduct(true)
           if (ref) {
             ref?.current?.scrollIntoView({behavior: 'smooth'})
@@ -41,16 +40,27 @@ const PaginationIndex = forwardRef(
         }
       } else {
         if (params?.category?.length) {
-          const pathNameNew = url + before + params?.category[0] + `/${page}`
-          setIsFilterProduct(true)
-          if (ref) {
-            ref?.current?.scrollIntoView({behavior: 'smooth'})
+          if (Number(params?.category?.[0])) {
+            setIsFilterProduct(true)
+            const pathNameNew = url + page
+            if (ref) {
+              ref?.current?.scrollIntoView({behavior: 'smooth'})
+            }
+            router.push(pathNameNew + '?' + paramNew.toString(), {
+              scroll: false,
+            })
+          } else {
+            const pathNameNew = url + params?.category?.[0] + `/${page}`
+            setIsFilterProduct(true)
+            if (ref) {
+              ref?.current?.scrollIntoView({behavior: 'smooth'})
+            }
+            router.push(pathNameNew + '?' + paramNew.toString(), {
+              scroll: false,
+            })
           }
-          router.push(pathNameNew + '?' + paramNew.toString(), {
-            scroll: false,
-          })
         } else {
-          const pathNameNew = url + before + `${page}`
+          const pathNameNew = url + `${page}`
           setIsFilterProduct(true)
           if (ref) {
             ref?.current?.scrollIntoView({behavior: 'smooth'})

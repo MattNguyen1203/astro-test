@@ -10,7 +10,9 @@ export default function InfoOrder({
   payment,
   isCOD,
   isPending,
+  coupon,
 }) {
+  console.log('🚀 ~ coupon:', coupon)
   const totalPrice = handlePriceTotalOrder(carts)
 
   const isFreeShip = totalPrice >= rangeFreeShip
@@ -19,6 +21,31 @@ export default function InfoOrder({
     const priceShip = isFreeShip ? 0 : defaultPriceShip
     return totalPrice + priceShip
   }
+
+  const handleShowPrice = (price) => {
+    if (Number(price)) {
+      return '-' + formatToVND(price)
+    } else {
+      return '0đ'
+    }
+  }
+
+  const handleAddCoupon = (total, coupon) => {
+    if (coupon?.type === 'fixed_cart') {
+      return handleShowPrice(coupon?.amount)
+    }
+    if (coupon?.type === 'fixed_product') {
+    }
+    if (coupon?.type === 'percent') {
+      const discountPercent = (total / 100) * Number(coupon?.amount)
+      if (discountPercent > Number(coupon?.max_discount)) {
+        return handleShowPrice(coupon?.max_discount)
+      } else {
+        return handleShowPrice(discountPercent)
+      }
+    }
+  }
+  console.log('handleAddCoupon(coupon)', handleAddCoupon(totalPrice, coupon))
 
   return (
     <aside className='w-[34.91947rem] flex-shrink-0 h-fit sticky top-[9.76rem] right-0 rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] p-[1.17rem]'>
@@ -84,8 +111,7 @@ export default function InfoOrder({
             Voucher giảm giá
           </span>
           <span className='font-semibold caption1 text-greyscale-80'>
-            {/* - 40.000đ */}
-            0đ
+            {handleAddCoupon(totalPrice, coupon)}
           </span>
         </div>
         {/* <div className='flex items-center justify-between'>
