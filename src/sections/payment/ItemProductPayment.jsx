@@ -2,22 +2,34 @@ import {formatToVND, handlePercentSale, renderPriceProduct} from '@/lib/utils'
 import Image from 'next/image'
 
 export default function ItemProductPayment({item, length, index}) {
-  if (item?.meta?.[0]?.key?.includes('parent')) return null
+  const handleFindParent = (meta) => {
+    let isCheck = false
+    meta?.forEach((item) => {
+      if (item?.key?.includes('parent')) {
+        return (isCheck = true)
+      }
+    })
+    return isCheck
+  }
+  if (handleFindParent(item?.meta)) return null
+
   const price = renderPriceProduct(item)
   const percentSale = handlePercentSale(item)
-  // const convertVariationArr = (variation) => {
-  //   let arr = []
-  //   for (const key in variation) {
-  //     arr.push(variation?.[key]?.label)
-  //   }
-  //   return arr
-  // }
+
+  const handleNameChildrenWooco = (products) => {
+    let name = ''
+    products?.forEach((item) => {
+      name += item?.name + ' + '
+    })
+    return name.slice(0, name.length - 3)
+  }
+
   const isWooco = item?.type === 'wooco'
   return (
     <>
       <div className='p-[0.59rem] h-fit w-full flex space-x-[0.88rem]'>
         <Image
-          className='object-contain rounded-[0.3631rem] size-[5.27086rem]'
+          className='object-cover rounded-[0.3631rem] size-[5.27086rem]'
           src={
             item?.featuredImage?.url ||
             item?.product_image ||
@@ -27,7 +39,7 @@ export default function ItemProductPayment({item, length, index}) {
           width={72}
           height={72}
         />
-        <div className='flex flex-col space-x-[0.59rem] w-[35.79rem]'>
+        <div className='flex flex-col w-[35.79rem] relative'>
           <h2 className='font-medium text-greyscale-40 caption'>
             {item?.name}
           </h2>
@@ -42,6 +54,11 @@ export default function ItemProductPayment({item, length, index}) {
                 </li>
               ))}
             </ul>
+          )}
+          {item?.type === 'wooco' && (
+            <p className='absolute bottom-0 left-0 font-medium line-clamp-2 text-greyscale-40 caption'>
+              {handleNameChildrenWooco(item?.grouped_products)}
+            </p>
           )}
         </div>
         <div className='flex flex-col items-end justify-between flex-1'>

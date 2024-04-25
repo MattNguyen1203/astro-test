@@ -1,9 +1,14 @@
 import CardProduct from '@/components/cardproduct'
 import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
+import getData from '@/lib/getData'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function GridProductFL({isMobile, id, title, session}) {
+export default async function GridProductFL({isMobile, id, title, session}) {
+  const products = await getData(
+    `/okhub/v1/product/filter/products?category=${id}&limit=8&page=1&is_flashsale=true`,
+  )
+
   return (
     <section className='container xmd:mx-[0.62rem] h-[77.28843rem] xmd:h-fit relative mt-[6.16rem] xmd:mt-[3.51rem]'>
       <div
@@ -27,10 +32,11 @@ export default function GridProductFL({isMobile, id, title, session}) {
       )}
       <div className='relative z-10 mx-auto pt-[7.75rem] w-[69.91215rem] xmd:pt-[1.17rem] xmd:w-full'>
         <div className='w-full grid grid-cols-4 grid-rows-2 gap-[1.17rem] xmd:gap-[0.59rem] xmd:grid-cols-2 xnd:grid-rows-4'>
-          {new Array(8).fill(0).map((e, index) => (
+          {products?.item?.map((product, index) => (
             <CardProduct
               key={index}
               session={session}
+              product={product}
             />
           ))}
         </div>
@@ -39,7 +45,7 @@ export default function GridProductFL({isMobile, id, title, session}) {
           className='px-[1.46rem] py-[0.81rem] rounded-[7.5rem] bg-[#f2f2f2] w-fit mt-[2.34rem] xmd:mt-[1.17rem] mx-auto flex items-center'
         >
           <span className='font-semibold caption1 text-greyscale-80 inline-block mr-[0.59rem] xmd:tracking-[0.00439rem]'>
-            +156 SẢN PHẨM
+            +{products?.count} SẢN PHẨM
           </span>
           <svg
             xmlns='http://www.w3.org/2000/svg'

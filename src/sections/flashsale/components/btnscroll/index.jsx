@@ -2,6 +2,25 @@
 
 import {useState} from 'react'
 
+const listCategory = [
+  {
+    title: 'Ipad',
+    slug: 'phu-kien-ipad',
+  },
+  {
+    title: 'Bút cảm ứng',
+    slug: 'but-cam-ung',
+  },
+  {
+    title: 'Tai nghe',
+    slug: 'tai-nghe-loa',
+  },
+  {
+    title: 'Digital camera',
+    slug: 'retro-digital-camera',
+  },
+]
+
 export default function BtnScroll({isMobile}) {
   const [index, setIndex] = useState(-1)
 
@@ -13,9 +32,9 @@ export default function BtnScroll({isMobile}) {
 
   return (
     <div className='flex xmd:absolute xmd:top-0 xmd:left-0 xmd:items-center xmd:h-full xmd:w-fit xmd:px-[0.59rem] '>
-      {new Array(3).fill(0).map((_, idx) => (
+      {listCategory?.map((category, idx) => (
         <button
-          onClick={() => scrollToSection(`#ipad${idx + 1}`, idx)}
+          onClick={() => scrollToSection(`#${category?.slug}`, idx)}
           className={`${
             index === idx
               ? 'bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)] text-greyscale-80'
@@ -23,7 +42,7 @@ export default function BtnScroll({isMobile}) {
           } first:ml-0 ml-[2.64rem] py-[0.88rem] px-[1.76rem] rounded-[7.5rem] w-fit button font-medium border border-solid border-white xmd:ml-[0.59rem] whitespace-nowrap`}
           key={idx}
         >
-          Ipad {idx + 1}
+          {category?.title}
         </button>
       ))}
     </div>

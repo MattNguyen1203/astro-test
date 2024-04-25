@@ -25,7 +25,7 @@ const linkNavUp = [
   },
   {
     title: 'Chính sách',
-    href: '/tin-tuc/chinh-sach',
+    href: '/danh-muc/chinh-sach',
   },
 ]
 

@@ -4,6 +4,25 @@ import GridProductFL from '../gridproduct'
 import VoucherSlideRes from '@/sections/home/components/flashvoucher/slidevoucherres'
 import BtnScroll from '../btnscroll'
 
+const listCategory = [
+  {
+    title: 'PHỤ KIỆN IPAD',
+    slug: 'phu-kien-ipad',
+  },
+  {
+    title: 'BÚT CẢM ỨNG',
+    slug: 'but-cam-ung',
+  },
+  {
+    title: 'TAI NGHE',
+    slug: 'tai-nghe-loa',
+  },
+  {
+    title: 'Digital Camera',
+    slug: 'retro-digital-camera',
+  },
+]
+
 export default function WrapperFlashSale({isMobile, session}) {
   return (
     <section className='relative min-h-screen bg-[#08131e] pb-[4.66rem] xmd:bg-transparent'>
@@ -42,7 +61,16 @@ export default function WrapperFlashSale({isMobile, session}) {
         ) : (
           <VoucherSlide data={new Array(Math.ceil(14)).fill(0)} />
         )}
-        <GridProductFL
+        {listCategory?.map((category, index) => (
+          <GridProductFL
+            key={index}
+            isMobile={isMobile}
+            id={category?.slug}
+            title={category?.title}
+            session={session}
+          />
+        ))}
+        {/* <GridProductFL
           isMobile={isMobile}
           id='ipad1'
           title={'Phụ kiện iPad 1'}
@@ -59,7 +87,7 @@ export default function WrapperFlashSale({isMobile, session}) {
           id='ipad3'
           title={'Phụ kiện iPad 3'}
           session={session}
-        />
+        /> */}
       </div>
     </section>
   )
