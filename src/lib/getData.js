@@ -14,6 +14,7 @@ export default async function getData(api, revalidate = 60) {
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
       // throw new Error('Failed to fetch data')
+      console.log(`${process.env.API}${api}`)
       return null
     }
 

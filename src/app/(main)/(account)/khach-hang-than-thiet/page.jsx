@@ -1,11 +1,15 @@
+import { auth } from '@/auth'
 import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
 import AvatarRes from '@/sections/account/components/avatarres'
 import RackAccount from '@/sections/account/components/rankaccount'
 import Link from 'next/link'
+import getData from '@/lib/getData'
 
-export default function CustomerPage({searchParams}) {
+export default async function CustomerPage({searchParams}) {
   const {viewport} = searchParams
   const isMobile = viewport === 'mobile'
+  const session = await auth()
+  let dataRank = await getData("/okhub/v1/member-option") 
   return (
     <>
       {isMobile && (
@@ -23,7 +27,7 @@ export default function CustomerPage({searchParams}) {
         </>
       )}
       <section className='inline-flex flex-col items-start justify-start w-full xmd:items-center h-fit xmd:mt-[1.17rem]'>
-        <RackAccount />
+        <RackAccount session={session} dataRank={dataRank}/>
       </section>
     </>
   )
