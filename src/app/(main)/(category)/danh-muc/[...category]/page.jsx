@@ -34,13 +34,14 @@ export async function generateStaticParams() {
 }
 
 export default async function page({params}) {
-  const [posts, categories] = await Promise.all([
+  const [posts, categories, products] = await Promise.all([
     getData(
       `/okhub/v1/post/postsByCategory/${params?.category[0]}?page=${
         Number(params?.category?.length) > 1 ? params?.category[1] : 1
       }&limit=6`,
     ),
     getData(`/okhub/v1/category/post`),
+    getData('/okhub/v1/product/allProduct?limit=5&page=1'),
   ])
 
   return (
@@ -49,6 +50,7 @@ export default async function page({params}) {
         posts={posts}
         categories={categories}
         url='/danh-muc/'
+        products={products}
       />
     </div>
   )
