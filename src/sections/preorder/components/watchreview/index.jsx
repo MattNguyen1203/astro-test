@@ -2,15 +2,19 @@
 import './style.css'
 
 import Image from 'next/image'
-import {useRef} from 'react'
+import {useRef, useState} from 'react'
 import {Swiper, SwiperSlide} from 'swiper/react'
+import ReactPlayer from 'react-player'
 
-export default function WatchReview({isMobile}) {
+export default function WatchReview({isMobile, datavideo}) {
   const swiperRef = useRef(null)
+  const [indexVideo, setIndexVideo] = useState(0)
+  const [toggle, setToggle] = useState(false)
+
   // const [indexSlider, setIndexSlider] = useState(0)
 
   // const handleSlideChange = (swiper) => {
-  //   setIndexSlider(swiper.realIndex)
+  //
   // }
 
   const handleNextSlide = () => {
@@ -18,6 +22,16 @@ export default function WatchReview({isMobile}) {
   }
   const handlePrevSlide = () => {
     swiperRef.current?.slidePrev()
+  }
+  const handleVideo = (i) => {
+    setIndexVideo(i)
+    setToggle(true)
+  }
+
+  const handleClickOutside = (event) => {
+    if (!event.target.closest('.child_video')) {
+      setToggle(false)
+    }
   }
   return (
     <section className='w-full overflow-hidden'>
@@ -51,21 +65,52 @@ export default function WatchReview({isMobile}) {
           id='preview_swiper'
           className='size-full'
         >
-          {new Array(15).fill(0).map((_, index) => (
-            <SwiperSlide key={index}>
-              <div className='relative size-full'>
-                <div className='bler h-[29.43rem] xmd:h-[18.00878rem] w-full md:max-w-[25vw] xmd:max-w-[40vw] absolute top-1/2 -translate-y-1/2 -translate-x-1/2 left-1/2 origin-center frame_phone rounded-[0.58565rem] overflow-hidden z-10'>
-                  <Image
-                    className='object-cover size-full'
-                    src={'/preorder/poster.jpg'}
-                    alt='poster'
-                    width={280}
-                    height={530}
-                  />
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
+          {new Array(Math.ceil(10 / datavideo?.length))
+            .fill(0)
+            .map((item, index) => (
+              <>
+                {datavideo?.map((e, i) => (
+                  <SwiperSlide key={i}>
+                    <div className='relative size-full'>
+                      <div
+                        onClick={() => handleVideo(i)}
+                        className='bler h-[29.43rem] xmd:h-[18.00878rem] w-full md:max-w-[25vw] xmd:max-w-[40vw] absolute top-1/2 -translate-y-1/2 -translate-x-1/2 left-1/2 origin-center frame_phone rounded-[0.58565rem] overflow-hidden z-10'
+                      >
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          width='32'
+                          height='39'
+                          viewBox='0 0 32 39'
+                          fill='none'
+                          className='hidden slider_control_video w-[2.04978rem] h-[2.63543rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer pointer-events-auto drop-shadow-xl'
+                        >
+                          <path
+                            d='M2 5.84798C2 3.93347 2 2.97622 2.39935 2.44855C2.74725 1.98884 3.27902 1.70438 3.85467 1.67002C4.51544 1.63057 5.31225 2.16158 6.90592 3.22355L27.6449 17.0435C28.9617 17.921 29.6201 18.3598 29.8494 18.9128C30.0502 19.3963 30.0502 19.9396 29.8494 20.4232C29.6201 20.9762 28.9617 21.4148 27.6449 22.2925L6.90592 36.1123C5.31225 37.1743 4.51544 37.7053 3.85467 37.6659C3.27902 37.6316 2.74725 37.3472 2.39935 36.8874C2 36.3597 2 35.4024 2 33.488V5.84798Z'
+                            fill='white'
+                            stroke='white'
+                            strokeWidth='2.57291'
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                          />
+                        </svg>
+
+                        <Image
+                          className='object-cover size-full'
+                          src={
+                            e?.thumneil
+                              ? e?.thumneil?.url
+                              : '/preorder/poster.jpg'
+                          }
+                          alt='poster'
+                          width={280}
+                          height={530}
+                        />
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </>
+            ))}
         </Swiper>
         {!isMobile && (
           <div className='absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 h-[38.8rem] w-[21.2%] z-10 pointer-events-none'>
@@ -140,26 +185,57 @@ export default function WatchReview({isMobile}) {
             <div className='w-[0.51rem] h-[3.15rem] absolute rounded-[0.80527rem] top-[5.7rem] -left-[1.8%]  bg-greyscale-80'></div>
             <div className='w-[0.51rem] h-[5.27086rem] absolute rounded-[0.80527rem] top-[9.66rem] -left-[1.8%]  bg-greyscale-80'></div>
             <div className='w-[0.51rem] h-[5.27086rem] absolute rounded-[0.80527rem] top-[6.81rem] -right-[1.8%]  bg-greyscale-80'></div>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='32'
-              height='39'
-              viewBox='0 0 32 39'
-              fill='none'
-              className='w-[2.04978rem] h-[2.63543rem] absolute top-[21.18rem] left-1/2 -translate-x-1/2 cursor-pointer pointer-events-auto drop-shadow-xl'
-            >
-              <path
-                d='M2 5.84798C2 3.93347 2 2.97622 2.39935 2.44855C2.74725 1.98884 3.27902 1.70438 3.85467 1.67002C4.51544 1.63057 5.31225 2.16158 6.90592 3.22355L27.6449 17.0435C28.9617 17.921 29.6201 18.3598 29.8494 18.9128C30.0502 19.3963 30.0502 19.9396 29.8494 20.4232C29.6201 20.9762 28.9617 21.4148 27.6449 22.2925L6.90592 36.1123C5.31225 37.1743 4.51544 37.7053 3.85467 37.6659C3.27902 37.6316 2.74725 37.3472 2.39935 36.8874C2 36.3597 2 35.4024 2 33.488V5.84798Z'
-                fill='white'
-                stroke='white'
-                strokeWidth='2.57291'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              />
-            </svg>
           </div>
         )}
       </div>
+      {toggle && (
+        <div
+          onClick={handleClickOutside}
+          className={`flex fixed top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2 w-full h-full justify-center items-center bg-[#0000004d] z-[999999]`}
+        >
+          <div className='child_video flex justify-center items-center translate-y-[2rem] lg:size-max xmd:w-full xmd:h-[80%]'>
+            {datavideo?.[indexVideo]?.check === 'url' && (
+              <ReactPlayer
+                className='!w-[61.5rem] !h-[41rem] xmd:!w-[22rem]'
+                controls={true}
+                playing={toggle ? true : false}
+                width={isMobile ? 430 : 840}
+                height={isMobile ? 764 : 560}
+                url={datavideo?.[indexVideo]?.url_video}
+              />
+            )}
+            {datavideo?.[indexVideo]?.check === 'file' && (
+              <ReactPlayer
+                className='!w-[61.5rem] !h-[41rem] xmd:w-[22rem]'
+                controls={true}
+                playing={toggle ? true : false}
+                width={isMobile ? 430 : 840}
+                height={isMobile ? 764 : 560}
+                url={datavideo?.[indexVideo]?.file?.url}
+              />
+            )}
+            {datavideo?.[indexVideo]?.check === 'id' && (
+              <iframe
+                id='video_preorder'
+                className='w-[31.425rem] h-[52rem] translate-y-[2rem] overflow-hidden'
+                src={`https://www.tiktok.com/embed/v2/${datavideo?.[indexVideo]?.id}`}
+                width='320'
+                height='560'
+                frameborder='0'
+                allowfullscreen
+              ></iframe>
+            )}
+          </div>
+          <div
+            onClick={() => {
+              setToggle(false)
+            }}
+            className='lg:hidden absolute top-[4.5rem] right-[1.5rem] text-[2rem] text-white bg-black rounded-[50%] px-[1rem]'
+          >
+            X
+          </div>
+        </div>
+      )}
     </section>
   )
 }
