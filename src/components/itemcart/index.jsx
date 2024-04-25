@@ -8,10 +8,9 @@ import {useEffect, useMemo, useState} from 'react'
 import {DialogProduct} from '@/sections/home/components/dialog'
 import {deleteDataAuth} from '@/lib/deleteData'
 import {toast} from 'sonner'
-import Loading from '../loading'
 import {putDataAuth} from '@/lib/putData'
 import Link from 'next/link'
-import {checkAttrVariant, handleUpdateCart} from './handleUpdateCart'
+import {handleUpdateCart} from './handleUpdateCart'
 import {useSession} from 'next-auth/react'
 
 export default function ItemCart({cart, setCart, index, isMobile, item}) {
@@ -21,7 +20,6 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
   const actionCart = useStore((state) => state.actionCart)
   const setListCart = useStore((state) => state.setListCart)
   const listCart = useStore((state) => state.listCart)
-  const [quantity, setQuantity] = useState(item.quantity || 1)
   const [isOpen, setIsOpen] = useState(false)
   const [productSelected, setProductSelected] = useState({})
   const [isLoading, setIsLoading] = useState(false)
@@ -29,6 +27,44 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
   useEffect(() => {
     setProductSelected(item)
   }, [item])
+
+  const [price, regular_price] = useMemo(() => {
+    if (productSelected?.type === 'wooco') {
+      if (isAuth) {
+        const priceTotal =
+          Number(productSelected?.line_total) / Number(productSelected.quantity)
+
+        return [priceTotal, '']
+      } else {
+        const totalPrice = productSelected?.grouped_products?.reduce(
+          (total, item) => {
+            const itemPrice =
+              item?.type === 'simple'
+                ? item.price
+                : item.variation.display_price
+
+            console.log('total', total)
+
+            return total + Number(itemPrice) * Number(item.qty)
+          },
+          0,
+        )
+
+        if (productSelected?.type_discount === 'Percentage') {
+          return [
+            totalPrice * ((100 - Number(productSelected?.discount)) / 100),
+            '',
+          ]
+        }
+      }
+    } else {
+      return [
+        productSelected?.variation?.display_price || productSelected?.price,
+        productSelected?.variation?.display_regular_price ||
+          productSelected?.regular_price,
+      ]
+    }
+  }, [productSelected])
 
   //handle delete item
   const handleDeleteItemCart = async (key, index) => {
@@ -141,44 +177,6 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
       )
     }
   }
-
-  const [price, regular_price] = useMemo(() => {
-    if (productSelected?.type === 'wooco') {
-      if (isAuth) {
-        const priceTotal =
-          Number(productSelected?.line_total) / Number(productSelected.quantity)
-
-        return [priceTotal, '']
-      } else {
-        const totalPrice = productSelected?.grouped_products?.reduce(
-          (total, item) => {
-            const itemPrice =
-              item?.type === 'simple'
-                ? item.price
-                : item.variation.display_price
-
-            console.log('total', total)
-
-            return total + Number(itemPrice) * Number(item.qty)
-          },
-          0,
-        )
-
-        if (productSelected?.type_discount === 'Percentage') {
-          return [
-            totalPrice * ((100 - Number(productSelected?.discount)) / 100),
-            '',
-          ]
-        }
-      }
-    } else {
-      return [
-        productSelected?.variation?.display_price || productSelected?.price,
-        productSelected?.variation?.display_regular_price ||
-          productSelected?.regular_price,
-      ]
-    }
-  }, [productSelected])
 
   return (
     <article className='rounded-[0.58565rem] bg-white shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)] py-[0.73rem] pl-[0.59rem] pr-[1.17rem] flex xmd:px-[0.73rem] xmd:py-[0.59rem] xmd:shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] md:min-h-[7rem]'>
