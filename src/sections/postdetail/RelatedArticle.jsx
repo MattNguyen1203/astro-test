@@ -8,8 +8,7 @@ import Image from 'next/image'
 import NavigationCustom from '@/components/navigationcustom'
 import CardRelatedArticle from './CardRelatedArticle'
 import RelatedButton from './RelatedButton'
-const RelatedArticle = ({isMobile}) => {
-  console.log({isMobile})
+const RelatedArticle = ({isMobile, productByCate}) => {
   const swiperRef = useRef(null)
   const [indexSlider, setIndexSlider] = useState(0)
 
@@ -23,6 +22,7 @@ const RelatedArticle = ({isMobile}) => {
   const handlePrevSlide = () => {
     swiperRef.current?.slidePrev()
   }
+
   return (
     <div className='inline md:inline-flex flex-col items-start space-y-[1.46413rem]'>
       <div className='md:py-[1.1713rem] md:px-[1.46413rem] bg-[#FFF] self-stretch rounded-[0.87848rem] '>
@@ -34,7 +34,7 @@ const RelatedArticle = ({isMobile}) => {
           <h2 className='font-medium h6 xmd:text-[2.34261rem] font-svnGraphik xmd:font-semibold xmd:text-blue-700 xmd:uppercase'>
             {isMobile ? 'Tin Tức Liên Quan' : 'Bài viết liên quan'}
           </h2>
-          {isMobile && (
+          {/* {isMobile && (
             <div className='w-full overflow-x-auto hidden-scrollbar'>
               <div className='w-max pb-2  flex items-start  gap-[0.87848rem]'>
                 <RelatedButton
@@ -64,7 +64,7 @@ const RelatedArticle = ({isMobile}) => {
                 />
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
       <div className='relative flex  md:container'>
@@ -80,9 +80,9 @@ const RelatedArticle = ({isMobile}) => {
           }}
           className='w-full xmd:!pr-[3.5rem]'
         >
-          {new Array(8).fill(0).map((_, index) => (
+          {productByCate?.map((item, index) => (
             <SwiperSlide key={index}>
-              <CardRelatedArticle />
+              <CardRelatedArticle data={item} />
             </SwiperSlide>
           ))}
         </Swiper>

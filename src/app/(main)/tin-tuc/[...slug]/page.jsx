@@ -1,5 +1,6 @@
 import BreadCrumb from '@/components/breadcrumb'
 import getData from '@/lib/getData'
+import SlideAccessory from '@/sections/home/components/accessory/slideaccessory'
 import ActualProduct from '@/sections/postdetail/ActualProduct'
 import MainPostdetail from '@/sections/postdetail/MainPostdetail'
 import RelatedArticle from '@/sections/postdetail/RelatedArticle'
@@ -17,6 +18,19 @@ export async function generateStaticParams() {
 export default async function page({params, searchParams}) {
   const data = await getData('/okhub/v1/post/postsBySlug/' + params?.slug[0])
 
+  const relatedProduct = await getData(
+    '/okhub/v1/post/' + params?.slug[0] + '/product',
+  )
+
+  let productByCate
+  if (data && data?.categories && data?.categories?.[0]) {
+    productByCate = await getData(
+      '/okhub/v1/post/postsByCategory/' +
+        data?.categories?.[0]?.slug +
+        '?page=1&limit=10',
+    )
+  }
+
   const {viewport} = searchParams
   const isMobile = viewport?.includes('mobile')
   return (
@@ -32,11 +46,28 @@ export default async function page({params, searchParams}) {
             <MainPostdetail data={data} />
             <Share />
           </div>
-          <div className='xmd:hidden sticky top-[9rem] left-0'>
-            <ActualProduct />
+          {relatedProduct && (
+            <div className='xmd:hidden sticky top-[9rem] left-0'>
+              <ActualProduct relatedProduct={relatedProduct} />
+            </div>
+          )}
+        </div>
+
+        {productByCate?.item && (
+          <RelatedArticle
+            isMobile={isMobile}
+            productByCate={productByCate?.item}
+          />
+        )}
+
+        <div className='md:hidden w-full mt-[2.34rem]'>
+          <h2 className='py-[0.73rem] px-[0.88rem] bg-[#F4F4F4] rounded-[0.58565rem] sub1 font-semibold text-greyscale-80'>
+            Sản phẩm nổi bật
+          </h2>
+          <div className='xmd:h-[25.92rem]'>
+            <SlideAccessory products={{item: relatedProduct}} />
           </div>
         </div>
-        <RelatedArticle isMobile={isMobile} />
       </div>
     </main>
   )

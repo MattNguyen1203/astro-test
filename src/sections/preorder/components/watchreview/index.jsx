@@ -223,7 +223,7 @@ export default function WatchReview({isMobile, datavideo}) {
                 height='560'
                 frameborder='0'
                 allowfullscreen
-              ></iframe>
+              />
             )}
           </div>
           <div
