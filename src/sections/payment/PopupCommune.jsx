@@ -16,6 +16,7 @@ export default function PopupCommune({
   valueCommune,
   setValueCommune,
   idDistrict,
+  disabled,
 }) {
   const [open, setOpen] = useState(false)
   return (
@@ -29,7 +30,9 @@ export default function PopupCommune({
           role='combobox'
           aria-expanded={open}
           className={`${
-            valueCommune
+            disabled
+              ? 'pointer-events-none cursor-not-allowed text-greyscale-20 hover:text-greyscale-20'
+              : valueCommune
               ? 'text-greyscale-80 hover:text-greyscale-80 capitalize'
               : 'text-greyscale-20 hover:text-greyscale-20'
           } text-[0.87848rem] tracking-[0.00878rem] leading-[1.2] font-medium justify-start flex-1 p-[0.88rem] h-fit rounded-[0.58565rem] bg-elevation-20 font-svnGraphik relative w-full`}

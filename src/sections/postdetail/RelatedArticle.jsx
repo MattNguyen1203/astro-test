@@ -1,13 +1,10 @@
 'use client'
 
 import {Swiper, SwiperSlide} from 'swiper/react'
-import {FreeMode} from 'swiper/modules'
 import 'swiper/css'
 import {useRef, useState} from 'react'
-import Image from 'next/image'
 import NavigationCustom from '@/components/navigationcustom'
 import CardRelatedArticle from './CardRelatedArticle'
-import RelatedButton from './RelatedButton'
 const RelatedArticle = ({isMobile, productByCate}) => {
   const swiperRef = useRef(null)
   const [indexSlider, setIndexSlider] = useState(0)
@@ -67,7 +64,7 @@ const RelatedArticle = ({isMobile, productByCate}) => {
           )} */}
         </div>
       </div>
-      <div className='relative flex  md:container'>
+      <div className='relative flex md:container'>
         <Swiper
           slidesPerView={isMobile ? 2 : 3}
           grabCursor

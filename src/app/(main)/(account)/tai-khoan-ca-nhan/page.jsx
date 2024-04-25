@@ -18,10 +18,9 @@ export default async function AccountPage({searchParams}) {
   ])
 
   const profile = await getDataProfile({
-    api: `/custom/v1/customer/customer?user_id=${session?.userId}`,
+    api: `/custom/v1/customer/customer`,
     token: session?.acessToken,
   })
-  console.log('🚀 ~ AccountPage ~ profile:', profile)
   return (
     <>
       {isMobile && (

@@ -25,7 +25,7 @@ export async function getDataAuth(request) {
     return data
   } catch (error) {
     // Handle errors in fetching or data parsing
-    console.error('Failed to fetch data:', error.message)
+    console.error('Failed to fetch data:', request?.api)
     throw error // Optionally re-throw the error if you want calling code to handle it
   }
 }

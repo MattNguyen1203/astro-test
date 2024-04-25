@@ -19,8 +19,6 @@ export const handleCart = async (
   const addProductsWithAuth = async () => {
     const isError = checkProduct(listProduct, listCart, 'add', isAuth)
 
-    console.log('isError', isError)
-
     if (isError) return
     setIsLoading(true)
     try {

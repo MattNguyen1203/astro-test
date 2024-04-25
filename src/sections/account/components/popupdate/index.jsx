@@ -11,7 +11,7 @@ import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover'
 import {ScrollArea} from '@/components/ui/scroll-area'
 import {useState} from 'react'
 
-export default function PopupDate({data, type = 0, defaultValue}) {
+export default function PopupDate({data, type = 0, defaultValue, disabled}) {
   const [value, setValue] = useState('')
   const [open, setOpen] = useState(false)
   return (
@@ -25,6 +25,10 @@ export default function PopupDate({data, type = 0, defaultValue}) {
           role='combobox'
           aria-expanded={open}
           className={`${
+            disabled
+              ? 'pointer-events-none cursor-not-allowed !text-greyscale-20 !hover:text-greyscale-20'
+              : ''
+          } ${
             value
               ? 'text-greyscale-80 hover:text-greyscale-80 capitalize'
               : 'text-greyscale-20 hover:text-greyscale-20'

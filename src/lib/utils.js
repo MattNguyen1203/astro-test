@@ -99,3 +99,16 @@ export function convertPhone(phone) {
     : phone
   return phoneEnd
 }
+
+export function handlePriceTotalOrder(carts) {
+  let sum = 0
+  if (!carts?.length) return sum
+  carts?.forEach((e) => {
+    if (e?.type === 'wooco') {
+      sum += Number(e?.line_total)
+    } else {
+      sum += Number(e?.price) * Number(e?.quantity)
+    }
+  })
+  return sum
+}

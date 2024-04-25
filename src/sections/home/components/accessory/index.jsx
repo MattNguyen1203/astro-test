@@ -1,12 +1,14 @@
 import './style.css'
 
 import ICArrowRight from '@/components/icon/ICArrowRight'
-import CategoriesIndex from './categories'
-import SlideAccessory from './slideaccessory'
 import Link from 'next/link'
 import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
+import CategoriesIndex from './categories'
+import {auth} from '@/auth'
+import WrapperSlideAccessory from './slideaccessory/WrapperSlideAccessory'
 
-export default function Accessory({isMobile, products}) {
+export default async function Accessory({isMobile}) {
+  const session = await auth()
   return (
     <div className='pt-[4.39rem] md:bg-elevation-20 xmd:pt-[3rem]'>
       <div className='container md:flex md:py-[1.46rem] md:pr-[1.47rem] rounded-[1.1713rem] backdrop-blur-[5px] md:bg-blue-400 xmd:full-mb'>
@@ -31,7 +33,7 @@ export default function Accessory({isMobile, products}) {
           </div>
         </div>
         <div className='md:w-[69.03367rem] h-[31.8448rem] xmd:h-[25.92rem] md:rounded-[0.87848rem] bg-white overflow-hidden relative xmd:top-[-1.17rem]'>
-          <SlideAccessory products={products} />
+          <WrapperSlideAccessory session={session} />
         </div>
       </div>
       {!isMobile && (

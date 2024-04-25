@@ -19,7 +19,6 @@ export const {
       return true
     },
     async jwt({token, account, user}) {
-      console.log('🚀 ~ jwt ~ user:', user)
       // Chỉ thực hiện khi người dùng đăng nhập và có thông tin từ provider
       // Khi người dùng đăng nhập bằng Google, lưu access token vào token
       if (account?.provider === 'google') {

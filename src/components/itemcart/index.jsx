@@ -8,10 +8,9 @@ import {useEffect, useMemo, useState} from 'react'
 import {DialogProduct} from '@/sections/home/components/dialog'
 import {deleteDataAuth} from '@/lib/deleteData'
 import {toast} from 'sonner'
-import Loading from '../loading'
 import {putDataAuth} from '@/lib/putData'
 import Link from 'next/link'
-import {checkAttrVariant, handleUpdateCart} from './handleUpdateCart'
+import {handleUpdateCart} from './handleUpdateCart'
 import {useSession} from 'next-auth/react'
 
 export default function ItemCart({cart, setCart, index, isMobile, item}) {
@@ -22,7 +21,6 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
   const actionCart = useStore((state) => state.actionCart)
   const setListCart = useStore((state) => state.setListCart)
   const listCart = useStore((state) => state.listCart)
-  const [quantity, setQuantity] = useState(item.quantity || 1)
   const [isOpen, setIsOpen] = useState(false)
   const [productSelected, setProductSelected] = useState({})
   const [isLoading, setIsLoading] = useState(false)
@@ -240,8 +238,11 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
                 {Object.values(
                   productSelected?.variation?.attributes ||
                     productSelected?.variation,
-                )?.map((variant) => (
-                  <div className='cursor-pointer caption1 w-fit bg-elevation-20 rounded-[0.43924rem] py-[0.59rem] pl-[0.73rem] pr-[0.44rem] xmd:px-[0.59rem] xmd:py-[0.29rem] mr-[0.5rem]'>
+                )?.map((variant, index) => (
+                  <div
+                    key={index}
+                    className='cursor-pointer caption1 w-fit bg-elevation-20 rounded-[0.43924rem] py-[0.59rem] pl-[0.73rem] pr-[0.44rem] xmd:px-[0.59rem] xmd:py-[0.29rem] mr-[0.5rem]'
+                  >
                     {variant.label}
                   </div>
                 ))}

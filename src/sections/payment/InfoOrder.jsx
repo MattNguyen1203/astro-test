@@ -1,7 +1,52 @@
+import {formatToVND, handlePriceTotalOrder} from '@/lib/utils'
 import ItemProductPayment from './ItemProductPayment'
+import {defaultPriceShip, rangeFreeShip} from '@/lib/constants'
+import {Fragment} from 'react'
 
-export default function InfoOrder({carts, onSubmit}) {
-  console.log('🚀 ~ InfoOrder ~ carts:', carts)
+export default function InfoOrder({
+  carts,
+  onSubmit,
+  ship,
+  payment,
+  isCOD,
+  isPending,
+  coupon,
+}) {
+  console.log('🚀 ~ coupon:', coupon)
+  const totalPrice = handlePriceTotalOrder(carts)
+
+  const isFreeShip = totalPrice >= rangeFreeShip
+
+  const handleTotalPayment = () => {
+    const priceShip = isFreeShip ? 0 : defaultPriceShip
+    return totalPrice + priceShip
+  }
+
+  const handleShowPrice = (price) => {
+    if (Number(price)) {
+      return '-' + formatToVND(price)
+    } else {
+      return '0đ'
+    }
+  }
+
+  const handleAddCoupon = (total, coupon) => {
+    if (coupon?.type === 'fixed_cart') {
+      return handleShowPrice(coupon?.amount)
+    }
+    if (coupon?.type === 'fixed_product') {
+    }
+    if (coupon?.type === 'percent') {
+      const discountPercent = (total / 100) * Number(coupon?.amount)
+      if (discountPercent > Number(coupon?.max_discount)) {
+        return handleShowPrice(coupon?.max_discount)
+      } else {
+        return handleShowPrice(discountPercent)
+      }
+    }
+  }
+  console.log('handleAddCoupon(coupon)', handleAddCoupon(totalPrice, coupon))
+
   return (
     <aside className='w-[34.91947rem] flex-shrink-0 h-fit sticky top-[9.76rem] right-0 rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] p-[1.17rem]'>
       <h3 className='font-medium sub2 text-greyscale-80'>
@@ -13,20 +58,17 @@ export default function InfoOrder({carts, onSubmit}) {
           Danh sách sản phẩm :
         </span>
         <span className='font-normal caption1 text-greyscale-30'>
-          3 sản phẩm
+          {carts?.length} sản phẩm
         </span>
       </div>
       <div className='mt-[0.59rem]'>
         {carts?.map((item, index) => (
-          <>
-            <ItemProductPayment
-              key={index}
-              item={item}
-            />
+          <Fragment key={index}>
+            <ItemProductPayment item={item} />
             {index < 3 && (
               <hr className='my-[0.59rem] bg-[#1E417C14] h-[0.07321rem]' />
             )}
-          </>
+          </Fragment>
         ))}
       </div>
       <div className='rounded-[0.58565rem] p-[0.88rem] bg-elevation-20 space-y-[0.59rem]'>
@@ -34,14 +76,16 @@ export default function InfoOrder({carts, onSubmit}) {
           <span className='font-medium caption1 text-greyscale-40'>
             Hình thức thanh toán:
           </span>
-          <span className='font-semibold caption1 text-greyscale-80'>COD</span>
+          <span className='font-semibold caption1 text-greyscale-80'>
+            {payment || 'Null'}
+          </span>
         </div>
         <div className='flex items-center justify-between'>
           <span className='font-medium caption1 text-greyscale-40'>
             Phương thức vận chuyển:
           </span>
           <span className='font-semibold caption1 text-greyscale-80'>
-            Hỏa tốc
+            {ship}
           </span>
         </div>
 
@@ -51,7 +95,7 @@ export default function InfoOrder({carts, onSubmit}) {
             Tổng tiền hàng:
           </span>
           <span className='font-semibold caption1 text-greyscale-80'>
-            325.000đ
+            {formatToVND(totalPrice)}
           </span>
         </div>
         <div className='flex items-center justify-between'>
@@ -59,7 +103,7 @@ export default function InfoOrder({carts, onSubmit}) {
             Phí vận chuyển:
           </span>
           <span className='font-semibold caption1 text-greyscale-80'>
-            40.000đ
+            {formatToVND(defaultPriceShip)}
           </span>
         </div>
         <div className='flex items-center justify-between'>
@@ -67,23 +111,24 @@ export default function InfoOrder({carts, onSubmit}) {
             Voucher giảm giá
           </span>
           <span className='font-semibold caption1 text-greyscale-80'>
-            - 40.000đ
+            {handleAddCoupon(totalPrice, coupon)}
           </span>
         </div>
-        <div className='flex items-center justify-between'>
+        {/* <div className='flex items-center justify-between'>
           <span className='font-medium caption1 text-greyscale-40'>
             Khuyến mãi hạng thành viên
           </span>
           <span className='font-semibold caption1 text-greyscale-80'>
             - 80.000đ
           </span>
-        </div>
+        </div> */}
         <div className='flex items-center justify-between'>
           <span className='font-medium caption1 text-greyscale-40'>
             Giảm giá vận chuyển:
           </span>
           <span className='font-semibold caption1 text-greyscale-80'>
-            -20.000đ
+            {isFreeShip ? '-' : ''}
+            {formatToVND(defaultPriceShip)}
           </span>
         </div>
         <hr className='h-[0.07321rem] bg-[#1E417C29] my-[0.29rem]' />
@@ -91,7 +136,9 @@ export default function InfoOrder({carts, onSubmit}) {
           <span className='font-semibold sub2 text-greyscale-50'>
             Tổng thanh toán:
           </span>
-          <span className='sub1 font-bold text-[#D48E43]'>225.000đ</span>
+          <span className='sub1 font-bold text-[#D48E43]'>
+            {formatToVND(handleTotalPayment())}
+          </span>
         </div>
       </div>
       <button
@@ -99,7 +146,31 @@ export default function InfoOrder({carts, onSubmit}) {
         type='submit'
         className='flex items-center justify-center w-full text-white bg-blue-700 rounded-[0.58565rem] mt-[1.64rem] h-[2.92826rem] caption1 font-semibold'
       >
-        THANH TOÁN NGAY
+        {isPending ? (
+          <svg
+            className='animate-spin size-[2rem] text-white'
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+          >
+            <circle
+              className='opacity-25'
+              cx='12'
+              cy='12'
+              r='10'
+              stroke='currentColor'
+              strokeWidth='4'
+            ></circle>
+            <path
+              fill='currentColor'
+              d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+            ></path>
+          </svg>
+        ) : isCOD ? (
+          'ĐẶT HÀNG NGAY'
+        ) : (
+          'THANH TOÁN NGAY'
+        )}
       </button>
     </aside>
   )

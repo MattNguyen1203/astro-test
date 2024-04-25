@@ -6,7 +6,7 @@ import {useSession} from 'next-auth/react'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
 
-export default function Cart({isMobile, session}) {
+export default function Cart({isMobile, session, cartDefault}) {
   const isAuth = session?.status === 'authenticated'
 
   const {update} = useSession()
@@ -15,6 +15,13 @@ export default function Cart({isMobile, session}) {
   const listCart = useStore((state) => state.listCart)
   const setListCart = useStore((state) => state.setListCart)
   const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    if (cartDefault) {
+      setListCart(Array.isArray(cartDefault) ? cartDefault : [])
+      setIsLoading(false)
+    }
+  }, [])
 
   useEffect(() => {
     if (isAuth) {

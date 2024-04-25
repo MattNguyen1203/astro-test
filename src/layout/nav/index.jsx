@@ -17,7 +17,6 @@ export default async function Nav({isMobile, referer}) {
     ),
     getData(`/wp/v2/pages/${IDGLOBALAPI}`),
   ])
-  console.log('🚀 ~ Nav ~ session:', session)
 
   const linkSocial = global?.acf?.link_social
   return (

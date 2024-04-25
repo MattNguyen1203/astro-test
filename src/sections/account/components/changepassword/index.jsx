@@ -79,6 +79,7 @@ export default function ChangePassWord({profile, session}) {
           if (res?.message?.includes('successfully')) {
             setIsEdit(false)
             setIsSuccess(true)
+            form.reset()
           } else {
             toast.error('Mật khẩu cũ chưa chính xác. Vui lòng thử lại!', {
               duration: 5000,

@@ -5,6 +5,7 @@ import Account from './Account'
 import MenuRes from './MenuRes'
 import Cart from './Cart'
 import getData from '@/lib/getData'
+import {getDataAuth} from '@/lib/getDataAuth'
 
 export default async function NavUp({
   session,
@@ -13,10 +14,14 @@ export default async function NavUp({
   categories,
   linkSocial,
 }) {
-  console.log('session', session)
-  const productSuggest = await getData(
-    '/okhub/v1/product/allProduct?limit=6&order=desc&page=1',
-  )
+  const [productSuggest, cartDefault] = await Promise.all([
+    getData('/okhub/v1/product/allProduct?limit=6&order=desc&page=1'),
+    getDataAuth({
+      token: session?.accessToken,
+      api: `/okhub/v1/cart`,
+    }),
+  ])
+
   return (
     <div
       id='nav_up'
@@ -50,6 +55,7 @@ export default async function NavUp({
         <Cart
           session={session}
           isMobile={isMobile}
+          cartDefault={cartDefault}
         />
         <Account
           session={session}
