@@ -61,6 +61,8 @@ const formOrder = ({
   urlRedirect,
   method,
   titleMethod,
+  propertyShip,
+  cardList = null,
 }) => {
   return {
     customer_id: isAuth ? userId : '0',
@@ -74,8 +76,8 @@ const formOrder = ({
     ],
     shipping_lines: [
       {
-        method_id: 'flat_rate',
-        method_title: 'Flat Rate',
+        method_id: propertyShip?.id || 'flat_rate',
+        method_title: propertyShip?.title || 'Flat Rate',
         total: priceShip,
       },
     ],
@@ -105,7 +107,7 @@ const formOrder = ({
     },
     products: [...productIds],
     url_redirect: urlRedirect,
-    card_list: null,
+    card_list: cardList,
   }
 }
 

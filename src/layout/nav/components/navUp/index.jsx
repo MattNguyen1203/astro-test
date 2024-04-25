@@ -13,7 +13,6 @@ export default async function NavUp({
   categories,
   linkSocial,
 }) {
-  console.log('session', session)
   const productSuggest = await getData(
     '/okhub/v1/product/allProduct?limit=6&order=desc&page=1',
   )

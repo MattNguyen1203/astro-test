@@ -9,7 +9,6 @@ import NavigationCustom from '@/components/navigationcustom'
 import CardRelatedArticle from './CardRelatedArticle'
 import RelatedButton from './RelatedButton'
 const RelatedArticle = ({isMobile}) => {
-  console.log({isMobile})
   const swiperRef = useRef(null)
   const [indexSlider, setIndexSlider] = useState(0)
 
@@ -67,7 +66,7 @@ const RelatedArticle = ({isMobile}) => {
           )}
         </div>
       </div>
-      <div className='relative flex  md:container'>
+      <div className='relative flex md:container'>
         <Swiper
           slidesPerView={isMobile ? 2 : 3}
           grabCursor

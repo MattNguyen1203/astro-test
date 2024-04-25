@@ -214,8 +214,11 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
                 {Object.values(
                   productSelected?.variation?.attributes ||
                     productSelected?.variation,
-                )?.map((variant) => (
-                  <div className='cursor-pointer caption1 w-fit bg-elevation-20 rounded-[0.43924rem] py-[0.59rem] pl-[0.73rem] pr-[0.44rem] xmd:px-[0.59rem] xmd:py-[0.29rem] mr-[0.5rem]'>
+                )?.map((variant, index) => (
+                  <div
+                    key={index}
+                    className='cursor-pointer caption1 w-fit bg-elevation-20 rounded-[0.43924rem] py-[0.59rem] pl-[0.73rem] pr-[0.44rem] xmd:px-[0.59rem] xmd:py-[0.29rem] mr-[0.5rem]'
+                  >
                     {variant.label}
                   </div>
                 ))}

@@ -16,14 +16,26 @@ import PopupDate from './components/popupdate'
 import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group'
 import {Label} from '@/components/ui/label'
 import BtnSubmit from '../auth/components/btnsubmit'
-import {useState} from 'react'
+import {useState, useTransition} from 'react'
 import {DialogAvatar} from './components/dialogavatar'
 import PopupProvince from '../payment/PopupProvince'
 import PopupDistrict from '../payment/PopupDistrict'
 import PopupCommune from '../payment/PopupCommune'
+import {updateProfile} from '@/actions/updateProfile'
 
 const formSchema = z.object({
-  voucher: z.string().min(1, {message: 'Bạn chưa nhập Voucher!'}),
+  nickname: z.string(),
+  fullName: z.string().min(1, 'Trường này là bắt buộc!'),
+  email: z
+    .string()
+    .min(1, {message: 'Trường này là bắt buộc!'})
+    .email({message: 'Nhập đúng định dạng email!'}),
+  phone: z
+    .string()
+    .min(1, {message: 'Trường này là bắt buộc!'})
+    .regex(/^[0-9]{6,15}$/, {message: 'Định dạng không hợp lệ!'}),
+  address: z.string(),
+  phoneShip: z.string(),
 })
 export default function IndexAccount({
   isMobile,
@@ -31,17 +43,54 @@ export default function IndexAccount({
   district,
   commune,
   profile,
+  session,
 }) {
+  const cityDefautl = profile?.shipping_address?.city?.toLowerCase()
+  const districtDefautl = profile?.shipping_address?.address_2?.toLowerCase()
+  const communeDefautl = profile?.shipping_address?.address_1
+
+  const defaultValuetProvince =
+    province.find((e) => e?.name?.toLowerCase()?.includes(cityDefautl))?.name ||
+    null
+
+  const defaultIdProvince =
+    province.find((e) => e?.name?.toLowerCase()?.includes(cityDefautl))
+      ?.idProvince || null
+
+  const defaultValueDistrict =
+    district.find((e) => e?.name?.toLowerCase()?.includes(districtDefautl))
+      ?.name || null
+
+  const defaultIdDistrict =
+    district.find((e) => e?.name?.toLowerCase()?.includes(districtDefautl))
+      ?.idDistrict || null
+
+  const [isPending, setTransition] = useTransition()
   const [isEdit, setIsEdit] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const [valueProvince, setValueProvince] = useState(null)
-  const [idProvince, setIdProvince] = useState(null)
-  const [valueDistrict, setValueDistrict] = useState(null)
-  const [idDistrict, setIdDistrict] = useState(null)
-  const [valueCommune, setValueCommune] = useState(null)
+  const [valueProvince, setValueProvince] = useState(defaultValuetProvince)
+
+  const [idProvince, setIdProvince] = useState(defaultIdProvince)
+  const [valueDistrict, setValueDistrict] = useState(defaultValueDistrict)
+  const [idDistrict, setIdDistrict] = useState(defaultIdDistrict)
+
+  const communeSplit = communeDefautl?.split(', ')
+  const communeSearch =
+    communeSplit?.[1]?.toLowerCase() || communeSplit?.[0]?.toLowerCase()
+  const defaultValueCommune =
+    commune.find((e) => e?.name?.toLowerCase()?.includes(communeSearch))
+      ?.name || null
+
+  const [valueCommune, setValueCommune] = useState(defaultValueCommune)
+
   const [base64, setBase64] = useState('')
 
-  const birthDay = profile?.birthday?.split('/')
+  const [birthDay, setBirthDay] = useState(profile?.birthday?.split('/'))
+
+  const [gender, setGender] = useState(
+    profile?.gender == '1' ? 'female' : 'male',
+  )
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,12 +99,56 @@ export default function IndexAccount({
       email: profile?.email,
       phone: profile?.phone,
       address: '',
-      street: '',
+      street: communeSplit?.length > 1 ? communeSplit?.[0] : '',
       phoneShip: profile?.billing_address?.phone,
     },
   })
+  const values = form.watch()
   function onSubmit(values) {
     console.log('🚀 ~ onSubmit ~ values:', values)
+  }
+
+  const handleBtnSubmit = () => {
+    setTransition(() => {
+      // const addressForm = JSON.stringify({
+      //   address_1: 'KDT Đô Nghĩa, Phường Yên Nghĩa',
+      //   address_2: 'Quận Hà Đông',
+      //   city: 'Hà Nội',
+      // })
+      // console.log('🚀 ~ setTransition ~ addressForm:', addressForm)
+      const formdata = new FormData()
+      formdata.append('shipping_address', '{"company":"hanh"}')
+
+      const request = {
+        api: '/custom/v1/customer/customer',
+        token: session?.accessToken,
+        body: formdata,
+      }
+
+      fetch('http://localhost:3000/api/update-profile', request)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
+    })
+  }
+
+  const handleReset = () => {
+    setIsEdit(false)
+    setBirthDay(profile?.birthday?.split('/'))
+    setGender(profile?.gender == '1' ? 'female' : 'male')
+    setValueProvince(defaultValuetProvince)
+    setValueDistrict(defaultValueDistrict)
+    setValueCommune(defaultValueCommune)
+    setIdProvince(defaultIdProvince)
+    setIdDistrict(defaultIdDistrict)
+    form.reset({
+      nickname: profile?.nickname,
+      fullName: profile?.display_name,
+      email: profile?.email,
+      phone: profile?.phone,
+      address: '',
+      street: communeSplit?.length > 1 ? communeSplit?.[0] : '',
+      phoneShip: profile?.billing_address?.phone,
+    })
   }
 
   const renderArrayDate = (start, end, before = '') => {
@@ -157,7 +250,9 @@ export default function IndexAccount({
                       setIsEdit(true)
                       setIsOpen(true)
                     }}
-                    className='size-[8.63836rem] relative'
+                    className={`${
+                      !isEdit ? 'pointer-events-none cursor-not-allowed' : ''
+                    } size-[8.63836rem] relative`}
                   >
                     <Image
                       className='object-cover rounded-full cursor-pointer size-full'
@@ -238,7 +333,7 @@ export default function IndexAccount({
                     Giới tính:
                   </span>
                   <RadioGroup
-                    defaultValue={profile?.gender == '1' ? 'female' : 'male'}
+                    defaultValue={gender}
                     className='grid grid-cols-2 gap-[0.59rem] mt-[1.17rem]'
                     disabled={!isEdit}
                   >
@@ -277,10 +372,15 @@ export default function IndexAccount({
                 <span className='w-[11.2rem] block flex-shrink-0 caption1 font-normal text-greyscale-80'>
                   Ngày sinh:
                 </span>
-                <div className='w-full grid grid-cols-3 gap-x-[0.75rem]'>
+                <div
+                  className={`${
+                    !isEdit ? 'cursor-not-allowed' : ''
+                  } w-full grid grid-cols-3 gap-x-[0.75rem] `}
+                >
                   <PopupDate
                     data={renderArrayDate(1, 31)}
                     defaultValue={convertDefaultValue(birthDay?.[0]) || '1'}
+                    disabled={!isEdit}
                   />
                   <PopupDate
                     data={renderArrayDate(1, 13, 'Tháng ')}
@@ -288,11 +388,13 @@ export default function IndexAccount({
                     defaultValue={
                       convertDefaultValue(birthDay?.[1], 'Tháng ') || 'Tháng 1'
                     }
+                    disabled={!isEdit}
                   />
                   <PopupDate
                     data={renderArrayDate(1910, new Date().getFullYear())}
                     type={2}
                     defaultValue={convertDefaultValue(birthDay?.[2]) || '1990'}
+                    disabled={!isEdit}
                   />
                 </div>
               </div>
@@ -306,12 +408,17 @@ export default function IndexAccount({
                 <span className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'>
                   Địa chỉ:
                 </span>
-                <div className='grid grid-cols-3 gap-x-[0.75rem] w-full'>
+                <div
+                  className={`${
+                    !isEdit ? 'cursor-not-allowed' : ''
+                  } grid grid-cols-3 gap-x-[0.75rem] w-full`}
+                >
                   <PopupProvince
                     province={province}
                     valueProvince={valueProvince}
                     setValueProvince={setValueProvince}
                     setIdProvince={setIdProvince}
+                    disabled={!isEdit}
                   />
                   <PopupDistrict
                     district={district?.filter(
@@ -321,6 +428,7 @@ export default function IndexAccount({
                     setValueDistrict={setValueDistrict}
                     setIdDistrict={setIdDistrict}
                     idProvince={idProvince}
+                    disabled={!isEdit}
                   />
                   <PopupCommune
                     commune={commune?.filter(
@@ -329,6 +437,7 @@ export default function IndexAccount({
                     valueCommune={valueCommune}
                     setValueCommune={setValueCommune}
                     idDistrict={idDistrict}
+                    disabled={!isEdit}
                   />
                 </div>
               </div>
@@ -386,24 +495,26 @@ export default function IndexAccount({
 
             {isEdit ? (
               <div className='flex items-center justify-end !mt-[0.88rem]'>
-                <button
-                  onClick={() => setIsEdit(false)}
-                  className='caption font-semibold text-blue-800 rounded-[0.43924rem] bg-white w-[8.63836rem] h-[2.4rem] flex items-center justify-center ml-auto mr-[0.59rem]'
+                <div
+                  onClick={handleReset}
+                  className='caption font-semibold text-blue-800 rounded-[0.43924rem] bg-white w-[8.63836rem] h-[2.4rem] flex items-center justify-center ml-auto mr-[0.59rem] cursor-pointer'
                 >
                   HỦY BỎ
-                </button>
+                </div>
                 <BtnSubmit
+                  isPending={isPending}
+                  onClick={handleBtnSubmit}
                   title='LƯU THAY ĐỔI'
                   className='!w-[8.63836rem] !h-[2.4rem] !bg-[linear-gradient(90deg,rgba(16,40,65,1)_100%,rgba(16,40,65,1)_100%)] rounded-[0.43924rem] caption font-semibold'
                 />
               </div>
             ) : (
-              <button
+              <div
                 onClick={() => setIsEdit(true)}
-                className='caption font-semibold text-white rounded-[0.43924rem] bg-blue-700 w-[11.78624rem] h-[2.4rem] flex items-center justify-center ml-auto !mt-[0.88rem]'
+                className='caption font-semibold text-white rounded-[0.43924rem] bg-blue-700 w-[11.78624rem] h-[2.4rem] flex items-center justify-center ml-auto !mt-[0.88rem] cursor-pointer'
               >
                 CHỈNH SỬA
-              </button>
+              </div>
             )}
           </form>
         </Form>

@@ -16,6 +16,7 @@ export async function generateStaticParams() {
 
 export default async function page({params, searchParams}) {
   const data = await getData('/okhub/v1/post/postsBySlug/' + params?.slug[0])
+  console.log('🚀 ~ page ~ data:', data)
 
   const {viewport} = searchParams
   const isMobile = viewport?.includes('mobile')

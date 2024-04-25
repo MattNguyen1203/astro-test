@@ -1,4 +1,4 @@
-export async function postDataProfile(request) {
+export default async function postDataProxy(request) {
   try {
     const myHeaders = new Headers()
     myHeaders.append('Authorization', `Bearer ${request?.token}`)
@@ -9,12 +9,13 @@ export async function postDataProfile(request) {
       body: request?.body,
       redirect: 'follow',
     }
-    const res = await fetch(`${process.env.API}${request?.api}`, requestOptions)
+    const res = await fetch(
+      `${process.env.DOMAIN}${request?.api}`,
+      requestOptions,
+    )
 
-    // Check if the response was successful
     if (!res.ok) {
       return res.json()
-      // throw new Error(`HTTP error! status: ${res.status}`)
     }
 
     const data = await res.json()

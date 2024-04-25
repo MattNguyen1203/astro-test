@@ -13,11 +13,20 @@ export default async function page({searchParams}) {
     auth(),
   ])
 
-  const request = {
+  const request1 = {
     api: '/okhub/v1/cart',
     token: session?.accessToken,
   }
-  const dataCarts = await getDataProfile(request)
+  const request2 = {
+    api: '/custom/v1/customer/customer',
+    token: session?.accessToken,
+  }
+
+  const [dataCarts, profile] = await Promise.all([
+    getDataProfile(request1),
+    getDataProfile(request2),
+  ])
+
   const listCartNew = []
 
   if (dataCarts?.length) {
@@ -33,6 +42,8 @@ export default async function page({searchParams}) {
       listIdItemCart={listIdItemCart}
       session={session}
       dataCarts={listCartNew}
+      dataCartsDefault={dataCarts}
+      profile={profile}
     />
   )
 }

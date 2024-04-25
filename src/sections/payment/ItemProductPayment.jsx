@@ -2,6 +2,7 @@ import {formatToVND, handlePercentSale, renderPriceProduct} from '@/lib/utils'
 import Image from 'next/image'
 
 export default function ItemProductPayment({item}) {
+  console.log('🚀 ~ ItemProductPayment ~ item:', item)
   const price = renderPriceProduct(item)
   const percentSale = handlePercentSale(item)
   const convertVariationArr = (variation) => {
@@ -11,6 +12,7 @@ export default function ItemProductPayment({item}) {
     }
     return arr
   }
+  const isWooco = item?.type === 'wooco'
   return (
     <div className='p-[0.59rem] h-fit w-full flex space-x-[0.88rem]'>
       <Image
@@ -51,9 +53,11 @@ export default function ItemProductPayment({item}) {
         </span>
         <div className='flex flex-col'>
           <span className='font-bold text-blue-600 caption1'>
-            {formatToVND(price?.sale) || formatToVND(price?.price)}
+            {isWooco
+              ? formatToVND(item?.line_total)
+              : formatToVND(price?.sale) || formatToVND(price?.price)}
           </span>
-          {!!percentSale && (
+          {!isWooco && !!percentSale && (
             <span className='font-normal line-through giagoc text-greyscale-40'>
               {formatToVND(price?.price)}
             </span>

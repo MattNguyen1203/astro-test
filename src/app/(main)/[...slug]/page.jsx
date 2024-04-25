@@ -55,7 +55,6 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
       `/okhub/v1/product/productByCategory/${'but-cam-ung'}?limit=5&page=1`,
     )
   }
-  console.log('🚀 ~ ProductDetailPage ~ dataProductDetail:', dataProductDetail)
 
   return (
     <main className='bg-elevation-20'>

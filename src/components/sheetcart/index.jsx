@@ -48,6 +48,7 @@ export default function SheetCart({
   const handlePayment = () => {
     if (cart?.length) {
       const createOrder = cart.join('--')
+      setIsOpen(false)
       router.push('/thanh-toan?order=' + createOrder)
     } else {
       toast.warning('Vui lòng chọn sản phẩm muốn thanh toán!', {
@@ -74,8 +75,6 @@ export default function SheetCart({
     const newListCart = listCart?.filter(
       (item, index) => !cart?.includes(index),
     )
-
-    console.log('newListCart', newListCart)
 
     if (isAuth) {
       const listKeyDelete = cart.map((item) => ({key: listCart[item].key}))

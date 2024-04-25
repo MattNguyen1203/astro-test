@@ -1,6 +1,6 @@
 'use client'
 
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useTransition} from 'react'
 import Image from 'next/image'
 
 import {zodResolver} from '@hookform/resolvers/zod'
@@ -25,7 +25,6 @@ import ShipTC from './ShipTC'
 import {toast} from 'sonner'
 import {createOrder} from '@/actions/payment'
 import {useRouter} from 'next/navigation'
-import useStore from '@/app/(store)/store'
 import {
   defaultPriceShip,
   formOrder,
@@ -60,22 +59,50 @@ export default function PaymentIndex({
   listIdItemCart,
   session,
   dataCarts,
+  profile,
+  dataCartsDefault,
 }) {
   const router = useRouter()
 
   const isAuth = session?.status === 'authenticated'
+  const cityDefautl = profile?.shipping_address?.city?.toLowerCase()
+  const districtDefautl = profile?.shipping_address?.address_2?.toLowerCase()
+  const communeDefautl = profile?.shipping_address?.address_1
 
-  const [valueProvince, setValueProvince] = useState(null)
-  const [idProvince, setIdProvince] = useState(null)
-  const [valueDistrict, setValueDistrict] = useState(null)
-  const [idDistrict, setIdDistrict] = useState(null)
-  const [valueCommune, setValueCommune] = useState(null)
+  const defaultValuetProvince =
+    province.find((e) => e?.name?.toLowerCase()?.includes(cityDefautl))?.name ||
+    null
+
+  const defaultIdProvince =
+    province.find((e) => e?.name?.toLowerCase()?.includes(cityDefautl))
+      ?.idProvince || null
+
+  const defaultValueDistrict =
+    district.find((e) => e?.name?.toLowerCase()?.includes(districtDefautl))
+      ?.name || null
+
+  const defaultIdDistrict =
+    district.find((e) => e?.name?.toLowerCase()?.includes(districtDefautl))
+      ?.idDistrict || null
+
+  const [isPending, setTransition] = useTransition()
+
+  const [valueProvince, setValueProvince] = useState(defaultValuetProvince)
+  const [idProvince, setIdProvince] = useState(defaultIdProvince)
+  const [valueDistrict, setValueDistrict] = useState(defaultValueDistrict)
+  const [idDistrict, setIdDistrict] = useState(defaultIdDistrict)
+  const communeSplit = communeDefautl?.split(', ')
+  const communeSearch =
+    communeSplit?.[1]?.toLowerCase() || communeSplit?.[0]?.toLowerCase()
+  const defaultValueCommune =
+    commune.find((e) => e?.name?.toLowerCase()?.includes(communeSearch))
+      ?.name || null
+  const [valueCommune, setValueCommune] = useState(defaultValueCommune)
+
   const [ship, setShip] = useState('in')
   const [payment, setPayment] = useState()
   const [carts, setCarts] = useState(isAuth ? dataCarts : [])
   console.log('🚀 ~ carts:', carts)
-
-  const listCart = useStore((state) => state.listCart)
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -84,7 +111,7 @@ export default function PaymentIndex({
       phone: '0338277705',
       email: 'trinhvanduc21062001@gmail.com',
       address: '',
-      street: '',
+      street: communeSplit?.length > 1 ? communeSplit?.[0] : '',
       note: 'test',
       password: '',
     },
@@ -100,20 +127,16 @@ export default function PaymentIndex({
         })
         setCarts(listCartNew)
       }
+    } else {
+      const listCartNew = []
+      if (listIdItemCart?.length) {
+        listIdItemCart?.forEach((e) => {
+          listCartNew.push(dataCartsDefault[Number(e)])
+        })
+        setCarts(listCartNew)
+      }
     }
   }, [listIdItemCart])
-
-  // useEffect(() => {
-  //   if (isAuth) {
-  //     if (listCart?.length) {
-  //       const listCartNew = []
-  //       listIdItemCart?.forEach((e) => {
-  //         listCartNew.push(listCart[Number(e)])
-  //       })
-  //       setCarts(listCartNew)
-  //     }
-  //   }
-  // }, [listCart, listIdItemCart])
 
   const values = form.watch()
 
@@ -171,87 +194,115 @@ export default function PaymentIndex({
     }
     if (product?.type === 'wooco') {
       const lineItem = handleGenderWooco(product?.children)
+      const convertedObject = {}
+
+      lineItem?.forEach((item) => {
+        const key = Object.keys(item)?.[0] // Lấy key từ object
+        convertedObject[key] = item[key] // Gán vào đối tượng mới
+      })
+
       return {
         product_id: product?.id,
         quantity: product?.quantity,
-        line_item: {
-          ...lineItem,
-        },
+        line_item: convertedObject,
         cart_key: isAuth ? product?.key : '',
       }
     }
   }
 
   function onSubmit(valueForm) {
-    form.setValue(
-      'address',
-      valueCommune + ' - ' + valueDistrict + ' - ' + valueProvince,
-    )
     if (!payment) {
       return toast.error('Vui lòng chọn phương thức thanh toán!', {
         position: 'bottom-center',
       })
     }
-
-    const productIds = []
-    if (isAuth) {
-      carts?.forEach((e) => productIds.push(handleGenderObjProduct(e, isAuth)))
-    } else {
-      carts?.forEach((e) =>
-        productIds.push({
-          product_id: e?.id,
-          quantity: 1,
-          cart_key: '',
-        }),
+    setTransition(() => {
+      form.setValue(
+        'address',
+        valueCommune + ' - ' + valueDistrict + ' - ' + valueProvince,
       )
-    }
-    const totalPrice = handlePriceTotalOrder(carts)
 
-    const isFreeShip = totalPrice >= rangeFreeShip
-    console.log('🚀 ~ onSubmit ~ productIds:', productIds)
+      const productIds = []
+      if (isAuth) {
+        carts?.forEach((e) =>
+          productIds.push(handleGenderObjProduct(e, isAuth)),
+        )
+      } else {
+        carts?.forEach((e) =>
+          productIds.push({
+            product_id: e?.id,
+            quantity: 1,
+            cart_key: '',
+          }),
+        )
+      }
+      const totalPrice = handlePriceTotalOrder(carts)
 
-    const body = formOrder({
-      isAuth: isAuth,
-      userId: session?.userId,
-      values: values,
-      valueCommune: valueCommune,
-      valueDistrict: valueDistrict,
-      valueProvince: valueProvince,
-      productIds: [...productIds],
-      priceShip: isFreeShip ? '0' : defaultPriceShip.toString(),
-      urlRedirect: 'http://localhost:3000/payment',
-      method: payment === 'cod' ? 'cod' : 'onepay',
-      titleMethod:
-        payment === 'ck'
-          ? 'Direct Bank Transfer'
-          : payment === 'credit'
-          ? 'Cash on delivery'
-          : 'One Pay',
-    })
-    console.log('🚀 ~ onSubmit ~ body:', body)
+      const isFreeShip = totalPrice >= rangeFreeShip
 
-    createOrder(JSON.stringify(body))
-      .then((res) => {
-        if (res?.success) {
-          router.push(res?.url)
-          //   4000 0000 0000 1091
-          // 05/26
-        } else {
-          return toast.error(
-            res?.message?.includes('Quantity in stock is not enough')
-              ? 'Sản phẩm bạn mua đã hết hàng!'
-              : 'Đã có lỗi xảy ra!',
-            {
-              position: 'bottom-center',
-            },
-          )
-        }
+      const shipFree = {
+        id: 'free_shipping',
+        title: 'Free shipping',
+      }
+
+      const shipIn = {
+        id: 'in_hcm',
+        title: 'In HCM',
+      }
+
+      const body = formOrder({
+        isAuth: isAuth,
+        userId: session?.userId,
+        values: values,
+        valueCommune: valueCommune,
+        valueDistrict: valueDistrict,
+        valueProvince: valueProvince,
+        productIds: [...productIds],
+        priceShip:
+          ship === 'in' ? '0' : isFreeShip ? '0' : defaultPriceShip.toString(),
+        urlRedirect: 'http://localhost:3000/payment',
+        method: payment === 'cod' ? 'cod' : 'onepay',
+        titleMethod:
+          payment === 'ck'
+            ? 'Direct Bank Transfer'
+            : payment === 'credit'
+            ? 'Cash on delivery'
+            : 'One Pay',
+        propertyShip: ship === 'in' ? shipIn : isFreeShip ? shipFree : '',
+        cardList: payment === 'ck' ? 'DOMESTIC' : null,
       })
-      .catch((err) => console.log('error payment', err))
+      console.log('🚀 ~ setTransition ~ productIds:', body)
+
+      createOrder(JSON.stringify(body))
+        .then((res) => {
+          console.log('🚀 ~ .then ~ res:', res)
+          if (res?.success) {
+            if (res?.paymen_cod === 'cod') {
+              router.push(
+                `/payment?tracking=${res?.order_id}&vpc_TxnResponseCode=0`,
+              )
+            } else {
+              router.push(res?.url)
+            }
+            //   4000 0000 0000 1091
+            // 05/26
+          } else {
+            return toast.error(
+              res?.message?.includes('Quantity in stock is not enough')
+                ? 'Sản phẩm bạn mua đã hết hàng!'
+                : 'Đã có lỗi xảy ra!',
+              {
+                position: 'bottom-center',
+              },
+            )
+          }
+        })
+        .catch((err) => console.log('error payment', err))
+    })
   }
 
   return (
-    <section className='container relative flex justify-between'>
+    <section className='container relative flex justify-between pb-[7.17rem]'>
       <article className='w-[50.88rem] h-fit sticky top-[9.76rem] left-0 space-y-[0.88rem]'>
         <div className='bg-white rounded-[0.58565rem] p-[1.76rem]'>
           <Form {...form}>
@@ -499,6 +550,8 @@ export default function PaymentIndex({
         onSubmit={onSubmit}
         ship={propertyShip?.find((e) => e?.value === ship)?.label}
         payment={propertyPayment?.find((e) => e?.value === payment)?.label}
+        isCOD={payment === 'cod'}
+        isPending={isPending}
       />
     </section>
   )

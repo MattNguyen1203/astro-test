@@ -1,7 +1,7 @@
 import {auth} from '@/auth'
 import {getDataProfile} from '@/lib/getDataProfile'
 import ItemProductPayment from '@/sections/payment/ItemProductPayment'
-import Image from 'next/image'
+import StatusPayment from '@/sections/payment/StatusPayment'
 import Link from 'next/link'
 
 export default async function PaymentPage({searchParams}) {
@@ -12,7 +12,6 @@ export default async function PaymentPage({searchParams}) {
     token: session?.accessToken,
   }
   const detailOrder = await getDataProfile(request)
-  console.log('🚀 ~ PaymentPage ~ detailOrder:', detailOrder)
 
   const handleDate = (dateString) => {
     // Tạo một đối tượng Date từ chuỗi ngày tháng
@@ -28,50 +27,42 @@ export default async function PaymentPage({searchParams}) {
       date.getFullYear()
     return formattedDate
   }
+  const handleCheckStatusOrder = () => {
+    if (detailOrder?.status === 'processing') return true
+    if (detailOrder?.status === 'completed') return true
+    return false
+  }
+  console.log('🚀 ~ handleCheckStatusOrder ~ detailOrder:', detailOrder)
 
   return (
-    <section className='container relative flex justify-between'>
+    <section className='container relative flex justify-between pb-[7.17rem]'>
       <article className='sticky top-[9.76rem] left-0 w-[50.87848rem] space-y-[0.88rem]'>
-        <div className='w-full p-[1.46rem] bg-[#D5F7E0] rounded-[0.58565rem] flex justify-center items-center'>
-          <Image
-            className='size-[1.46rem] object-contain'
-            src={'/components/check-circle.svg'}
-            alt='icon check'
-            width={24}
-            height={24}
-          />
-          <span className='text-[#00983D] sub2 font-semibold block ml-[0.59rem]'>
-            ĐẶT HÀNG THÀNH CÔNG
-          </span>
-        </div>
-        <div className='w-full px-[1.17rem] py-[0.88rem] rounded-[0.58565rem] bg-white'>
-          <p className='font-normal text-center body2 text-greyscale-40'>
-            Cảm ơn quý khách đã cho AstroMazing cơ hội được phục vụ.
-            <br /> Nhân viên AstroMazing sẽ liên hệ với quý khách trong thời
-            gian sớm nhất
-          </p>
-        </div>
+        <StatusPayment
+          isSuccess={handleCheckStatusOrder()}
+          idOrder={detailOrder?.id}
+        />
         <div className='p-[1.46rem] rounded-[0.58565rem] bg-white'>
           <div className='flex items-center justify-between'>
             <span className='text-[0.87848rem] leading-[1.833] tracking-[0.0022rem] text-greyscale-40'>
               Danh sách sản phẩm :
             </span>
             <span className='font-normal caption1 text-greyscale-30'>
-              3 sản phẩm
+              {detailOrder?.product?.length} sản phẩm
             </span>
           </div>
           <hr className='my-[0.59rem] bg-[#1E417C14] h-[0.07321rem]' />
           <div className='mt-[0.59rem]'>
-            {Array(4)
-              .fill(0)
-              .map((item, index) => (
-                <>
-                  <ItemProductPayment key={index} />
-                  {index < 3 && (
-                    <hr className='my-[0.59rem] bg-[#1E417C14] h-[0.07321rem]' />
-                  )}
-                </>
-              ))}
+            {detailOrder?.product?.map((item, index) => (
+              <>
+                <ItemProductPayment
+                  key={index}
+                  item={item}
+                />
+                {index < detailOrder?.product?.length - 1 && (
+                  <hr className='my-[0.59rem] bg-[#1E417C14] h-[0.07321rem]' />
+                )}
+              </>
+            ))}
           </div>
         </div>
       </article>
@@ -82,7 +73,7 @@ export default async function PaymentPage({searchParams}) {
               THÔNG TIN MÃ ĐƠN HÀNG:
             </span>
             <span className='font-semibold sub2 text-brown-500'>
-              #{detailOrder?.id}
+              {detailOrder?.id}
             </span>
           </div>
           <hr className='my-[0.59rem] bg-[#ECECECB2] h-[0.07321rem]' />

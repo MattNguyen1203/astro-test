@@ -50,7 +50,6 @@ export default function OTP({isMobile}) {
             type: 'register',
           }),
         ).then((otp) => {
-          console.log('🚀 ~ ).then ~ otp:', otp)
           if (otp?.code === 'phone_error_limit_code') {
             setIsLock(true)
             toast.error(
@@ -89,7 +88,6 @@ export default function OTP({isMobile}) {
             type: 'change-password',
           }),
         ).then((otp) => {
-          console.log('🚀 ~ ).then ~ otp:', otp)
           if (otp?.code === 'phone_error_limit_code') {
             setIsLock(true)
             toast.error(

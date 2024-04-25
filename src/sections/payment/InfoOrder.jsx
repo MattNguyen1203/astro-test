@@ -1,10 +1,16 @@
 import {formatToVND, handlePriceTotalOrder} from '@/lib/utils'
 import ItemProductPayment from './ItemProductPayment'
 import {defaultPriceShip, rangeFreeShip} from '@/lib/constants'
+import {Fragment} from 'react'
 
-export default function InfoOrder({carts, onSubmit, ship, payment}) {
-  console.log('🚀 ~ InfoOrder ~ carts:', carts)
-
+export default function InfoOrder({
+  carts,
+  onSubmit,
+  ship,
+  payment,
+  isCOD,
+  isPending,
+}) {
   const totalPrice = handlePriceTotalOrder(carts)
 
   const isFreeShip = totalPrice >= rangeFreeShip
@@ -30,15 +36,12 @@ export default function InfoOrder({carts, onSubmit, ship, payment}) {
       </div>
       <div className='mt-[0.59rem]'>
         {carts?.map((item, index) => (
-          <>
-            <ItemProductPayment
-              key={index}
-              item={item}
-            />
+          <Fragment key={index}>
+            <ItemProductPayment item={item} />
             {index < 3 && (
               <hr className='my-[0.59rem] bg-[#1E417C14] h-[0.07321rem]' />
             )}
-          </>
+          </Fragment>
         ))}
       </div>
       <div className='rounded-[0.58565rem] p-[0.88rem] bg-elevation-20 space-y-[0.59rem]'>
@@ -117,7 +120,31 @@ export default function InfoOrder({carts, onSubmit, ship, payment}) {
         type='submit'
         className='flex items-center justify-center w-full text-white bg-blue-700 rounded-[0.58565rem] mt-[1.64rem] h-[2.92826rem] caption1 font-semibold'
       >
-        THANH TOÁN NGAY
+        {isPending ? (
+          <svg
+            className='animate-spin size-[2rem] text-white'
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+          >
+            <circle
+              className='opacity-25'
+              cx='12'
+              cy='12'
+              r='10'
+              stroke='currentColor'
+              strokeWidth='4'
+            ></circle>
+            <path
+              fill='currentColor'
+              d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+            ></path>
+          </svg>
+        ) : isCOD ? (
+          'ĐẶT HÀNG NGAY'
+        ) : (
+          'THANH TOÁN NGAY'
+        )}
       </button>
     </aside>
   )
