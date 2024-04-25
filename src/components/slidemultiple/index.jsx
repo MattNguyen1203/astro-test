@@ -10,16 +10,26 @@ import {FreeMode, Navigation, Thumbs} from 'swiper/modules'
 import {useEffect, useRef, useState} from 'react'
 import Image from 'next/image'
 import ICChevron from '../icon/ICChevron'
-export default function SlideMultiple({listGallery = [], activeImage}) {
+import Video from '../video/Video'
+import {cn} from '@/lib/utils'
+export default function SlideMultiple({listGallery = [], activeImage, data}) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
   const slideRef = useRef()
   const uniqueId = Math.random() * 1000
+
+  const [isPlaying, setIsPlaying] = useState(false)
   useEffect(() => {
     const activeIndex = listGallery.findIndex((item) => item === activeImage)
     if (activeIndex >= 0 && slideRef.current) {
-      slideRef.current.slideTo(activeIndex)
+      if (data?.video_type) {
+        slideRef.current.slideTo(activeIndex + 1)
+      } else {
+        slideRef.current.slideTo(activeIndex)
+      }
     }
   }, [activeImage, uniqueId])
+
+  console.log('data', data?.link_video?.thumbnail?.url)
 
   return (
     <>
@@ -50,6 +60,44 @@ export default function SlideMultiple({listGallery = [], activeImage}) {
             }}
             className='productSlideMain size-full'
           >
+            {data?.video_type && (
+              <SwiperSlide className='relative'>
+                <Video
+                  className='!w-full !h-full object-cover'
+                  type={data?.video_type}
+                  url={data?.link_video?.url}
+                  options={{
+                    isControl: true,
+                    isPlaying: isPlaying,
+                  }}
+                />
+
+                <div
+                  className={cn(
+                    'w-full h-full absolute top-0 left-0 overflow-hidden bg-white',
+                    isPlaying && 'hidden',
+                  )}
+                >
+                  <Image
+                    width={500}
+                    height={500}
+                    src={data?.link_video?.thumbnail?.url || '/no-image.jpg'}
+                    alt={data?.link_video?.thumbnail?.alt || 'astromazing'}
+                    className='w-full h-full object-cover xmd:rounded-[0.5rem]'
+                  />
+
+                  <Image
+                    width={50}
+                    height={50}
+                    src={'/components/play.svg'}
+                    alt={'astromazing'}
+                    className='size-[2.12123rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10'
+                    onClick={() => setIsPlaying(true)}
+                  />
+                </div>
+              </SwiperSlide>
+            )}
+
             {listGallery?.map((item, index) => (
               <SwiperSlide key={index}>
                 <Image
@@ -81,6 +129,26 @@ export default function SlideMultiple({listGallery = [], activeImage}) {
             modules={[FreeMode, Navigation, Thumbs]}
             className='productSlideThumb size-full'
           >
+            {data?.video_type && (
+              <SwiperSlide className='relative bg-white overflow-hidden rounded-[0.46728rem] cursor-pointer'>
+                <Image
+                  width={100}
+                  height={100}
+                  src={data?.link_video?.thumbnail?.url || '/no-image.jpg'}
+                  alt={data?.link_video?.thumbnail?.alt || 'astromazing'}
+                  className='w-full h-full rounded-[0.46728rem]'
+                />
+
+                <Image
+                  width={50}
+                  height={50}
+                  src={'/components/play.svg'}
+                  alt={'astromazing'}
+                  className='size-[1.12123rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10'
+                />
+              </SwiperSlide>
+            )}
+
             {listGallery?.map((item, index) => (
               <SwiperSlide
                 className='bg-white overflow-hidden rounded-[0.46728rem] cursor-pointer'

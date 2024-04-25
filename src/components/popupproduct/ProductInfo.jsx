@@ -42,7 +42,7 @@ export default function ProductInfo({
       <div className='w-[28.25769rem] relative xmd:w-full xmd:mt-[1.17rem]'>
         <div className='bg-white rounded-[0.87848rem] p-[0.88rem] xmd:p-[0.73rem]'>
           <Link
-            href={`/san-pham/${data?.slug}`}
+            href={`/${data?.slug || ''}`}
             className='capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'
           >
             {data?.name}

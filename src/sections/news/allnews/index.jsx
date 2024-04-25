@@ -3,13 +3,13 @@ import {useRef} from 'react'
 import Image from 'next/image'
 import {useParams, useSearchParams} from 'next/navigation'
 import useSWR from 'swr'
-import {fetcher} from '@/lib/utils'
+import {fetcher, formatToVND} from '@/lib/utils'
 import Link from 'next/link'
 import PaginationPosts from '@/sections/account/components/pagination/PaginationPosts'
 import MenuNewsLink from '../MenuNewsLink'
 import GridNews from './GridNews'
 
-export default function AllNews({posts, categories, before, url}) {
+export default function AllNews({posts, categories, before, url, products}) {
   const boxRef = useRef(null)
   const searchParams = useSearchParams()
   const params = useParams()
@@ -154,32 +154,30 @@ export default function AllNews({posts, categories, before, url}) {
             SẢN PHẨM MỚI NHẤT
           </h2>
           <ul className='flex flex-col items-center xmd:w-full'>
-            {Array(5)
-              .fill(0)
-              .map((_, index) => (
-                <li
-                  key={index}
-                  className='mb-[1.17rem] w-[18.96047rem] xmd:w-full flex items-center'
-                >
-                  <div className='mr-[0.73206rem] w-[4.61201rem] h-[4.61201rem] justify-center items-center pr-[0.01603rem] bg-white'>
-                    <Image
-                      className='rounded-[0.29283rem] object-cover'
-                      alt='anh'
-                      width={63}
-                      height={63}
-                      src={'/contact/ang-test.png'}
-                    />
-                  </div>
-                  <div className='flex flex-col items-start flex-1'>
-                    <h3 className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
-                      Bút cảm ứng AstroMazing Pencil GD cho iPad
-                    </h3>
-                    <span className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
-                      499.999
-                    </span>
-                  </div>
-                </li>
-              ))}
+            {products?.item?.map((product, index) => (
+              <li
+                key={index}
+                className='mb-[1.17rem] w-[18.96047rem] xmd:w-full flex items-center'
+              >
+                <div className='mr-[0.73206rem] w-[4.61201rem] h-[4.61201rem] justify-center items-center pr-[0.01603rem] bg-white'>
+                  <Image
+                    className='rounded-[0.29283rem] object-cover'
+                    alt={product?.featuredImage?.alt || 'astromazing'}
+                    width={63}
+                    height={63}
+                    src={product?.featuredImage?.url || '/no-image.jpg'}
+                  />
+                </div>
+                <div className='flex flex-col items-start flex-1'>
+                  <h3 className='flex-1 overflow-hidden font-normal body2 text-ellipsis text-greyscale-60'>
+                    {product?.name}
+                  </h3>
+                  <span className='body2 font-normal text-ellipsis overflow-hidden text-[#F12B2C] flex-1'>
+                    {formatToVND(product?.price || 0)}
+                  </span>
+                </div>
+              </li>
+            ))}
 
             <Link
               href={'/san-pham'}

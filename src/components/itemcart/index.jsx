@@ -15,6 +15,7 @@ import {useSession} from 'next-auth/react'
 
 export default function ItemCart({cart, setCart, index, isMobile, item}) {
   const session = useSession()
+
   const isAuth = session?.status === 'authenticated'
   const setActionCart = useStore((state) => state.setActionCart)
   const actionCart = useStore((state) => state.actionCart)
@@ -27,44 +28,6 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
   useEffect(() => {
     setProductSelected(item)
   }, [item])
-
-  const [price, regular_price] = useMemo(() => {
-    if (productSelected?.type === 'wooco') {
-      if (isAuth) {
-        const priceTotal =
-          Number(productSelected?.line_total) / Number(productSelected.quantity)
-
-        return [priceTotal, '']
-      } else {
-        const totalPrice = productSelected?.grouped_products?.reduce(
-          (total, item) => {
-            const itemPrice =
-              item?.type === 'simple'
-                ? item.price
-                : item.variation.display_price
-
-            console.log('total', total)
-
-            return total + Number(itemPrice) * Number(item.qty)
-          },
-          0,
-        )
-
-        if (productSelected?.type_discount === 'Percentage') {
-          return [
-            totalPrice * ((100 - Number(productSelected?.discount)) / 100),
-            '',
-          ]
-        }
-      }
-    } else {
-      return [
-        productSelected?.variation?.display_price || productSelected?.price,
-        productSelected?.variation?.display_regular_price ||
-          productSelected?.regular_price,
-      ]
-    }
-  }, [productSelected])
 
   //handle delete item
   const handleDeleteItemCart = async (key, index) => {
@@ -177,6 +140,46 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
       )
     }
   }
+  // console.log('isAuth', isAuth)
+
+  const [price, regular_price] = useMemo(() => {
+    // console.log('productSelected', productSelected)
+    if (productSelected?.type === 'wooco') {
+      if (isAuth) {
+        const priceTotal =
+          Number(productSelected?.line_total) /
+            Number(productSelected.quantity) || 0
+        return [priceTotal, priceTotal]
+      } else {
+        const totalPrice =
+          productSelected?.grouped_products?.reduce((total, item) => {
+            const itemPrice =
+              item?.type === 'simple'
+                ? item.price
+                : item.variation.display_price
+            return total + Number(itemPrice) * Number(item.qty)
+          }, 0) || 0
+
+        if (productSelected?.type_discount === 'Percentage') {
+          return [
+            totalPrice * ((100 - Number(productSelected?.discount)) / 100) || 0,
+            '',
+          ]
+        } else {
+          return [totalPrice || 0, '']
+        }
+      }
+    } else {
+      return [
+        productSelected?.variation?.display_price ||
+          productSelected?.price ||
+          0,
+        productSelected?.variation?.display_regular_price ||
+          productSelected?.regular_price ||
+          0,
+      ]
+    }
+  }, [productSelected, isAuth])
 
   return (
     <article className='rounded-[0.58565rem] bg-white shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)] py-[0.73rem] pl-[0.59rem] pr-[1.17rem] flex xmd:px-[0.73rem] xmd:py-[0.59rem] xmd:shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] md:min-h-[7rem]'>
@@ -208,7 +211,7 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
         <div className='pl-[0.88rem] flex flex-col justify-center xmd:pl-[0.44rem]'>
           <div>
             <Link
-              href={`/${productSelected?.slug}`}
+              href={`/${productSelected?.slug || ''}`}
               className='capitalize font-medium line-clamp-1 caption1 text-greyscale-40 xmd:text-greyscale-50 xmd:font-semibold leading-[1.2] xmd:tracking-[0.01025rem]'
             >
               {productSelected?.name}

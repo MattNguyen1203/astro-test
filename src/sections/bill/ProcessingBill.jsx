@@ -2,12 +2,14 @@
 import React, {useState, useEffect} from 'react'
 import CardBill from '@/components/cardbill'
 import useSWR from 'swr'
+
 import PaginationOrder from '../account/components/pagination/PaginationOrder'
 import SkeletonCardOder from '@/components/cardbill/SkeletonCardOder'
-import { useSearchParams,useRouter } from 'next/navigation'
-export default function FailedBill({session, setCount}) {
+import {useSearchParams,useRouter} from 'next/navigation'
+export default function ProcessingBill({session, setCount}) {
   const [currentPage, setCurrentPage] = useState(1)
   const page = useSearchParams().get('page')
+  console.log(page)
   const router = useRouter();
   const status = useSearchParams().get('status')
   const fetcher = (url) =>
