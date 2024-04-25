@@ -4,15 +4,18 @@ import ProductPreOrder from './components/productpreorder'
 import Shipper from './components/shipper'
 import WatchReview from './components/watchreview'
 
-export default function IndexPreOrder({isMobile}) {
+export default function IndexPreOrder({isMobile, datavideo}) {
   // ở main ban đầu là md:bg-[linear-gradient(95deg,#EEF8FF_0%,rgba(255,255,255,0.79)_100%)] sửa thành bg-#EBF0F7
   return (
     <>
-      <main className='md:bg-[#EBF0F7] xmd:bg-transparent relative z-10'>
+      <main className='md:bg-[#EBF0F7] xmd:bg-transparent relative z-20'>
         <BannerPreOrder isMobile={isMobile} />
         <ProductPreOrder />
         <div className='xmd:flex xmd:flex-col-reverse'>
-          <WatchReview isMobile={isMobile} />
+          <WatchReview
+            isMobile={isMobile}
+            datavideo={datavideo}
+          />
           <Shipper isMobile={isMobile} />
         </div>
       </main>
