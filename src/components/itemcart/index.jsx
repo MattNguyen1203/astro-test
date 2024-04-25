@@ -144,10 +144,33 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
 
   const [price, regular_price] = useMemo(() => {
     if (productSelected?.type === 'wooco') {
-      const priceTotal =
-        Number(productSelected?.line_total) / Number(productSelected.quantity)
+      if (isAuth) {
+        const priceTotal =
+          Number(productSelected?.line_total) / Number(productSelected.quantity)
 
-      return [priceTotal, '']
+        return [priceTotal, '']
+      } else {
+        const totalPrice = productSelected?.grouped_products?.reduce(
+          (total, item) => {
+            const itemPrice =
+              item?.type === 'simple'
+                ? item.price
+                : item.variation.display_price
+
+            console.log('total', total)
+
+            return total + Number(itemPrice) * Number(item.qty)
+          },
+          0,
+        )
+
+        if (productSelected?.type_discount === 'Percentage') {
+          return [
+            totalPrice * ((100 - Number(productSelected?.discount)) / 100),
+            '',
+          ]
+        }
+      }
     } else {
       return [
         productSelected?.variation?.display_price || productSelected?.price,

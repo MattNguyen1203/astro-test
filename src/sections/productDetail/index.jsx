@@ -23,28 +23,6 @@ import RelatedProduct from '../preorderdetail/components/RelatedProduct'
 
 import Loading from '@/components/loading'
 
-const prdOther = [
-  {
-    key: 'highlight',
-    label: 'Đặc điểm nổi bật',
-    content: `<img src="${'/product/draft.jpg'}" alt=""/><div>Với xu hướng công nghệ phát triển như hiện nay, chuột và bàn phím là những phụ kiện không thể thiếu đối với những tín đồ công nghệ. Hiểu được vấn đề này, nhà Astro đem đến cho bạn một chiếc bàn phím sử dụng bluetooth 3.0 tích hợp chế độ tiết kiệm pin và chuột không dây siêu êm với vẻ ngoài nhỏ nhắn, gọn gàng. Cùng tham khảo ngay mẫu sản phẩm combo chuột và bàn phím AstroMazing bluetooth size mini cho các thiết bị điện tử sau đây nhé!</div>`,
-  },
-
-  {
-    key: 'detail',
-    label: 'Thông tin chi tiết',
-    content:
-      '<div>Với xu hướng công nghệ phát triển như hiện nay, chuột và bàn phím là những phụ kiện không thể thiếu đối với những tín đồ công nghệ. Hiểu được vấn đề này, nhà Astro đem đến cho bạn một chiếc bàn phím sử dụng bluetooth 3.0 tích hợp chế độ tiết kiệm pin và chuột không dây siêu êm với vẻ ngoài nhỏ nhắn, gọn gàng. Cùng tham khảo ngay mẫu sản phẩm combo chuột và bàn phím AstroMazing bluetooth size mini cho các thiết bị điện tử sau đây nhé!</div>',
-  },
-
-  {
-    key: 'warranty',
-    label: 'Cách sử dụng & bảo hành',
-    content:
-      '<div>Với xu hướng công nghệ phát triển như hiện nay, chuột và bàn phím là những phụ kiện không thể thiếu đối với những tín đồ công nghệ. Hiểu được vấn đề này, nhà Astro đem đến cho bạn một chiếc bàn phím sử dụng bluetooth 3.0 tích hợp chế độ tiết kiệm pin và chuột không dây siêu êm với vẻ ngoài nhỏ nhắn, gọn gàng. Cùng tham khảo ngay mẫu sản phẩm combo chuột và bàn phím AstroMazing bluetooth size mini cho các thiết bị điện tử sau đây nhé!</div>',
-  },
-]
-
 const ProductDetail = ({
   isMobile,
   data,
@@ -54,6 +32,7 @@ const ProductDetail = ({
   relatedProduct,
   session,
   wishList,
+  mainData,
 }) => {
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
@@ -173,6 +152,8 @@ const ProductDetail = ({
   const listCrossellAddToCart = useMemo(() => {
     return listCrossellIndex.map((item) => listCrossell[item])
   }, [listCrossellIndex, listCrossell])
+
+  console.log('mainData', mainData)
 
   return (
     <div className='container mt-[8.1rem] md:pb-[4rem] bg-elevation-10 relative xmd:w-full'>
@@ -309,13 +290,13 @@ const ProductDetail = ({
 
           {/* thông tin kĩ thuật */}
           <div className='subContainer mt-[0.88rem] mb-[1.46rem]'>
-            <TechnicalInfo />
+            <TechnicalInfo techInfo={mainData?.[0]?.acf?.tech_info} />
           </div>
 
           {/* thông tin khác */}
           <TabInfo
-            info={prdOther}
             isMobile={isMobile}
+            data={mainData?.[0]?.acf}
           />
 
           {/* sản phẩm mua kèm */}

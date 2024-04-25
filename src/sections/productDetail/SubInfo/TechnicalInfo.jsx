@@ -12,14 +12,14 @@ const detailPrd = [
     val: 'TP. Hồ Chí Minh',
   },
 ]
-const TechnicalInfo = () => {
+const TechnicalInfo = ({techInfo}) => {
   return (
     <>
       <div className='uppercase caption1 font-semibold pb-[1.17rem] border-b border-[#ECECECB2] mb-[1.17rem]'>
         Thông tin kĩ thuật
       </div>
 
-      {detailPrd?.map((item, index) => {
+      {techInfo?.map((item, index) => {
         return (
           <div
             className='flex mb-[0.29rem]'
@@ -28,7 +28,9 @@ const TechnicalInfo = () => {
             <span className='sub2 text-greyscale-30 mr-[0.59rem] min-w-[7.54rem]'>
               {item.label}:
             </span>
-            <span className='sub2 text-greyscale-50'>{item.val}</span>
+            <span className='sub2 text-greyscale-50 font-semibold'>
+              {item.value}
+            </span>
           </div>
         )
       })}

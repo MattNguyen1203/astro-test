@@ -3,46 +3,28 @@ import SlideMultiple from '@/components/slidemultiple'
 import SocialProduct from '../product/aside/SocialProduct'
 import BreadCrumb from '@/components/breadcrumb'
 import Variation from '@/components/popupproduct/Variation'
-import TemVoucher from '@/components/popupproduct/TemVoucher'
 import ChangeQuantity from '@/components/popupproduct/ChangeQuantity'
 import WishListIcon from '../productDetail/Wishlist'
 import ProductPrice from '@/components/popupproduct/Price'
 import SubInfo from '../productDetail/SubInfo/SubInfo'
 import TechnicalInfo from '../productDetail/SubInfo/TechnicalInfo'
-import VoucherList from '../productDetail/VoucherList'
 import TabInfo from '../productDetail/SubInfo/TabInfo'
 import Progress from '@/components/progress'
 import CountDown from '@/components/countdown'
 import FormPreOrder from './components/FormPreOrder'
-import Image from 'next/image'
 import RelatedProduct from './components/RelatedProduct'
 import Gift from './components/Gift'
 import {useMemo, useState} from 'react'
 import {cn} from '@/lib/utils'
 
-const prdOther = [
-  {
-    key: 'highlight',
-    label: 'Đặc điểm nổi bật',
-    content: `<img src="${'/product/draft.jpg'}" alt=""/><div>Với xu hướng công nghệ phát triển như hiện nay, chuột và bàn phím là những phụ kiện không thể thiếu đối với những tín đồ công nghệ. Hiểu được vấn đề này, nhà Astro đem đến cho bạn một chiếc bàn phím sử dụng bluetooth 3.0 tích hợp chế độ tiết kiệm pin và chuột không dây siêu êm với vẻ ngoài nhỏ nhắn, gọn gàng. Cùng tham khảo ngay mẫu sản phẩm combo chuột và bàn phím AstroMazing bluetooth size mini cho các thiết bị điện tử sau đây nhé!</div>`,
-  },
-
-  {
-    key: 'detail',
-    label: 'Thông tin chi tiết',
-    content:
-      '<div>Với xu hướng công nghệ phát triển như hiện nay, chuột và bàn phím là những phụ kiện không thể thiếu đối với những tín đồ công nghệ. Hiểu được vấn đề này, nhà Astro đem đến cho bạn một chiếc bàn phím sử dụng bluetooth 3.0 tích hợp chế độ tiết kiệm pin và chuột không dây siêu êm với vẻ ngoài nhỏ nhắn, gọn gàng. Cùng tham khảo ngay mẫu sản phẩm combo chuột và bàn phím AstroMazing bluetooth size mini cho các thiết bị điện tử sau đây nhé!</div>',
-  },
-
-  {
-    key: 'warranty',
-    label: 'Cách sử dụng & bảo hành',
-    content:
-      '<div>Với xu hướng công nghệ phát triển như hiện nay, chuột và bàn phím là những phụ kiện không thể thiếu đối với những tín đồ công nghệ. Hiểu được vấn đề này, nhà Astro đem đến cho bạn một chiếc bàn phím sử dụng bluetooth 3.0 tích hợp chế độ tiết kiệm pin và chuột không dây siêu êm với vẻ ngoài nhỏ nhắn, gọn gàng. Cùng tham khảo ngay mẫu sản phẩm combo chuột và bàn phím AstroMazing bluetooth size mini cho các thiết bị điện tử sau đây nhé!</div>',
-  },
-]
-
-const PreOrder = ({isMobile, data, voucher, variations, relatedProduct}) => {
+const PreOrder = ({
+  isMobile,
+  data,
+  voucher,
+  variations,
+  relatedProduct,
+  mainData,
+}) => {
   const ordered = 35
   const totalProd = 100
   const [isOpen, setIsOpen] = useState(false) // open popup product
@@ -55,7 +37,6 @@ const PreOrder = ({isMobile, data, voucher, variations, relatedProduct}) => {
       Object.values(variations?.variations)?.find((item) => item.default) || {},
   })
 
-  // console.log('relatedProduct', relatedProduct)
   //get list image
   const listGallery = useMemo(() => {
     const gallery = data?.galleryImgs.map((item) => item)
@@ -78,7 +59,6 @@ const PreOrder = ({isMobile, data, voucher, variations, relatedProduct}) => {
     }
   }, [selectedPrd, data])
 
-  const handleAddToCart = () => {}
   return (
     <>
       <div className='w-[73.7rem] mx-auto mt-[8.1rem] bg-elevation-10 relative xmd:w-full'>
@@ -186,12 +166,12 @@ const PreOrder = ({isMobile, data, voucher, variations, relatedProduct}) => {
 
             {/* thông tin kĩ thuật */}
             <div className='subContainer mt-[0.88rem] mb-[1.46rem]'>
-              <TechnicalInfo />
+              <TechnicalInfo techInfo={mainData?.[0]?.acf?.tech_info} />
             </div>
 
             {/* thông tin khác */}
             <TabInfo
-              info={prdOther}
+              data={mainData?.[0]?.acf}
               isMobile={isMobile}
             />
 
