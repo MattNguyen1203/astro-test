@@ -26,6 +26,14 @@
   opacity: 1;
 }
 
+#preview_swiper .swiper-slide-active .slider_control_video {
+  display: block;
+}
+
+iframe html {
+  overflow: hidden;
+}
+
 @media (max-width: 767px) {
   #preview_swiper .swiper-slide.swiper-slide-next .frame_phone {
     transform: translate(-5%, -50%) scaleY(1) scaleX(1.16);
