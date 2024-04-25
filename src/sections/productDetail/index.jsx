@@ -170,6 +170,7 @@ const ProductDetail = ({
             <SlideMultiple
               listGallery={listGallery}
               activeImage={selectedPrd?.variation?.image?.url}
+              video={mainData?.[0]?.acf?.product_video}
             />
             <div className='xmd:hidden sub2 font-medium tracking-[0.01025rem] mt-[1.32rem] mb-[0.59rem] text-greyscale-30'>
               Ghé thăm gian hàng tại:
