@@ -29,7 +29,7 @@ export default async function BillPage({searchParams}) {
           <hr className='h-[0.06rem] w-full mt-[0.5rem] mb-[1.25rem] bg-[#ECECEC]' />
         </>
       )}
-      <TabsBill isMobile={isMobile} dataOrder={dataOrder}/>
+      <TabsBill isMobile={isMobile} session={session} searchParams={searchParams}/>
     </>
   )
 }

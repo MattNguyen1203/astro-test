@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-export default function CardBill({data}) {
+export default function CardBill({data, status}) {
   return (
     <article className='rounded-[0.58565rem] shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)] p-[1.17rem] bg-white'>
       <div className='flex items-center justify-between'>
@@ -45,17 +45,17 @@ export default function CardBill({data}) {
               x{product.quantity}
             </span>
             <span className='block mt-[0.88rem] caption1 font-bold text-blue-600'>
-            {parseInt(product.salePrice).toLocaleString('vi-VN')}đ
+              {parseInt(product.salePrice).toLocaleString('vi-VN')}đ
             </span>
             <span className='font-normal line-through caption1 text-greyscale-40'>
-            {parseInt(product.regular_price).toLocaleString('vi-VN')}đ
+              {parseInt(product.regular_price).toLocaleString('vi-VN')}đ
             </span>
           </div>
         </div>
       ))}
       <hr className='bg-[#ECECECB2] h-[0.07rem] w-full my-[0.88rem] block' />
-      <div className='w-full xmd:flex xmd:justify-between xmd:items-center'>
-        <div className='flex items-center md:hidden'>
+      <div className='w-full xmd:flex xmd:justify-between xmd:items-center flex justify-between'>
+        <div className='flex items-center'>
           <Image
             className='size-[1.1713rem] object-contain'
             src={'/account/car.svg'}
@@ -68,11 +68,11 @@ export default function CardBill({data}) {
           </span>
         </div>
         <span className='text-[#D48E43] sub1 font-bold block text-end'>
-          25.000đ
+          {parseInt(data?.order_total).toLocaleString('vi-VN')}đ
         </span>
       </div>
-      <div className='flex mt-[0.88rem] justify-between xmd:grid xmd:grid-cols-2 xmd:gap-x-[0.5rem]'>
-        <div className='flex items-center xmd:hidden'>
+      <div className='flex mt-[0.88rem] justify-between xmd:w-full'>
+        {/* <div className='flex items-center xmd:hidden'>
           <Image
             className='size-[1.1713rem] object-contain'
             src={'/account/car.svg'}
@@ -83,13 +83,15 @@ export default function CardBill({data}) {
           <span className='font-medium sub2 text-brown-600 inline-block ml-[0.59rem] w-fit'>
             Đang xử lý
           </span>
+        </div> */}
+        <div className='flex xmd:w-full'>
+          <button className='p-[0.73rem] rounded-[0.43924rem] uppercase caption1 tracking-[0.00439rem] font-semibold text-white bg-blue-700 mr-[0.59rem] xmd:w-[49%] '>
+            {status === 'done' ? 'Mua lại' : 'Thanh Toán Lại'}
+          </button>
+          <button className='p-[0.73rem] rounded-[0.43924rem] uppercase caption1 tracking-[0.00439rem] font-semibold bg-white text-blue-800 border border-solid border-blue-800 xmd:w-[49%]'>
+            CHI TIẾT ĐƠN
+          </button>
         </div>
-        <button className='p-[0.73rem] rounded-[0.43924rem] uppercase caption1 tracking-[0.00439rem] font-semibold text-white bg-blue-700 mr-[0.59rem]'>
-          THANH TOÁN LẠI
-        </button>
-        <button className='p-[0.73rem] rounded-[0.43924rem] uppercase caption1 tracking-[0.00439rem] font-semibold bg-white text-blue-800 border border-solid border-blue-800'>
-          CHI TIẾT ĐƠN
-        </button>
       </div>
     </article>
   )

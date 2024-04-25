@@ -1,4 +1,6 @@
 'use client'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
 import ICAllBill from '../icon/ICAllBill'
 import ICDoneBill from '../icon/ICDoneBill'
@@ -7,17 +9,20 @@ import {useState} from 'react'
 import AllBill from '@/sections/bill/AllBill'
 import DoneBill from '@/sections/bill/DoneBill'
 import FailedBill from '@/sections/bill/FailedBill'
-
-export function TabsBill({isMobile,dataOrder}) {
+import ProcessingBill from '@/sections/bill/ProcessingBill'
+import { useSearchParams } from 'next/navigation'
+export function TabsBill({isMobile,session}) {
   const [status, setStatus] = useState('all')
-  const [dataAllOrder,setAllDataOrder] =useState(dataOrder?.data)
-  const completedOrders = dataOrder?.data?.filter(order => order.order_status === 'completed');
-  const processingOrders = dataOrder?.data?.filter(order => order.order_status === 'processing'|| order.order_status === 'pending');
 
-
+  const router = useRouter()
+  const [count, setCount] = useState('')
+  const statusS = useSearchParams().get('status') || 'all';
+  useEffect(() => {
+    setStatus(statusS);
+  }, []);
   return (
     <Tabs
-      defaultValue={'all'}
+      defaultValue={statusS || 'all'}
       className='w-full'
     >
       <TabsList className='w-full h-[3rem] flex relative bg-white py-[0.19rem] pl-[0.31rem] pr-[1.25rem] rounded-[0.625rem] justify-start xmd:overflow-x-auto hidden-scrollbar'>
@@ -36,8 +41,11 @@ export function TabsBill({isMobile,dataOrder}) {
         </TabsTrigger>
         <TabsTrigger
           className='shadow-none data-[state=active]:shadow-none bg-elevation-20 w-fit h-full relative pl-[1.75rem] pr-[0.75rem] flex items-center text-greyscale-20 font-semibold caption data-[state=active]:text-greyscale-80 font-svnGraphik mx-[0.5rem]'
-          value='done'
-          onClick={() => setStatus('done')}
+          value='completed'
+          onClick={() => {
+            router.push('?status=completed');
+            setStatus('completed');
+          }}
         >
           Đã thanh toán
           <div className='absolute top-1/2 -translate-y-1/2 left-[0.5rem] size-[1rem] flex items-center justify-center'>
@@ -48,9 +56,28 @@ export function TabsBill({isMobile,dataOrder}) {
           </div>
         </TabsTrigger>
         <TabsTrigger
+          className='shadow-none data-[state=active]:shadow-none bg-elevation-20 w-fit h-full relative pl-[1.75rem] pr-[0.75rem] flex items-center text-greyscale-20 font-semibold caption data-[state=active]:text-greyscale-80 font-svnGraphik mr-2'
+          value='processing'
+          onClick={() => {
+            router.push('?status=processing');
+            setStatus('processing');
+          }}
+        >
+          Đang xử lý
+          <div className='absolute top-1/2 -translate-y-1/2 left-[0.5rem] size-[1rem] flex items-center justify-center'>
+            <ICFailedBill
+              className='size-[0.66669rem] flex-shrink-0'
+              stroke={status === 'failed' ? '#FEC400' : ''}
+            />
+          </div>
+        </TabsTrigger>
+        <TabsTrigger
           className='shadow-none data-[state=active]:shadow-none bg-elevation-20 w-fit h-full relative pl-[1.75rem] pr-[0.75rem] flex items-center text-greyscale-20 font-semibold caption data-[state=active]:text-greyscale-80 font-svnGraphik'
-          value='failed'
-          onClick={() => setStatus('failed')}
+          value='pending'
+          onClick={() => {
+            router.push('?status=pending');
+            setStatus('pending');
+          }}
         >
           Chưa thanh toán
           <div className='absolute top-1/2 -translate-y-1/2 left-[0.5rem] size-[1rem] flex items-center justify-center'>
@@ -62,18 +89,21 @@ export function TabsBill({isMobile,dataOrder}) {
         </TabsTrigger>
         {!isMobile && (
           <div className='absolute top-1/2 right-[1.25rem] -translate-y-1/2 text-greyscale-40 sub2 font-medium font-svnGraphik'>
-            4 đơn hàng
+            {count===''?"Tổng":count} đơn hàng
           </div>
         )}
       </TabsList>
       <TabsContent value='all'>
-        <AllBill  data={dataAllOrder} />
+        <AllBill  session={session}  setCount={setCount}/>
       </TabsContent>
-      <TabsContent value='done'>
-        <DoneBill data={completedOrders}/>
+      <TabsContent value='completed'>
+        <DoneBill session={session}  setCount={setCount}/>
       </TabsContent>
-      <TabsContent value='failed' >
-        <FailedBill data={processingOrders} />
+      <TabsContent value='processing'>
+        <ProcessingBill  session={session}  setCount={setCount}/>
+      </TabsContent>
+      <TabsContent value='pending' >
+        <FailedBill session={session}  setCount={setCount}/>
       </TabsContent>
     </Tabs>
   )

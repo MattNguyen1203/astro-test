@@ -3,8 +3,8 @@ import Image from 'next/image'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import 'swiper/css'
 export default function ExpRank({session, dataRank}) {
-  const lastRank = dataRank[Object.keys(dataRank).length - 1];
-  const percentPC = Math.min((session.memberTotalCharge / parseInt(lastRank.amount_give_level)) * 95, 95);
+  const lastRank = dataRank[Object?.keys(dataRank).length - 1];
+  const percentPC = Math.min((session?.memberTotalCharge / parseInt(lastRank?.amount_give_level)) * 95, 95);
   
   return (
     <Swiper
