@@ -7,9 +7,10 @@ import Image from 'next/image'
 import {useEffect, useState} from 'react'
 
 export default function Cart({isMobile, cartDefault}) {
-  const {session, update} = useSession()
+  const session = useSession()
+
   const isAuth = session?.status === 'authenticated'
-  console.log('isAuth', isAuth)
+  console.log('session', session)
 
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
   const actionCart = useStore((state) => state.actionCart)
@@ -57,7 +58,7 @@ export default function Cart({isMobile, cartDefault}) {
         className={`${
           isOpenMegaMenuRes ? 'opacity-0 pointer-events-none' : 'opacity-100'
         } transition-all duration-200 size-[2.63543rem] xmd:size-[2.34261rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center cursor-pointer relative`}
-        onClick={() => update()}
+        onClick={() => session?.update()}
       >
         <Image
           className='flex-shrink-0 object-cover size-[1.31772rem] xmd:w-[1.1713rem] xmd:h-auto'

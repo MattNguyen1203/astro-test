@@ -25,7 +25,7 @@ export default function SheetCart({
   isLoading,
   isAuth,
 }) {
-  const {session} = useSession()
+  const session = useSession()
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [cart, setCart] = useState([])

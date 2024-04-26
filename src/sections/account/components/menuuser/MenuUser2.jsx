@@ -85,7 +85,7 @@ export default function MenuUser2() {
         <div
           onClick={() => {
             logout()
-            router.replace('/')
+            // router.replace('/')
           }}
           className={`w-full h-fit rounded-[0.58565rem] block`}
         >
