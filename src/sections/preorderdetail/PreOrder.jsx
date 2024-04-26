@@ -16,6 +16,7 @@ import RelatedProduct from './components/RelatedProduct'
 import Gift from './components/Gift'
 import {useMemo, useState} from 'react'
 import {cn} from '@/lib/utils'
+import {useRouter} from 'next/navigation'
 
 const PreOrder = ({
   isMobile,
@@ -37,6 +38,8 @@ const PreOrder = ({
         Object.values(variations?.variations)?.find((item) => item.default)) ||
       {},
   })
+
+  const router = useRouter()
 
   //get list image
   const listGallery = useMemo(() => {
@@ -156,6 +159,7 @@ const PreOrder = ({
                       !selectedPrd?.variation?.attributes && 'opacity-50',
                     )}
                     disabled={!selectedPrd?.variation?.attributes}
+                    onClick={() => handleAddToSession(selectedPrd, router)}
                   >
                     Đặt trước
                   </button>
