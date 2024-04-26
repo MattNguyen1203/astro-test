@@ -2,15 +2,24 @@
 import useStore from '@/app/(store)/store'
 import SheetCart from '@/components/sheetcart'
 import {getDataAuth} from '@/lib/getDataAuth'
-import {useSession} from 'next-auth/react'
+import {getSession, useSession} from 'next-auth/react'
 import Image from 'next/image'
-import {useEffect, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 
 export default function Cart({isMobile, cartDefault}) {
   const session = useSession()
+  // const isSessionChange = useRef(false)
 
+  useEffect(() => {
+    async function myFunction() {
+      const session = await getSession()
+      // isSessionChange.current = !isSessionChange.current
+      return session
+    }
+    myFunction()
+  }, [])
   const isAuth = session?.status === 'authenticated'
-  console.log('session', session)
+  console.log('isAuth', isAuth)
 
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
   const actionCart = useStore((state) => state.actionCart)
@@ -46,7 +55,7 @@ export default function Cart({isMobile, cartDefault}) {
         : []
       setListCart(localGet)
     }
-  }, [actionCart])
+  }, [actionCart, isAuth])
 
   return (
     <SheetCart
@@ -58,7 +67,6 @@ export default function Cart({isMobile, cartDefault}) {
         className={`${
           isOpenMegaMenuRes ? 'opacity-0 pointer-events-none' : 'opacity-100'
         } transition-all duration-200 size-[2.63543rem] xmd:size-[2.34261rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center cursor-pointer relative`}
-        onClick={() => session?.update()}
       >
         <Image
           className='flex-shrink-0 object-cover size-[1.31772rem] xmd:w-[1.1713rem] xmd:h-auto'
