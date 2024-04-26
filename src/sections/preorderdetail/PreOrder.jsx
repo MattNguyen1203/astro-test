@@ -52,7 +52,7 @@ const PreOrder = ({
 
   //check user select variation or not
   const isHaveSelectedVar = useMemo(() => {
-    if (data.type === 'variable') {
+    if (data?.type === 'variable') {
       return (
         selectedPrd?.variation &&
         selectedPrd.attributes &&

@@ -63,12 +63,12 @@ export default function InfoOrder({
       </div>
       <div className='mt-[0.59rem]'>
         {carts?.map((item, index) => (
-          <Fragment key={index}>
-            <ItemProductPayment item={item} />
-            {index < 3 && (
-              <hr className='my-[0.59rem] bg-[#1E417C14] h-[0.07321rem]' />
-            )}
-          </Fragment>
+          <ItemProductPayment
+            key={index}
+            item={item}
+            index={index}
+            length={carts?.length}
+          />
         ))}
       </div>
       <div className='rounded-[0.58565rem] p-[0.88rem] bg-elevation-20 space-y-[0.59rem]'>
