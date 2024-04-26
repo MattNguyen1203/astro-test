@@ -18,7 +18,9 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
   const dataProductDetailReq = getData(
     `/okhub/v1/product/productByslug/${slug}`,
   )
-  const dataProductVoucherReq = getData(`/okhub/v1/product/coupon/${slug}`)
+  const dataProductVoucherReq = getData(
+    `/okhub/v1/coupon/product-detail/${slug}?limit=10`,
+  )
 
   const dataVariationReq = getData(
     `/okhub/v1/product/${slug}/attributes/detail`,
@@ -27,6 +29,8 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
   const bestCouponReq = getData(`/okhub/v1/coupon/product-detail/${slug}/best`)
   const mainDataReq = getData(`/wp/v2/product?slug=${slug}`)
 
+  const FiveProductReq = getData(`/okhub/v1/product/allProduct?limit=5&page=1`)
+
   const [
     dataProductDetail,
     dataProductVoucher,
@@ -34,6 +38,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     dataBestCoupon,
     session,
     mainData,
+    FiveProduct,
   ] = await Promise.all([
     dataProductDetailReq,
     dataProductVoucherReq,
@@ -41,6 +46,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     bestCouponReq,
     auth(),
     mainDataReq,
+    FiveProductReq,
   ])
 
   const request = {
@@ -71,6 +77,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
         session={session}
         wishList={wishList}
         mainData={mainData}
+        FiveProduct={FiveProduct}
       />
     </main>
   )

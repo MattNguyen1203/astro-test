@@ -31,7 +31,7 @@ const ItemProduct = (props) => {
   }
 
   return (
-    <div className='flex xmd:flex-col xmd:justify-start xmd:items-start justify-between items-center bg-white p-[1.17rem] xmd:p-[0.73rem] rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)]'>
+    <div className='relative flex xmd:flex-col xmd:justify-start xmd:items-start justify-between items-center bg-white p-[1.17rem] xmd:p-[0.73rem] rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)]'>
       <div className='flex items-center relative'>
         {type !== 'combo' && (
           <div className='relative size-[1.75695rem] xmd:size-[1.46413rem] mr-[0.88rem] xmd:absolute xmd:bottom-[0.4rem] xmd:left-[0.4rem] xmd:mr-0'>
@@ -128,29 +128,29 @@ const ItemProduct = (props) => {
               )}
             </div>
           )}
+      </div>
 
-        <div
-          className='size-[2.5rem] transition-all duration-300 p-[0.66rem] bg-elevation-20 hover:bg-[linear-gradient(151deg,#17395C_-0.57%,rgba(35,101,170,0.89)_57.41%)] rounded-full flex items-center justify-center cursor-pointer group'
-          onClick={() => {
-            setIsOpen(true)
-            setActiveId(data?.id)
-          }}
-        >
-          <Image
-            src={'/components/edit.svg'}
-            alt=''
-            width={15}
-            height={15}
-            className='size-[1.19524rem] group-hover:hidden'
-          />
-          <Image
-            src={'/components/edit2.svg'}
-            alt=''
-            width={15}
-            height={15}
-            className='size-[1.19524rem] hidden group-hover:block'
-          />
-        </div>
+      <div
+        className='size-[2.5rem] absolute right-[0.73rem] bottom-[0.73rem] xmd:ml-auto transition-all duration-300 p-[0.66rem] bg-elevation-20 hover:bg-[linear-gradient(151deg,#17395C_-0.57%,rgba(35,101,170,0.89)_57.41%)] rounded-full flex items-center justify-center cursor-pointer group'
+        onClick={() => {
+          setIsOpen(true)
+          setActiveId(data?.id)
+        }}
+      >
+        <Image
+          src={'/components/edit.svg'}
+          alt=''
+          width={15}
+          height={15}
+          className='size-[1.19524rem] group-hover:hidden'
+        />
+        <Image
+          src={'/components/edit2.svg'}
+          alt=''
+          width={15}
+          height={15}
+          className='size-[1.19524rem] hidden group-hover:block'
+        />
       </div>
     </div>
   )
