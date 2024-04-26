@@ -28,6 +28,7 @@ export function handlePercentSale(product) {
         (Number(product?.regular_price) / 100),
     )
   }
+  if (!Number(product?.regular_price)) return false
 
   if (Number(product?.price)) {
     const price =

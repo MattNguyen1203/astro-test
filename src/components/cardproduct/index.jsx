@@ -5,12 +5,10 @@ import Link from 'next/link'
 import {memo, useState} from 'react'
 import dynamic from 'next/dynamic'
 import {useRouter} from 'next/navigation'
-import {useSession} from 'next-auth/react'
 
 const DialogProduct = dynamic(() =>
   import('@/sections/home/components/dialog').then((mod) => mod.DialogProduct),
 )
-
 
 function CardProduct({product, priority = false}) {
   const [isOpen, setIsOpen] = useState(false)
@@ -18,6 +16,7 @@ function CardProduct({product, priority = false}) {
   const price = renderPriceProduct(product)
   const isCombo = product?.type === 'wooco'
   const router = useRouter()
+  const isPreOrder = product?.meta_detect?.pre_order?._is_pre_order === 'yes'
 
   const [productSelected, setProductSelected] = useState({
     ...product,
@@ -27,7 +26,13 @@ function CardProduct({product, priority = false}) {
   return (
     <div className='w-full h-[28.2rem] xmd:h-[23.1rem] first:ml-0 rounded-[0.87848rem] md:border md:border-solid md:border-[#E5E7EB] group shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] md:hover:shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_32px_0px_rgba(12,46,112,0.08)] select-none xmd:shadow-[-6px_2px_28px_0px_rgba(12,46,112,0.08),2px_4px_16px_0px_rgba(12,46,112,0.04)]'>
       <Link
-        href={isCombo ? `/combo/${product?.slug}` : product?.slug || '/'}
+        href={
+          isCombo
+            ? `/combo/${product?.slug}`
+            : isPreOrder
+            ? `/pre-order/${product?.slug}`
+            : product?.slug
+        }
         className='h-[16.82284rem] xmd:h-[12.00586rem] w-full rounded-tl-[0.87848rem] rounded-tr-[0.87848rem] overflow-hidden relative block'
       >
         <Image
@@ -39,14 +44,20 @@ function CardProduct({product, priority = false}) {
           priority={priority}
         />
         {!!percentSale && (
-          <div className='bg-[linear-gradient(104deg,#E88B00_-3.95%,#CE7B00_106.72%)] w-[2.78184rem] h-[1.02489rem] rounded-full caption2 font-semibold text-white absolute top-[0.88rem] left-[0.88rem] xmd:top-[0.44rem] xmd:left-[0.44rem] z-10 flex justify-center items-start tracking-normal md:pt-[0.15rem] xmd:tracking-normal pt-[0.14rem]'>
+          <div className='bg-[linear-gradient(104deg,#E88B00_-3.95%,#CE7B00_106.72%)] w-[2.78184rem] h-[1.02489rem] rounded-full caption2 font-semibold text-white absolute top-[0.88rem] left-[0.88rem] xmd:top-[0.44rem] xmd:left-[0.44rem] z-10 flex justify-center items-start tracking-normal md:pt-[0.075rem] xmd:tracking-normal pt-[0.14rem]'>
             {percentSale + '%'}
           </div>
         )}
       </Link>
       <div className='p-[0.73206rem] xmd:p-[0.44rem] bg-white rounded-bl-[0.87848rem] rounded-br-[0.87848rem] xmd:h-[calc(23.1rem-12.00586rem)] relative'>
         <Link
-          href={isCombo ? `/combo/${product?.slug}` : product?.slug || '/'}
+          href={
+            isCombo
+              ? `/combo/${product?.slug}`
+              : isPreOrder
+              ? `/pre-order/${product?.slug}`
+              : product?.slug
+          }
           className='block w-full h-fit'
         >
           <h2 className='font-medium xmd:font-semibold line-clamp-2 text-greyscale-60 caption1 h-[2.1rem] xmd:h-[2.05rem] xmd:tracking-[0.00439rem]'>

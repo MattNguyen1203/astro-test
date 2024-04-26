@@ -6,7 +6,7 @@ import {FreeMode} from 'swiper/modules'
 import {useRef, useState} from 'react'
 import NavigationCustom from '@/components/navigationcustom'
 
-export default function SlideBannerPreOrder() {
+export default function SlideBannerPreOrder({products}) {
   const swiperRef = useRef(null)
   const [indexSlider, setIndexSlider] = useState(0)
 
@@ -33,23 +33,25 @@ export default function SlideBannerPreOrder() {
         }}
         className='size-full !pl-[3.07rem]'
       >
-        {new Array(8).fill(0).map((_, index) => (
+        {products?.map((product, index) => (
           <SwiperSlide
             key={index}
             className='!size-fit'
           >
-            <ItemBannerPreOrder />
+            <ItemBannerPreOrder product={product} />
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className='absolute h-full w-[calc(100%-6.14rem)] top-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none'>
-        <NavigationCustom
-          indexSlider={indexSlider}
-          length={5}
-          handlePrevSlide={handlePrevSlide}
-          handleNextSlide={handleNextSlide}
-        />
-      </div>
+      {products?.length > 0 && (
+        <div className='absolute h-full w-[calc(100%-6.14rem)] top-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none'>
+          <NavigationCustom
+            indexSlider={indexSlider}
+            length={5}
+            handlePrevSlide={handlePrevSlide}
+            handleNextSlide={handleNextSlide}
+          />
+        </div>
+      )}
     </div>
   )
 }

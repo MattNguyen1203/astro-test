@@ -1,16 +1,19 @@
+'use client'
+import {formatToVND} from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
+import {memo} from 'react'
 
-export default function ItemBannerPreOrder() {
+function ItemBannerPreOrder({product}) {
   return (
     <Link
-      href={'/'}
+      href={`/pre-order/${product?.slug}`}
       className='w-[21.43163rem] h-full pr-[4.1rem] block pb-[1rem]'
     >
       <Image
         className='size-[10.61493rem] block object-contain mx-auto'
-        src={'/preorder/item-preorder.png'}
-        alt='item preorder'
+        src={product?.featuredImage?.url || '/preorder/item-preorder.png'}
+        alt={product?.featuredImage?.alt || product?.name}
         width={150}
         height={150}
       />
@@ -19,7 +22,7 @@ export default function ItemBannerPreOrder() {
           Giá chỉ từ
         </span>
         <span className='bg-[linear-gradient(104deg,#E78C03_-3.95%,#FFB84F_106.72%)] bg-clip-text line-through font-medium text-[1.02489rem] leading-[1.2] tracking-[0.01025rem]'>
-          400.000
+          {formatToVND(product?.regular_price || product?.price)}
         </span>
       </div>
       <div className='flex justify-end pr-[2.73rem]'>
@@ -32,10 +35,11 @@ export default function ItemBannerPreOrder() {
             </span>
           </div>
           <div className='h-[2.70864rem] w-[8.19912rem] rounded-[0.29283rem] sub1 font-bold text-[#132F4C] bg-[linear-gradient(180deg,#FBEFCD_0%,#CCB17B_53.93%,#DFD3B1_100%)] absolute top-1/2 -translate-y-1/2 -translate-x-full left-[0.76rem] pl-[0.73rem] z-[5] flex items-center'>
-            299.000đ
+            {formatToVND(product?.salePrice || product?.price)}
           </div>
         </div>
       </div>
     </Link>
   )
 }
+export default memo(ItemBannerPreOrder)
