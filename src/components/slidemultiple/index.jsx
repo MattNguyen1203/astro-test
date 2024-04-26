@@ -29,8 +29,6 @@ export default function SlideMultiple({listGallery = [], activeImage, data}) {
     }
   }, [activeImage, uniqueId])
 
-  console.log('data', data?.link_video?.thumbnail?.url)
-
   return (
     <>
       <div className='w-[21.81552rem] mr-[1.17rem] select-none xmd:w-full xmd:mr-0 overflow-hidden xmd:px-[0.73rem]'>

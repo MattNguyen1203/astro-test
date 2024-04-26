@@ -1,7 +1,7 @@
 'use client'
 import {formatToShortVND, formatToVND} from '@/lib/utils'
 import Image from 'next/image'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
 export default function CardVoucher({
   className = '',
@@ -9,6 +9,17 @@ export default function CardVoucher({
   isPriority = false,
 }) {
   const [isCopy, setCopy] = useState(false)
+
+  useEffect(() => {
+    if (isCopy) {
+      const voucherTimeout = setTimeout(() => {
+        setCopy(false)
+      }, 3000)
+
+      return () => clearTimeout(voucherTimeout)
+    }
+  }, [isCopy])
+
   return (
     <article
       className={`${className} w-[21.22987rem] h-[5.12rem] xmd:w-[18.66764rem] xmd:h-[4.1rem] rounded-[0.58565rem] bg-elevation-20 xmd:bg-white flex md:hover:bg-brown-50 transition-all duration-200 select-none xmd:shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)]`}
@@ -16,8 +27,8 @@ export default function CardVoucher({
       <div className='w-[5.12rem] h-full xmd:w-[4.09956rem] flex flex-col justify-center items-center bg-[linear-gradient(44deg,#FFF5E6_50.63%,#FFE4B9_106.58%)] rounded-tl-[0.58565rem] rounded-bl-[0.58565rem]'>
         <Image
           className='size-[2.34261rem] xmd:size-[1.75695rem] object-contain'
-          src='/layout/nav/pen.svg'
-          alt='icon but cam ung'
+          src={item?.icon || '/layout/nav/pen.svg'}
+          alt='astromazing'
           width={32}
           height={32}
           priority={isPriority}
@@ -56,7 +67,7 @@ export default function CardVoucher({
               : 'bg-[linear-gradient(104deg,#E78C03_-3.95%,#FFB84F_106.72%)] xmd:bg-[linear-gradient(180deg,#E0B181_0.72%,#BE9367_99.87%)]'
           } rounded-[0.30476rem] caption2 font-medium text-white w-[4.45649rem] xmd:w-[4.90483rem] h-[1.75695rem] xmd:h-[1.97657rem] flex justify-center items-center transition-all duration-1000 origin-right xmd:text-[0.65886rem] xmd:tracking-[0.00329rem] xmd:font-semibold relative`}
         >
-          COPY MÃ
+          {isCopy ? 'ĐÃ LƯU' : 'COPY MÃ'}
         </button>
       </div>
     </article>

@@ -140,10 +140,8 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
       )
     }
   }
-  // console.log('isAuth', isAuth)
 
   const [price, regular_price] = useMemo(() => {
-    // console.log('productSelected', productSelected)
     if (productSelected?.type === 'wooco') {
       if (isAuth) {
         const priceTotal =

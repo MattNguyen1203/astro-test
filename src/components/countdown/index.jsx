@@ -3,54 +3,39 @@
 import {useState, useEffect, memo} from 'react'
 
 function CountDown({endTime}) {
-  const calculateTimeLeft = () => {
-    const difference = +new Date(endTime) - +new Date()
-    let timeLeft = {}
-
-    if (difference > 0) {
-      let timeLeftRes = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
-      }
-
-      const dayRes =
-        timeLeftRes.days < 10
-          ? '0' + timeLeftRes.days + ' ngày'
-          : timeLeftRes.days + ' ngày'
-      const hourRes =
-        timeLeftRes.hours < 10
-          ? '0' + timeLeftRes.hours + ':'
-          : timeLeftRes.hours + ':'
-
-      const minRes =
-        timeLeftRes.minutes < 10
-          ? '0' + timeLeftRes.minutes + ':'
-          : timeLeftRes.minutes + ':'
-
-      const seconds =
-        timeLeftRes.seconds < 10
-          ? '0' + timeLeftRes.seconds
-          : timeLeftRes.seconds
-
-      timeLeft = {
-        days: dayRes,
-        hours: hourRes,
-        minutes: minRes,
-        seconds: seconds,
-      }
-    }
-
-    return timeLeft
+  const parseDateString = (dateStr) => {
+    // Assuming the format is "YYYYMMDD"
+    const year = parseInt(dateStr.substring(0, 4), 10)
+    const month = parseInt(dateStr.substring(4, 6), 10) - 1 // month index starts from 0 in JS
+    const day = parseInt(dateStr.substring(6, 8), 10)
+    return new Date(year, month, day)
   }
 
-  const [timeLeft, setTimeLeft] = useState('')
+  const calculateTimeLeft = () => {
+    const difference = parseDateString(endTime) - new Date()
+    if (difference > 0) {
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
+      const minutes = Math.floor((difference / 1000 / 60) % 60)
+      const seconds = Math.floor((difference / 1000) % 60)
+      return {
+        days: days < 10 ? `0${days} ngày` : `${days} ngày`,
+        hours: hours < 10 ? `0${hours}:` : `${hours}:`,
+        minutes: minutes < 10 ? `0${minutes}:` : `${minutes}:`,
+        seconds: seconds < 10 ? `0${seconds}` : `${seconds}`,
+      }
+    }
+    return {days: '', hours: '', minutes: '', seconds: ''}
+  }
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft())
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft())
+      const newTimeLeft = calculateTimeLeft()
+      setTimeLeft(newTimeLeft)
     }, 1000)
+
     return () => clearTimeout(timer)
   }, [timeLeft])
 

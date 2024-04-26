@@ -33,6 +33,7 @@ const ProductDetail = ({
   session,
   wishList,
   mainData,
+  FiveProduct,
 }) => {
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
@@ -49,9 +50,6 @@ const ProductDetail = ({
       ) || {},
   })
 
-  const ordered = 35
-  const totalProd = 100
-
   // create init list crossell product
   const [listCrossell, setListCrossell] = useState(
     data?.crossSellProducts?.map((item) => ({...item, quantity: 1})) || [],
@@ -62,17 +60,19 @@ const ProductDetail = ({
   const [listGallery, isFlashSale] = useMemo(() => {
     const gallery = data?.galleryImgs
 
-    const isFlashSale = data?.meta_detect?.flash_sale?.is_flash_sale === 'yes'
+    const isFlashSale = data?.meta_detect?.flash_sale?.is_flash_sale === '1'
     if (selectedPrd.type === 'variable') {
+      //   const listImgVariations = variations?.variations
+      // ? [...new Set(Object.values(variations.variations).map(item => item.image.url))]
+      // : [];
       const listImgVariations =
         variations?.variations &&
         Object?.values(variations?.variations)?.map((item) => item.image.url)
-      if (gallery) return [gallery.concat(listImgVariations), isFlashSale]
+      if (listImgVariations)
+        return [gallery.concat(listImgVariations), isFlashSale]
     } else {
       return [gallery, isFlashSale]
     }
-
-    // check flash sale
   }, [data])
 
   //check user select variation or not
@@ -153,7 +153,50 @@ const ProductDetail = ({
     return listCrossellIndex.map((item) => listCrossell[item])
   }, [listCrossellIndex, listCrossell])
 
-  console.log('mainData', mainData)
+  const [price, regular_price] = useMemo(() => {
+    const price = selectedPrd?.variation?.display_price || selectedPrd?.price
+    const regular_price =
+      selectedPrd?.variation?.display_regular_price ||
+      selectedPrd?.regular_price ||
+      0
+
+    if (isFlashSale) {
+      const isDiscount =
+        selectedPrd?.meta_detect?.flash_sale?.flash_sale_type == 'Percentage'
+
+      const discountAmount =
+        selectedPrd?.meta_detect?.flash_sale?.flash_sale_price
+
+      if (isDiscount) {
+        return [
+          Number(price) * (1 - Number(discountAmount) / 100) || 0,
+          regular_price,
+        ]
+      } else {
+        return [Number(price) - Number(discountAmount) || 0, regular_price]
+      }
+    }
+
+    return [price, regular_price]
+  }, [selectedPrd, isFlashSale])
+
+  const relatedProductList = useMemo(() => {
+    if (!relatedProduct?.item && FiveProduct?.item) return FiveProduct?.item
+
+    if (relatedProduct?.item && relatedProduct?.item?.length > 4) {
+      return relatedProduct?.item
+    }
+
+    if (
+      relatedProduct?.item &&
+      relatedProduct?.item?.length <= 4 &&
+      FiveProduct?.item
+    ) {
+      return FiveProduct?.item
+    }
+
+    return []
+  }, [relatedProduct, FiveProduct])
 
   return (
     <div className='container mt-[8.1rem] md:pb-[4rem] bg-elevation-10 relative xmd:w-full'>
@@ -187,20 +230,14 @@ const ProductDetail = ({
               {data?.name}
             </h2>
             <ProductPrice
-              regularPrice={
-                selectedPrd?.variation?.display_regular_price ||
-                data?.regular_price
-              }
-              price={selectedPrd?.variation?.display_price || data?.price || 0}
+              regularPrice={regular_price}
+              price={price}
               bestCoupon={bestCoupon}
             />
 
             <TemVoucher
-              regularPrice={
-                selectedPrd?.variation?.display_regular_price ||
-                data?.regular_price
-              }
-              price={selectedPrd?.variation?.display_price || data?.price || 0}
+              regularPrice={regular_price}
+              price={price}
               bestCoupon={bestCoupon}
             />
 
@@ -272,18 +309,30 @@ const ProductDetail = ({
               <div className='mb-[2rem] flex xmd:flex-col w-full xmd:mt-[1rem]'>
                 <div className='w-[18.08rem]'>
                   <Progress
-                    ordered={ordered}
-                    totalProd={totalProd}
+                    ordered={
+                      selectedPrd?.meta_detect?.flash_sale
+                        ?.flash_sale_total_buyed
+                    }
+                    totalProd={
+                      selectedPrd?.meta_detect?.flash_sale
+                        ?.flash_sale_total_sale
+                    }
                   />
                 </div>
-                <div className='ml-[0.59rem]'>
-                  <span className='caption1 font-medium text-greyscale-80 mr-[0.25rem]'>
-                    Còn
-                  </span>
-                  <span className='caption1 font-bold text-[#FFB84F]'>
-                    <CountDown endTime='2024-05-02T19:00:00Z' />
-                  </span>
-                </div>
+                {selectedPrd?.meta_detect?.flash_sale?.flash_sale_date && (
+                  <div className='ml-[0.59rem]'>
+                    <span className='caption1 font-medium text-greyscale-80 mr-[0.25rem]'>
+                      Còn
+                    </span>
+                    <span className='caption1 font-bold text-[#FFB84F]'>
+                      <CountDown
+                        endTime={
+                          selectedPrd?.meta_detect?.flash_sale?.flash_sale_date
+                        }
+                      />
+                    </span>
+                  </div>
+                )}
               </div>
             )}
             <SubInfo />
@@ -291,7 +340,7 @@ const ProductDetail = ({
 
           {/* thông tin kĩ thuật */}
           <div className='subContainer mt-[0.88rem] mb-[1.46rem]'>
-            <TechnicalInfo techInfo={mainData?.[0]?.acf?.tech_info} />
+            <TechnicalInfo techInfo={mainData?.[0]?.acf?.tech_info || []} />
           </div>
 
           {/* thông tin khác */}
@@ -374,7 +423,7 @@ const ProductDetail = ({
 
       {isFlashSale && (
         <div className='xmd:hidden'>
-          <RelatedProduct relatedProduct={relatedProduct?.item} />
+          <RelatedProduct relatedProduct={relatedProductList} />
         </div>
       )}
     </div>

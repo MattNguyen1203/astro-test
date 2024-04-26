@@ -16,6 +16,7 @@ import ItemProduct from './itemProduct/Crosssell'
 import {useMemo, useState} from 'react'
 import DialogProductCombo from '../home/components/dialogCrossell'
 import {handlePrice} from './function'
+import RelatedProduct from '../preorderdetail/components/RelatedProduct'
 
 const ComboDetail = ({
   isMobile,
@@ -24,6 +25,7 @@ const ComboDetail = ({
   bestCoupon,
   session,
   mainData,
+  FiveProduct,
 }) => {
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
@@ -195,6 +197,12 @@ const ComboDetail = ({
           <VoucherList voucher={voucher} />
         </div>
       </div>
+
+      {FiveProduct?.item && (
+        <div className='xmd:hidden pb-[3rem] mt-[2rem]'>
+          <RelatedProduct relatedProduct={FiveProduct?.item} />
+        </div>
+      )}
     </div>
   )
 }
