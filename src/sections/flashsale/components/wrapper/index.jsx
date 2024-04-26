@@ -70,24 +70,6 @@ export default function WrapperFlashSale({isMobile, session}) {
             session={session}
           />
         ))}
-        {/* <GridProductFL
-          isMobile={isMobile}
-          id='ipad1'
-          title={'Phụ kiện iPad 1'}
-          session={session}
-        />
-        <GridProductFL
-          isMobile={isMobile}
-          id='ipad2'
-          title={'Phụ kiện iPad 2'}
-          session={session}
-        />
-        <GridProductFL
-          isMobile={isMobile}
-          id='ipad3'
-          title={'Phụ kiện iPad 3'}
-          session={session}
-        /> */}
       </div>
     </section>
   )

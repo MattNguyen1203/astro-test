@@ -2,7 +2,7 @@
 import './style.css'
 
 import Image from 'next/image'
-import {useRef, useState} from 'react'
+import {Fragment, useRef, useState} from 'react'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import ReactPlayer from 'react-player'
 
@@ -68,7 +68,7 @@ export default function WatchReview({isMobile, datavideo}) {
           {new Array(Math.ceil(10 / datavideo?.length))
             .fill(0)
             .map((item, index) => (
-              <>
+              <Fragment key={index}>
                 {datavideo?.map((e, i) => (
                   <SwiperSlide key={i}>
                     <div className='relative size-full'>
@@ -109,7 +109,7 @@ export default function WatchReview({isMobile, datavideo}) {
                     </div>
                   </SwiperSlide>
                 ))}
-              </>
+              </Fragment>
             ))}
         </Swiper>
         {!isMobile && (

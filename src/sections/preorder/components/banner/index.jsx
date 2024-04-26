@@ -1,8 +1,13 @@
 import Image from 'next/image'
 import SlideBannerPreOrder from './slidebanner'
 import SlideBannerRes from './slidebanner/SlideBannerRes'
+import getData from '@/lib/getData'
 
-export default function BannerPreOrder({isMobile}) {
+export default async function BannerPreOrder({isMobile}) {
+  const products = await getData(
+    '/okhub/v1/product/filter/products?limit=15&page=1&is_preorder=true&device=san-pham-noi-bat-pre-order',
+  )
+
   return (
     <section className='pt-[8rem] xmd:pt-[4.1rem]'>
       <div className='w-full h-[67.82577rem] 3xl:h-[76.82577rem] relative xmd:h-fit'>
@@ -26,7 +31,11 @@ export default function BannerPreOrder({isMobile}) {
               priority
             />
           )}
-          {isMobile ? <SlideBannerRes /> : <SlideBannerPreOrder />}
+          {isMobile ? (
+            <SlideBannerRes products={products?.item} />
+          ) : (
+            <SlideBannerPreOrder products={products?.item} />
+          )}
           <div className='bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)] rounded-[0.87848rem] h6 font-svnGraphik font-bold text-greyscale-80 xmd:text-[#0D2033] text-center w-fit absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 md:px-[4.39rem] md:py-[1.17rem] xmd:sub1 xmd:tracking-[0.01464rem] xmd:container xmd:h-[2.56223rem] xmd:rounded-[0.58565rem] xmd:flex xmd:justify-center xmd:items-center'>
             SẢN PHẨM NỔI BẬT
           </div>

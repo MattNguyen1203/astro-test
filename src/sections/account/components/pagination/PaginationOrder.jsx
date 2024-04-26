@@ -1,10 +1,15 @@
-// Pagination.jsx
-import React from 'react';
-import ReactPaginate from 'react-paginate';
+'use client'
+import ReactPaginate from 'react-paginate'
 import ICNextPagination from '@/components/icon/ICNextPagination'
 import ICPrevPagination from '@/components/icon/ICPrevPagination'
 
-const PaginationOrder = ({ pageRangeDisplayed, pageCount=3, handleRouter, params,currentPage }) => (
+const PaginationOrder = ({
+  pageRangeDisplayed,
+  pageCount = 3,
+  handleRouter,
+  params,
+  currentPage,
+}) => (
   <ReactPaginate
     className='flex justify-center mt-5'
     activeClassName='!bg-blue-700 !text-white'
@@ -21,8 +26,8 @@ const PaginationOrder = ({ pageRangeDisplayed, pageCount=3, handleRouter, params
     pageRangeDisplayed={pageRangeDisplayed}
     pageCount={pageCount}
     renderOnZeroPageCount={null}
-    forcePage={currentPage-1}
+    forcePage={currentPage - 1}
   />
-);
+)
 
-export default PaginationOrder;
+export default PaginationOrder

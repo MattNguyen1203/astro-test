@@ -1,14 +1,15 @@
 'use client'
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import CardBill from '@/components/cardbill'
 import useSWR from 'swr'
 import PaginationOrder from '../account/components/pagination/PaginationOrder'
 import SkeletonCardOder from '@/components/cardbill/SkeletonCardOder'
 import {useRouter, useSearchParams} from 'next/navigation'
+
 export default function DoneBill({session, setCount}) {
   const [currentPage, setCurrentPage] = useState(1)
   const page = useSearchParams().get('page')
-  const router = useRouter();
+  const router = useRouter()
   const status = useSearchParams().get('status')
   const fetcher = (url) =>
     fetch(url, {
@@ -18,7 +19,9 @@ export default function DoneBill({session, setCount}) {
     }).then((r) => r.json())
 
   const {data, error, isLoading} = useSWR(
-    `${process.env.NEXT_PUBLIC_API}/okhub/v1/order?status=${status}&page=${page||currentPage}&limit=5`,
+    `${process.env.NEXT_PUBLIC_API}/okhub/v1/order?status=${status}&page=${
+      page || currentPage
+    }&limit=5`,
     fetcher,
     {
       revalidateIfStale: false,
@@ -33,9 +36,9 @@ export default function DoneBill({session, setCount}) {
     }
   }, [data])
   const handlePageChange = (page) => {
-    setCurrentPage(page);
-    router.push(`?status=${status}&?page=${page}`);
-  };
+    setCurrentPage(page)
+    router.push(`?status=${status}&?page=${page}`)
+  }
   return (
     <section>
       {isLoading ? (
@@ -58,7 +61,7 @@ export default function DoneBill({session, setCount}) {
           pageRangeDisplayed={5}
           pageCount={Math.ceil(data?.count / 5)}
           handleRouter={handlePageChange}
-          currentPage={page||currentPage}
+          currentPage={page || currentPage}
         />
       )}
     </section>
