@@ -6,9 +6,9 @@ const data =
 
 const Gift = () => {
   return (
-    <div className='flex'>
-      <div className='w-1/2 relative after:absolute after:top-0 after:right-0 after:w-[1px] after:h-full after:border-r  after:border-dashed after:border-[#A9A9A9] p-[1.17rem] bg-white rounded-[1.75695rem]'>
-        <div className='flex items-center mb-[2.93rem]'>
+    <div className='flex xmd:flex-col-reverse xmd: w-full'>
+      <div className='w-1/2 xmd:w-full relative after:absolute after:top-0 after:right-0 after:w-[1px] after:h-full after:border-r  after:border-dashed after:border-[#A9A9A9] p-[1.17rem] bg-white rounded-[1.75695rem]'>
+        <div className='flex items-center mb-[2.93rem] xmd:hidden'>
           <Image
             src='/components/rocket.svg'
             alt=''
@@ -27,7 +27,7 @@ const Gift = () => {
           className='p-[1.17rem] rounded-[1.02489rem] bg-[#E8EBEF80]'
         ></div>
       </div>
-      <div className='w-1/2 p-[1.17rem] bg-white rounded-[1.75695rem] relative'>
+      <div className='w-1/2 xmd:w-full p-[1.17rem] bg-white rounded-[1.75695rem] relative'>
         <Image
           src='/preorder/demoGift.jpg'
           alt='quà tặng'
