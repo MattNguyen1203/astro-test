@@ -24,28 +24,30 @@ const PreOrder = ({
   variations,
   relatedProduct,
   mainData,
+  FiveProduct,
 }) => {
   const ordered = 35
   const totalProd = 100
-  const [isOpen, setIsOpen] = useState(false) // open popup product
-  const [activeId, setActiveId] = useState('') // activeID in open popup;
   const [selectedPrd, setSelectedPrd] = useState({
     ...data,
     variations: variations,
     quantity: 1,
     variation:
-      Object.values(variations?.variations)?.find((item) => item.default) || {},
+      (variations?.variations &&
+        Object.values(variations?.variations)?.find((item) => item.default)) ||
+      {},
   })
 
   //get list image
   const listGallery = useMemo(() => {
     const gallery = data?.galleryImgs.map((item) => item)
 
-    const listImgVariations = Object.values(variations?.variations)?.map(
-      (item) => item.image.url,
-    )
+    const listImgVariations =
+      variations?.variations &&
+      Object.values(variations?.variations)?.map((item) => item.image.url)
 
-    if (gallery) return gallery?.concat(listImgVariations)
+    if (listImgVariations) return gallery?.concat(listImgVariations)
+    return gallery
   }, [data])
 
   //check user select variation or not
@@ -58,6 +60,24 @@ const PreOrder = ({
       )
     }
   }, [selectedPrd, data])
+
+  const relatedProductList = useMemo(() => {
+    if (!relatedProduct?.item && FiveProduct?.item) return FiveProduct?.item
+
+    if (relatedProduct?.item && relatedProduct?.item?.length > 4) {
+      return relatedProduct?.item
+    }
+
+    if (
+      relatedProduct?.item &&
+      relatedProduct?.item?.length <= 4 &&
+      FiveProduct?.item
+    ) {
+      return FiveProduct?.item
+    }
+
+    return []
+  }, [relatedProduct, FiveProduct])
 
   return (
     <>
@@ -149,14 +169,14 @@ const PreOrder = ({
                   />
                 </div>
 
-                <div className='ml-[0.59rem]'>
+                {/* <div className='ml-[0.59rem]'>
                   <span className='caption1 font-medium text-greyscale-80 mr-[0.25rem]'>
                     Còn
                   </span>
                   <span className='caption1 font-bold text-[#FFB84F]'>
                     <CountDown endTime='2024-05-02T19:00:00Z' />
                   </span>
-                </div>
+                </div> */}
               </div>
               <SubInfo />
             </div>
@@ -186,9 +206,11 @@ const PreOrder = ({
         {/* sản phẩm tương tự */}
       </div>
 
-      <div className='container pb-[4.39rem]'>
-        <RelatedProduct relatedProduct={relatedProduct?.item || []} />
-      </div>
+      {relatedProductList && (
+        <div className='container pb-[4.39rem]'>
+          <RelatedProduct relatedProduct={relatedProductList || []} />
+        </div>
+      )}
     </>
   )
 }

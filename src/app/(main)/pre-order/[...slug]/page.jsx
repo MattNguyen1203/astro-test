@@ -13,14 +13,21 @@ const page = async ({searchParams, params: {slug}}) => {
     `/okhub/v1/product/${slug}/attributes/detail`,
   )
   const mainDataReq = getData(`/wp/v2/product?slug=${slug}`)
+  const FiveProductReq = getData(`/okhub/v1/product/allProduct?limit=5&page=1`)
 
-  const [dataProductDetail, dataProductVoucher, dataVariation, mainData] =
-    await Promise.all([
-      dataProductDetailReq,
-      dataProductVoucherReq,
-      dataVariationReq,
-      mainDataReq,
-    ])
+  const [
+    dataProductDetail,
+    dataProductVoucher,
+    dataVariation,
+    mainData,
+    FiveProduct,
+  ] = await Promise.all([
+    dataProductDetailReq,
+    dataProductVoucherReq,
+    dataVariationReq,
+    mainDataReq,
+    FiveProductReq,
+  ])
 
   const productCat = dataProductDetail?.categories?.[0]
 
@@ -41,6 +48,7 @@ const page = async ({searchParams, params: {slug}}) => {
         variations={dataVariation}
         relatedProduct={relatedProduct}
         mainData={mainData}
+        FiveProduct={FiveProduct}
       />
     </main>
   )
