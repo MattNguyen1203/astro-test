@@ -1,5 +1,6 @@
 'use client'
 import {logout} from '@/actions/logout'
+import {getSession} from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {usePathname, useRouter} from 'next/navigation'
@@ -80,7 +81,12 @@ export default function MenuUser({setIsOpen = () => {}, session}) {
           onClick={() => {
             setIsOpen(false)
             logout()
-            // router.replace('/')
+            async function myFunction() {
+              const session = await getSession()
+              return session
+            }
+            myFunction()
+            router.replace('/')
           }}
           className={`w-full h-fit rounded-[0.58565rem] block`}
         >
