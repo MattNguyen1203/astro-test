@@ -22,6 +22,9 @@ import Progress from '@/components/progress'
 import RelatedProduct from '../preorderdetail/components/RelatedProduct'
 
 import Loading from '@/components/loading'
+import {useRouter} from 'next/navigation'
+import {toast} from 'sonner'
+import {handleAddToSession} from './function'
 
 const ProductDetail = ({
   isMobile,
@@ -40,6 +43,7 @@ const ProductDetail = ({
   const [isLoading, setIsLoading] = useState(true)
 
   const firstLoadRef = useRef(true)
+  const router = useRouter()
   const [selectedPrd, setSelectedPrd] = useState({
     ...data,
     variations: variations,
@@ -300,6 +304,7 @@ const ProductDetail = ({
                   className={cn(
                     'caption1 font-semibold text-white flex items-center justify-center w-[10.688rem] xmd:w-[21.3rem] h-full rounded-[0.58565rem] bg-[#102841] px-[1.17rem] py-[0.73rem] uppercase',
                   )}
+                  onClick={() => handleAddToSession(selectedPrd, router)}
                 >
                   Mua ngay
                 </button>

@@ -15,8 +15,9 @@ import VoucherList from './VoucherList'
 import ItemProduct from './itemProduct/Crosssell'
 import {useMemo, useState} from 'react'
 import DialogProductCombo from '../home/components/dialogCrossell'
-import {handlePrice} from './function'
+import {handleAddToSession, handlePrice} from './function'
 import RelatedProduct from '../preorderdetail/components/RelatedProduct'
+import {useRouter} from 'next/navigation'
 
 const ComboDetail = ({
   isMobile,
@@ -33,6 +34,8 @@ const ComboDetail = ({
     ...data,
     quantity: 1,
   })
+
+  const router = useRouter()
 
   const [listProduct, setListProduct] = useState(data?.grouped_products)
 
@@ -172,7 +175,15 @@ const ComboDetail = ({
                   ]}
                   session={session}
                 />
-                <button className='caption1 font-semibold text-white flex items-center justify-center w-[10.688rem] xmd:w-[21.3rem] h-full rounded-[0.58565rem] bg-[#102841] px-[1.17rem] py-[0.73rem] uppercase'>
+                <button
+                  onClick={() =>
+                    handleAddToSession(
+                      {...selectedPrd, grouped_products: listProduct},
+                      router,
+                    )
+                  }
+                  className='caption1 font-semibold text-white flex items-center justify-center w-[10.688rem] xmd:w-[21.3rem] h-full rounded-[0.58565rem] bg-[#102841] px-[1.17rem] py-[0.73rem] uppercase'
+                >
                   Mua ngay
                 </button>
               </div>

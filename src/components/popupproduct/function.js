@@ -21,7 +21,7 @@ export const getListValueOutOfStock = (
 
       const isMatch =
         item?.attributes?.[variant.parentkey].key === variant.selectedkey
-      if (isMatch && item.is_in_stock === true) {
+      if (isMatch && item?.max_qty > 0) {
         match = true
       }
     })
