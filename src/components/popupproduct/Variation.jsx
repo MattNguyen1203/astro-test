@@ -101,8 +101,6 @@ const Variation = ({data = {}, setSelectedPrd, selectedPrd}) => {
         lastKey,
       )
 
-      console.log('listInstock', listInstock)
-
       const listValueLastKey = listAttribute?.find(
         (item) => item.key === lastKey,
       )?.value

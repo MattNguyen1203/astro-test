@@ -17,14 +17,15 @@ import Loading from '../loading'
 import {cn, formatToVND} from '@/lib/utils'
 import useStore from '@/app/(store)/store'
 import {deleteDataAuth} from '@/lib/deleteData'
+import {useSession} from 'next-auth/react'
 
 export default function SheetCart({
   children,
   isMobile = false,
   isLoading,
   isAuth,
-  session,
 }) {
+  const {session} = useSession()
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [cart, setCart] = useState([])
@@ -59,11 +60,27 @@ export default function SheetCart({
   }
 
   const totalPrice = useMemo(() => {
+    console.log('listCart', listCart)
     if (Array.isArray(listCart)) {
       const total = listCart?.reduce((total, item) => {
-        return (
-          total + Number(item?.product_price || 0) * Number(item?.quantity || 1)
-        )
+        if (isAuth) {
+          if (item.type === 'wooco') {
+            return total + Number(item?.line_total)
+          } else {
+            return total + Number(item?.price) * Number(item.quantity)
+          }
+        } else {
+          if (item.type === 'wooco') {
+            return total + Number(item?.line_total)
+          } else if (item.type === 'variable') {
+            return (
+              total +
+              Number(item?.variation?.display_price) * Number(item.quantity)
+            )
+          } else {
+            return total + Number(item?.price) * Number(item.quantity)
+          }
+        }
       }, 0)
 
       return total
@@ -81,7 +98,7 @@ export default function SheetCart({
       // setIsLoadingCart(true)
       const res = await deleteDataAuth({
         api: '/okhub/v1/cart',
-        token: session?.accessToken,
+        token: session?.data?.accessToken,
         body: {cart_items: listKeyDelete},
       })
       // setIsLoadingCart(false)
@@ -171,7 +188,6 @@ export default function SheetCart({
                         isMobile={isMobile}
                         item={item}
                         isAuth={isAuth}
-                        session={session}
                       />
                     </div>
                   ))}

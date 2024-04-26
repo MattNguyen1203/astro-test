@@ -6,10 +6,11 @@ import {useSession} from 'next-auth/react'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
 
-export default function Cart({isMobile, session, cartDefault}) {
+export default function Cart({isMobile, cartDefault}) {
+  const {session, update} = useSession()
   const isAuth = session?.status === 'authenticated'
+  console.log('isAuth', isAuth)
 
-  const {update} = useSession()
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
   const actionCart = useStore((state) => state.actionCart)
   const listCart = useStore((state) => state.listCart)
@@ -28,7 +29,7 @@ export default function Cart({isMobile, session, cartDefault}) {
       const fetchCart = async () => {
         setIsLoading(true)
         const res = await getDataAuth({
-          token: session?.accessToken,
+          token: session?.data?.accessToken,
           api: `/okhub/v1/cart`,
         })
 
@@ -49,7 +50,6 @@ export default function Cart({isMobile, session, cartDefault}) {
   return (
     <SheetCart
       isMobile={isMobile}
-      session={session}
       isLoading={isLoading}
       isAuth={isAuth}
     >
