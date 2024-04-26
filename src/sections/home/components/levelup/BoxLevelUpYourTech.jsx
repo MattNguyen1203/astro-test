@@ -32,6 +32,8 @@ export default function BoxLevelUpYourTech({
       revalidateOnReconnect: false,
     },
   )
+  console.log('🚀 ~ categories:', categories)
+
   return (
     <>
       {isMobile ? (
@@ -53,7 +55,7 @@ export default function BoxLevelUpYourTech({
       ) : (
         <CategoryProduct
           title='LEVEL UP YOUR TECH'
-          href='/'
+          href='/san-pham'
         >
           {!isMobile && (
             <TabCategories

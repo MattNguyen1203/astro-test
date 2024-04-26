@@ -1,4 +1,4 @@
-import React from 'react'
+'use client'
 import ReactPlayer from 'react-player'
 
 const Video = ({type, url, className, options}) => {

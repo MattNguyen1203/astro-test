@@ -9,6 +9,9 @@ export default async function GridProductFL({isMobile, id, title, session}) {
     `/okhub/v1/product/filter/products?category=${id}&limit=8&page=1&is_flashsale=true`,
   )
 
+  // if (Number(products?.count) <= 0) return null
+  const countMore = Number(products?.count) - 10
+
   return (
     <section className='container xmd:mx-[0.62rem] h-[77.28843rem] xmd:h-fit relative mt-[6.16rem] xmd:mt-[3.51rem]'>
       <div
@@ -40,29 +43,31 @@ export default async function GridProductFL({isMobile, id, title, session}) {
             />
           ))}
         </div>
-        <Link
-          href={'/san-pham?flashsale=true'}
-          className='px-[1.46rem] py-[0.81rem] rounded-[7.5rem] bg-[#f2f2f2] w-fit mt-[2.34rem] xmd:mt-[1.17rem] mx-auto flex items-center'
-        >
-          <span className='font-semibold caption1 text-greyscale-80 inline-block mr-[0.59rem] xmd:tracking-[0.00439rem]'>
-            +{products?.count} SẢN PHẨM
-          </span>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='7'
-            height='10'
-            viewBox='0 0 7 10'
-            fill='none'
+        {countMore > 0 && (
+          <Link
+            href={`/san-pham/${id}?flashsale=true`}
+            className='px-[1.46rem] py-[0.81rem] rounded-[7.5rem] bg-[#f2f2f2] w-fit mt-[2.34rem] xmd:mt-[1.17rem] mx-auto flex items-center'
           >
-            <path
-              d='M1.51172 1L5.51172 5L1.51172 9'
-              stroke='#262626'
-              strokeWidth='2'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            />
-          </svg>
-        </Link>
+            <span className='font-semibold caption1 text-greyscale-80 inline-block mr-[0.59rem] xmd:tracking-[0.00439rem]'>
+              +{countMore} SẢN PHẨM
+            </span>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='7'
+              height='10'
+              viewBox='0 0 7 10'
+              fill='none'
+            >
+              <path
+                d='M1.51172 1L5.51172 5L1.51172 9'
+                stroke='#262626'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
+          </Link>
+        )}
       </div>
     </section>
   )
