@@ -2,7 +2,7 @@
 import {logout} from '@/actions/logout'
 import Image from 'next/image'
 import Link from 'next/link'
-import {usePathname} from 'next/navigation'
+import {usePathname, useRouter} from 'next/navigation'
 
 const menuOptions = [
   {
@@ -38,7 +38,9 @@ const menuOptions = [
 ]
 
 export default function MenuUser({setIsOpen = () => {}, session}) {
+  const router = useRouter()
   const pathName = usePathname()
+
   return (
     <div className='flex flex-col p-[0.88rem] mt-[0.6rem] *:mt-[0.44rem] *:first:mt-0 bg-white rounded-[0.58565rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] select-none'>
       {menuOptions.map((e, index) => (
@@ -78,6 +80,7 @@ export default function MenuUser({setIsOpen = () => {}, session}) {
           onClick={() => {
             setIsOpen(false)
             logout()
+            router.replace('/')
           }}
           className={`w-full h-fit rounded-[0.58565rem] block`}
         >

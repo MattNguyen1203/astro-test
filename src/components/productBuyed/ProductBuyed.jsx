@@ -1,50 +1,28 @@
 'use client'
-import React, {useState, useEffect} from 'react'
-import {useRouter, useSearchParams} from 'next/navigation'
+
 import SkeletonCardProduct from '../cardproduct/SkeletonCardProduct'
-import useSWR from 'swr'
-import PaginationIndex from '@/sections/account/components/pagination'
-import PaginationOrder from '@/sections/account/components/pagination/PaginationOrder'
 import CardProduct from '@/components/cardproduct'
-const ProductBuyed = ({session, isMobile}) => {
-  const router = useRouter()
-  const page = useSearchParams().get('page') || 1
-  console.log(page)
-  const [currentPage, setCurrentPage] = useState()
-  const itemsPerPage = 12
-  const indexOfLastItem = parseInt(page) * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
 
-  useEffect(() => {
-    ;(page && setCurrentPage(parseInt(page))) || setCurrentPage(1)
-  }, [])
-  const fetcher = (url) =>
-    fetch(url, {
-      headers: {
-        Authorization: `Bearer ${session?.accessToken}`,
-      },
-    }).then((r) => r.json())
-  const {data, error, isLoading} = useSWR(
-    `${process.env.NEXT_PUBLIC_API}/okhub/v1/order?status=completed`,
-    fetcher,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    },
-  )
-  const productNames = data?.data?.flatMap((item) => item?.product_name || [])
-  const uniqueProductNames = productNames?.reduce((unique, item) => {
-    return unique.findIndex((uniqueItem) => uniqueItem.id === item.id) < 0
-      ? [...unique, item]
-      : unique
-  }, [])
+const ProductBuyed = ({session, isMobile, products}) => {
+  console.log('🚀 ~ ProductBuyed ~ products:', products)
 
-  const currentItems = uniqueProductNames?.slice(indexOfFirstItem, indexOfLastItem);
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    router.push(`?page=${page}`);
-  };
+  const handleProcessData = (products) => {
+    const data = []
+    products?.forEach((product) => {
+      product?.product_name?.forEach((children) => {
+        data.push(children)
+      })
+    })
+    return data
+  }
+
+  const dataNew = handleProcessData(products?.data)
+  console.log('🚀 ~ ProductBuyed ~ dataNew:', dataNew)
+
+  const colsProduct = Math.ceil(dataNew?.length / 3)
+
+  const isLoading = false
+
   return (
     <>
       {isMobile && (
@@ -68,23 +46,29 @@ const ProductBuyed = ({session, isMobile}) => {
               Sản phẩm đã mua
             </span>
             <span className='font-normal sub2 text-greyscale-20'>
-              ({uniqueProductNames?.length} sản phẩm)
+              ({dataNew?.length} sản phẩm)
             </span>
             <hr className='bg-[#ECECECB2] h-[0.07rem] w-full my-[1.17rem] block' />
           </>
         )}
-        <div className='grid grid-cols-3 grid-rows-4 gap-x-[0.73rem] gap-y-[1.17rem] xmd:grid-cols-2'>
+        <div
+          style={{
+            gridTemplateRows: `repeat(${colsProduct}, minmax(0, 1fr))`,
+          }}
+          className='grid grid-cols-3 gap-x-[0.73rem] gap-y-[1.17rem] xmd:grid-cols-2'
+        >
           {isLoading ? (
             new Array(12)
               .fill(0)
               .map((e, index) => <SkeletonCardProduct key={index} />)
           ) : (
             <>
-              {currentItems?.length > 0 ? (
-                currentItems.map((e, index) => (
+              {dataNew?.length > 0 ? (
+                dataNew?.slice(0, 12)?.map((e, index) => (
                   <CardProduct
                     key={index}
                     product={e}
+                    session={session}
                   />
                 ))
               ) : (
@@ -94,13 +78,13 @@ const ProductBuyed = ({session, isMobile}) => {
           )}
         </div>
       </section>
-      <div className='mt-[1.25rem]'>
+      {/* <div className='mt-[1.25rem]'>
         <PaginationOrder
           pageCount={Math.ceil(uniqueProductNames?.length / itemsPerPage)}
           currentPage={parseInt(page) || currentPage}
           handleRouter={handlePageChange}
         />
-      </div>
+      </div> */}
     </>
   )
 }

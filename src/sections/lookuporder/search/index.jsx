@@ -1,6 +1,7 @@
 'use client'
 import ICSearchAccessory from '@/components/icon/ICSearchAccessory'
-import {fetcher} from '@/lib/utils'
+import {fetcher, formatToVND} from '@/lib/utils'
+import ItemProductPayment from '@/sections/payment/ItemProductPayment'
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
 import useSWR from 'swr'
 
@@ -22,6 +23,22 @@ export default function SearchTracking({isMobile}) {
       revalidateOnReconnect: false,
     },
   )
+  console.log('🚀 ~ SearchTracking ~ data:', data)
+
+  const handleDate = (dateString) => {
+    // Tạo một đối tượng Date từ chuỗi ngày tháng
+    const date = new Date(dateString)
+
+    // Định dạng lại ngày tháng
+    const formattedDate =
+      (date.getDate() < 10 ? '0' : '') +
+      date.getDate() +
+      '/' +
+      ((date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1)) +
+      '/' +
+      date.getFullYear()
+    return formattedDate
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -36,6 +53,34 @@ export default function SearchTracking({isMobile}) {
     router.push(pathName + '?' + paramNew.toString(), {
       scroll: false,
     })
+  }
+
+  const handleAllPriceCoupon = (coupons) => {
+    let sum = 0
+    coupons?.forEach((coupon) => {
+      if (coupon?.coupon_discount) {
+        sum += Number(coupon?.coupon_discount)
+      }
+    })
+    return sum
+  }
+
+  const handleAllPriceShip = (ships) => {
+    let sum = 0
+    ships?.forEach((ship) => {
+      if (ship?.total) {
+        sum += Number(ship?.total)
+      }
+    })
+    return sum
+  }
+
+  const handleTotalBill = (data) => {
+    let sum = Number(data?.total)
+    sum +=
+      handleAllPriceCoupon(data?.coupon) +
+      handleAllPriceShip(data?.shipping_lines)
+    return sum
   }
   return (
     <>
@@ -111,7 +156,7 @@ export default function SearchTracking({isMobile}) {
             </div>
           )}
           {/* page 2 */}
-          {tracking && data && (
+          {tracking && data?.id && (
             <div className='flex w-[100rem] xmd:w-full xmd:py-[1.1713rem ] px-[24.52416rem] pb-[0.58565rem] justify-center items-center xmd:px-0'>
               <div className='flex w-[50.87848rem] xmd:w-full p-[1.1713rem] flex-col items-start rounded-[0.58565rem] bg-white xmd:px-[0.88rem]'>
                 <div className='flex flex-col items-start mb-[1.76rem]'>
@@ -122,7 +167,7 @@ export default function SearchTracking({isMobile}) {
                           THÔNG TIN ĐƠN HÀNG:
                         </p>
                         <span className='sub2 font-semibold text-right text-[#BE9367]'>
-                          #112211212
+                          {tracking}
                         </span>
                       </div>
                     </div>
@@ -133,7 +178,7 @@ export default function SearchTracking({isMobile}) {
                           - Khách hàng:
                         </p>
                         <span className='font-normal text-justify caption1 text-greyscale-40'>
-                          Hoàng Văn Như
+                          {data?.billing?.first_name + data?.billing?.last_name}
                         </span>
                       </div>
                       <div className='my-[0.87848rem] xmd:my-[0.14641rem] flex items-center'>
@@ -141,7 +186,7 @@ export default function SearchTracking({isMobile}) {
                           - Số điện thoại:
                         </p>
                         <span className='font-normal text-justify caption1 text-greyscale-40'>
-                          099222555
+                          {data?.billing?.phone}
                         </span>
                       </div>
                       <div className='flex items-center'>
@@ -149,7 +194,7 @@ export default function SearchTracking({isMobile}) {
                           - Email:
                         </p>
                         <span className='font-normal text-justify caption1 text-greyscale-40'>
-                          nhuhoang12@gmail.com
+                          {data?.billing?.email}
                         </span>
                       </div>
                       <div className='my-[0.87848rem] xmd:my-[0.14641rem] flex items-center'>
@@ -157,7 +202,7 @@ export default function SearchTracking({isMobile}) {
                           - Ngày đặt hàng:
                         </p>
                         <span className='font-normal text-justify caption1 text-greyscale-40'>
-                          20/1/2024
+                          {handleDate(data?.date_create)}
                         </span>
                       </div>
                       <div className='flex items-center'>
@@ -165,8 +210,11 @@ export default function SearchTracking({isMobile}) {
                           - Địa chỉ nhận hàng:
                         </p>
                         <span className='font-normal text-justify caption1 xmd:flex-1 text-greyscale-40'>
-                          376 đường Nguyễn Thị Minh Khai, Phường 5 Quận 3, Tp.
-                          Hồ Chí Minh
+                          {data?.billing?.address_1 +
+                            ', ' +
+                            data?.billing?.address_2 +
+                            ', ' +
+                            data?.billing?.city}
                         </span>
                       </div>
                     </div>
@@ -177,11 +225,20 @@ export default function SearchTracking({isMobile}) {
                       <p className='font-svnGraphik text-[1.02489rem] text-greyscale-40 text-right font-semibold leading-[1.61054rem] tracking-[0.00256rem]'>
                         Danh sách sản phẩm đã mua:
                       </p>
-                      <span className='font-normal caption1 text-greyscale-30'>
+                      {/* <span className='font-normal caption1 text-greyscale-30'>
                         3 sản phẩm
-                      </span>
+                      </span> */}
                     </div>
-                    <div className='h-[20rem]'>{/*  */}</div>
+                    <div className='h-[20rem]'>
+                      {data?.product?.map((item, index) => (
+                        <ItemProductPayment
+                          key={index}
+                          item={item}
+                          length={data?.product?.length}
+                          index={index}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
                 <div className='flex w-full flex-col p-[0.87848rem] items-start rounded-[0.58565rem] bg-[#F3F9F0]'>
@@ -211,7 +268,7 @@ export default function SearchTracking({isMobile}) {
                           Tổng tiền hàng:
                         </p>
                         <span className='font-semibold text-right caption1 text-greyscale-80'>
-                          325.000đ
+                          {formatToVND(handleTotalBill(data))}
                         </span>
                       </div>
                       <div className='w-full my-[0.58565rem] flex justify-between items-center'>
@@ -219,7 +276,7 @@ export default function SearchTracking({isMobile}) {
                           Phí vận chuyển:
                         </p>
                         <span className='font-semibold text-right caption1 text-greyscale-80'>
-                          40.000đ
+                          {formatToVND(data?.shipping_lines?.[0]?.total)}
                         </span>
                       </div>
                       <div className='flex items-center justify-between w-full'>
@@ -227,7 +284,10 @@ export default function SearchTracking({isMobile}) {
                           Voucher giảm giá
                         </p>
                         <span className='font-semibold text-right caption1 text-greyscale-80'>
-                          -25.000đ
+                          {handleAllPriceCoupon(data?.coupon) > 0
+                            ? '-' +
+                              formatToVND(handleAllPriceCoupon(data?.coupon))
+                            : '0đ'}
                         </span>
                       </div>
                       <div className='w-full my-[0.58565rem] flex justify-between items-center'>
@@ -235,7 +295,12 @@ export default function SearchTracking({isMobile}) {
                           Giảm giá vận chuyển:
                         </p>
                         <span className='font-semibold text-right caption1 text-greyscale-80'>
-                          -15.000đ
+                          {handleAllPriceShip(data?.shipping_lines) > 0
+                            ? '-' +
+                              formatToVND(
+                                handleAllPriceShip(data?.shipping_lines),
+                              )
+                            : '0đ'}
                         </span>
                       </div>
                     </div>
@@ -246,7 +311,7 @@ export default function SearchTracking({isMobile}) {
                       Tổng thanh toán:
                     </p>
                     <span className='sub1 font-bold text-right text-[#D48E43]'>
-                      325.000đ
+                      {formatToVND(data?.total)}
                     </span>
                   </div>
                 </div>
@@ -254,7 +319,7 @@ export default function SearchTracking({isMobile}) {
             </div>
           )}
 
-          {tracking && !data && (
+          {tracking && !data?.id && (
             <div className='flex lg:w-[51.53734rem] p-[1.1713rem] flex-col items-start rounded-[0.58565rem] bg-white '>
               <div className='flex flex-col items-start'>
                 <div className='mb-[0.58565rem] w-full flex justify-center items-center py-[1.02489rem] px-[1.46413rem] bg-[#FFE2E2] rounded-[0.58565rem]'>
