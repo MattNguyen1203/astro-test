@@ -12,6 +12,7 @@ import {putDataAuth} from '@/lib/putData'
 import Link from 'next/link'
 import {handleUpdateCart} from './handleUpdateCart'
 import {useSession} from 'next-auth/react'
+import SkeletonItemCart from './SkeletonItemCart'
 
 export default function ItemCart({cart, setCart, index, isMobile, item}) {
   const session = useSession()
@@ -179,6 +180,8 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
     }
   }, [productSelected, isAuth])
 
+  if (isLoading) return <SkeletonItemCart />
+
   return (
     <article className='rounded-[0.58565rem] bg-white shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)] py-[0.73rem] pl-[0.59rem] pr-[1.17rem] flex xmd:px-[0.73rem] xmd:py-[0.59rem] xmd:shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] md:min-h-[7rem]'>
       <div className='flex flex-col items-center justify-center md:px-[0.59rem] xmd:mr-[0.44rem]'>
@@ -215,7 +218,7 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
               {productSelected?.name}
             </Link>
 
-            <div className='flex items-center md:my-[0.5rem] xmd:space-x-[0.29rem]'>
+            <div className='flex items-center md:my-[0.5rem] xmd:space-x-[0.29rem] xmd:hidden'>
               <span className='font-semibold text-blue-600 sub2 xmd:caption1 md:mr-[0.25rem]'>
                 {formatToVND(price)}
               </span>
@@ -230,7 +233,7 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
           {productSelected?.variation &&
             productSelected?.type === 'variable' && (
               <div
-                className='relative flex w-full mt-auto xmd:mt-[0.44rem]'
+                className='relative flex w-full  mt-auto xmd:mt-[0.44rem]'
                 onClick={() => setIsOpen(true)}
               >
                 {Object.values(
@@ -263,18 +266,24 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
               />
             )}
 
-          {productSelected?.type === 'wooco' && productSelected?.children && (
-            <div className='mt-auto xmd:mt-[0.44rem] caption1 pr-[0.44rem] xmd:px-[0.59rem] xmd:py-[0.29rem] mr-[0.5rem] line-clamp-1'>
-              {productSelected?.children
-                ?.map((variant) => variant.name)
-                ?.join(', ')}
-            </div>
-          )}
+          {productSelected?.type === 'wooco' &&
+            (productSelected?.children ||
+              productSelected?.grouped_products) && (
+              <div className='mt-auto xmd:hidden xmd:mt-[0.44rem] caption1 pr-[0.44rem] xmd:px-[0.59rem] xmd:py-[0.29rem] mr-[0.5rem] line-clamp-1'>
+                {productSelected?.children
+                  ?.map((variant) => variant.name)
+                  ?.join(', ')}
+
+                {productSelected?.grouped_products
+                  ?.map((variant) => variant.name)
+                  ?.join(', ')}
+              </div>
+            )}
         </div>
         <div className='flex md:h-full justify-between md:flex-col md:items-end xmd:pl-[0.44rem] xmd:mt-[0.59rem]'>
           <button
             onClick={() => handleDeleteItemCart(item.key, index)}
-            className='w-[1.45695rem] h-fit block xmd:w-[1.5rem]'
+            className='w-[1.45695rem] h-fit block xmd:w-[1.5rem] xmd:hidden'
           >
             <Image
               className='w-full h-auto'
@@ -284,6 +293,17 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
               height={24}
             />
           </button>
+
+          <div className='md:hidden items-center md:my-[0.5rem] xmd:space-x-[0.29rem] flex'>
+            <span className='font-semibold text-blue-600 sub2 xmd:caption1 md:mr-[0.25rem]'>
+              {formatToVND(price)}
+            </span>
+            {regular_price && (
+              <span className='font-normal line-through giagoc text-greyscale-40 xmd:tracking-normal'>
+                {formatToVND(regular_price)}
+              </span>
+            )}
+          </div>
           <ButtonChange
             handleQuantity={handleQuantity}
             initQuantity={item.quantity || 1}

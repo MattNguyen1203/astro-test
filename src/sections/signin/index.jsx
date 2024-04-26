@@ -56,7 +56,6 @@ export default function SignInIndex({status}) {
   })
 
   useEffect(() => {
-    update()
     const account = JSON.parse(localStorage.getItem('account'))
     if (account) {
       setNotePass(true)
@@ -84,7 +83,9 @@ export default function SignInIndex({status}) {
         localStorage.removeItem('account')
       }
       loginForm(payload)
-        .then((res) => {})
+        .then((res) => {
+          update()
+        })
         .catch((err) => {
           console.log('err', err)
           setIsFailed(true)
