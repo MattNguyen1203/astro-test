@@ -8,6 +8,7 @@ import {useEffect, useState} from 'react'
 
 export default function Cart({isMobile, cartDefault, session}) {
   const isAuth = session?.status === 'authenticated'
+  console.log('isAuth', isAuth)
 
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
   const actionCart = useStore((state) => state.actionCart)
@@ -32,7 +33,7 @@ export default function Cart({isMobile, cartDefault, session}) {
       const fetchCart = async () => {
         setIsLoading(true)
         const res = await getDataAuth({
-          token: session?.accessToken,
+          token: session?.data?.accessToken,
           api: `/okhub/v1/cart`,
         })
 
@@ -48,7 +49,7 @@ export default function Cart({isMobile, cartDefault, session}) {
         : []
       setListCart(localGet)
     }
-  }, [actionCart])
+  }, [actionCart, isAuth])
 
   return (
     <SheetCart

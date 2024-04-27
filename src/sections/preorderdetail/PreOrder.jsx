@@ -27,8 +27,12 @@ const PreOrder = ({
   mainData,
   FiveProduct,
 }) => {
-  const ordered = 35
-  const totalProd = 100
+  const router = useRouter()
+
+  // if (data?.meta_detect?.pre_order?._is_pre_order !== 'yes') {
+  //   router.push('/404')
+  // }
+
   const [selectedPrd, setSelectedPrd] = useState({
     ...data,
     variations: variations,
@@ -38,8 +42,6 @@ const PreOrder = ({
         Object.values(variations?.variations)?.find((item) => item.default)) ||
       {},
   })
-
-  const router = useRouter()
 
   //get list image
   const listGallery = useMemo(() => {
@@ -81,6 +83,9 @@ const PreOrder = ({
 
     return []
   }, [relatedProduct, FiveProduct])
+
+  console.log('selectedPrd', selectedPrd)
+  console.log('mainData', mainData)
 
   return (
     <>
@@ -168,25 +173,40 @@ const PreOrder = ({
               <div className='flex xmd:flex-col xmd:items-start items-center border-b xmd:border-none border-[rgba(236,236,236,0.70)] pb-[1.46rem] xmd:py-0 mb-[1.46rem]'>
                 <div className='w-[18.08rem]'>
                   <Progress
-                    ordered={ordered}
-                    totalProd={totalProd}
+                    ordered={
+                      selectedPrd?.meta_detect?.pre_order
+                        ?._pre_order_total_buyed
+                    }
+                    totalProd={
+                      selectedPrd?.meta_detect?.pre_order?._pre_order_total_sale
+                    }
                   />
                 </div>
 
-                {/* <div className='ml-[0.59rem]'>
-                  <span className='caption1 font-medium text-greyscale-80 mr-[0.25rem]'>
-                    Còn
-                  </span>
-                  <span className='caption1 font-bold text-[#FFB84F]'>
-                    <CountDown endTime='2024-05-02T19:00:00Z' />
-                  </span>
-                </div> */}
+                {selectedPrd?.meta_detect?.pre_order?._pre_order_date && (
+                  <div className='ml-[0.59rem]'>
+                    <span className='caption1 font-medium text-greyscale-80 mr-[0.25rem]'>
+                      Còn
+                    </span>
+                    <span className='caption1 font-bold text-[#FFB84F]'>
+                      <CountDown
+                        endTime={
+                          selectedPrd?.meta_detect?.pre_order?._pre_order_date
+                        }
+                      />
+                    </span>
+                  </div>
+                )}
               </div>
               <SubInfo />
             </div>
-            <div className='w-full mb-[1.46rem] mt-[0.5rem]'>
-              <Gift />
-            </div>
+
+            {(mainData?.[0]?.acf?.gift ||
+              mainData?.[0]?.acf?.gift?.is_show_gift) && (
+              <div className='w-full mb-[1.46rem] mt-[0.5rem]'>
+                <Gift data={mainData?.[0]?.acf?.gift} />
+              </div>
+            )}
 
             {/* thông tin kĩ thuật */}
             <div className='subContainer mt-[0.88rem] mb-[1.46rem]'>

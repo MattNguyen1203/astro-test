@@ -82,7 +82,9 @@ export default function SignInIndex({status}) {
         localStorage.removeItem('account')
       }
       loginForm(payload)
-        .then((res) => {})
+        .then((res) => {
+          update()
+        })
         .catch((err) => {
           setIsFailed(true)
         })
