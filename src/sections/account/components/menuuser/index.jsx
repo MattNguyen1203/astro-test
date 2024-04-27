@@ -1,5 +1,6 @@
 'use client'
 import {logout} from '@/actions/logout'
+import {getSession, useSession} from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {usePathname, useRouter} from 'next/navigation'
@@ -40,6 +41,7 @@ const menuOptions = [
 export default function MenuUser({setIsOpen = () => {}, session}) {
   const router = useRouter()
   const pathName = usePathname()
+  const {update} = useSession()
 
   return (
     <div className='flex flex-col p-[0.88rem] mt-[0.6rem] *:mt-[0.44rem] *:first:mt-0 bg-white rounded-[0.58565rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] select-none'>
@@ -79,8 +81,14 @@ export default function MenuUser({setIsOpen = () => {}, session}) {
         <div
           onClick={() => {
             setIsOpen(false)
-            logout()
-            router.replace('/')
+            logout().then(() => {
+              router.replace('/')
+              async function myFunction() {
+                const session = await getSession()
+                return session
+              }
+              myFunction()
+            })
           }}
           className={`w-full h-fit rounded-[0.58565rem] block`}
         >

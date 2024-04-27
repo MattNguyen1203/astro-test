@@ -43,5 +43,5 @@ export const handleAddToSession = (product, router) => {
     }
   }
   localStorage.setItem('sessionCart', JSON.stringify(product))
-  router.push('/payment')
+  router.push('/thanh-toan')
 }
