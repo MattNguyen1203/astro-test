@@ -16,7 +16,7 @@ import {
 import {Input} from '@/components/ui/input'
 import Link from 'next/link'
 import Image from 'next/image'
-import {signIn, useSession} from 'next-auth/react'
+import {signIn} from 'next-auth/react'
 import {loginForm} from '@/actions/loginForm'
 import {useEffect, useState, useTransition} from 'react'
 import BtnSubmit from '../auth/components/btnsubmit'
@@ -34,7 +34,6 @@ const formSchema = z.object({
 })
 
 export default function SignInIndex({status}) {
-  const {update} = useSession()
   const [isPending, startTransition] = useTransition()
   const [isFailed, setIsFailed] = useState(false)
   const [notePass, setNotePass] = useState(false)
@@ -87,7 +86,6 @@ export default function SignInIndex({status}) {
           update()
         })
         .catch((err) => {
-          console.log('err', err)
           setIsFailed(true)
         })
     })

@@ -2,22 +2,11 @@
 import useStore from '@/app/(store)/store'
 import SheetCart from '@/components/sheetcart'
 import {getDataAuth} from '@/lib/getDataAuth'
-import {getSession, useSession} from 'next-auth/react'
+import {getSession} from 'next-auth/react'
 import Image from 'next/image'
-import {useEffect, useRef, useState} from 'react'
+import {useEffect, useState} from 'react'
 
-export default function Cart({isMobile, cartDefault}) {
-  const session = useSession()
-  // const isSessionChange = useRef(false)
-
-  useEffect(() => {
-    async function myFunction() {
-      const session = await getSession()
-      // isSessionChange.current = !isSessionChange.current
-      return session
-    }
-    myFunction()
-  }, [])
+export default function Cart({isMobile, cartDefault, session}) {
   const isAuth = session?.status === 'authenticated'
   console.log('isAuth', isAuth)
 
@@ -28,6 +17,11 @@ export default function Cart({isMobile, cartDefault}) {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
+    async function myFunction() {
+      const session = await getSession()
+      return session
+    }
+    myFunction()
     if (cartDefault) {
       setListCart(Array.isArray(cartDefault) ? cartDefault : [])
       setIsLoading(false)

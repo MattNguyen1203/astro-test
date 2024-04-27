@@ -84,13 +84,14 @@ export default function MenuUser2() {
       {session?.data?.accessToken ? (
         <div
           onClick={() => {
-            logout()
-            async function myFunction() {
-              const session = await getSession()
-              return session
-            }
-            myFunction()
-            router.replace('/')
+            logout().then(() => {
+              router.replace('/')
+              async function myFunction() {
+                const session = await getSession()
+                return session
+              }
+              myFunction()
+            })
           }}
           className={`w-full h-fit rounded-[0.58565rem] block`}
         >

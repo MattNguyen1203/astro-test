@@ -18,10 +18,14 @@ export const {
       if (user?.data?.status === 401) return '/dang-nhap?status=401'
       return true
     },
-    async jwt({token, account, user}) {
-      // Chỉ thực hiện khi người dùng đăng nhập và có thông tin từ provider
-      // Khi người dùng đăng nhập bằng Google, lưu access token vào token
+    async jwt({token, account, user, trigger}) {
+      if (trigger === 'update' && user?.update === 'update') {
+        console.log('trigger')
+        return {...token, ...session.user}
+      }
       if (account?.provider === 'google') {
+        // Chỉ thực hiện khi người dùng đăng nhập và có thông tin từ provider
+        // Khi người dùng đăng nhập bằng Google, lưu access token vào token
         const res = await postData(
           '/custom/v1/customer/loginCustomer',
           JSON.stringify({

@@ -63,6 +63,8 @@ export default function PaymentIndex({
   profile,
   dataCartsDefault,
 }) {
+  console.log('🚀 ~ dataCartsDefault:', dataCartsDefault)
+  const isBuyNow = listIdItemCart ? false : true
   const router = useRouter()
 
   const isAuth = session?.status === 'authenticated'
@@ -105,7 +107,6 @@ export default function PaymentIndex({
   const [carts, setCarts] = useState(isAuth ? dataCarts : [])
   const [coupon, setCoupon] = useState(null)
   const [couponSearch, setCouponSearch] = useState(null)
-  console.log('🚀 ~ coupon:', coupon)
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -121,8 +122,16 @@ export default function PaymentIndex({
   })
 
   useEffect(() => {
-    const productIds = handleGenderCoupon(carts)
-    console.log('🚀 ~ useEffect ~ productIds:', productIds)
+    let sessionCart = null
+    if (isBuyNow) {
+      sessionCart = JSON.parse(localStorage.getItem('sessionCart'))
+      setCarts([sessionCart])
+    }
+    console.log('🚀 ~ useEffect ~ sessionCart:', sessionCart)
+
+    const productIds = handleGenderCoupon(
+      isBuyNow && sessionCart ? [sessionCart] : carts,
+    )
 
     const request = {
       api: '/okhub/v1/coupon/cart',
@@ -138,7 +147,7 @@ export default function PaymentIndex({
         }
       })
       .catch((err) => console.log(err))
-  }, [carts])
+  }, [])
 
   useEffect(() => {
     if (!isAuth) {
@@ -175,15 +184,18 @@ export default function PaymentIndex({
     if (product?.type === 'simple') {
       return {
         product_id: product?.id,
-        quantity: product?.quantity,
+        quantity: product?.quantity || Number(product?.qty),
       }
     }
     if (product?.type === 'variable') {
       return {
         product_id: product?.id,
-        variation_id: product?.variant_id,
-        quantity: product?.quantity,
-        variation: handleGenderVariation(product?.variation, isAuth),
+        variation_id: product?.variant_id || product?.variation?.variation_id,
+        quantity: product?.quantity || Number(product?.qty),
+        variation: handleGenderVariation(
+          isBuyNow ? product?.variation?.attributes : product?.variation,
+          isAuth,
+        ),
       }
     }
   }
@@ -202,21 +214,27 @@ export default function PaymentIndex({
     if (product?.type === 'variable') {
       return {
         product_id: product?.id,
-        variation_id: product?.variant_id,
-        quantity: product?.quantity,
-        variation: handleGenderVariation(product?.variation, isAuth),
+        variation_id: product?.variant_id || product?.variation?.variation_id,
+        quantity: product?.quantity || Number(product?.qty),
+        variation: handleGenderVariation(
+          isBuyNow ? product?.variation?.attributes : product?.variation,
+          isAuth,
+        ),
         cart_key: isAuth ? product?.key : '',
       }
     }
     if (product?.type === 'simple') {
       return {
         product_id: product?.id,
-        quantity: product?.quantity,
+        quantity: product?.quantity || Number(product?.qty),
         cart_key: isAuth ? product?.key : '',
       }
     }
     if (product?.type === 'wooco') {
-      const lineItem = handleGenderWooco(product?.children)
+      const isHaskey = product?.hasOwnProperty('children')
+      const lineItem = handleGenderWooco(
+        isHaskey ? product?.children : product?.grouped_products,
+      )
       const convertedObject = {}
 
       lineItem?.forEach((item) => {
@@ -226,7 +244,7 @@ export default function PaymentIndex({
 
       return {
         product_id: product?.id,
-        quantity: product?.quantity,
+        quantity: product?.quantity || Number(product?.qty),
         line_item: convertedObject,
         cart_key: isAuth ? product?.key : '',
       }
@@ -245,20 +263,20 @@ export default function PaymentIndex({
         })
         return {
           product_id: product?.id,
-          quantity: product?.quantity,
+          quantity: product?.quantity || Number(product?.qty),
           line_item: convertedObject,
         }
       } else if (product?.type === 'variable') {
         return {
           product_id: product?.id,
           variation_id: product?.variant_id,
-          quantity: product?.quantity,
+          quantity: product?.quantity || Number(product?.qty),
           variation: handleGenderVariation(product?.variation),
         }
       } else {
         return {
           product_id: product?.id,
-          quantity: product?.quantity,
+          quantity: product?.quantity || Number(product?.qty),
         }
       }
     })
@@ -277,10 +295,20 @@ export default function PaymentIndex({
       )
 
       const productIds = []
+      let sessionCart = null
+      if (isBuyNow) {
+        sessionCart = JSON.parse(localStorage.getItem('sessionCart'))
+      }
       if (isAuth) {
-        carts?.forEach((e) =>
-          productIds.push(handleGenderObjProduct(e, isAuth)),
-        )
+        if (isBuyNow) {
+          ;[sessionCart]?.forEach((e) =>
+            productIds.push(handleGenderObjProduct(e, isAuth)),
+          )
+        } else {
+          carts?.forEach((e) =>
+            productIds.push(handleGenderObjProduct(e, isAuth)),
+          )
+        }
       } else {
         carts?.forEach((e) =>
           productIds.push({
@@ -290,6 +318,8 @@ export default function PaymentIndex({
           }),
         )
       }
+      console.log('🚀 ~ setTransition ~ productIds:', productIds)
+
       const totalPrice = handlePriceTotalOrder(carts)
 
       const isFreeShip = totalPrice >= rangeFreeShip
