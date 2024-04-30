@@ -1,4 +1,4 @@
-import { auth } from '@/auth'
+import {auth} from '@/auth'
 import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
 import AvatarRes from '@/sections/account/components/avatarres'
 import RackAccount from '@/sections/account/components/rankaccount'
@@ -8,8 +8,11 @@ import getData from '@/lib/getData'
 export default async function CustomerPage({searchParams}) {
   const {viewport} = searchParams
   const isMobile = viewport === 'mobile'
-  const session = await auth()
-  let dataRank = await getData("/okhub/v1/member-option") 
+
+  const [session, dataRank] = await Promise.all([
+    auth(),
+    getData('/okhub/v1/member-option'),
+  ])
   return (
     <>
       {isMobile && (
@@ -27,7 +30,10 @@ export default async function CustomerPage({searchParams}) {
         </>
       )}
       <section className='inline-flex flex-col items-start justify-start w-full xmd:items-center h-fit xmd:mt-[1.17rem]'>
-        <RackAccount session={session} dataRank={dataRank}/>
+        <RackAccount
+          session={session}
+          dataRank={dataRank}
+        />
       </section>
     </>
   )

@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth'
 import Google from 'next-auth/providers/google'
-import Facebook from 'next-auth/providers/facebook'
+// import Facebook from 'next-auth/providers/facebook'
 import Credentials from 'next-auth/providers/credentials'
 import postData from './lib/postData'
 
@@ -105,6 +105,7 @@ export const {
       if (token.error === 'RefreshAccessTokenError') {
         throw new Error('RefreshAccessTokenError')
       }
+      console.log('🚀 ~ session ~ session:', session)
       return session
     },
   },
@@ -116,10 +117,10 @@ export const {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    Facebook({
-      clientId: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    }),
+    // Facebook({
+    //   clientId: process.env.FACEBOOK_CLIENT_ID,
+    //   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    // }),
     Credentials({
       async authorize(credentials) {
         const res = await postData(

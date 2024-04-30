@@ -3,9 +3,13 @@ import Image from 'next/image'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import 'swiper/css'
 export default function ExpRank({session, dataRank}) {
-  const lastRank = dataRank[Object?.keys(dataRank).length - 1];
-  const percentPC = Math.min((session?.memberTotalCharge / parseInt(lastRank?.amount_give_level)) * 95, 95);
-  
+  console.log('🚀 ~ ExpRank ~ dataRank:', dataRank)
+  const lastRank = dataRank[Object?.keys(dataRank)?.length - 1]
+  const percentPC = Math.min(
+    (session?.memberTotalCharge / parseInt(lastRank?.amount_give_level)) * 95,
+    95,
+  )
+
   return (
     <Swiper
       slidesPerView={'auto'}
@@ -89,7 +93,9 @@ export default function ExpRank({session, dataRank}) {
           </div>
           <div className='flex my-[0.87848rem] justify-start items-center h-[1.75695rem] pl-[1.31772rem] pr-[3.3675rem] overflow-hidden'>
             <div className='w-[95%] xmd:w-[53.73352rem] h-[1.75695rem] absolute rounded-[1.0981rem] bg-[#F0F0F0]'></div>
-            <div className={`w-[${percentPC}%] h-[1.75695rem] absolute z-10 rounded-[0.43924rem] bg-gradient-to-l from-[#407F0F] to-[#29AA4D] shadow-[4px_4px_8px_0px_rgba(83,118,209,0.10)]`}></div>
+            <div
+              className={`w-[${percentPC}%] h-[1.75695rem] absolute z-10 rounded-[0.43924rem] bg-gradient-to-l from-[#407F0F] to-[#29AA4D] shadow-[4px_4px_8px_0px_rgba(83,118,209,0.10)]`}
+            ></div>
           </div>
           <div className='flex items-center justify-between w-full'>
             {Object.values(dataRank).map((rank, index) => (

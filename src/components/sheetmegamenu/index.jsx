@@ -13,7 +13,7 @@ const listCategories = [
   },
   {
     title: 'TÀI KHOẢN',
-    href: '/tai-khoan-ca-nhan',
+    href: '/dash-board',
   },
   {
     title: 'FLASHSALE',
@@ -69,7 +69,7 @@ export default function SheetMegaMenu({
                 {listCategories.map((e, index) => (
                   <li key={index}>
                     <Link
-                      href={e.href}
+                      href={e?.href || '/'}
                       onClick={() => {
                         if (isOpenMegaMenuRes) {
                           setIsOpenMegaMenuRes(false)

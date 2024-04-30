@@ -71,22 +71,22 @@ export default async function RootLayout({children}) {
       userAgent,
     )
   return (
-    <SessionProvider session={session}>
-      <html lang='en'>
-        <head>
-          <link
-            rel='canonical'
-            href={process.env.DOMAIN}
-          />
-        </head>
-        <body
-          suppressHydrationWarning={true}
-          className={`${svnGraphik.className} ${svnGraphik.variable} ${workSans.variable}`}
-        >
+    <html lang='en'>
+      <head>
+        <link
+          rel='canonical'
+          href={process.env.DOMAIN}
+        />
+      </head>
+      <body
+        suppressHydrationWarning={true}
+        className={`${svnGraphik.className} ${svnGraphik.variable} ${workSans.variable}`}
+      >
+        <SessionProvider session={session}>
           {children}
           <Footer isMobile={isMobile} />
-        </body>
-      </html>
-    </SessionProvider>
+        </SessionProvider>
+      </body>
+    </html>
   )
 }

@@ -1,5 +1,6 @@
 export async function getDataProfile(request) {
   try {
+    if (!request?.token) return null
     const myHeaders = new Headers()
     myHeaders.append('Content-Type', 'application/json')
     myHeaders.append('Authorization', `Bearer ${request?.token}`)

@@ -33,7 +33,7 @@ export default function Cart({isMobile, cartDefault, session}) {
       const fetchCart = async () => {
         setIsLoading(true)
         const res = await getDataAuth({
-          token: session?.data?.accessToken,
+          token: session?.accessToken,
           api: `/okhub/v1/cart`,
         })
 
