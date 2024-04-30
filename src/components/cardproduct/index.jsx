@@ -31,7 +31,7 @@ function CardProduct({product, priority = false}) {
             ? `/combo/${product?.slug}`
             : isPreOrder
             ? `/pre-order/${product?.slug}`
-            : product?.slug
+            : '/' + product?.slug
         }
         className='h-[16.82284rem] xmd:h-[12.00586rem] w-full rounded-tl-[0.87848rem] rounded-tr-[0.87848rem] overflow-hidden relative block'
       >
@@ -56,7 +56,7 @@ function CardProduct({product, priority = false}) {
               ? `/combo/${product?.slug}`
               : isPreOrder
               ? `/pre-order/${product?.slug}`
-              : product?.slug
+              : '/' + product?.slug
           }
           className='block w-full h-fit'
         >

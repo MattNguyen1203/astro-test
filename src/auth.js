@@ -37,17 +37,17 @@ export const {
         token.accessToken = res?.token
       }
 
-      if (account?.provider === 'facebook') {
-        const res = await postData(
-          '/custom/v1/customer/loginCustomer',
-          JSON.stringify({
-            token: account?.access_token,
-            type: 'facebook',
-          }),
-        )
-        // Lấy được token từ api, gán lại token đó vào accessToken của nextAuth, để bên dưới session có thể hứng được token
-        token.accessToken = res?.token
-      }
+      // if (account?.provider === 'facebook') {
+      //   const res = await postData(
+      //     '/custom/v1/customer/loginCustomer',
+      //     JSON.stringify({
+      //       token: account?.access_token,
+      //       type: 'facebook',
+      //     }),
+      //   )
+      //   // Lấy được token từ api, gán lại token đó vào accessToken của nextAuth, để bên dưới session có thể hứng được token
+      //   token.accessToken = res?.token
+      // }
 
       if (account?.provider === 'credentials') {
         token.accessToken = user?.token
