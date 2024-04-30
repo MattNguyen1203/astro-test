@@ -221,7 +221,7 @@ export default function SignInIndex({status}) {
         </Link>
       </div>
       <PopupResetPass
-        isLogin={true}
+        isLogin={isFailed}
         isOpen={isFailed}
         setIsSuccess={setIsFailed}
       />

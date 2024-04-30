@@ -1,6 +1,6 @@
 import getData from '@/lib/getData'
-import {Link} from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default async function CategoriesProduct() {
   const categories = await getData('/okhub/v1/category/category')

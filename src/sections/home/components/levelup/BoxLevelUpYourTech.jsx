@@ -32,7 +32,6 @@ export default function BoxLevelUpYourTech({
       revalidateOnReconnect: false,
     },
   )
-  console.log('🚀 ~ categories:', categories)
 
   return (
     <>
