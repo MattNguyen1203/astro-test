@@ -21,6 +21,8 @@ import {loginForm} from '@/actions/loginForm'
 import {useEffect, useState, useTransition} from 'react'
 import BtnSubmit from '../auth/components/btnsubmit'
 import {PopupResetPass} from '../auth/components/popup/PopupResetPass'
+import ICEyeActive from '@/components/icon/ICEyeActive'
+import ICEyeActiveDisable from '@/components/icon/ICEyeActiveDisable'
 
 const formSchema = z.object({
   // email: z.string().email({message: 'Nhập đúng định dạng email!'}),
@@ -35,6 +37,8 @@ const formSchema = z.object({
 
 export default function SignInIndex({status}) {
   const [isPending, startTransition] = useTransition()
+
+  const [isShowPass, setIsShowPass] = useState(false)
   const [isFailed, setIsFailed] = useState(false)
   const [notePass, setNotePass] = useState(false)
 
@@ -120,11 +124,24 @@ export default function SignInIndex({status}) {
             render={({field}) => (
               <FormItem>
                 <FormControl>
-                  <Input
-                    className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik xmd:mt-[0.59rem] xmd:rounded-[0.58565rem]'
-                    placeholder='Mật khẩu'
-                    {...field}
-                  />
+                  <div className='relative size-full'>
+                    <Input
+                      className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik xmd:mt-[0.59rem] xmd:rounded-[0.58565rem]'
+                      placeholder='Mật khẩu'
+                      type={isShowPass ? 'text' : 'password'}
+                      {...field}
+                    />
+                    <div
+                      onClick={() => setIsShowPass((prev) => !prev)}
+                      className='size-[1.5rem] absolute top-1/2 -translate-y-1/2 right-[1rem] flex justify-center items-center cursor-pointer'
+                    >
+                      {isShowPass ? (
+                        <ICEyeActive />
+                      ) : (
+                        <ICEyeActiveDisable className='size-[1.2rem] ' />
+                      )}
+                    </div>
+                  </div>
                 </FormControl>
                 <FormMessage className='pl-[0.88rem] font-svnGraphik' />
               </FormItem>
@@ -149,7 +166,7 @@ export default function SignInIndex({status}) {
                   priority
                 />
               </div>
-              <div
+              {/* <div
                 className='size-[2.92826rem] flex justify-center items-center rounded-full bg-white shadow-[2.222px_2.222px_13.333px_0px_rgba(0,0,0,0.02),-3.333px_2.222px_22.222px_0px_rgba(0,0,0,0.04)] cursor-pointer'
                 onClick={() => signIn('facebook', {callbackUrl: '/'})}
               >
@@ -160,7 +177,7 @@ export default function SignInIndex({status}) {
                   height={20}
                   priority
                 />
-              </div>
+              </div> */}
             </div>
           </div>
         </form>

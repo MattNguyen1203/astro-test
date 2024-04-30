@@ -36,7 +36,7 @@ export default function NavAuth({children}) {
           priority
           quality={100}
         />
-        <div className='absolute w-[34.00564rem] h-[26.2429rem] top-[11.5688vh] left-[12.76vw]'>
+        <div className='absolute w-[34.00564rem] h-[26.2429rem] top-[11.5688vh] left-[12.76vw] xlg:hidden'>
           <Image
             className='headphones absolute top-0 left-[2.86vw] w-[6.35293rem] h-[7.10432rem]'
             alt='icon phone'
