@@ -86,10 +86,9 @@ export default function SignInIndex({status}) {
         localStorage.removeItem('account')
       }
       loginForm(payload)
-        .then((res) => {
-          update()
-        })
+        .then((res) => res)
         .catch((err) => {
+          console.log('🚀 ~ startTransition ~ err:', err)
           setIsFailed(true)
         })
     })
@@ -221,7 +220,7 @@ export default function SignInIndex({status}) {
         </Link>
       </div>
       <PopupResetPass
-        isLogin={isFailed}
+        isLogin={true}
         isOpen={isFailed}
         setIsSuccess={setIsFailed}
       />

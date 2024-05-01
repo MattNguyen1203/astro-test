@@ -10,16 +10,16 @@ export default async function AccountPage({searchParams}) {
   const {viewport} = searchParams
   const isMobile = viewport === 'mobile'
 
-  const [province, district, commune, session] = await Promise.all([
+  const [session, province, district, commune] = await Promise.all([
+    auth(),
     getDataProxy('/api/province'),
     getDataProxy('/api/district'),
     getDataProxy('/api/commune'),
-    auth(),
   ])
 
   const profile = await getDataProfile({
     api: `/custom/v1/customer/customer`,
-    token: session?.acessToken,
+    token: session?.acessToken || null,
   })
   return (
     <>
