@@ -7,26 +7,27 @@ export default async function page({searchParams}) {
   const order = searchParams?.order
   const listIdItemCart = order?.split('--')
 
-  const [province, district, commune, session] = await Promise.all([
+  const [session, province, district] = await Promise.all([
+    auth(),
     getDataProxy('/api/province'),
     getDataProxy('/api/district'),
     getDataProxy('/api/commune'),
-    auth(),
   ])
 
   const request1 = {
     api: '/okhub/v1/cart',
-    token: session?.accessToken,
+    token: session?.accessToken || null,
   }
   const request2 = {
     api: '/custom/v1/customer/customer',
-    token: session?.accessToken,
+    token: session?.accessToken || null,
   }
 
   const [dataCarts, profile] = await Promise.all([
     getDataProfile(request1),
     getDataProfile(request2),
   ])
+  console.log('🚀 ~ page ~ profile:', profile)
 
   const listCartNew = []
 
