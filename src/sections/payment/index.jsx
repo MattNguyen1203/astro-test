@@ -341,7 +341,7 @@ export default function PaymentIndex({
         coupon: coupon?.code,
         priceShip:
           ship === 'in' ? '0' : isFreeShip ? '0' : defaultPriceShip.toString(),
-        urlRedirect: 'http://localhost:3000/payment',
+        urlRedirect: process.env.NEXT_PUBLIC_DOMAIN + '/payment',
         method: payment === 'cod' ? 'cod' : 'onepay',
         titleMethod:
           payment === 'ck'
