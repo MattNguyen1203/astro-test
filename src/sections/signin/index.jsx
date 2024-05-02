@@ -88,7 +88,6 @@ export default function SignInIndex({status}) {
       loginForm(payload)
         .then((res) => res)
         .catch((err) => {
-          console.log('🚀 ~ startTransition ~ err:', err)
           setIsFailed(true)
         })
     })

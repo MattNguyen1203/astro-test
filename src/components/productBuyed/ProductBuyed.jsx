@@ -4,8 +4,6 @@ import SkeletonCardProduct from '../cardproduct/SkeletonCardProduct'
 import CardProduct from '@/components/cardproduct'
 
 const ProductBuyed = ({session, isMobile, products}) => {
-  console.log('🚀 ~ ProductBuyed ~ products:', products)
-
   const handleProcessData = (products) => {
     const data = []
     products?.forEach((product) => {
@@ -17,7 +15,6 @@ const ProductBuyed = ({session, isMobile, products}) => {
   }
 
   const dataNew = handleProcessData(products?.data)
-  console.log('🚀 ~ ProductBuyed ~ dataNew:', dataNew)
 
   const colsProduct = Math.ceil(dataNew?.length / 3)
 

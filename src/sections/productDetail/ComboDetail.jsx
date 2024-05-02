@@ -28,7 +28,6 @@ const ComboDetail = ({
   mainData,
   FiveProduct,
 }) => {
-  console.log('🚀 ~ data:', data)
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
   const [selectedPrd, setSelectedPrd] = useState({

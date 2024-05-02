@@ -1,6 +1,6 @@
 'use client'
 
-import {useState,useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import CardRank from './CardRank'
 import Image from 'next/image'
 import ExpRank from './ExpRank'
@@ -24,44 +24,43 @@ const arr = [
   },
 ]
 
-export default function RackAccount({session,dataRank}) {
+export default function RackAccount({session, dataRank}) {
   const [isActive, setIsActive] = useState(null)
-  const [newFormat, setNewFormat] = useState('');
-  const [rank, setRank] = useState('');
-  const [linkRank,setLinkRank]=useState('')
-  console.log(linkRank)
+  const [newFormat, setNewFormat] = useState('')
+  const [rank, setRank] = useState('')
+  const [linkRank, setLinkRank] = useState('')
   useEffect(() => {
     switch (session.memberlevel) {
-      case "0":
-        setLinkRank('/account/cup-start.svg');
-        break;
-      case "1":
-        setLinkRank('/account/cup-silver.svg');
-        break;
-      case "2":
-        setLinkRank('/account/cup-gold.svg');
-        break;
-      case "3":
-        setLinkRank('/account/cup-kc.svg');
-        break;
+      case '0':
+        setLinkRank('/account/cup-start.svg')
+        break
+      case '1':
+        setLinkRank('/account/cup-silver.svg')
+        break
+      case '2':
+        setLinkRank('/account/cup-gold.svg')
+        break
+      case '3':
+        setLinkRank('/account/cup-kc.svg')
+        break
       default:
-        setLinkRank('/account/cup-start.svg');
+        setLinkRank('/account/cup-start.svg')
     }
 
-      if(session){
-          const dateObject = new Date(session.userRegistered);
-          const day = String(dateObject.getDate()).padStart(2, '0');
-          const month = String(dateObject.getMonth() + 1).padStart(2, '0');
-          const year = dateObject.getFullYear();
-          setNewFormat(`${day}/${month}/${year}`);
+    if (session) {
+      const dateObject = new Date(session.userRegistered)
+      const day = String(dateObject.getDate()).padStart(2, '0')
+      const month = String(dateObject.getMonth() + 1).padStart(2, '0')
+      const year = dateObject.getFullYear()
+      setNewFormat(`${day}/${month}/${year}`)
+    }
+    for (let i = Object.keys(dataRank).length - 1; i >= 0; i--) {
+      if (parseInt(session.memberlevel) >= parseInt(dataRank[i].sort)) {
+        setRank(dataRank[i].ten)
+        break
       }
-      for (let i = Object.keys(dataRank).length - 1; i >= 0; i--) {
-        if (parseInt(session.memberlevel) >= parseInt(dataRank[i].sort)) {
-          setRank(dataRank[i].ten);
-          break;
-        }
-      }
-  }, [session,dataRank]);
+    }
+  }, [session, dataRank])
 
   return (
     <div className='flex flex-col items-start w-full'>
@@ -95,7 +94,9 @@ export default function RackAccount({session,dataRank}) {
               <p className='mb-[0.29283rem] sub2 font-medium text-[#0D1F33]'>
                 Hạng thành viên
               </p>
-              <span className='font-normal body2 text-greyscale-40'>{rank}</span>
+              <span className='font-normal body2 text-greyscale-40'>
+                {rank}
+              </span>
             </div>
           </div>
           <div className='flex items-center justify-center'>
@@ -103,21 +104,24 @@ export default function RackAccount({session,dataRank}) {
               width={36}
               height={36}
               alt='icon lich'
-              src={"/account/icon-gold.svg"}
+              src={'/account/icon-gold.svg'}
             />
             <div className='flex flex-col justify-center items-start ml-[0.87848rem]'>
               <p className='mb-[0.29283rem] sub2 font-medium text-[#0D1F33]'>
                 Đã chi tiêu
               </p>
               <span className='font-normal body2 text-greyscale-40'>
-              {parseInt(session.memberTotalCharge).toLocaleString('vi-VN')}đ
+                {parseInt(session.memberTotalCharge).toLocaleString('vi-VN')}đ
               </span>
             </div>
           </div>
         </div>
       </div>
       <div className='flex overflow-hidden xmd:flex-col my-[0.58565rem] justify-start relative items-center xmd:items-start w-[50.8784rem] xmd:w-full lg:h-[10.6881rem] rounded-[0.58565rem] xmd:shadow-[2px_2px_12px_0px_rgba(0, 0, 0, 0.02)_-3px_2px_20px_0px_rgba(0,0,0,0.04)]'>
-        <ExpRank dataRank={dataRank} session={session} />
+        <ExpRank
+          dataRank={dataRank}
+          session={session}
+        />
       </div>
       <div className='flex flex-col w-[50.87848rem] xmd:w-[26.28111rem] items-start py-[1.1713rem] rounded-[0.58565rem] bg-white'>
         <div className='flex items-start pl-[1.1713rem]'>

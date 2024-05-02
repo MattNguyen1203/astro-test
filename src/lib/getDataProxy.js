@@ -1,14 +1,18 @@
 export default async function getDataProxy(api) {
-  const res = await fetch(`${process.env.DOMAIN}${api}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+  try {
+    const res = await fetch(`${process.env.DOMAIN}${api}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
 
-  if (!res.ok) {
-    return null
+    if (!res.ok) {
+      return null
+    }
+
+    return res.json()
+  } catch (error) {
+    console.log('error', `${process.env.DOMAIN}${api}`)
   }
-
-  return res.json()
 }
