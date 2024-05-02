@@ -7,7 +7,7 @@ export default async function page({searchParams}) {
   const order = searchParams?.order
   const listIdItemCart = order?.split('--')
 
-  const [session, province, district] = await Promise.all([
+  const [session, province, district, commune] = await Promise.all([
     auth(),
     getDataProxy('/api/province'),
     getDataProxy('/api/district'),
