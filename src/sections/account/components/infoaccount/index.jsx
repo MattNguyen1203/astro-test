@@ -1,15 +1,18 @@
 import Image from 'next/image'
 import MenuUser from '../menuuser'
-import {auth} from '@/auth'
+// import {auth} from '@/auth'
 import ItemRank from './ItemRank'
 import {getDataProfile} from '@/lib/getDataProfile'
 
-export default async function InfoAccount() {
-  const session = await auth()
-  const profile = await getDataProfile({
-    api: `/custom/v1/customer/customer?user_id=${session?.userId}`,
-    token: session?.acessToken,
-  })
+export default async function InfoAccount({session}) {
+  console.log('🚀 ~ InfoAccount ~ session:', session)
+  // const session = await auth()
+  const request = {
+    api: `/custom/v1/customer/customer`,
+    token: session ? session?.accessToken : null,
+  }
+  const profile = await getDataProfile(request)
+  console.log('🚀 ~ InfoAccount ~ profile:', profile)
   const user = session?.user
   return (
     <aside className='w-[21.30307rem] h-fit sticky top-[9.52rem] left-0'>

@@ -16,16 +16,17 @@ export default async function page({searchParams}) {
 
   const request1 = {
     api: '/okhub/v1/cart',
-    token: session?.accessToken || null,
+    token: session ? session?.accessToken : null,
   }
   const request2 = {
     api: '/custom/v1/customer/customer',
-    token: session?.accessToken || null,
+    token: session ? session?.accessToken : null,
   }
 
-  const [dataCarts, profile] =
-    session?.accessToken &&
-    (await Promise.all([getDataProfile(request1), getDataProfile(request2)]))
+  const [dataCarts, profile] = await Promise.all([
+    getDataProfile(request1),
+    getDataProfile(request2),
+  ])
 
   const listCartNew = []
 
