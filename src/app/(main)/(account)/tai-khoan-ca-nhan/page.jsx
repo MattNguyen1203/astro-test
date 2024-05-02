@@ -17,10 +17,12 @@ export default async function AccountPage({searchParams}) {
     getDataProxy('/api/commune'),
   ])
 
-  const profile = await getDataProfile({
-    api: `/custom/v1/customer/customer`,
-    token: session?.acessToken || null,
-  })
+  const profile =
+    session?.acessToken &&
+    (await getDataProfile({
+      api: `/custom/v1/customer/customer`,
+      token: session?.acessToken,
+    }))
   return (
     <>
       {isMobile && (

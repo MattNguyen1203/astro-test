@@ -23,15 +23,13 @@ export default async function page({searchParams}) {
     token: session?.accessToken || null,
   }
 
-  const [dataCarts, profile] = await Promise.all([
-    getDataProfile(request1),
-    getDataProfile(request2),
-  ])
-  console.log('🚀 ~ page ~ profile:', profile)
+  const [dataCarts, profile] =
+    session?.accessToken &&
+    (await Promise.all([getDataProfile(request1), getDataProfile(request2)]))
 
   const listCartNew = []
 
-  if (dataCarts?.length) {
+  if (dataCarts?.length && Array.isArray(dataCarts)) {
     listIdItemCart?.forEach((e) => {
       listCartNew.push(dataCarts[Number(e)])
     })
