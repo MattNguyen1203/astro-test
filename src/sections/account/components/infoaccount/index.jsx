@@ -11,7 +11,6 @@ export default async function InfoAccount() {
     token: session?.acessToken,
   })
   const user = session?.user
-  console.log('🚀 ~ InfoAccount ~ user:', user)
   return (
     <aside className='w-[21.30307rem] h-fit sticky top-[9.52rem] left-0'>
       <div className='p-[1.17rem] rounded-[0.58565rem] bg-white shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>

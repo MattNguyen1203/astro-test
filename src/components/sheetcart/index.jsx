@@ -60,7 +60,6 @@ export default function SheetCart({
   }
 
   const totalPrice = useMemo(() => {
-    console.log('listCart', listCart)
     if (Array.isArray(listCart)) {
       const total = listCart?.reduce((total, item) => {
         if (isAuth) {

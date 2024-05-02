@@ -26,11 +26,9 @@ export default function FormUseVoucher({setCouponSearch}) {
     },
   })
   function onSubmit(values) {
-    console.log('🚀 ~ onSubmit ~ values:', values)
     setTransition(() => {
       applyCoupon(values?.voucher)
         .then((res) => {
-          console.log('🚀 ~ .then ~ res:', res)
           if (res?.code) {
             setCouponSearch(res)
           }

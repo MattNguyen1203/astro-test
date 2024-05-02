@@ -11,14 +11,13 @@ export default async function PaymentPage({searchParams}) {
     api: `/okhub/v1/order/${tracking}`,
     token: session?.accessToken,
   }
-  const detailOrder = await getDataProfile(request)
+  const detailOrder = session?.accessToken && (await getDataProfile(request))
 
   const handleCheckStatusOrder = () => {
     if (detailOrder?.status === 'processing') return true
     if (detailOrder?.status === 'completed') return true
     return false
   }
-  console.log('🚀 ~ handleCheckStatusOrder ~ detailOrder:', detailOrder)
 
   return (
     <section className='container relative flex justify-between pb-[7.17rem]'>

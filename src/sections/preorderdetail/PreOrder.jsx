@@ -84,9 +84,6 @@ const PreOrder = ({
     return []
   }, [relatedProduct, FiveProduct])
 
-  console.log('selectedPrd', selectedPrd)
-  console.log('mainData', mainData)
-
   return (
     <>
       <div className='w-[73.7rem] mx-auto mt-[8.1rem] bg-elevation-10 relative xmd:w-full'>

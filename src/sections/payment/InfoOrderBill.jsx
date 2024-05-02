@@ -8,7 +8,6 @@ import {useTransition} from 'react'
 import {toast} from 'sonner'
 
 export default function InfoOrderBill({detailOrder, isSuccess}) {
-  console.log('🚀 ~ InfoOrderBill ~ detailOrder:', detailOrder)
   const router = useRouter()
 
   const [isPending, setTransition] = useTransition()

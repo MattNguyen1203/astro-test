@@ -47,7 +47,6 @@ export default function FogetPassIndex() {
           type: 'change-password',
         }),
       ).then((otp) => {
-        console.log('🚀 ~ ).then ~ otp:', otp)
         if (otp?.data?.status === 400) {
           if (otp?.code === 'phone_error_not_exsits') {
             form.setError('phone', {

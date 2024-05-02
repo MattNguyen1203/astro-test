@@ -63,7 +63,6 @@ export default function PaymentIndex({
   profile,
   dataCartsDefault,
 }) {
-  console.log('🚀 ~ dataCartsDefault:', dataCartsDefault)
   const isBuyNow = listIdItemCart ? false : true
   const router = useRouter()
 
@@ -127,7 +126,6 @@ export default function PaymentIndex({
       sessionCart = JSON.parse(localStorage.getItem('sessionCart'))
       setCarts([sessionCart])
     }
-    console.log('🚀 ~ useEffect ~ sessionCart:', sessionCart)
 
     const productIds = handleGenderCoupon(
       isBuyNow && sessionCart ? [sessionCart] : carts,
@@ -141,7 +139,6 @@ export default function PaymentIndex({
     }
     bestCouponOrder(request)
       .then((res) => {
-        console.log('🚀 ~ .then ~ res:', res)
         if (res) {
           setCoupon(res)
         }
@@ -318,7 +315,6 @@ export default function PaymentIndex({
           }),
         )
       }
-      console.log('🚀 ~ setTransition ~ productIds:', productIds)
 
       const totalPrice = handlePriceTotalOrder(carts)
 
@@ -363,11 +359,9 @@ export default function PaymentIndex({
             ? 'MOMO'
             : null,
       })
-      console.log('🚀 ~ setTransition ~ productIds:', body)
 
       createOrder(JSON.stringify(body))
         .then((res) => {
-          console.log('🚀 ~ .then ~ res:', res)
           if (res?.success) {
             if (res?.paymen_cod === 'cod') {
               router.push(
