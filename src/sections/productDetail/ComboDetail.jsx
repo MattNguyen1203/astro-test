@@ -27,6 +27,7 @@ const ComboDetail = ({
   session,
   mainData,
   FiveProduct,
+  wishList,
 }) => {
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
@@ -156,7 +157,11 @@ const ComboDetail = ({
             />
 
             <div className='absolute top-[1.17rem] right-[1.17rem] z-10'>
-              <WishListIcon />
+              <WishListIcon
+                session={session}
+                data={data}
+                wishList={wishList}
+              />
             </div>
             <div className='xmd:order-2 border-b xmd:border-none border-[rgba(236,236,236,0.70)] pb-[1.46rem] xmd:py-0 flex items-center my-[1.46rem] xmd:mb-0 xmd:flex-col xmd:justify-start xmd:items-start'>
               <ChangeQuantity

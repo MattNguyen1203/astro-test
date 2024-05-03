@@ -26,6 +26,8 @@ const PreOrder = ({
   relatedProduct,
   mainData,
   FiveProduct,
+  wishList,
+  session,
 }) => {
   const router = useRouter()
 
@@ -137,7 +139,11 @@ const PreOrder = ({
                 />
               )}
               <div className='absolute top-[1.17rem] right-[1.17rem] z-10'>
-                <WishListIcon />
+                <WishListIcon
+                  session={session}
+                  data={data}
+                  wishList={wishList}
+                />
               </div>
               <div className='border-t xmd:border-none border-[rgba(236,236,236,0.70)] pt-[1.46rem] xmd:py-0 flex items-center my-[1.46rem] xmd:mb-0 xmd:flex-col xmd:justify-start xmd:items-start'>
                 <div

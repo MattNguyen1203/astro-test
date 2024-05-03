@@ -53,17 +53,14 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     api: '/custom/v1/wistlist/getWishlist',
     token: session?.accessToken,
   }
-  const wishList = await getDataProfile(request)
-
   const productCat = dataProductDetail?.categories?.[0]
 
-  let relatedProduct
-
-  if (productCat && productCat?.length > 0) {
-    relatedProduct = await getData(
-      `/okhub/v1/product/productByCategory/${'but-cam-ung'}?limit=5&page=1`,
-    )
-  }
+  const [wishList, relatedProduct] = await Promise.all([
+    getDataProfile(request),
+    getData(
+      `/okhub/v1/product/productByCategory/${productCat?.slug}?limit=5&page=1`,
+    ),
+  ])
 
   return (
     <main className='bg-elevation-20'>
