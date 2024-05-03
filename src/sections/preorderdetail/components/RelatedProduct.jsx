@@ -10,17 +10,19 @@ const RelatedProduct = ({relatedProduct, session}) => {
           SẢN PHẨM TƯƠNG TỰ
         </span>
 
-        <div className='flex items-center py-[0.88rem] px-[0.59rem] bg-elevation-20 rounded-[0.43924rem]'>
-          <span className='caption1 font-medium text-blue-200 mr-[0.29rem]'>
-            Xem tất cả
-          </span>
-          <Image
-            src='/components/arrow.svg'
-            alt='arrow icon'
-            width={20}
-            height={20}
-            className='object-contain size-[0.87848rem]'
-          />
+        <div className='group h-[2.92826rem] cursor-pointer flex items-center py-[0.29283rem] px-[0.87848rem] bg-elevation-20 rounded-[0.43924rem]'>
+          <div className='p-[0.58565rem] group-hover:border-[1px] group-hover:border-solid group-hover:border-blue-400 rounded-[0.43924rem] flex items-center'>
+            <span className='caption1 font-medium text-blue-200 mr-[0.29rem] group-hover:text-blue-500'>
+              Xem tất cả
+            </span>
+            <Image
+              src='/components/arrow.svg'
+              alt='arrow icon'
+              width={20}
+              height={20}
+              className='object-contain size-[0.87848rem]'
+            />
+          </div>
         </div>
       </div>
 

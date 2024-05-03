@@ -19,7 +19,7 @@ export default async function AccountPage({searchParams}) {
 
   const profile = await getDataProfile({
     api: `/custom/v1/customer/customer`,
-    token: session?.acessToken || null,
+    token: session?.accessToken || null,
   })
   return (
     <>

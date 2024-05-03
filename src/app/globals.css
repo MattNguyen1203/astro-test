@@ -196,6 +196,10 @@ body {
   html body {
     margin-right: 0 !important;
   }
+  .fl {
+    -webkit-text-stroke-width: 0.6936749815940857px;
+    -webkit-text-stroke-color: white;
+  }
 }
 
 @media (max-width: 1023px) {
@@ -227,4 +231,8 @@ body {
 .input-hidden::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.HoverCardContent[data-side='left'] {
+  transform: translateX(25%);
 }
