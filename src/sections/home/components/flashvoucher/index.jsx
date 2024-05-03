@@ -3,9 +3,12 @@ import Link from 'next/link'
 import VoucherSlide from './slidevoucher'
 import VoucherSlideRes from './slidevoucherres'
 import CountDown from './countdown'
+import getData from '@/lib/getData'
 
 const listData = new Array(14).fill(0)
-export default function FlashVoucher({isMobile}) {
+export default async function FlashVoucher({isMobile}) {
+  const coupons = await getData('/okhub/v1/coupon/category/flash-sale')
+  console.log('🚀 ~ FlashVoucher ~ coupons:', coupons)
   return (
     <article className='w-full bg-[linear-gradient(180deg,#02315D_26.21%,rgba(246,187,145,0.55)_68.35%,rgba(255,255,255,0.00)_105.67%)] xmd:bg-[linear-gradient(180deg,#002C54_0%,#02315D_16.27%,#02315D_30.03%,rgba(92,100,112,0.83)_48.06%,rgba(246,187,145,0.55)_78.73%,rgba(255,255,255,0.00)_94.11%)] backdrop-blur-[5px] h-fit xmd:mt-[0.88rem] xmd:rounded-tl-[1.1713rem] xmd:rounded-tr-[1.1713rem]'>
       <div className='container pt-[3.5rem] xmd:pt-[1.76rem] relative xmd:full-mb'>
@@ -41,9 +44,9 @@ export default function FlashVoucher({isMobile}) {
           <CountDown />
         </div>
         {isMobile ? (
-          <VoucherSlideRes data={listData} />
+          <VoucherSlideRes data={coupons?.coupon_list} />
         ) : (
-          <VoucherSlide data={listData} />
+          <VoucherSlide data={coupons?.coupon_list} />
         )}
         <div className='mt-[7.91rem] xmd:mt-[1.46rem] flex h-[8.56515rem] xmd:h-[7.9063rem] relative'>
           <div className='bg-[#EEB357] size-full relative rounded-[1.1713rem] xmd:rounded-[0.58565rem] xmd:w-[96%] xmd:mx-auto xmd:bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)]'>
