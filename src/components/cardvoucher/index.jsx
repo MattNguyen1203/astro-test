@@ -40,9 +40,9 @@ export default function CardVoucher({
       <div className='w-[9.6rem] xmd:w-[9.0776rem] h-full py-[0.59rem] px-[0.88rem] xmd:p-[0.59rem] flex flex-col justify-center'>
         <h3 className='font-medium button text-greyscale-80 mb-[0.29rem] xmd:mb-[0.15rem] xmd:caption xmd:font-semibold xmd:tracking-[0.00439rem] xmd:text-greyscale-60'>
           Giảm{' '}
-          {item?.type === 'fixed_product'
+          {item?.type === 'fixed_product' || item?.type === 'fixed_cart'
             ? formatToVND(item?.amount)
-            : (item?.amount || '15') + '%'}
+            : (Math.ceil(item?.amount) || '15') + '%'}
         </h3>
         <p className='font-normal caption2 tracking-[0.00732rem] text-greyscale-40 xmd:tracking-normal xmd:text-greyscale-30'>
           Đơn Tối thiểu {formatToShortVND(item?.minimum_amount)}

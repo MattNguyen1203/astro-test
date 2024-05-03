@@ -66,12 +66,16 @@ const ProductDetail = ({
 
     const isFlashSale = data?.meta_detect?.flash_sale?.is_flash_sale === '1'
     if (selectedPrd.type === 'variable') {
-      //   const listImgVariations = variations?.variations
-      // ? [...new Set(Object.values(variations.variations).map(item => item.image.url))]
-      // : [];
-      const listImgVariations =
-        variations?.variations &&
-        Object?.values(variations?.variations)?.map((item) => item.image.url)
+      const listImgVariations = variations?.variations
+        ? [
+            ...new Set(
+              Object.values(variations.variations).map(
+                (item) => item.image.url,
+              ),
+            ),
+          ]
+        : []
+
       if (listImgVariations)
         return [gallery.concat(listImgVariations), isFlashSale]
     } else {
@@ -163,21 +167,20 @@ const ProductDetail = ({
       selectedPrd?.variation?.display_regular_price ||
       selectedPrd?.regular_price ||
       0
-
     if (isFlashSale) {
-      const isDiscount =
+      const isPercentage =
         selectedPrd?.meta_detect?.flash_sale?.flash_sale_type == 'Percentage'
 
-      const discountAmount =
+      const flashSaleAmount =
         selectedPrd?.meta_detect?.flash_sale?.flash_sale_price
 
-      if (isDiscount) {
+      if (isPercentage) {
         return [
-          Number(price) * (1 - Number(discountAmount) / 100) || 0,
+          Number(price) * (1 - Number(flashSaleAmount) / 100) || 0,
           regular_price,
         ]
       } else {
-        return [Number(price) - Number(discountAmount) || 0, regular_price]
+        return [flashSaleAmount, regular_price]
       }
     }
 

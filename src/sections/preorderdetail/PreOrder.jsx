@@ -47,9 +47,13 @@ const PreOrder = ({
   const listGallery = useMemo(() => {
     const gallery = data?.galleryImgs.map((item) => item)
 
-    const listImgVariations =
-      variations?.variations &&
-      Object.values(variations?.variations)?.map((item) => item.image.url)
+    const listImgVariations = variations?.variations
+      ? [
+          ...new Set(
+            Object.values(variations?.variations).map((item) => item.image.url),
+          ),
+        ]
+      : []
 
     if (listImgVariations) return gallery?.concat(listImgVariations)
     return gallery
@@ -58,11 +62,9 @@ const PreOrder = ({
   //check user select variation or not
   const isHaveSelectedVar = useMemo(() => {
     if (data?.type === 'variable') {
-      return (
-        selectedPrd?.variation &&
-        selectedPrd.attributes &&
-        selectedPrd.attributes.length > 0
-      )
+      return selectedPrd?.variation && selectedPrd?.variation?.attributes
+    } else {
+      return true
     }
   }, [selectedPrd, data])
 
@@ -158,9 +160,8 @@ const PreOrder = ({
                     className={cn(
                       'caption1 font-semibold text-white flex items-center justify-center w-[10.688rem] xmd:w-full h-full rounded-[0.58565rem] bg-[#102841] px-[1.17rem] py-[0.73rem] uppercase ml-[0.88rem] xmd:ml-0',
                       !isHaveSelectedVar && 'opacity-50 pointer-events-none',
-                      !selectedPrd?.variation?.attributes && 'opacity-50',
                     )}
-                    disabled={!selectedPrd?.variation?.attributes}
+                    disabled={!isHaveSelectedVar}
                     onClick={() => handleAddToSession(selectedPrd, router)}
                   >
                     Đặt trước
