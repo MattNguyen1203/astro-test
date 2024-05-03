@@ -51,7 +51,8 @@ const ComboDetail = ({
       }
     })
 
-    if (gallery) return gallery?.concat(listProductGallery)
+    if (listProductGallery) return gallery?.concat(listProductGallery)
+    return gallery
   }, [data])
 
   //calculate Price

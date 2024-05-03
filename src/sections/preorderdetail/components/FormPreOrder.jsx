@@ -32,6 +32,21 @@ const formSchema = z.object({
     .string()
     .min(1, {message: 'Vui lòng nhập số điện thoại!'})
     .regex(/^[0-9]{6,15}$/, {message: 'Định dạng không hợp lệ!'}),
+  options: z.string(),
+  note: z.string(),
+  product: z.string(),
+})
+
+const formSchemaVariable = z.object({
+  fullname: z.string().min(1, {message: 'Vui lòng không để trống!'}),
+  email: z
+    .string()
+    .min(1, {message: 'Vui lòng nhập email!'})
+    .email({message: 'Nhập đúng định dạng email!'}),
+  phone: z
+    .string()
+    .min(1, {message: 'Vui lòng nhập số điện thoại!'})
+    .regex(/^[0-9]{6,15}$/, {message: 'Định dạng không hợp lệ!'}),
   options: z.string().min(1, {message: 'Vui lòng không để trống!'}),
   note: z.string(),
   product: z.string(),
@@ -42,7 +57,9 @@ export default function FormPreOrder({data, setSelectedPrd, selectedPrd}) {
   const [isSuccess, setIsSuccess] = useState(false)
 
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(
+      selectedPrd.type === 'variable' ? formSchemaVariable : formSchema,
+    ),
     defaultValues: {
       fullname: '',
       email: '',
@@ -80,6 +97,8 @@ export default function FormPreOrder({data, setSelectedPrd, selectedPrd}) {
         reqOption,
       )
       const result = await res.json()
+
+      console.log('result', result)
 
       if (result.status === 'mail_sent') {
         toast.success('Gửi yêu cẩu thành công')
@@ -168,33 +187,36 @@ export default function FormPreOrder({data, setSelectedPrd, selectedPrd}) {
               )}
             />
           </div>
-          <div className='w-full xmd:h-[3.22rem]'>
-            <SelectOptions
-              form={form}
-              data={data}
-              setSelectedPrd={setSelectedPrd}
-              selectedPrd={selectedPrd}
-            />
+          {selectedPrd.type === 'variable' && (
+            <div className='w-full xmd:h-[3.22rem]'>
+              <SelectOptions
+                form={form}
+                data={data}
+                setSelectedPrd={setSelectedPrd}
+                selectedPrd={selectedPrd}
+              />
 
-            <FormField
-              control={form.control}
-              name='options'
-              render={({field}) => (
-                <FormItem className='xmd:w-full'>
-                  <FormControl>
-                    <Input
-                      type='text'
-                      className='hidden !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik'
-                      placeholder='Options *'
-                      {...field}
-                      value=''
-                    />
-                  </FormControl>
-                  <FormMessage className='pl-[0.88rem] font-svnGraphik' />
-                </FormItem>
-              )}
-            />
-          </div>
+              <FormField
+                control={form.control}
+                name='options'
+                render={({field}) => (
+                  <FormItem className='xmd:w-full'>
+                    <FormControl>
+                      <Input
+                        type='text'
+                        className='hidden !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik'
+                        placeholder='Options *'
+                        {...field}
+                        value=''
+                      />
+                    </FormControl>
+                    <FormMessage className='pl-[0.88rem] font-svnGraphik' />
+                  </FormItem>
+                )}
+              />
+            </div>
+          )}
+
           <div className='w-full'>
             <FormField
               control={form.control}

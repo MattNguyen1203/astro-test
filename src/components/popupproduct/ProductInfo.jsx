@@ -24,10 +24,18 @@ export default function ProductInfo({
   const listGallery = useMemo(() => {
     const gallery = data?.galleryImgs?.map((item) => item)
     if (!data?.listVariations?.variations) return gallery
-    const listImgVariations = Object.values(
-      data?.listVariations?.variations,
-    )?.map((item) => item.image.url)
-    if (gallery) return gallery?.concat(listImgVariations)
+
+    const listImgVariations = data?.listVariations?.variations
+      ? [
+          ...new Set(
+            Object.values(data?.listVariations?.variations).map(
+              (item) => item.image.url,
+            ),
+          ),
+        ]
+      : []
+
+    if (listImgVariations) return gallery?.concat(listImgVariations)
   }, [data])
 
   const [regularPriceResult, priceResult] = handlePrice(data)
