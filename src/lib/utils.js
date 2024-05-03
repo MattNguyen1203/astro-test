@@ -101,7 +101,12 @@ export function convertPhone(phone) {
   return phoneEnd
 }
 
-export function handlePriceTotalOrder(carts) {
+export function handlePriceTotalOrder(
+  carts,
+  isFreeShipDefault,
+  handleAddCoupon,
+  coupon,
+) {
   let sum = 0
   if (!carts?.length) return sum
   carts?.forEach((e) => {
@@ -111,5 +116,15 @@ export function handlePriceTotalOrder(carts) {
       sum += Number(e?.price) * Number(e?.quantity)
     }
   })
-  return sum
+  let priceBefore = sum
+  if (!isFreeShipDefault) {
+    sum = sum + 30000
+  }
+  if (coupon) {
+    sum = sum - handleAddCoupon(sum, coupon)
+  }
+  return {
+    before: priceBefore,
+    after: sum,
+  }
 }

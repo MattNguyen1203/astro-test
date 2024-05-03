@@ -12,12 +12,13 @@ import {useForm} from 'react-hook-form'
 import * as z from 'zod'
 import BtnSubmit from '../auth/components/btnsubmit'
 import {applyCoupon} from '@/actions/applyCoupon'
-import {useTransition} from 'react'
+import {memo, useEffect, useTransition} from 'react'
 
 const formSchema = z.object({
   voucher: z.string().min(1, {message: 'Bạn chưa nhập Voucher!'}),
 })
-export default function FormUseVoucher({setCouponSearch}) {
+function FormUseVoucher({setCouponSearch, setIsCouponBest, isCouponBest}) {
+  console.log('🚀 ~ FormUseVoucher ~ FormUseVoucher render')
   const [isPending, setTransition] = useTransition()
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -25,11 +26,23 @@ export default function FormUseVoucher({setCouponSearch}) {
       voucher: '',
     },
   })
+
+  useEffect(() => {
+    if (isCouponBest) {
+      form.setValue('voucher', '')
+      form.setError('voucher', {
+        type: 'validate',
+        message: '',
+      })
+    }
+  }, [isCouponBest])
+
   function onSubmit(values) {
     setTransition(() => {
       applyCoupon(values?.voucher)
         .then((res) => {
           if (res?.code) {
+            setIsCouponBest(false)
             setCouponSearch(res)
           }
         })
@@ -59,10 +72,12 @@ export default function FormUseVoucher({setCouponSearch}) {
           )}
         />
         <BtnSubmit
+          isPending={isPending}
           title='DÙNG VOUCHER'
-          className='p-[0.73rem] w-fit whitespace-nowrap'
+          className='p-[0.73rem] whitespace-nowrap w-[8.79rem]'
         />
       </form>
     </Form>
   )
 }
+export default memo(FormUseVoucher)

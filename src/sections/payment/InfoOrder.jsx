@@ -1,7 +1,6 @@
 import {formatToVND, handlePriceTotalOrder} from '@/lib/utils'
 import ItemProductPayment from './ItemProductPayment'
 import {defaultPriceShip, rangeFreeShip} from '@/lib/constants'
-import {Fragment} from 'react'
 
 export default function InfoOrder({
   carts,
@@ -11,37 +10,25 @@ export default function InfoOrder({
   isCOD,
   isPending,
   coupon,
+  isCouponBest,
+  isFreeShipDefault,
+  handleAddCoupon,
+  shipValue,
 }) {
-  const totalPrice = handlePriceTotalOrder(carts)
+  const totalPrice = handlePriceTotalOrder(
+    carts,
+    isFreeShipDefault || shipValue === 'in',
+    handleAddCoupon,
+    coupon,
+  )
 
-  const isFreeShip = totalPrice >= rangeFreeShip
-
-  const handleTotalPayment = () => {
-    const priceShip = isFreeShip ? 0 : defaultPriceShip
-    return totalPrice + priceShip
-  }
+  const isFreeShip = totalPrice?.before >= rangeFreeShip
 
   const handleShowPrice = (price) => {
     if (Number(price)) {
       return '-' + formatToVND(price)
     } else {
       return '0đ'
-    }
-  }
-
-  const handleAddCoupon = (total, coupon) => {
-    if (coupon?.type === 'fixed_cart') {
-      return handleShowPrice(coupon?.amount)
-    }
-    if (coupon?.type === 'fixed_product') {
-    }
-    if (coupon?.type === 'percent') {
-      const discountPercent = (total / 100) * Number(coupon?.amount)
-      if (discountPercent > Number(coupon?.max_discount)) {
-        return handleShowPrice(coupon?.max_discount)
-      } else {
-        return handleShowPrice(discountPercent)
-      }
     }
   }
 
@@ -93,7 +80,7 @@ export default function InfoOrder({
             Tổng tiền hàng:
           </span>
           <span className='font-semibold caption1 text-greyscale-80'>
-            {formatToVND(totalPrice)}
+            {formatToVND(totalPrice?.before)}
           </span>
         </div>
         <div className='flex items-center justify-between'>
@@ -101,17 +88,21 @@ export default function InfoOrder({
             Phí vận chuyển:
           </span>
           <span className='font-semibold caption1 text-greyscale-80'>
-            {formatToVND(defaultPriceShip)}
+            {shipValue === 'in'
+              ? 'Nhân viên gọi trao đổi'
+              : formatToVND(defaultPriceShip)}
           </span>
         </div>
-        <div className='flex items-center justify-between'>
-          <span className='font-medium caption1 text-greyscale-40'>
-            Voucher giảm giá
-          </span>
-          <span className='font-semibold caption1 text-greyscale-80'>
-            {handleAddCoupon(totalPrice, coupon)}
-          </span>
-        </div>
+        {isCouponBest && (
+          <div className='flex items-center justify-between'>
+            <span className='font-medium caption1 text-greyscale-40'>
+              Voucher giảm giá
+            </span>
+            <span className='font-semibold caption1 text-greyscale-80'>
+              {handleShowPrice(handleAddCoupon(totalPrice?.before, coupon))}
+            </span>
+          </div>
+        )}
         {/* <div className='flex items-center justify-between'>
           <span className='font-medium caption1 text-greyscale-40'>
             Khuyến mãi hạng thành viên
@@ -120,22 +111,24 @@ export default function InfoOrder({
             - 80.000đ
           </span>
         </div> */}
-        <div className='flex items-center justify-between'>
-          <span className='font-medium caption1 text-greyscale-40'>
-            Giảm giá vận chuyển:
-          </span>
-          <span className='font-semibold caption1 text-greyscale-80'>
-            {isFreeShip ? '-' : ''}
-            {formatToVND(defaultPriceShip)}
-          </span>
-        </div>
+        {isFreeShipDefault && shipValue !== 'in' && (
+          <div className='flex items-center justify-between'>
+            <span className='font-medium caption1 text-greyscale-40'>
+              Giảm giá vận chuyển:
+            </span>
+            <span className='font-semibold caption1 text-greyscale-80'>
+              {isFreeShip ? '-' : ''}
+              {formatToVND(defaultPriceShip)}
+            </span>
+          </div>
+        )}
         <hr className='h-[0.07321rem] bg-[#1E417C29] my-[0.29rem]' />
         <div className='flex items-center justify-between'>
           <span className='font-semibold sub2 text-greyscale-50'>
             Tổng thanh toán:
           </span>
           <span className='sub1 font-bold text-[#D48E43]'>
-            {formatToVND(handleTotalPayment())}
+            {formatToVND(totalPrice?.after)}
           </span>
         </div>
       </div>

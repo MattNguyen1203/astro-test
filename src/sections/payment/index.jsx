@@ -7,8 +7,6 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import {useForm} from 'react-hook-form'
 import * as z from 'zod'
 
-import ICBoxCheck from '@/components/icon/ICBoxCheck'
-import ICCheck from '@/components/icon/ICCheck'
 import PopupProvince from './PopupProvince'
 import PopupDistrict from './PopupDistrict'
 import PopupCommune from './PopupCommune'
@@ -34,6 +32,7 @@ import {
 } from '@/lib/constants'
 import {handlePriceTotalOrder} from '@/lib/utils'
 import {bestCouponOrder} from '@/actions/bestCouponOrder'
+import CheckDefault from '@/components/sheetcategories/CheckDefault'
 
 const formSchema = z.object({
   name: z.string(),
@@ -41,9 +40,9 @@ const formSchema = z.object({
   address: z.string(),
   street: z.string(),
   note: z.string(),
-  password: z
-    .string()
-    .min(6, {message: 'Mật khẩu phải có từ 6 kí tự trở lên!'}),
+  // password: z
+  //   .string()
+  //   .min(6, {message: 'Mật khẩu phải có từ 6 kí tự trở lên!'}),
   // .regex(/[a-z]/, {
   //   message: 'Mật khẩu phải có ít nhất 1 chữ thường!',
   // })
@@ -106,17 +105,26 @@ export default function PaymentIndex({
   const [carts, setCarts] = useState(isAuth ? dataCarts : [])
   const [coupon, setCoupon] = useState(null)
   const [couponSearch, setCouponSearch] = useState(null)
+  console.log('🚀 ~ couponSearch:', couponSearch)
+  const [isCouponBest, setIsCouponBest] = useState(true)
+  const [isFreeShipDefault, setIsFreeShipDefault] = useState(true)
+
+  useEffect(() => {
+    if (isCouponBest && couponSearch) {
+      setCouponSearch(null)
+    }
+  }, [isCouponBest])
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: 'trinh van duc',
-      phone: '0338277705',
-      email: 'trinhvanduc21062001@gmail.com',
+      name: profile?.display_name || '',
+      phone: profile?.phone || '',
+      email: profile?.email || '',
       address: '',
       street: communeSplit?.length > 1 ? communeSplit?.[0] : '',
-      note: 'test',
-      password: '',
+      note: '',
+      // password: '',
     },
   })
 
@@ -169,6 +177,75 @@ export default function PaymentIndex({
 
   const values = form.watch()
 
+  const handleAddCoupon = (total, coupon) => {
+    const min = coupon?.minimum_amount || 0
+    const max = coupon?.maximum_amount || 0
+    if (coupon?.type === 'fixed_cart') {
+      if (total >= min && total <= max) {
+        return coupon?.amount
+      }
+      if (!min && !max) {
+        return coupon?.amount
+      }
+      if (total <= max && !min) {
+        return coupon?.amount
+      }
+      if (total <= min && !max) {
+        return coupon?.amount
+      }
+      return 0
+    }
+    if (coupon?.type === 'fixed_product') {
+      if (total >= min && total <= max) {
+        return coupon?.amount
+      }
+      if (!min && !max) {
+        return coupon?.amount
+      }
+      if (total <= max && !min) {
+        return coupon?.amount
+      }
+      if (total <= min && !max) {
+        return coupon?.amount
+      }
+      return 0
+    }
+    if (coupon?.type === 'percent') {
+      if (total >= min && total <= max) {
+        const discountPercent = (total / 100) * Number(coupon?.amount)
+        if (discountPercent > Number(coupon?.max_discount)) {
+          return coupon?.max_discount
+        } else {
+          return discountPercent
+        }
+      }
+      if (!min && !max) {
+        const discountPercent = (total / 100) * Number(coupon?.amount)
+        if (discountPercent > Number(coupon?.max_discount)) {
+          return coupon?.max_discount
+        } else {
+          return discountPercent
+        }
+      }
+      if (total <= max && !min) {
+        const discountPercent = (total / 100) * Number(coupon?.amount)
+        if (discountPercent > Number(coupon?.max_discount)) {
+          return coupon?.max_discount
+        } else {
+          return discountPercent
+        }
+      }
+      if (total <= min && !max) {
+        const discountPercent = (total / 100) * Number(coupon?.amount)
+        if (discountPercent > Number(coupon?.max_discount)) {
+          return coupon?.max_discount
+        } else {
+          return discountPercent
+        }
+      }
+      return 0
+    }
+  }
   const handleGenderVariation = (variation) => {
     let variationNew = {}
     for (const key in variation) {
@@ -316,13 +393,25 @@ export default function PaymentIndex({
         )
       }
 
-      const totalPrice = handlePriceTotalOrder(carts)
+      const totalPrice = handlePriceTotalOrder(
+        carts,
+        isFreeShipDefault || ship === 'in',
+        handleAddCoupon,
+        isCouponBest ? coupon : couponSearch,
+      )
 
-      const isFreeShip = totalPrice >= rangeFreeShip
+      const isFreeShip = isFreeShipDefault
+        ? totalPrice?.before >= rangeFreeShip
+        : false
 
       const shipFree = {
         id: 'free_shipping',
         title: 'Free shipping',
+      }
+
+      const priceShip = {
+        id: 'flat_rate',
+        title: 'Flat Rate',
       }
 
       const shipIn = {
@@ -338,7 +427,11 @@ export default function PaymentIndex({
         valueDistrict: valueDistrict,
         valueProvince: valueProvince,
         productIds: [...productIds],
-        coupon: coupon?.code,
+        coupon: isCouponBest
+          ? coupon?.code
+          : couponSearch?.code
+          ? couponSearch?.code
+          : '',
         priceShip:
           ship === 'in' ? '0' : isFreeShip ? '0' : defaultPriceShip.toString(),
         urlRedirect: process.env.NEXT_PUBLIC_DOMAIN + '/payment',
@@ -347,9 +440,10 @@ export default function PaymentIndex({
           payment === 'ck'
             ? 'Direct Bank Transfer'
             : payment === 'credit'
-            ? 'Cash on delivery'
-            : 'One Pay',
-        propertyShip: ship === 'in' ? shipIn : isFreeShip ? shipFree : '',
+            ? 'One Pay'
+            : 'Cash on delivery',
+        propertyShip:
+          ship === 'in' ? shipIn : isFreeShip ? shipFree : priceShip,
         cardList:
           payment === 'ck'
             ? 'DOMESTIC'
@@ -359,31 +453,32 @@ export default function PaymentIndex({
             ? 'MOMO'
             : null,
       })
+      console.log('🚀 ~ setTransition ~ body:', body)
 
-      createOrder(JSON.stringify(body))
-        .then((res) => {
-          if (res?.success) {
-            if (res?.paymen_cod === 'cod') {
-              router.push(
-                `/payment?tracking=${res?.order_id}&vpc_TxnResponseCode=0`,
-              )
-            } else {
-              router.push(res?.url)
-            }
-            //   4000 0000 0000 1091
-            // 05/26
-          } else {
-            return toast.error(
-              res?.message?.includes('Quantity in stock is not enough')
-                ? 'Sản phẩm bạn mua đã hết hàng!'
-                : 'Đã có lỗi xảy ra!',
-              {
-                position: 'bottom-center',
-              },
-            )
-          }
-        })
-        .catch((err) => console.log('error payment', err))
+      // createOrder(JSON.stringify(body))
+      //   .then((res) => {
+      //     if (res?.success) {
+      //       if (res?.paymen_cod === 'cod') {
+      //         router.push(
+      //           `/payment?tracking=${res?.order_id}&vpc_TxnResponseCode=0`,
+      //         )
+      //       } else {
+      //         router.push(res?.url)
+      //       }
+      //       //   4000 0000 0000 1091
+      //       // 05/26
+      //     } else {
+      //       return toast.error(
+      //         res?.message?.includes('Quantity in stock is not enough')
+      //           ? 'Sản phẩm bạn mua đã hết hàng!'
+      //           : 'Đã có lỗi xảy ra!',
+      //         {
+      //           position: 'bottom-center',
+      //         },
+      //       )
+      //     }
+      //   })
+      //   .catch((err) => console.log('error payment', err))
     })
   }
 
@@ -493,7 +588,7 @@ export default function PaymentIndex({
                   </FormItem>
                 )}
               />
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name='password'
                 render={({field}) => (
@@ -507,7 +602,7 @@ export default function PaymentIndex({
                     </FormControl>
                   </FormItem>
                 )}
-              />
+              /> */}
             </form>
           </Form>
         </div>
@@ -516,7 +611,11 @@ export default function PaymentIndex({
             VOUCHER CỦA BẠN
           </h3>
           <div className='flex items-center'>
-            <div className='size-[1.75695rem] relative overflow-hidden cursor-pointer '>
+            <CheckDefault
+              isCheck={isFreeShipDefault}
+              setIsCheck={setIsFreeShipDefault}
+            />
+            {/* <div className='size-[1.75695rem] relative overflow-hidden cursor-pointer '>
               <ICBoxCheck className='size-full' />
               <div className='absolute top-0 left-0 flex items-center justify-center bg-blue-700 size-full rounded-[0.25rem]'>
                 <ICCheck className='w-[0.8rem] h-auto' />
@@ -526,7 +625,7 @@ export default function PaymentIndex({
                 type='checkbox'
                 className='opacity-0 pointer-events-none size-0'
               />
-            </div>
+            </div> */}
             <p className='font-normal text-greyscale-40 ml-[0.59rem]'>
               Áp dụng{' '}
               <span className='font-semibold'>Voucher miễn phí vận chuyển</span>{' '}
@@ -534,17 +633,10 @@ export default function PaymentIndex({
             </p>
           </div>
           <div className='flex items-center'>
-            <div className='size-[1.75695rem] relative overflow-hidden cursor-pointer '>
-              <ICBoxCheck className='size-full' />
-              <div className='absolute top-0 left-0 flex items-center justify-center bg-blue-700 size-full rounded-[0.25rem]'>
-                <ICCheck className='w-[0.8rem] h-auto' />
-              </div>
-              <input
-                readOnly
-                type='checkbox'
-                className='opacity-0 pointer-events-none size-0'
-              />
-            </div>
+            <CheckDefault
+              isCheck={isCouponBest}
+              setIsCheck={setIsCouponBest}
+            />
             <p className='font-normal text-greyscale-40 ml-[0.59rem]'>
               Tự động áp dụng Voucher có giá trị cao nhất
             </p>
@@ -553,7 +645,11 @@ export default function PaymentIndex({
             <span className='inline-block mb-[0.59rem]'>
               Hoặc nhập mã Voucher
             </span>
-            <FormUseVoucher setCouponSearch={setCouponSearch} />
+            <FormUseVoucher
+              setCouponSearch={setCouponSearch}
+              setIsCouponBest={setIsCouponBest}
+              isCouponBest={isCouponBest}
+            />
           </div>
         </div>
         <div className='bg-white rounded-[0.58565rem] p-[1.76rem]'>
@@ -634,11 +730,15 @@ export default function PaymentIndex({
       <InfoOrder
         carts={carts}
         onSubmit={onSubmit}
+        shipValue={ship}
         ship={propertyShip?.find((e) => e?.value === ship)?.label}
         payment={propertyPayment?.find((e) => e?.value === payment)?.label}
         isCOD={payment === 'cod'}
         isPending={isPending}
-        coupon={couponSearch || coupon}
+        coupon={isCouponBest ? coupon : couponSearch}
+        isCouponBest={isCouponBest || couponSearch}
+        isFreeShipDefault={isFreeShipDefault}
+        handleAddCoupon={handleAddCoupon}
       />
     </section>
   )
