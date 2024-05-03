@@ -75,8 +75,9 @@ export function formatToVND(price) {
 
 export function formatToShortVND(price) {
   if (!price) return null
+  if (Number(price) <= 0) return '0đ'
   let formattedNumber = Number(price) / 1000
-  formattedNumber = 'đ' + formattedNumber + 'k'
+  formattedNumber = formattedNumber + 'k'
   return formattedNumber
 }
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
@@ -101,7 +102,12 @@ export function convertPhone(phone) {
   return phoneEnd
 }
 
-export function handlePriceTotalOrder(carts) {
+export function handlePriceTotalOrder(
+  carts,
+  isFreeShipDefault,
+  handleAddCoupon,
+  coupon,
+) {
   let sum = 0
   if (!carts?.length) return sum
   carts?.forEach((e) => {
@@ -111,5 +117,32 @@ export function handlePriceTotalOrder(carts) {
       sum += Number(e?.price) * Number(e?.quantity)
     }
   })
-  return sum
+  let priceBefore = sum
+  if (!isFreeShipDefault) {
+    sum = sum + 30000
+  }
+  if (coupon) {
+    sum = sum - handleAddCoupon(sum, coupon)
+  }
+  return {
+    before: priceBefore,
+    after: sum,
+  }
+}
+
+export function handleShelfLife(dateExpireTimestamp) {
+  // Chuyển timestamp hết hạn từ giây sang miligiây
+  const dateExpire = new Date(Number(dateExpireTimestamp) * 1000)
+
+  // Lấy thời gian hiện tại
+  const now = new Date()
+
+  // So sánh thời gian hết hạn với thời gian hiện tại
+  if (dateExpire < now) {
+    // console.log('Timestamp đã hết hạn sử dụng.')
+    return false
+  } else {
+    return true
+    // console.log('Timestamp vẫn còn hạn sử dụng.')
+  }
 }

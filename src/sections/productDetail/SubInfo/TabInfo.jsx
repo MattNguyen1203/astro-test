@@ -2,6 +2,7 @@ import {memo} from 'react'
 import AccordionInfo from '../Accordion'
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
 import ShowMore from '@/components/showmore'
+import './style.css'
 
 const TabInfo = ({isMobile, data}) => {
   return (
@@ -51,6 +52,7 @@ const TabInfo = ({isMobile, data}) => {
               }}
             >
               <div
+                className='noibat'
                 dangerouslySetInnerHTML={{__html: data?.important_info}}
               ></div>
             </ShowMore>
