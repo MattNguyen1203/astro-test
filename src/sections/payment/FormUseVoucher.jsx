@@ -13,12 +13,18 @@ import * as z from 'zod'
 import BtnSubmit from '../auth/components/btnsubmit'
 import {applyCoupon} from '@/actions/applyCoupon'
 import {memo, useEffect, useTransition} from 'react'
+import {toast} from 'sonner'
 
 const formSchema = z.object({
   voucher: z.string().min(1, {message: 'Bạn chưa nhập Voucher!'}),
 })
-function FormUseVoucher({setCouponSearch, setIsCouponBest, isCouponBest}) {
-  console.log('🚀 ~ FormUseVoucher ~ FormUseVoucher render')
+function FormUseVoucher({
+  setCouponSearch,
+  setIsCouponBest,
+  isCouponBest,
+  isAuth,
+  carts,
+}) {
   const [isPending, setTransition] = useTransition()
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -28,6 +34,7 @@ function FormUseVoucher({setCouponSearch, setIsCouponBest, isCouponBest}) {
   })
 
   useEffect(() => {
+    //reset message validate khi chon voucher tot nhat
     if (isCouponBest) {
       form.setValue('voucher', '')
       form.setError('voucher', {
@@ -40,10 +47,52 @@ function FormUseVoucher({setCouponSearch, setIsCouponBest, isCouponBest}) {
   function onSubmit(values) {
     setTransition(() => {
       applyCoupon(values?.voucher)
-        .then((res) => {
-          if (res?.code) {
+        .then((coupon) => {
+          //handle coupon không tồn tại
+          if (Number(coupon?.amount) === 0) {
+            return toast.error('Voucher không tồn tại!', {
+              duration: 5000,
+              position: 'bottom-center',
+            })
+          }
+          //handle hạn sử dụng của coupon
+          if (!handleShelfLife(coupon?.date_expire)) {
+            return toast.error('Voucher đã hết hạn sử dụng!', {
+              duration: 5000,
+              position: 'bottom-center',
+            })
+          }
+          if (Number(coupon?.amount) > 0) {
+            // handle coupon chỉ dành cho khách hàng có hạng thành viên
+            if (coupon?.roles?.length && !isAuth) {
+              return toast.warning('Voucher chỉ dành cho hạng thành viên!', {
+                duration: 5000,
+                position: 'bottom-center',
+              })
+            }
+            // handle coupon chỉ dành cho các sản phẩm cụ thể
+            if (coupon?.products?.length || coupon?.categories?.length) {
+              const isCheckIdProduct = carts?.some((product) =>
+                coupon?.products?.some((id) => id === product?.id),
+              )
+              const isCheckIdCategory = carts?.some((product) =>
+                product?.categories?.some((category) =>
+                  coupon?.categories?.come((id) => id === category),
+                ),
+              )
+
+              if (!isCheckIdProduct && !isCheckIdCategory) {
+                return toast.warning(
+                  'Voucher không áp dụng cho sản phẩm trên!',
+                  {
+                    duration: 5000,
+                    position: 'bottom-center',
+                  },
+                )
+              }
+            }
             setIsCouponBest(false)
-            setCouponSearch(res)
+            setCouponSearch(coupon)
           }
         })
         .catch((err) => console.log(err))

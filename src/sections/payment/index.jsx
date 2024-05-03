@@ -103,6 +103,7 @@ export default function PaymentIndex({
   const [ship, setShip] = useState('in')
   const [payment, setPayment] = useState()
   const [carts, setCarts] = useState(isAuth ? dataCarts : [])
+  console.log('🚀 ~ carts:', carts)
   const [coupon, setCoupon] = useState(null)
   const [couponSearch, setCouponSearch] = useState(null)
   console.log('🚀 ~ couponSearch:', couponSearch)
@@ -136,9 +137,14 @@ export default function PaymentIndex({
     }
 
     const productIds = handleGenderCoupon(
-      isBuyNow && sessionCart ? [sessionCart] : carts,
+      isBuyNow && sessionCart
+        ? [sessionCart]
+        : isAuth
+        ? carts
+        : JSON.parse(localStorage.getItem('cartAstro')),
     )
 
+    // handle best voucher
     const request = {
       api: '/okhub/v1/coupon/cart',
       body: JSON.stringify({
@@ -246,6 +252,7 @@ export default function PaymentIndex({
       return 0
     }
   }
+
   const handleGenderVariation = (variation) => {
     let variationNew = {}
     for (const key in variation) {
@@ -453,32 +460,31 @@ export default function PaymentIndex({
             ? 'MOMO'
             : null,
       })
-      console.log('🚀 ~ setTransition ~ body:', body)
 
-      // createOrder(JSON.stringify(body))
-      //   .then((res) => {
-      //     if (res?.success) {
-      //       if (res?.paymen_cod === 'cod') {
-      //         router.push(
-      //           `/payment?tracking=${res?.order_id}&vpc_TxnResponseCode=0`,
-      //         )
-      //       } else {
-      //         router.push(res?.url)
-      //       }
-      //       //   4000 0000 0000 1091
-      //       // 05/26
-      //     } else {
-      //       return toast.error(
-      //         res?.message?.includes('Quantity in stock is not enough')
-      //           ? 'Sản phẩm bạn mua đã hết hàng!'
-      //           : 'Đã có lỗi xảy ra!',
-      //         {
-      //           position: 'bottom-center',
-      //         },
-      //       )
-      //     }
-      //   })
-      //   .catch((err) => console.log('error payment', err))
+      createOrder(JSON.stringify(body))
+        .then((res) => {
+          if (res?.success) {
+            if (res?.paymen_cod === 'cod') {
+              router.push(
+                `/payment?tracking=${res?.order_id}&vpc_TxnResponseCode=0`,
+              )
+            } else {
+              router.push(res?.url)
+            }
+            //   4000 0000 0000 1091
+            // 05/26
+          } else {
+            return toast.error(
+              res?.message?.includes('Quantity in stock is not enough')
+                ? 'Sản phẩm bạn mua đã hết hàng!'
+                : 'Đã có lỗi xảy ra!',
+              {
+                position: 'bottom-center',
+              },
+            )
+          }
+        })
+        .catch((err) => console.log('error payment', err))
     })
   }
 
@@ -649,6 +655,8 @@ export default function PaymentIndex({
               setCouponSearch={setCouponSearch}
               setIsCouponBest={setIsCouponBest}
               isCouponBest={isCouponBest}
+              isAuth={isAuth}
+              carts={carts}
             />
           </div>
         </div>

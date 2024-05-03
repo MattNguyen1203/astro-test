@@ -1,6 +1,6 @@
 import CardVoucher from '@/components/cardvoucher'
 
-export default function VoucherSlideRes({data, className = ''}) {
+export default function VoucherSlideRes({data = [], className = ''}) {
   return (
     <div
       className={`${className} relative w-full overflow-x-auto h-[8.8rem] hidden-scrollbar`}
@@ -15,14 +15,15 @@ export default function VoucherSlideRes({data, className = ''}) {
             >
               {data
                 .slice(
-                  index * (data.length / 2 - 1),
-                  (index + 1) * (data.length / 2 - 1),
+                  index * (data.length / 2),
+                  (index + 1) * (data.length / 2),
                 )
-                .map((_, idx) => (
+                .map((item, idx) => (
                   <CardVoucher
                     className={idx === 0 ? '!ml-0' : 'ml-[0.59rem]'}
                     key={idx}
                     isPriority={idx < 2 ? true : false}
+                    item={item}
                   />
                 ))}
             </div>
