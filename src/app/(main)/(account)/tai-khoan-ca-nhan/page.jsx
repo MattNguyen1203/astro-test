@@ -1,8 +1,8 @@
 import {auth} from '@/auth'
 import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
 import {TabsProfile} from '@/components/tabprofile'
-import {getDataProfile} from '@/lib/getDataProfile'
 import getDataProxy from '@/lib/getDataProxy'
+import {getDataTag} from '@/lib/getDataTag'
 import AvatarRes from '@/sections/account/components/avatarres'
 import Link from 'next/link'
 
@@ -19,9 +19,10 @@ export default async function AccountPage({searchParams}) {
 
   const profile =
     session?.accessToken &&
-    (await getDataProfile({
+    (await getDataTag({
       api: `/custom/v1/customer/customer`,
       token: session?.accessToken,
+      tags: 'profile',
     }))
 
   return (
