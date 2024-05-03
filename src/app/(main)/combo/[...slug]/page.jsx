@@ -1,5 +1,6 @@
 import {auth} from '@/auth'
 import getData from '@/lib/getData'
+import {getDataProfile} from '@/lib/getDataProfile'
 import ComboDetail from '@/sections/productDetail/ComboDetail'
 
 export async function generateStaticParams() {
@@ -70,10 +71,16 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
       newDataProduct = {...dataProductDetail, grouped_products: groupPrd}
     })
   }
+  const request = {
+    api: '/custom/v1/wistlist/getWishlist',
+    token: session?.accessToken,
+  }
+  const wishList = session?.accessToken && (await getDataProfile(request))
 
   return (
     <main className='bg-elevation-20'>
       <ComboDetail
+        wishList={wishList}
         isMobile={isMobile}
         data={newDataProduct}
         voucher={dataProductVoucher}

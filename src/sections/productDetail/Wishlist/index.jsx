@@ -7,10 +7,10 @@ import {toast} from 'sonner'
 
 const WishListIcon = ({data, session, wishList = []}) => {
   const [isActive, setIsActive] = useState(
-    wishList?.some((e) => e?.product?.id === data?.id),
+    wishList?.item?.some((e) => e?.product?.id === data?.id),
   )
   const [id, setId] = useState(
-    wishList?.find((e) => e?.product?.id === data?.id)?.wishlist_id,
+    wishList?.item?.find((e) => e?.product?.id === data?.id)?.wishlist_id,
   )
 
   useEffect(() => {

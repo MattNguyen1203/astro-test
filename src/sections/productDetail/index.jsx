@@ -37,7 +37,6 @@ const ProductDetail = ({
   mainData,
   FiveProduct,
 }) => {
-  console.log('🚀 ~ wishList:', wishList)
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
   const [isLoading, setIsLoading] = useState(true)

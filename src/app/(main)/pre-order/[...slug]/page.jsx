@@ -1,4 +1,6 @@
+import {auth} from '@/auth'
 import getData from '@/lib/getData'
+import {getDataProfile} from '@/lib/getDataProfile'
 import PreOrder from '@/sections/preorderdetail/PreOrder'
 
 const page = async ({searchParams, params: {slug}}) => {
@@ -16,12 +18,14 @@ const page = async ({searchParams, params: {slug}}) => {
   const FiveProductReq = getData(`/okhub/v1/product/allProduct?limit=5&page=1`)
 
   const [
+    session,
     dataProductDetail,
     dataProductVoucher,
     dataVariation,
     mainData,
     FiveProduct,
   ] = await Promise.all([
+    auth(),
     dataProductDetailReq,
     dataProductVoucherReq,
     dataVariationReq,
@@ -38,6 +42,11 @@ const page = async ({searchParams, params: {slug}}) => {
       `/okhub/v1/product/productByCategory/${'but-cam-ung'}?limit=5&page=1`,
     )
   }
+  const request = {
+    api: '/custom/v1/wistlist/getWishlist',
+    token: session?.accessToken,
+  }
+  const wishList = session?.accessToken && (await getDataProfile(request))
 
   return (
     <main className='bg-elevation-20'>
@@ -49,6 +58,8 @@ const page = async ({searchParams, params: {slug}}) => {
         relatedProduct={relatedProduct}
         mainData={mainData}
         FiveProduct={FiveProduct}
+        wishList={wishList}
+        session={session}
       />
     </main>
   )
