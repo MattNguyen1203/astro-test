@@ -21,6 +21,6 @@ export async function getDataProfile(request) {
     const data = await res.json()
     return data
   } catch (error) {
-    console.error('Failed to fetch data:', error.message)
+    console.error('Failed to fetch data:', `${process.env.API}${request?.api}`)
   }
 }

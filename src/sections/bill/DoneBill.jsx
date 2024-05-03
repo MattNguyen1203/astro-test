@@ -29,7 +29,6 @@ export default function DoneBill({session, setCount}) {
       revalidateOnReconnect: false,
     },
   )
-  console.log(data)
   useEffect(() => {
     if (data?.count) {
       setCount(data.count)

@@ -23,7 +23,6 @@ export default function SearchTracking({isMobile}) {
       revalidateOnReconnect: false,
     },
   )
-  console.log('🚀 ~ SearchTracking ~ data:', data)
 
   const handleDate = (dateString) => {
     // Tạo một đối tượng Date từ chuỗi ngày tháng

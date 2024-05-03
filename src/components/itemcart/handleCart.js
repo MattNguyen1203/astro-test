@@ -26,7 +26,6 @@ export const handleCart = async (
         listProduct.map(async (product) => {
           const reqBody = createRequestBody(product)
 
-          // console.log('reqBody', reqBody)
           return await postData('/okhub/v1/cart', JSON.stringify(reqBody), {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${session?.data?.accessToken}`,
@@ -37,7 +36,6 @@ export const handleCart = async (
       setIsLoading(false)
       processAuthResults(result)
     } catch (error) {
-      console.log('Error', error)
       toast.error('Có lỗi xảy ra', {
         duration: 3000,
         position: 'top-center',

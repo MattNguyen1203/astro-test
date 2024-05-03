@@ -4,7 +4,6 @@ import {formatToVND} from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 const ActualProduct = ({relatedProduct}) => {
-  console.log('relatedProduct', relatedProduct)
   return (
     <div
       div

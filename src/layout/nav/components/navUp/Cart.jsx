@@ -8,7 +8,6 @@ import {useEffect, useState} from 'react'
 
 export default function Cart({isMobile, cartDefault, session}) {
   const isAuth = session?.status === 'authenticated'
-  console.log('isAuth', isAuth)
 
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
   const actionCart = useStore((state) => state.actionCart)

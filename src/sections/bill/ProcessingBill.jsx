@@ -9,7 +9,6 @@ import {useSearchParams, useRouter} from 'next/navigation'
 export default function ProcessingBill({session, setCount}) {
   const [currentPage, setCurrentPage] = useState(1)
   const page = useSearchParams().get('page')
-  console.log(page)
   const router = useRouter()
   const status = useSearchParams().get('status')
   const fetcher = (url) =>

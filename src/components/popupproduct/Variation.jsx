@@ -13,7 +13,6 @@ const Variation = ({data = {}, setSelectedPrd, selectedPrd}) => {
     value: [],
   })
 
-  // console.log('variationSelected', variationSelected)
   // handle attribute
   useEffect(() => {
     if (!data || !data?.list_attributes || !data?.variations) return
