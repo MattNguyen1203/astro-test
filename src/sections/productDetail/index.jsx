@@ -23,7 +23,6 @@ import RelatedProduct from '../preorderdetail/components/RelatedProduct'
 
 import Loading from '@/components/loading'
 import {useRouter} from 'next/navigation'
-import {toast} from 'sonner'
 import {handleAddToSession} from './function'
 
 const ProductDetail = ({
@@ -38,6 +37,7 @@ const ProductDetail = ({
   mainData,
   FiveProduct,
 }) => {
+  console.log('🚀 ~ wishList:', wishList)
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
   const [isLoading, setIsLoading] = useState(true)
@@ -50,7 +50,7 @@ const ProductDetail = ({
     quantity: 1,
     variation:
       Object.values(variations?.variations || {})?.find(
-        (item) => item.default,
+        (item) => item?.default,
       ) || {},
   })
 
@@ -69,8 +69,8 @@ const ProductDetail = ({
       const listImgVariations = variations?.variations
         ? [
             ...new Set(
-              Object.values(variations.variations).map(
-                (item) => item.image.url,
+              Object.values(variations?.variations)?.map(
+                (item) => item?.image?.url,
               ),
             ),
           ]

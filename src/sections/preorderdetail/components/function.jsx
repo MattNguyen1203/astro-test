@@ -7,7 +7,7 @@ export function covertToText(data) {
     return {
       ...item,
       value: Object.values(data?.variation?.attributes)?.find(
-        (attr) => attr.taxonomy === item.key,
+        (attr) => attr?.taxonomy === item?.key,
       )?.label,
     }
   })

@@ -48,14 +48,14 @@ export default function CardVoucher({
         <div className='w-[5.12rem] h-full xmd:w-[4.09956rem] flex flex-col justify-center items-center bg-[linear-gradient(44deg,#FFF5E6_50.63%,#FFE4B9_106.58%)] rounded-tl-[0.58565rem] rounded-bl-[0.58565rem]'>
           <Image
             className='size-[2.34261rem] xmd:size-[1.75695rem] object-contain'
-            src={item?.icon || '/home/circle-flash-voucher1.png'}
+            src={'/home/circle-flash-voucher1.png'}
             alt='astromazing'
             width={32}
             height={32}
             priority={isPriority}
           />
           <span className='inline-block mt-[0.44rem] xmd:mt-[0.29rem] text-brown-700 text-[0.65886rem] font-medium leading-[1.2] tracking-[0.00329rem] whitespace-nowrap xmd:caption3 xmd:text-brown-800'>
-            {item?.categories?.[0]}
+            {item?.categories?.[0]?.name}
           </span>
         </div>
       )}
