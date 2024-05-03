@@ -7,27 +7,30 @@ import 'swiper/css/thumbs'
 
 import {Swiper, SwiperSlide} from 'swiper/react'
 import {FreeMode, Navigation, Thumbs} from 'swiper/modules'
-import {useEffect, useRef, useState} from 'react'
+import {memo, useEffect, useRef, useState} from 'react'
 import Image from 'next/image'
 import ICChevron from '../icon/ICChevron'
 import Video from '../video/Video'
 import {cn} from '@/lib/utils'
-export default function SlideMultiple({listGallery = [], activeImage, data}) {
+function SlideMultiple({listGallery = [], activeImage, data}) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
   const slideRef = useRef()
-  const uniqueId = Math.random() * 1000
 
   const [isPlaying, setIsPlaying] = useState(false)
+
   useEffect(() => {
-    const activeIndex = listGallery.findIndex((item) => item === activeImage)
+    let activeIndex = 0
+    activeIndex = listGallery.findIndex((item) => item === activeImage)
     if (activeIndex >= 0 && slideRef.current) {
       if (data?.video_type) {
         slideRef.current.slideTo(activeIndex + 1)
       } else {
         slideRef.current.slideTo(activeIndex)
       }
+    } else {
+      slideRef.current.slideTo(0)
     }
-  }, [activeImage, uniqueId])
+  }, [activeImage])
 
   return (
     <>
@@ -167,3 +170,4 @@ export default function SlideMultiple({listGallery = [], activeImage, data}) {
     </>
   )
 }
+export default memo(SlideMultiple)

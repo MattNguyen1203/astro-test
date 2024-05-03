@@ -2,7 +2,7 @@
 
 import {cn} from '@/lib/utils'
 import Image from 'next/image'
-import {useEffect, useMemo, useState} from 'react'
+import {memo, useEffect, useMemo, useState} from 'react'
 import {getLastKey, getListValueOutOfStock} from './function'
 
 const Variation = ({data = {}, setSelectedPrd, selectedPrd}) => {
@@ -217,4 +217,4 @@ const Variation = ({data = {}, setSelectedPrd, selectedPrd}) => {
   )
 }
 
-export default Variation
+export default memo(Variation)
