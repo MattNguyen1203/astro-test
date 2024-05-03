@@ -6,6 +6,7 @@ import {Work_Sans} from 'next/font/google'
 import {headers} from 'next/headers'
 import {SessionProvider} from 'next-auth/react'
 import {auth} from '@/auth'
+import Contact from '@/layout/contact'
 
 export const metadata = {
   title: 'AstroMazing',
@@ -85,6 +86,7 @@ export default async function RootLayout({children}) {
         <SessionProvider session={session}>
           {children}
           <Footer isMobile={isMobile} />
+          <Contact />
         </SessionProvider>
       </body>
     </html>

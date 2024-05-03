@@ -13,7 +13,7 @@ export default async function ProductIndex({isMobile}) {
       {isMobile ? (
         <div className='container'>
           <CategoryProductRes
-            title='SẢN PHẨM MỚI NHẤT'
+            title='Sản phẩm mới nhất'
             href='/san-pham'
           />
         </div>

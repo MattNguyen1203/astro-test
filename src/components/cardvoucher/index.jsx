@@ -7,6 +7,8 @@ export default function CardVoucher({
   className = '',
   item,
   isPriority = false,
+  disabled = false,
+  setDisabled,
 }) {
   const [isCopy, setCopy] = useState(false)
 
@@ -14,6 +16,7 @@ export default function CardVoucher({
     if (isCopy) {
       const voucherTimeout = setTimeout(() => {
         setCopy(false)
+        setDisabled(false)
       }, 3000)
 
       return () => clearTimeout(voucherTimeout)
@@ -76,9 +79,11 @@ export default function CardVoucher({
         } flex items-center flex-1 size-full`}
       >
         <button
+          disabled={disabled}
           onClick={() => {
             if (!isCopy) {
               setCopy(true)
+              setDisabled(true)
               const couponCode = item?.code?.toString()
               navigator.clipboard.writeText(couponCode)
             }

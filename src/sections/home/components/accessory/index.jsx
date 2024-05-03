@@ -11,7 +11,7 @@ export default async function Accessory({isMobile}) {
   const session = await auth()
   return (
     <div className='pt-[4.39rem] md:bg-elevation-20 xmd:pt-[3rem]'>
-      <div className='container md:flex md:py-[1.46rem] md:pr-[1.47rem] rounded-[1.1713rem] backdrop-blur-[5px] md:bg-blue-400 xmd:full-mb'>
+      <div className='container md:flex md:py-[1.46rem] md:pr-[1.47rem] rounded-[1.1713rem] backdrop-blur-[5px] lg:bg-[linear-gradient(180deg,#1D4468_0.27%,#1D4468_44.01%,rgba(29,68,104,0.20)_80.64%,rgba(255,255,255,0.00)_105.16%)] xmd:full-mb'>
         <div className='md:px-[1.46rem] flex-1 flex flex-col'>
           <Link
             href={'/'}

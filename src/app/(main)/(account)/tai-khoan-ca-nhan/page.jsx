@@ -18,11 +18,12 @@ export default async function AccountPage({searchParams}) {
   ])
 
   const profile =
-    session?.acessToken &&
+    session?.accessToken &&
     (await getDataProfile({
       api: `/custom/v1/customer/customer`,
-      token: session?.acessToken,
+      token: session?.accessToken,
     }))
+
   return (
     <>
       {isMobile && (
