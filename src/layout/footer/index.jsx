@@ -78,7 +78,7 @@ export default async function Footer({isMobile}) {
                   />
                 </div>
                 <span className='font-semibold text-blue-500 body2'>
-                  Tư vấn bán hàng (9h-21h)
+                  CSKH... (9h-21h)
                 </span>
                 <span className='font-bold text-blue-500 body2'>
                   094 749 2020
@@ -168,7 +168,7 @@ export default async function Footer({isMobile}) {
               href={'https://okhub.vn/'}
               prefetch={false}
             >
-              | Cung cấp bởi OkHub Agency
+              | Cung cấp bởi OKHUB AGENCY
             </Link>
           </div>
         </div>

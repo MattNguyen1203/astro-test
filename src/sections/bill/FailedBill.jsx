@@ -20,7 +20,7 @@ export default function FailedBill({session, setCount}) {
   const {data, error, isLoading} = useSWR(
     `${process.env.NEXT_PUBLIC_API}/okhub/v1/order?status=${status}&page=${
       page || currentPage
-    }&limit=5`,
+    }&limit=10`,
     fetcher,
     {
       revalidateIfStale: false,

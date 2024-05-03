@@ -4,6 +4,7 @@ import Image from 'next/image'
 
 export default function CardBill({data, status}) {
   const isDone = status === 'completed'
+  const pending = status === 'pending'
   return (
     <article className='rounded-[0.58565rem] shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)] p-[1.17rem] bg-white'>
       <div className='flex items-center justify-between'>
@@ -35,11 +36,11 @@ export default function CardBill({data, status}) {
         </span>
       </div>
       <div
-        className={`${
+        className={`${pending && '!justify-end'} ${
           isDone ? 'justify-end' : 'justify-between'
         } flex mt-[0.88rem] xmd:w-full`}
       >
-        {!isDone && (
+        {!isDone && !pending && (
           <div className='flex items-center'>
             <Image
               className='size-[1.1713rem] object-contain'

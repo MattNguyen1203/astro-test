@@ -1,7 +1,11 @@
+'use client'
+
 import CardVoucher from '@/components/cardvoucher'
 import Image from 'next/image'
+import {useState} from 'react'
 
 export default function IndexVoucher() {
+  const [disabled, setDisabled] = useState(false)
   return (
     <section className='p-[1.17rem] rounded-[0.58565rem] bg-white shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>
       <div className='w-full h-[13.5rem] mb-[1.76rem] rounded-[0.58565rem] overflow-hidden'>
@@ -23,6 +27,8 @@ export default function IndexVoucher() {
               .fill(0)
               .map((_, index) => (
                 <CardVoucher
+                  setDisabled={setDisabled}
+                  disabled={disabled}
                   className='w-full'
                   key={index}
                 />
@@ -38,6 +44,8 @@ export default function IndexVoucher() {
               .fill(0)
               .map((_, index) => (
                 <CardVoucher
+                  setDisabled={setDisabled}
+                  disabled={disabled}
                   className='w-full'
                   key={index}
                 />

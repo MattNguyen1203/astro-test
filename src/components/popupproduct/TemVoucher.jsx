@@ -43,7 +43,10 @@ export default function TemVoucher({
           />
         </div>
       </HoverCardTrigger>
-      <HoverCardContent className='caption1 w-[22.62079rem] bg-white rounded-[0.58565rem] p-[0.88rem]'>
+      <HoverCardContent
+        data-side='left'
+        className='HoverCardContent caption1 w-[22.62079rem] bg-white rounded-[0.58565rem] p-[0.88rem]'
+      >
         <div className='font-semibold'>Chi tiết giá</div>
 
         <div className='py-[0.88rem] my-[0.88rem] border-y border-[#D4D4D459]'>

@@ -5,8 +5,9 @@ import {useEffect, useState} from 'react'
 
 export default function BannerFlashSale({isMobile}) {
   const [timeLeft, setTimeLeft] = useState({})
-  // feka thời gian
-  const time = '2024-04-30 00:00:00'
+  // fake thời gian
+  // định dạng nhận vào "yyyy-mm-dd hh:mm:ss"
+  const time = '2025-04-30 00:00:00'
 
   const calculateTimeLeft = () => {
     const difference = +new Date(time.replace(' ', 'T')) - +new Date()

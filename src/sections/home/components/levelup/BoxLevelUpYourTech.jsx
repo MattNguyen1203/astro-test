@@ -36,7 +36,7 @@ export default function BoxLevelUpYourTech({
   return (
     <>
       {isMobile ? (
-        <div className='h-[13.6896rem] rounded-[0.87848rem] overflow-hidden relative container'>
+        <div className='h-[13.6896rem] rounded-[0.87848rem] overflow-hidden relative container xmd:mx-[0.59rem]'>
           <Image
             className='object-cover size-full'
             src={'/home/banner-level-up.jpg'}

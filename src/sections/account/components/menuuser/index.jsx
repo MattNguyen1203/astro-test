@@ -9,31 +9,37 @@ const menuOptions = [
   {
     title: 'Tài khoản cá nhân',
     src: '/layout/nav/user.svg',
+    srcActive: '/layout/nav/user-active.svg',
     href: '/tai-khoan-ca-nhan',
   },
   {
     title: 'Đơn hàng',
     src: '/layout/nav/bill.svg',
+    srcActive: '/layout/nav/bill-active.svg',
     href: '/don-hang',
   },
   {
     title: 'Sản phẩm yêu thích',
     src: '/layout/nav/product-like.svg',
+    srcActive: '/layout/nav/like-active.svg',
     href: '/san-pham-yeu-thich',
   },
   {
     title: 'Voucher của bạn',
     src: '/layout/nav/ticket.svg',
+    srcActive: '/layout/nav/ticket-active.svg',
     href: '/voucher',
   },
   {
     title: 'Sản phẩm đã mua',
     src: '/layout/nav/folder.svg',
+    srcActive: '/layout/nav/folder-active.svg',
     href: '/san-pham-da-mua',
   },
   {
     title: 'Khách hàng thân thiết',
     src: '/layout/nav/star.svg',
+    srcActive: '/layout/nav/star-active.svg',
     href: '/khach-hang-than-thiet',
   },
 ]
@@ -60,7 +66,7 @@ export default function MenuUser({setIsOpen = () => {}, session}) {
           >
             <Image
               className='size-[1.02489rem] object-contain'
-              src={e.src}
+              src={pathName.includes(e.href) ? e.srcActive : e.src}
               alt={e.title}
               width={14}
               height={14}
@@ -69,7 +75,7 @@ export default function MenuUser({setIsOpen = () => {}, session}) {
             <span
               className={`${
                 pathName.includes(e.href) ? 'text-white' : 'text-greyscale-20'
-              } font-normal sub2 inline-block ml-[0.59rem]`}
+              } font-medium sub2 inline-block ml-[0.59rem]`}
             >
               {e.title}
             </span>
