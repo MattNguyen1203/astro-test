@@ -6,6 +6,7 @@ import MenuRes from './MenuRes'
 import Cart from './Cart'
 import getData from '@/lib/getData'
 import {getDataProfile} from '@/lib/getDataProfile'
+import {getDataTag} from '@/lib/getDataTag'
 
 export default async function NavUp({
   session,
@@ -14,12 +15,19 @@ export default async function NavUp({
   categories,
   linkSocial,
 }) {
-  const [productSuggest, cartDefault] = await Promise.all([
+  const request1 = {
+    token: session?.accessToken,
+    api: `/okhub/v1/cart`,
+  }
+  const request2 = {
+    api: `/custom/v1/customer/customer`,
+    token: session ? session?.accessToken : null,
+    tags: 'profile',
+  }
+  const [productSuggest, cartDefault, profile] = await Promise.all([
     getData('/okhub/v1/product/allProduct?limit=6&order=desc&page=1'),
-    getDataProfile({
-      token: session?.accessToken,
-      api: `/okhub/v1/cart`,
-    }),
+    getDataProfile(request1),
+    getDataTag(request2),
   ])
 
   return (
@@ -60,6 +68,7 @@ export default async function NavUp({
         <Account
           session={session}
           isMobile={isMobile}
+          profile={profile}
         />
         {isMobile ? (
           <MenuRes

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import {useEffect, useState} from 'react'
 import {toast} from 'sonner'
 
-const WishListIcon = ({data, session, wishList}) => {
+const WishListIcon = ({data, session, wishList = []}) => {
   const [isActive, setIsActive] = useState(
     wishList?.some((e) => e?.product?.id === data?.id),
   )

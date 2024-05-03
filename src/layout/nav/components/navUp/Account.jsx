@@ -1,18 +1,17 @@
 'use client'
 import useStore from '@/app/(store)/store'
 import useClickOutSide from '@/hooks/useClickOutSide'
-// import MenuUser from '@/sections/account/components/menuuser'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
 
 import dynamic from 'next/dynamic'
 const MenuUser = dynamic(() => import('@/sections/account/components/menuuser'))
 
-export default function Account({session, isMobile}) {
-  const user = session?.user
+export default function Account({session, isMobile, profile}) {
   const [isOpen, setIsOpen] = useState(false)
   const [sideRef, isOutSide] = useClickOutSide(false)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
+  const isHasImage = profile?.picture_profile || profile?.avatar_url
 
   useEffect(() => {
     if (isOutSide) {
@@ -30,9 +29,13 @@ export default function Account({session, isMobile}) {
       <Image
         onClick={() => setIsOpen(!isOpen)}
         className={`${
-          user?.image ? 'size-full' : 'size-[1.31772rem] xmd:size-[1.1713rem]'
+          isHasImage ? 'size-full' : 'size-[1.31772rem] xmd:size-[1.1713rem]'
         } flex-shrink-0 object-cover rounded-full `}
-        src={user?.image || '/layout/nav/user.svg'}
+        src={
+          profile?.picture_profile ||
+          profile?.avatar_url ||
+          '/layout/nav/user.svg'
+        }
         alt='icon user'
         width={18}
         height={18}

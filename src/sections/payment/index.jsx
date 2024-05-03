@@ -119,7 +119,7 @@ export default function PaymentIndex({
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: profile?.display_name || '',
+      name: profile?.display_name?.trim() || '',
       phone: profile?.phone || '',
       email: profile?.email || '',
       address: '',

@@ -39,7 +39,7 @@ const PreOrder = ({
     quantity: 1,
     variation:
       (variations?.variations &&
-        Object.values(variations?.variations)?.find((item) => item.default)) ||
+        Object.values(variations?.variations)?.find((item) => item?.default)) ||
       {},
   })
 
@@ -50,7 +50,9 @@ const PreOrder = ({
     const listImgVariations = variations?.variations
       ? [
           ...new Set(
-            Object.values(variations?.variations).map((item) => item.image.url),
+            Object.values(variations?.variations)?.map(
+              (item) => item?.image?.url,
+            ),
           ),
         ]
       : []

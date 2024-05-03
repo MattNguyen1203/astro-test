@@ -56,7 +56,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
           if (result?.[index] !== null) {
             const defaultValue = Object.values(
               result?.[index]?.variations,
-            )?.find((item) => item.default)
+            )?.find((item) => item?.default)
 
             return {
               ...item,

@@ -22,10 +22,16 @@ import PopupProvince from '../payment/PopupProvince'
 import PopupDistrict from '../payment/PopupDistrict'
 import PopupCommune from '../payment/PopupCommune'
 import {updateProfile} from '@/actions/updateProfile'
-
+import RevalidateTags from '@/actions/revalidateTags'
 const formSchema = z.object({
-  nickname: z.string(),
-  fullName: z.string().min(1, 'Trường này là bắt buộc!'),
+  nickname: z
+    .string()
+    .min(1, 'Trường này là bắt buộc!')
+    .min(2, 'Trường này phải có ít nhất 2 ký tự'),
+  fullName: z
+    .string()
+    .min(1, 'Trường này là bắt buộc!')
+    .min(2, 'Trường này phải có ít nhất 2 ký tự'),
   email: z
     .string()
     .min(1, {message: 'Trường này là bắt buộc!'})
@@ -34,7 +40,7 @@ const formSchema = z.object({
     .string()
     .min(1, {message: 'Trường này là bắt buộc!'})
     .regex(/^[0-9]{6,15}$/, {message: 'Định dạng không hợp lệ!'}),
-  address: z.string(),
+  street: z.string(),
   phoneShip: z.string(),
 })
 export default function IndexAccount({
@@ -88,47 +94,59 @@ export default function IndexAccount({
   const [birthDay, setBirthDay] = useState(profile?.birthday?.split('/'))
 
   const [gender, setGender] = useState(
-    profile?.gender == '1' ? 'female' : 'male',
+    Number(profile?.gender) === 1 ? 'female' : 'male',
   )
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       nickname: profile?.nickname,
-      fullName: profile?.display_name,
+      fullName: profile?.display_name?.trim(),
       email: profile?.email,
       phone: profile?.phone,
-      address: '',
       street: communeSplit?.length > 1 ? communeSplit?.[0] : '',
-      phoneShip: profile?.billing_address?.phone,
+      phoneShip: profile?.shipping_address?.phone,
     },
   })
   const values = form.watch()
-  function onSubmit(values) {
-    console.log('🚀 ~ onSubmit ~ values:', values)
-  }
 
-  const handleBtnSubmit = () => {
-    setTransition(() => {
-      // const addressForm = JSON.stringify({
-      //   address_1: 'KDT Đô Nghĩa, Phường Yên Nghĩa',
-      //   address_2: 'Quận Hà Đông',
-      //   city: 'Hà Nội',
-      // })
-      // console.log('🚀 ~ setTransition ~ addressForm:', addressForm)
-      const formdata = new FormData()
-      formdata.append('shipping_address', '{"company":"hanh"}')
-
-      const request = {
-        api: '/custom/v1/customer/customer',
-        token: session?.accessToken,
-        body: formdata,
+  const handleFullName = (fullName) => {
+    const fullNameNew = fullName?.trim()
+    const arrName = fullNameNew?.split(' ')
+    if (arrName?.length >= 2) {
+      return {
+        first_name: arrName?.slice(0, arrName?.length - 1),
+        last_name: arrName[arrName?.length - 1],
       }
+    } else if (arrName?.length === 1) {
+      return {
+        first_name: fullNameNew,
+        last_name: ' ',
+      }
+    } else {
+      return {first_name: ' ', last_name: ' '}
+    }
+  }
+  function onSubmit(values) {
+    const fullName = handleFullName(values?.fullName)
+    const dataUpdate = {
+      first_name: fullName?.first_name,
+      last_name: fullName?.last_name,
+      email: values?.email,
+      phone: values?.phone,
+      gender: gender === 'female' ? 1 : 0,
+      birthday: '',
+      shipping_address: {
+        address_1: values?.street + ', ' + valueCommune,
+        address_2: valueDistrict,
+        city: valueProvince,
+      },
+      image_base64: base64,
+      image_base64_title: profile?.email?.split('@')?.[0],
+    }
+    console.log('🚀 ~ onSubmit ~ dataUpdate:', dataUpdate)
 
-      fetch('http://localhost:3000/api/update-profile', request)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err))
-    })
+    // RevalidateTags('profile')
   }
 
   const handleReset = () => {
@@ -142,10 +160,9 @@ export default function IndexAccount({
     setIdDistrict(defaultIdDistrict)
     form.reset({
       nickname: profile?.nickname,
-      fullName: profile?.display_name,
+      fullName: profile?.display_name?.trim(),
       email: profile?.email,
       phone: profile?.phone,
-      address: '',
       street: communeSplit?.length > 1 ? communeSplit?.[0] : '',
       phoneShip: profile?.billing_address?.phone,
     })
@@ -503,7 +520,6 @@ export default function IndexAccount({
                 </div>
                 <BtnSubmit
                   isPending={isPending}
-                  onClick={handleBtnSubmit}
                   title='LƯU THAY ĐỔI'
                   className='!w-[8.63836rem] !h-[2.4rem] !bg-[linear-gradient(90deg,rgba(16,40,65,1)_100%,rgba(16,40,65,1)_100%)] rounded-[0.43924rem] caption font-semibold'
                 />

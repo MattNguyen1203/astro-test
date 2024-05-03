@@ -97,7 +97,7 @@ export default function ExpRank({session, dataRank}) {
             ></div>
           </div>
           <div className='flex items-center justify-between w-full'>
-            {Object.values(dataRank).map((rank, index) => (
+            {Object.values(dataRank)?.map((rank, index) => (
               <div
                 key={index}
                 className='flex flex-col items-center w-[8.56515rem]'

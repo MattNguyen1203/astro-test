@@ -1,14 +1,26 @@
 'use client'
 import {Dialog, DialogContent, DialogTrigger} from '@/components/ui/dialog'
 import {Slider} from '@/components/ui/slider'
-import {useRef, useState} from 'react'
+import {useRef, useState, useTransition} from 'react'
 import {toPng} from 'html-to-image'
+import {updateProfile} from '@/actions/updateProfile'
+import {toast} from 'sonner'
+import RevalidateTags from '@/actions/revalidateTags'
 
-export function DialogAvatar({children, isOpen, setIsOpen, setBase64}) {
+export function DialogAvatar({
+  children,
+  isOpen,
+  setIsOpen,
+  setBase64,
+  updateNow,
+  token,
+  email,
+}) {
   const fileRef = useRef(null)
   const pictureRef = useRef(null)
   const [src, setSrc] = useState('')
   const [size, setSize] = useState(50)
+  const [isPending, setTransition] = useTransition()
 
   const handleDragOver = (event) => {
     event.preventDefault()
@@ -23,45 +35,71 @@ export function DialogAvatar({children, isOpen, setIsOpen, setBase64}) {
     setSrc(URL.createObjectURL(file.target.files[0]))
   }
 
-  //handle convert base64 to file
-  // function base64ToFile(base64String, filename) {
-  //   // Tách metadata và lấy ra phần dữ liệu base64 thuần túy
-  //   let base64Data = base64String.split(';base64,').pop()
-
-  //   // Chuyển base64Data thành một chuỗi binary
-  //   let binaryString = window.atob(base64Data)
-
-  //   // Chuyển chuỗi binary thành một mảng array buffer
-  //   let length = binaryString.length
-  //   let bytes = new Uint8Array(length)
-
-  //   for (let i = 0; i < length; i++) {
-  //     bytes[i] = binaryString.charCodeAt(i)
-  //   }
-
-  //   // Tạo một file mới từ array buffer
-  //   let file = new Blob([bytes], {type: 'application/octet-stream'})
-
-  //   // Gán tên file nếu nó được cung cấp
-  //   if (filename) {
-  //     file = new File([file], filename, {type: 'application/octet-stream'})
-  //   }
-
-  //   return file
-  // }
-
   const handleChangeAvatar = () => {
-    // setIsOpen(false)
-    toPng(pictureRef?.current)
-      .then(function (dataUrl) {
-        setBase64(dataUrl.slice(dataUrl.indexOf('base64,') + 7))
-        //convert base64 to file
-        // let filename = 'myFile.txt' // Tên file bạn muốn tạo
-        // let file = base64ToFile(dataUrl, filename)
-      })
-      .catch(function (error) {
-        console.error('oops, something went wrong!', error)
-      })
+    setTransition(() => {
+      if (updateNow) {
+        toPng(pictureRef?.current)
+          .then(function (dataUrl) {
+            const formdata = new FormData()
+            formdata.append(
+              'image_base64',
+              dataUrl.slice(dataUrl.indexOf('base64,') + 7),
+            )
+            formdata.append(
+              'image_base64_title',
+              email?.split('@')?.[0] + '-customer',
+            )
+            const request = {
+              api: '/custom/v1/customer/updateCustomer',
+              token: token,
+              body: formdata,
+            }
+            updateProfile(request)
+              .then((res) => {
+                setIsOpen(false)
+                if (res?.message?.includes('successfully')) {
+                  RevalidateTags('profile')
+                  return toast.success('Cập nhật avatar thành công!', {
+                    duration: 5000,
+                    position: 'bottom-center',
+                  })
+                } else {
+                  return toast.error('Cập nhật avatar thất bại!', {
+                    duration: 5000,
+                    position: 'bottom-center',
+                  })
+                }
+              })
+              .catch((err) => {
+                setIsOpen(false)
+                return toast.error('Đã có lỗi xảy ra, vui lòng thử lại sau!', {
+                  duration: 5000,
+                  position: 'bottom-center',
+                })
+              })
+          })
+          .catch(function (error) {
+            setIsOpen(false)
+            return toast.error('Đã có lỗi xảy ra, vui lòng thử lại sau!', {
+              duration: 5000,
+              position: 'bottom-center',
+            })
+          })
+      } else {
+        toPng(pictureRef?.current)
+          .then(function (dataUrl) {
+            setBase64(dataUrl.slice(dataUrl.indexOf('base64,') + 7))
+            setIsOpen(false)
+          })
+          .catch(function (error) {
+            setIsOpen(false)
+            return toast.error('Đã có lỗi xảy ra, vui lòng thử lại sau!', {
+              duration: 5000,
+              position: 'bottom-center',
+            })
+          })
+      }
+    })
   }
 
   return (
@@ -213,7 +251,29 @@ export function DialogAvatar({children, isOpen, setIsOpen, setBase64}) {
                 onClick={handleChangeAvatar}
                 className='rounded-[0.43924rem] border border-solid border-blue-800 text-white bg-blue-800 flex justify-center items-center caption font-semibold h-[2.4rem]'
               >
-                LƯU THAY ĐỔI
+                {updateNow && isPending ? (
+                  <svg
+                    className='animate-spin h-[2rem] w-[2rem] text-white'
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                  >
+                    <circle
+                      className='opacity-25'
+                      cx='12'
+                      cy='12'
+                      r='10'
+                      stroke='currentColor'
+                      strokeWidth='4'
+                    ></circle>
+                    <path
+                      fill='currentColor'
+                      d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+                    ></path>
+                  </svg>
+                ) : (
+                  ' LƯU THAY ĐỔI'
+                )}
               </button>
             </div>
           </>

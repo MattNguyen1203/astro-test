@@ -23,8 +23,8 @@ const ProductBuyed = ({session, isMobile, products}) => {
     const data =
       products?.data?.flatMap((product) => product?.product_name || []) || []
 
-    const uniqueData = data.filter((item, index, self) => {
-      return self.findIndex((t) => t.id === item.id) === index
+    const uniqueData = data?.filter((item, index, self) => {
+      return self?.findIndex((t) => t?.id === item?.id) === index
     })
 
     setListProduct(uniqueData)

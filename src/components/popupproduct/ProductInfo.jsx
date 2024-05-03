@@ -29,7 +29,7 @@ export default function ProductInfo({
       ? [
           ...new Set(
             Object.values(data?.listVariations?.variations).map(
-              (item) => item.image.url,
+              (item) => item?.image?.url,
             ),
           ),
         ]
