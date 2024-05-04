@@ -24,6 +24,7 @@ import PopupCommune from '../payment/PopupCommune'
 import {updateProfile} from '@/actions/updateProfile'
 import RevalidateTags from '@/actions/revalidateTags'
 import {toast} from 'sonner'
+
 const formSchema = z.object({
   nickname: z
     .string()
@@ -129,24 +130,6 @@ export default function IndexAccount({
   function onSubmit(values) {
     setTransition(() => {
       const fullName = handleFullName(values?.fullName)
-      // const dataUpdate = {
-      //   first_name: fullName?.first_name,
-      //   last_name: fullName?.last_name,
-      //   email: values?.email,
-      //   gender: gender === 'female' ? 1 : 0,
-      //   birthday: birthDay?.join('/'),
-      //   shipping_address: {
-      //     address_1: values?.street + ', ' + valueCommune,
-      //     address_2: valueDistrict,
-      //     city: valueProvince,
-      //     phone: values?.phoneShip,
-      //   },
-      // }
-
-      // const avatar = {
-      //   image_base64: base64,
-      //   image_base64_title: base64 ? profile?.email?.split('@')?.[0] : '',
-      // }
 
       const formdata = new FormData()
       formdata.append('first_name', fullName?.first_name)
@@ -179,12 +162,13 @@ export default function IndexAccount({
 
       updateProfile(request).then((res) => {
         if (res?.message?.includes('successfully')) {
-          RevalidateTags('profile').then(() =>
+          RevalidateTags('profile').then(() => {
+            setIsEdit(false)
             toast.success('Cập nhật thông tin cá nhân thành công!', {
               duration: 5000,
               position: 'bottom-center',
-            }),
-          )
+            })
+          })
         } else {
           toast.error(
             'Cập nhật thông tin cá nhân thất bại, vui lòng thử lại!',

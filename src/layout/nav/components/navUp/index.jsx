@@ -78,9 +78,10 @@ export default async function NavUp({
         ) : (
           <>
             {session?.accessToken ? (
-              <span className='font-normal caption1 text-greyscale-80 py-[0.44rem] pl-[0.44rem]'>
-                {session?.nickname || session?.lastname || session?.firstname}
-              </span>
+              // <span className='font-normal caption1 text-greyscale-80 py-[0.44rem] pl-[0.44rem]'>
+              //   {session?.nickname || session?.lastname || session?.firstname}
+              // </span
+              <></>
             ) : (
               <Link
                 href={'/dang-nhap'}
