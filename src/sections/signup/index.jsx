@@ -21,32 +21,40 @@ import BtnSubmit from '../auth/components/btnsubmit'
 import {useRouter} from 'next/navigation'
 import {sendOTP} from '@/actions/sendOTP'
 import {convertPhone} from '@/lib/utils'
+import ICEyeActive from '@/components/icon/ICEyeActive'
+import ICEyeActiveDisable from '@/components/icon/ICEyeActiveDisable'
 
 const formSchema = z
   .object({
-    email: z
-      .string()
-      .min(1, {message: 'Vui lòng nhập email!'})
-      .email({message: 'Nhập đúng định dạng email!'}),
     phone: z
       .string()
       .min(1, {message: 'Vui lòng nhập số điện thoại!'})
       .regex(/^[0-9]{6,15}$/, {message: 'Định dạng không hợp lệ!'}),
+    email: z
+      .string()
+      .min(1, {message: 'Vui lòng nhập email!'})
+      .email({message: 'Nhập đúng định dạng email!'}),
     password: z
       .string()
       .min(1, {message: 'Vui lòng nhập mật khẩu!'})
-      .min(6, {message: 'Mật khẩu phải có từ 6 kí tự trở lên!'})
+      .min(6, {
+        message: 'Phải có 6 kí tự trở lên, có chữ thường, chữ hoa và số!',
+      })
       .regex(/[a-z]/, {
-        message: 'Mật khẩu phải có ít nhất 1 chữ thường!',
+        message: 'Phải có 6 kí tự trở lên, có chữ thường, chữ hoa và số!',
       })
       .regex(/[A-Z]/, {
-        message: 'Mật khẩu phải có ít nhất 1 chữ hoa!',
+        message: 'Phải có 6 kí tự trở lên, có chữ thường, chữ hoa và số!',
       })
-      .regex(/[0-9]/, {message: 'Mật khẩu phải có ít nhất 1 chữ số!'}),
+      .regex(/[0-9]/, {
+        message: 'Phải có 6 kí tự trở lên, có chữ thường, chữ hoa và số!',
+      }),
     confirmPassword: z
       .string()
       .min(1, {message: 'Vui lòng nhập mật khẩu!'})
-      .min(6, {message: 'Mật khẩu phải có từ 6 kí tự trở lên!'}),
+      .min(6, {
+        message: 'Phải có 6 kí tự trở lên, có chữ thường, chữ hoa và số!',
+      }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Xác thực mật khẩu chưa khớp!',
@@ -57,6 +65,8 @@ export default function SignUpIndex() {
   const router = useRouter()
 
   const [isPending, startTransition] = useTransition()
+  const [isShowConfirmPass, setIsShowConfirmPass] = useState(false)
+  const [isShowPass, setIsShowPass] = useState(false)
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -117,24 +127,8 @@ export default function SignUpIndex() {
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className='space-y-[0.88rem] xmd:space-y-[0.59rem]'
+          autoComplete='false'
         >
-          <FormField
-            control={form.control}
-            name='email'
-            render={({field}) => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    type='email'
-                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40  font-svnGraphik xmd:rounded-[0.58565rem]'
-                    placeholder='Email của bạn *'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage className='pl-[0.88rem] font-svnGraphik' />
-              </FormItem>
-            )}
-          />
           <FormField
             control={form.control}
             name='phone'
@@ -154,16 +148,46 @@ export default function SignUpIndex() {
           />
           <FormField
             control={form.control}
-            name='password'
+            name='email'
             render={({field}) => (
               <FormItem>
                 <FormControl>
                   <Input
-                    className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik xmd:rounded-[0.58565rem]'
-                    placeholder='Mật khẩu *'
-                    type='password'
+                    type='email'
+                    className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40  font-svnGraphik xmd:rounded-[0.58565rem]'
+                    placeholder='Email của bạn *'
                     {...field}
                   />
+                </FormControl>
+                <FormMessage className='pl-[0.88rem] font-svnGraphik' />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name='password'
+            render={({field}) => (
+              <FormItem>
+                <FormControl>
+                  <div className='relative size-full'>
+                    <Input
+                      className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik xmd:rounded-[0.58565rem]'
+                      placeholder='Mật khẩu *'
+                      type={isShowPass ? 'text' : 'password'}
+                      {...field}
+                    />
+                    <div
+                      onClick={() => setIsShowPass((prev) => !prev)}
+                      className='size-[1.5rem] absolute top-1/2 -translate-y-1/2 right-[1rem] flex justify-center items-center cursor-pointer'
+                    >
+                      {isShowPass ? (
+                        <ICEyeActive />
+                      ) : (
+                        <ICEyeActiveDisable className='size-[1.2rem] ' />
+                      )}
+                    </div>
+                  </div>
                 </FormControl>
                 <FormMessage className='pl-[0.88rem] font-svnGraphik' />
               </FormItem>
@@ -175,18 +199,33 @@ export default function SignUpIndex() {
             render={({field}) => (
               <FormItem>
                 <FormControl>
-                  <Input
-                    className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik xmd:rounded-[0.58565rem]'
-                    placeholder='Xác nhận mật khẩu *'
-                    type='password'
-                    {...field}
-                  />
+                  <div className='relative size-full'>
+                    <Input
+                      className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik xmd:rounded-[0.58565rem]'
+                      placeholder='Xác nhận mật khẩu *'
+                      type={isShowConfirmPass ? 'text' : 'password'}
+                      {...field}
+                    />
+                    <div
+                      onClick={() => setIsShowConfirmPass((prev) => !prev)}
+                      className='size-[1.5rem] absolute top-1/2 -translate-y-1/2 right-[1rem] flex justify-center items-center cursor-pointer'
+                    >
+                      {isShowConfirmPass ? (
+                        <ICEyeActive />
+                      ) : (
+                        <ICEyeActiveDisable className='size-[1.2rem] ' />
+                      )}
+                    </div>
+                  </div>
                 </FormControl>
                 <FormMessage className='pl-[0.88rem] font-svnGraphik' />
               </FormItem>
             )}
           />
-          <span className='block font-normal opacity-50 caption1 text-greyscale-40 xmd:!mt-[0.88rem]'>
+          <span className='block font-normal opacity-50 caption1 text-[0.75rem] text-greyscale-40 xmd:!mt-[0.88rem]'>
+            Mật khẩu phải có 6 kí tự trở lên, có chữ thường, chữ hoa và số.
+          </span>
+          <span className='block font-normal opacity-50 caption1 text-[0.75rem] text-greyscale-40 xmd:!mt-[0.88rem] md:!mt-[0.4rem]'>
             Các mục có dấu (*) là những thông tin bắt buộc
           </span>
 
@@ -223,7 +262,7 @@ export default function SignUpIndex() {
         </form>
       </Form>
 
-      <div className='flex items-center mx-auto w-fit mt-[2.93rem] xmd:mt-[7rem]'>
+      <div className='flex items-center mx-auto w-fit mt-[2.3rem] xmd:mt-[7rem]'>
         <span className='font-semibold text-blue-500 cpation1 opacity-45'>
           Bạn đã có tài khoản ?
         </span>
