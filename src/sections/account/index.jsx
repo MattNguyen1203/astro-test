@@ -16,13 +16,14 @@ import PopupDate from './components/popupdate'
 import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group'
 import {Label} from '@/components/ui/label'
 import BtnSubmit from '../auth/components/btnsubmit'
-import {useState, useTransition} from 'react'
+import {useId, useState, useTransition} from 'react'
 import {DialogAvatar} from './components/dialogavatar'
 import PopupProvince from '../payment/PopupProvince'
 import PopupDistrict from '../payment/PopupDistrict'
 import PopupCommune from '../payment/PopupCommune'
 import {updateProfile} from '@/actions/updateProfile'
 import RevalidateTags from '@/actions/revalidateTags'
+import {toast} from 'sonner'
 const formSchema = z.object({
   nickname: z
     .string()
@@ -36,10 +37,6 @@ const formSchema = z.object({
     .string()
     .min(1, {message: 'Trường này là bắt buộc!'})
     .email({message: 'Nhập đúng định dạng email!'}),
-  phone: z
-    .string()
-    .min(1, {message: 'Trường này là bắt buộc!'})
-    .regex(/^[0-9]{6,15}$/, {message: 'Định dạng không hợp lệ!'}),
   street: z.string(),
   phoneShip: z.string(),
 })
@@ -75,6 +72,7 @@ export default function IndexAccount({
   const [isEdit, setIsEdit] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [valueProvince, setValueProvince] = useState(defaultValuetProvince)
+  const id = useId()
 
   const [idProvince, setIdProvince] = useState(defaultIdProvince)
   const [valueDistrict, setValueDistrict] = useState(defaultValueDistrict)
@@ -90,6 +88,7 @@ export default function IndexAccount({
   const [valueCommune, setValueCommune] = useState(defaultValueCommune)
 
   const [base64, setBase64] = useState('')
+  const [src, setSrc] = useState(null)
 
   const [birthDay, setBirthDay] = useState(profile?.birthday?.split('/'))
 
@@ -103,7 +102,6 @@ export default function IndexAccount({
       nickname: profile?.nickname,
       fullName: profile?.display_name?.trim(),
       email: profile?.email,
-      phone: profile?.phone,
       street: communeSplit?.length > 1 ? communeSplit?.[0] : '',
       phoneShip: profile?.shipping_address?.phone,
     },
@@ -115,7 +113,7 @@ export default function IndexAccount({
     const arrName = fullNameNew?.split(' ')
     if (arrName?.length >= 2) {
       return {
-        first_name: arrName?.slice(0, arrName?.length - 1),
+        first_name: arrName?.slice(0, arrName?.length - 1).join(' '),
         last_name: arrName[arrName?.length - 1],
       }
     } else if (arrName?.length === 1) {
@@ -127,26 +125,77 @@ export default function IndexAccount({
       return {first_name: ' ', last_name: ' '}
     }
   }
-  function onSubmit(values) {
-    const fullName = handleFullName(values?.fullName)
-    const dataUpdate = {
-      first_name: fullName?.first_name,
-      last_name: fullName?.last_name,
-      email: values?.email,
-      phone: values?.phone,
-      gender: gender === 'female' ? 1 : 0,
-      birthday: '',
-      shipping_address: {
-        address_1: values?.street + ', ' + valueCommune,
-        address_2: valueDistrict,
-        city: valueProvince,
-      },
-      image_base64: base64,
-      image_base64_title: profile?.email?.split('@')?.[0],
-    }
-    console.log('🚀 ~ onSubmit ~ dataUpdate:', dataUpdate)
 
-    // RevalidateTags('profile')
+  function onSubmit(values) {
+    setTransition(() => {
+      const fullName = handleFullName(values?.fullName)
+      // const dataUpdate = {
+      //   first_name: fullName?.first_name,
+      //   last_name: fullName?.last_name,
+      //   email: values?.email,
+      //   gender: gender === 'female' ? 1 : 0,
+      //   birthday: birthDay?.join('/'),
+      //   shipping_address: {
+      //     address_1: values?.street + ', ' + valueCommune,
+      //     address_2: valueDistrict,
+      //     city: valueProvince,
+      //     phone: values?.phoneShip,
+      //   },
+      // }
+
+      // const avatar = {
+      //   image_base64: base64,
+      //   image_base64_title: base64 ? profile?.email?.split('@')?.[0] : '',
+      // }
+
+      const formdata = new FormData()
+      formdata.append('first_name', fullName?.first_name)
+      formdata.append('last_name', fullName?.last_name)
+      formdata.append('email', values?.email)
+      formdata.append('gender', gender === 'female' ? '1' : '0')
+      formdata.append('birthday', birthDay?.join('/'))
+      formdata.append(
+        'shipping_address',
+        JSON.stringify({
+          address_1: values?.street + ', ' + valueCommune,
+          address_2: valueDistrict,
+          city: valueProvince,
+          phone: values?.phoneShip,
+        }),
+      )
+
+      base64 && formdata.append('image_base64', base64)
+      base64 &&
+        formdata.append(
+          'image_base64_title',
+          profile?.email?.split('@')?.[0] + id,
+        )
+
+      const request = {
+        api: '/custom/v1/customer/updateCustomer',
+        token: session?.accessToken,
+        body: formdata,
+      }
+
+      updateProfile(request).then((res) => {
+        if (res?.message?.includes('successfully')) {
+          RevalidateTags('profile').then(() =>
+            toast.success('Cập nhật thông tin cá nhân thành công!', {
+              duration: 5000,
+              position: 'bottom-center',
+            }),
+          )
+        } else {
+          toast.error(
+            'Cập nhật thông tin cá nhân thất bại, vui lòng thử lại!',
+            {
+              duration: 5000,
+              position: 'bottom-center',
+            },
+          )
+        }
+      })
+    })
   }
 
   const handleReset = () => {
@@ -158,11 +207,11 @@ export default function IndexAccount({
     setValueCommune(defaultValueCommune)
     setIdProvince(defaultIdProvince)
     setIdDistrict(defaultIdDistrict)
+    setSrc(null)
     form.reset({
       nickname: profile?.nickname,
       fullName: profile?.display_name?.trim(),
       email: profile?.email,
-      phone: profile?.phone,
       street: communeSplit?.length > 1 ? communeSplit?.[0] : '',
       phoneShip: profile?.billing_address?.phone,
     })
@@ -200,7 +249,7 @@ export default function IndexAccount({
                 <div className='w-[36.4rem] space-y-[0.7rem]'>
                   <div className='flex'>
                     <span className='w-[11.2rem] block caption1 font-normal text-greyscale-80'>
-                      Tên đăng nhập:
+                      SĐT đăng nhập:
                     </span>
                     <span className='block font-medium caption1 text-greyscale-80'>
                       {profile?.phone || profile?.email}
@@ -261,6 +310,7 @@ export default function IndexAccount({
                   isOpen={isOpen}
                   setIsOpen={setIsOpen}
                   setBase64={setBase64}
+                  setSrcAvatar={setSrc}
                 >
                   <div
                     onClick={() => {
@@ -274,6 +324,7 @@ export default function IndexAccount({
                     <Image
                       className='object-cover rounded-full cursor-pointer size-full'
                       src={
+                        src ||
                         profile?.picture_profile ||
                         profile?.avatar_url ||
                         '/account/avatar-edit.svg'
@@ -320,39 +371,16 @@ export default function IndexAccount({
                     )}
                   />
                 </div>
-                <div className='flex items-center'>
-                  <FormLabel
-                    htmlFor='phone'
-                    className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'
-                  >
-                    Số điện thoại:
-                  </FormLabel>
-                  <FormField
-                    control={form.control}
-                    name='phone'
-                    render={({field}) => (
-                      <FormItem className='relative w-full'>
-                        <FormControl>
-                          <Input
-                            className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
-                            placeholder='Số điện thoại của bạn'
-                            disabled={!isEdit}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className='pl-[0.73rem] mt-[0.2rem]' />
-                      </FormItem>
-                    )}
-                  />
-                </div>
+
                 <div className='flex items-center'>
                   <span className='w-[11.2rem] block flex-shrink-0 caption1 font-normal text-greyscale-80'>
                     Giới tính:
                   </span>
                   <RadioGroup
                     defaultValue={gender}
-                    className='grid grid-cols-2 gap-[0.59rem] mt-[1.17rem]'
+                    className='grid grid-cols-2 gap-[0.59rem]'
                     disabled={!isEdit}
+                    onValueChange={(e) => setGender(e)}
                   >
                     <Label
                       htmlFor='male'
@@ -398,6 +426,7 @@ export default function IndexAccount({
                     data={renderArrayDate(1, 31)}
                     defaultValue={convertDefaultValue(birthDay?.[0]) || '1'}
                     disabled={!isEdit}
+                    setBirthDay={setBirthDay}
                   />
                   <PopupDate
                     data={renderArrayDate(1, 13, 'Tháng ')}
@@ -406,12 +435,14 @@ export default function IndexAccount({
                       convertDefaultValue(birthDay?.[1], 'Tháng ') || 'Tháng 1'
                     }
                     disabled={!isEdit}
+                    setBirthDay={setBirthDay}
                   />
                   <PopupDate
                     data={renderArrayDate(1910, new Date().getFullYear())}
                     type={2}
                     defaultValue={convertDefaultValue(birthDay?.[2]) || '1990'}
                     disabled={!isEdit}
+                    setBirthDay={setBirthDay}
                   />
                 </div>
               </div>

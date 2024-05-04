@@ -11,7 +11,13 @@ import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover'
 import {ScrollArea} from '@/components/ui/scroll-area'
 import {useState} from 'react'
 
-export default function PopupDate({data, type = 0, defaultValue, disabled}) {
+export default function PopupDate({
+  data,
+  type = 0,
+  defaultValue,
+  disabled,
+  setBirthDay,
+}) {
   const [value, setValue] = useState('')
   const [open, setOpen] = useState(false)
   return (
@@ -28,11 +34,7 @@ export default function PopupDate({data, type = 0, defaultValue, disabled}) {
             disabled
               ? 'pointer-events-none cursor-not-allowed !text-greyscale-20 !hover:text-greyscale-20'
               : ''
-          } ${
-            value
-              ? 'text-greyscale-80 hover:text-greyscale-80 capitalize'
-              : 'text-greyscale-20 hover:text-greyscale-20'
-          } text-[0.87848rem] tracking-[0.00878rem] leading-[1.2] font-medium justify-start flex-1 p-[0.88rem] h-fit rounded-[0.58565rem] bg-elevation-20 font-svnGraphik relative`}
+          } text-greyscale-80 hover:text-greyscale-80 capitalize text-[0.87848rem] tracking-[0.00878rem] leading-[1.2] font-medium justify-start flex-1 p-[0.88rem] h-fit rounded-[0.58565rem] bg-elevation-20 font-svnGraphik relative`}
         >
           {value ? value : defaultValue}
           <svg
@@ -76,6 +78,33 @@ export default function PopupDate({data, type = 0, defaultValue, disabled}) {
                   value={item}
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? '' : currentValue)
+                    setBirthDay((prev) => {
+                      const data = [...prev]
+                      if (type === 0) {
+                        if (currentValue?.length < 2) {
+                          data[0] = '0' + currentValue
+                          return data
+                        } else {
+                          data[0] = currentValue
+                          return data
+                        }
+                      } else if (type === 1) {
+                        if (
+                          currentValue?.slice(6, currentValue.length)?.length <
+                          2
+                        ) {
+                          data[1] =
+                            '0' + currentValue?.slice(6, currentValue.length)
+                          return data
+                        } else {
+                          data[1] = currentValue?.slice(6, currentValue.length)
+                          return data
+                        }
+                      } else {
+                        data[2] = currentValue
+                        return data
+                      }
+                    })
                     setOpen(false)
                   }}
                 >
