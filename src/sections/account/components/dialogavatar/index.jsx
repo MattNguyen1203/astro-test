@@ -15,6 +15,7 @@ export function DialogAvatar({
   updateNow,
   token,
   email,
+  setSrcAvatar,
 }) {
   const fileRef = useRef(null)
   const pictureRef = useRef(null)
@@ -28,11 +29,12 @@ export function DialogAvatar({
 
   const handleDrop = (event) => {
     event.preventDefault()
-    setSrc(URL.createObjectURL(event?.dataTransfer?.files[0]))
+    event?.dataTransfer?.files[0] &&
+      setSrc(URL.createObjectURL(event?.dataTransfer?.files[0]))
   }
 
   const handleChangeFile = (file) => {
-    setSrc(URL.createObjectURL(file.target.files[0]))
+    file.target.files[0] && setSrc(URL.createObjectURL(file.target.files[0]))
   }
 
   const handleChangeAvatar = () => {
@@ -89,6 +91,7 @@ export function DialogAvatar({
         toPng(pictureRef?.current)
           .then(function (dataUrl) {
             setBase64(dataUrl.slice(dataUrl.indexOf('base64,') + 7))
+            setSrcAvatar(src)
             setIsOpen(false)
           })
           .catch(function (error) {
@@ -146,11 +149,12 @@ export function DialogAvatar({
             } transition-all duration-200 h-full`}
           >
             {src && (
-              <div className=' border border-blue-200 border-dashed size-fit cursor-grab w-[13.46999rem] flex-shrink-0'>
+              <div className=' border border-blue-200 border-dashed size-fit w-[13.46999rem] flex-shrink-0'>
                 <div className='overflow-hidden rounded-full size-full'>
                   <picture
                     ref={pictureRef}
-                    className='size-[13.46999rem] relative flex-shrink-0 active:cursor-grabbing'
+                    className='size-[13.46999rem] relative flex-shrink-0'
+                    //active:cursor-grabbing
                   >
                     <img
                       style={{

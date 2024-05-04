@@ -25,7 +25,7 @@ const listCategories = [
   },
   {
     title: 'GÓC CÔNG NGHỆ',
-    href: '/tin-tuc/goc-cong-nghe',
+    href: '/danh-muc/goc-cong-nghe',
   },
   {
     title: 'CỬA HÀNG',
@@ -33,7 +33,7 @@ const listCategories = [
   },
   {
     title: 'CHÍNH SÁCH',
-    href: '/tin-tuc/chinh-sach',
+    href: '/danh-muc/chinh-sach',
   },
 ]
 
