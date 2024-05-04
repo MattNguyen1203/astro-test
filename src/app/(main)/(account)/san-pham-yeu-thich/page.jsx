@@ -35,11 +35,11 @@ export default async function LikePage({searchParams}) {
         </>
       )}
       <GridWishlist
-        wishList={wishList}
+        wishList={wishList?.item}
         isMobile={isMobile}
       />
       <div className='mt-[1.25rem]'>
-        <PaginationWishlist pageCount={Math.ceil(wishList?.length / 12)} />
+        <PaginationWishlist pageCount={Math.ceil(wishList?.count / 12)} />
       </div>
     </>
   )
