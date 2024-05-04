@@ -7,6 +7,7 @@ import CardVoucher from '../cardvoucher'
 
 export function TabsVoucher() {
   const [status, setStatus] = useState('tv')
+  const [isIndex, setIsIndex] = useState(false)
   return (
     <Tabs
       defaultValue={'tv'}
@@ -48,6 +49,9 @@ export function TabsVoucher() {
               <CardVoucher
                 className='xmd:!w-full'
                 key={index}
+                isIndex={isIndex}
+                setIsIndex={setIsIndex}
+                index={index}
               />
             ))}
         </div>

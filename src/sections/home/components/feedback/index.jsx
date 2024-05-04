@@ -18,7 +18,7 @@ export default async function FeedBack({isMobile}) {
       <div className='w-[29.3rem] h-[38.3rem] xmd:w-[23.38719rem] xmd:h-[31.68594rem] sticky top-[calc(100vh-38.3rem)] left-1/2 -translate-x-[62%] xmd:-translate-x-[46%] z-10 xmd:ml-[10rem] xmd:top-[calc(100vh-33rem)]'>
         <Image
           className='object-cover size-full'
-          src={'/home/smart-phone.png'}
+          src={'/home/smart-phoness.png'}
           alt='smart phone'
           width={400}
           height={523}

@@ -1,3 +1,5 @@
+'use client'
+
 import BreadCrumb from '@/components/breadcrumb'
 import CardBill from '@/components/cardbill'
 import CardProduct from '@/components/cardproduct'
@@ -7,8 +9,10 @@ import SlideMultiple from '@/components/slidemultiple'
 import FormPreOrder from '@/sections/preorderdetail/components/FormPreOrder'
 import Image from 'next/image'
 import Link from 'next/link'
+import {useState} from 'react'
 
 export default function GlobalPage() {
+  const [isIndex, setIsIndex] = useState(false)
   return (
     <div className='w-full'>
       <div className='h-[15rem]'></div>
@@ -83,7 +87,12 @@ export default function GlobalPage() {
       <div className='container flex flex-col items-center justify-center'>
         <div className='grid grid-cols-1 gap-y-[0.59rem]'>
           {new Array(4).fill(0).map((e, index) => (
-            <CardVoucher key={index} />
+            <CardVoucher
+              isIndex={isIndex}
+              setIsIndex={setIsIndex}
+              index={index}
+              key={index}
+            />
           ))}
         </div>
         <button className='w-fit py-[0.81rem] px-[1.17rem] rounded-[7.32rem] caption1 text-greyscale-80 font-semibold mt-[1.17rem] bg-[#E9E9E9] mx-auto'>

@@ -1,7 +1,12 @@
+import Link from 'next/link'
+
 export default function Contact() {
   return (
-    <section className='fixed flex flex-col right-[7rem] bottom-[3rem] xmd:right-[1rem] xmd:bottom-[4rem] z-[9999]'>
-      <button className='size-[2.92826rem] rounded-full p-[0.73206rem] bg-[#FEBE10]'>
+    <section className='container space-y-[0.88rem] items-end pr-[1.17rem] fixed flex flex-col right-[7rem] bottom-[3rem] xmd:right-[1rem] xmd:bottom-[4rem] z-[9999]'>
+      <Link
+        href='tel:+0815850292'
+        className='size-[2.92826rem] rounded-full p-[0.73206rem] bg-[#FEBE10]'
+      >
         <div className='size-[1.4642rem]'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -24,7 +29,26 @@ export default function Contact() {
             />
           </svg>
         </div>
-      </button>
+      </Link>
+      <Link
+        href={'https://www.facebook.com/astromazing.official'}
+        className='size-[2.92826rem] rounded-full bg-[#0084FF] flex justify-center items-center'
+      >
+        <div className='size-[1.4642rem]'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='24'
+            height='24'
+            viewBox='0 0 24 24'
+            fill='none'
+          >
+            <path
+              d='M11.9259 0C5.33941 0 0 4.9746 0 11.1111C0 14.6078 1.73423 17.7267 4.44444 19.7635V24L8.50511 21.7576C9.58875 22.0593 10.7369 22.2222 11.9259 22.2222C18.5124 22.2222 23.8518 17.2476 23.8518 11.1111C23.8518 4.9746 18.5124 0 11.9259 0ZM13.1111 14.963L10.0741 11.7037L4.14815 14.963L10.6667 8L13.7778 11.2593L19.6296 8L13.1111 14.963Z'
+              fill='white'
+            />
+          </svg>
+        </div>
+      </Link>
     </section>
   )
 }

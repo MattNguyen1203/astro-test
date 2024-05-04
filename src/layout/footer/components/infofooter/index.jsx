@@ -72,7 +72,7 @@ export default function InfoFooter({isMobile}) {
               Tiktok
             </Link>
             <Link
-              href={'/'}
+              href={'/lien-he'}
               target='_blank'
               className='font-medium sub2 text-greyscale-30 bg-[linear-gradient(90deg,rgba(255,255,255,1)_100%,rgba(255,255,255,1)_100%)] rounded-[0.29283rem] shadow-[11px_6px_24px_0px_rgba(0,0,0,0.04)] group hover:bg-[linear-gradient(99deg,#FFE2B5_-58.6%,#E78E00_95.15%)] hover:shadow-[0px_2px_4px_0px_rgba(0,0,0,0.08)] hover:text-white transition-all duration-200 py-[0.88rem] px-[1.02rem] block w-fit mr-[0.29rem]'
             >
