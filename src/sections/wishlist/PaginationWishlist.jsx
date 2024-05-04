@@ -1,65 +1,30 @@
 'use client'
 
-import useStore from '@/app/(store)/store'
 import ICNextPagination from '@/components/icon/ICNextPagination'
 import ICPrevPagination from '@/components/icon/ICPrevPagination'
-import {useParams, useRouter, useSearchParams} from 'next/navigation'
+import {scrollToTop} from '@/lib/utils'
+import {useRouter, useSearchParams} from 'next/navigation'
 import {forwardRef} from 'react'
 import ReactPaginate from 'react-paginate'
 
 const PaginationWishlist = forwardRef(
   ({pageCount = 10, pageRangeDisplayed = 2}, ref) => {
     const searchParams = useSearchParams()
-    const params = useParams()
     const router = useRouter()
-
-    const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
+    const page = searchParams.get('page')
 
     const handleRouter = (page) => {
       const paramNew = new URLSearchParams(searchParams)
-      const url = '/san-pham/'
-      const before = ''
-      if (page <= 1) {
-        if (params?.category?.length > 1) {
-          const pathNameNew = url + before + params?.category[0]
-          setIsFilterProduct(true)
-          if (ref) {
-            ref?.current?.scrollIntoView({behavior: 'smooth'})
-          }
-          router.push(pathNameNew + '?' + paramNew.toString(), {
-            scroll: false,
-          })
-        } else {
-          const pathNameNew = url?.slice(0, url?.length - 1)
-          setIsFilterProduct(true)
-          if (ref) {
-            ref?.current?.scrollIntoView({behavior: 'smooth'})
-          }
-          router.push(pathNameNew + '?' + paramNew.toString(), {
-            scroll: false,
-          })
-        }
+
+      if (Number(page <= 1)) {
+        paramNew.delete('page')
       } else {
-        if (params?.category?.length) {
-          const pathNameNew = url + before + params?.category[0] + `/${page}`
-          setIsFilterProduct(true)
-          if (ref) {
-            ref?.current?.scrollIntoView({behavior: 'smooth'})
-          }
-          router.push(pathNameNew + '?' + paramNew.toString(), {
-            scroll: false,
-          })
-        } else {
-          const pathNameNew = url + before + `${page}`
-          setIsFilterProduct(true)
-          if (ref) {
-            ref?.current?.scrollIntoView({behavior: 'smooth'})
-          }
-          router.push(pathNameNew + '?' + paramNew.toString(), {
-            scroll: false,
-          })
-        }
+        paramNew.set('page', page)
       }
+      router.push('/san-pham-yeu-thich' + '?' + paramNew.toString(), {
+        scroll: false,
+      })
+      scrollToTop()
     }
 
     return (
@@ -75,17 +40,10 @@ const PaginationWishlist = forwardRef(
         onPageChange={(e) => {
           handleRouter(Number(e?.selected) + 1)
         }}
-        // hrefBuilder={(e) => `/tin-tuc/p/${e}`}
         pageRangeDisplayed={pageRangeDisplayed}
         pageCount={pageCount}
         renderOnZeroPageCount={null}
-        forcePage={
-          Number(params?.category?.[0])
-            ? Number(params?.category?.[0]) - 1
-            : Number(params?.category?.[1])
-            ? Number(params?.category?.[1]) - 1
-            : 0
-        }
+        forcePage={Number(page) ? Number(page) - 1 : 0}
         className={'flex justify-center items-center'}
       />
     )

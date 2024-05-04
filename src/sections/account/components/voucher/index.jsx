@@ -4,7 +4,7 @@ import CardVoucher from '@/components/cardvoucher'
 import Image from 'next/image'
 import {useState} from 'react'
 
-export default function IndexVoucher() {
+export default function IndexVoucher({couponRank, couponCategories}) {
   const [disabled, setDisabled] = useState(false)
   return (
     <section className='p-[1.17rem] rounded-[0.58565rem] bg-white shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>
@@ -23,16 +23,15 @@ export default function IndexVoucher() {
             Voucher thành viên:
           </h3>
           <div className='space-y-[0.59rem]'>
-            {Array(4)
-              .fill(0)
-              .map((_, index) => (
-                <CardVoucher
-                  setDisabled={setDisabled}
-                  disabled={disabled}
-                  className='w-full'
-                  key={index}
-                />
-              ))}
+            {couponRank?.coupon_list?.map((item, index) => (
+              <CardVoucher
+                setDisabled={setDisabled}
+                disabled={disabled}
+                className='w-full'
+                key={index}
+                item={item}
+              />
+            ))}
           </div>
         </div>
         <div>
@@ -40,16 +39,15 @@ export default function IndexVoucher() {
             Voucher ngành hàng:
           </h3>
           <div className='space-y-[0.59rem]'>
-            {Array(4)
-              .fill(0)
-              .map((_, index) => (
-                <CardVoucher
-                  setDisabled={setDisabled}
-                  disabled={disabled}
-                  className='w-full'
-                  key={index}
-                />
-              ))}
+            {couponCategories?.coupon_list?.map((item, index) => (
+              <CardVoucher
+                setDisabled={setDisabled}
+                disabled={disabled}
+                className='w-full'
+                key={index}
+                item={item}
+              />
+            ))}
           </div>
         </div>
       </div>

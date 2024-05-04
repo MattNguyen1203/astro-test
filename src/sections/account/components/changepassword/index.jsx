@@ -25,18 +25,24 @@ const formSchema = z
     password: z
       .string()
       .min(1, {message: 'Vui lòng nhập mật khẩu!'})
-      .min(6, {message: 'Mật khẩu phải có từ 6 kí tự trở lên!'})
+      .min(6, {
+        message: 'Phải có 6 kí tự trở lên, có chữ thường, chữ hoa và số!',
+      })
       .regex(/[a-z]/, {
-        message: 'Mật khẩu phải có ít nhất 1 chữ thường!',
+        message: 'MPhải có 6 kí tự trở lên, có chữ thường, chữ hoa và số!',
       })
       .regex(/[A-Z]/, {
-        message: 'Mật khẩu phải có ít nhất 1 chữ hoa!',
+        message: 'Phải có 6 kí tự trở lên, có chữ thường, chữ hoa và số!',
       })
-      .regex(/[0-9]/, {message: 'Mật khẩu phải có ít nhất 1 chữ số!'}),
+      .regex(/[0-9]/, {
+        message: 'Phải có 6 kí tự trở lên, có chữ thường, chữ hoa và số!',
+      }),
     confirmPassword: z
       .string()
       .min(1, {message: 'Vui lòng nhập mật khẩu!'})
-      .min(6, {message: 'Mật khẩu phải có từ 6 kí tự trở lên!'}),
+      .min(6, {
+        message: 'Phải có 6 kí tự trở lên, có chữ thường, chữ hoa và số!',
+      }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Xác thực mật khẩu chưa khớp!',
@@ -75,7 +81,6 @@ export default function ChangePassWord({profile, session}) {
 
       updateProfile(request)
         .then((res) => {
-          console.log('🚀 ~ .then ~ res:', res)
           if (res?.message?.includes('successfully')) {
             setIsEdit(false)
             setIsSuccess(true)
@@ -87,7 +92,12 @@ export default function ChangePassWord({profile, session}) {
             })
           }
         })
-        .catch((err) => console.log('err', err))
+        .catch((err) => {
+          toast.error('Đã có lỗi xảy ra. Vui lòng thử lại sau!', {
+            duration: 5000,
+            position: 'bottom-center',
+          })
+        })
     })
   }
   return (
@@ -95,13 +105,13 @@ export default function ChangePassWord({profile, session}) {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className='rounded-[0.58565rem] bg-white p-[1.17rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>
-            <div className='flex items-center'>
-              <span className='inline-block font-medium sub2 text-greyscale-80'>
+            <div className=''>
+              <span className='font-medium sub2 text-greyscale-80 block'>
                 Đổi mật khẩu
               </span>
-              <span>
-                (Để đảm bảo tính bảo mật vui lòng đặt mật khẩu với ít nhất 8 kí
-                tự)
+              <span className='block text-greyscale-30 font-normal sub2 mt-[0.88rem]'>
+                Để đảm bảo tính bảo mật vui lòng đặt mật khẩu phải có ít nhất 6
+                kí tự, chữ thường, chữ hoa và số
               </span>
             </div>
             <hr className='bg-[#ECECECB2] h-[0.07rem] w-full my-[0.59rem] block' />
