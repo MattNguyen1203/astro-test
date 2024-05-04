@@ -146,3 +146,10 @@ export function handleShelfLife(dateExpireTimestamp) {
     // console.log('Timestamp vẫn còn hạn sử dụng.')
   }
 }
+
+export function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth', // Để có hiệu ứng cuộn mượt
+  })
+}

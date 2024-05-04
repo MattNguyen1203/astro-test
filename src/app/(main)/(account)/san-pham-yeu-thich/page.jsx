@@ -1,8 +1,6 @@
 import {auth} from '@/auth'
-import CardProduct from '@/components/cardproduct'
 import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
 import {getDataProfile} from '@/lib/getDataProfile'
-import PaginationIndex from '@/sections/account/components/pagination'
 import GridWishlist from '@/sections/wishlist/GridWishlist'
 import PaginationWishlist from '@/sections/wishlist/PaginationWishlist'
 import Link from 'next/link'
@@ -13,7 +11,7 @@ export default async function LikePage({searchParams}) {
 
   const session = await auth()
   const request = {
-    api: '/custom/v1/wistlist/getWishlist',
+    api: '/custom/v1/wistlist/getWishlist?page=1&limit=12',
     token: session?.accessToken,
   }
   const wishList = await getDataProfile(request)
@@ -35,12 +33,10 @@ export default async function LikePage({searchParams}) {
         </>
       )}
       <GridWishlist
-        wishList={wishList?.item}
+        wishList={wishList}
         isMobile={isMobile}
+        session={session}
       />
-      <div className='mt-[1.25rem]'>
-        <PaginationWishlist pageCount={Math.ceil(wishList?.count / 12)} />
-      </div>
     </>
   )
 }

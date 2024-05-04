@@ -11,6 +11,7 @@ import DoneBill from '@/sections/bill/DoneBill'
 import FailedBill from '@/sections/bill/FailedBill'
 import ProcessingBill from '@/sections/bill/ProcessingBill'
 import {useSearchParams} from 'next/navigation'
+import ICCarProcessing from '../icon/ICCarProcessing'
 export function TabsBill({isMobile, session}) {
   const [status, setStatus] = useState('all')
 
@@ -41,38 +42,6 @@ export function TabsBill({isMobile, session}) {
           </div>
         </TabsTrigger>
         <TabsTrigger
-          className='shadow-none data-[state=active]:shadow-none bg-elevation-20 w-fit h-full relative pl-[1.75rem] pr-[0.75rem] flex items-center text-greyscale-20 font-semibold caption data-[state=active]:text-greyscale-80 font-svnGraphik mx-[0.5rem]'
-          value='completed'
-          onClick={() => {
-            router.push('?status=completed')
-            setStatus('completed')
-          }}
-        >
-          Đã thanh toán
-          <div className='absolute top-1/2 -translate-y-1/2 left-[0.5rem] size-[1rem] flex items-center justify-center'>
-            <ICDoneBill
-              className='w-[0.8rem] h-auto flex-shrink-0'
-              stroke={status === 'completed' ? '#00983D' : ''}
-            />
-          </div>
-        </TabsTrigger>
-        <TabsTrigger
-          className='shadow-none data-[state=active]:shadow-none bg-elevation-20 w-fit h-full relative pl-[1.75rem] pr-[0.75rem] flex items-center text-greyscale-20 font-semibold caption data-[state=active]:text-greyscale-80 font-svnGraphik mr-2'
-          value='processing'
-          onClick={() => {
-            router.push('?status=processing')
-            setStatus('processing')
-          }}
-        >
-          Đang xử lý
-          <div className='absolute top-1/2 -translate-y-1/2 left-[0.5rem] size-[1rem] flex items-center justify-center'>
-            <ICFailedBill
-              className='size-[0.66669rem] flex-shrink-0'
-              stroke={status === 'processing' ? '#FEC400' : ''}
-            />
-          </div>
-        </TabsTrigger>
-        <TabsTrigger
           className='shadow-none data-[state=active]:shadow-none bg-elevation-20 w-fit h-full relative pl-[1.75rem] pr-[0.75rem] flex items-center text-greyscale-20 font-semibold caption data-[state=active]:text-greyscale-80 font-svnGraphik'
           value='pending'
           onClick={() => {
@@ -88,6 +57,43 @@ export function TabsBill({isMobile, session}) {
             />
           </div>
         </TabsTrigger>
+
+        <TabsTrigger
+          className='shadow-none data-[state=active]:shadow-none bg-elevation-20 w-fit h-full relative pl-[1.75rem] pr-[0.75rem] flex items-center text-greyscale-20 font-semibold caption data-[state=active]:text-greyscale-80 font-svnGraphik mr-2'
+          value='processing'
+          onClick={() => {
+            router.push('?status=processing')
+            setStatus('processing')
+          }}
+        >
+          Đang xử lý
+          <div className='absolute top-1/2 -translate-y-1/2 left-[0.5rem] size-[1rem] flex items-center justify-center'>
+            {/* <ICFailedBill
+              className='size-[0.66669rem] flex-shrink-0'
+              stroke={status === 'processing' ? '#FEC400' : ''}
+            /> */}
+            <ICCarProcessing
+              className='size-[0.9rem] flex-shrink-0'
+              stroke={status === 'processing' ? '#FEC400' : ''}
+            />
+          </div>
+        </TabsTrigger>
+        <TabsTrigger
+          className='shadow-none data-[state=active]:shadow-none bg-elevation-20 w-fit h-full relative pl-[1.75rem] pr-[0.75rem] flex items-center text-greyscale-20 font-semibold caption data-[state=active]:text-greyscale-80 font-svnGraphik mx-[0.5rem]'
+          value='completed'
+          onClick={() => {
+            router.push('?status=completed')
+            setStatus('completed')
+          }}
+        >
+          Hoàn thành
+          <div className='absolute top-1/2 -translate-y-1/2 left-[0.5rem] size-[1rem] flex items-center justify-center'>
+            <ICDoneBill
+              className='w-[0.8rem] h-auto flex-shrink-0'
+              stroke={status === 'completed' ? '#00983D' : ''}
+            />
+          </div>
+        </TabsTrigger>
         {!isMobile && (
           <div className='absolute top-1/2 right-[1.25rem] -translate-y-1/2 text-greyscale-40 sub2 font-medium font-svnGraphik'>
             {count === '' ? 'Tổng' : count} đơn hàng
@@ -100,8 +106,8 @@ export function TabsBill({isMobile, session}) {
           setCount={setCount}
         />
       </TabsContent>
-      <TabsContent value='completed'>
-        <DoneBill
+      <TabsContent value='pending'>
+        <FailedBill
           session={session}
           setCount={setCount}
         />
@@ -112,8 +118,8 @@ export function TabsBill({isMobile, session}) {
           setCount={setCount}
         />
       </TabsContent>
-      <TabsContent value='pending'>
-        <FailedBill
+      <TabsContent value='completed'>
+        <DoneBill
           session={session}
           setCount={setCount}
         />
