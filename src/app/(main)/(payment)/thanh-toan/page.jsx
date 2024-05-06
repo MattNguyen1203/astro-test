@@ -1,18 +1,23 @@
 import {auth} from '@/auth'
+import getData from '@/lib/getData'
 import {getDataProfile} from '@/lib/getDataProfile'
 import getDataProxy from '@/lib/getDataProxy'
 import PaymentIndex from '@/sections/payment'
 
 export default async function page({searchParams}) {
   const order = searchParams?.order
+  const id = searchParams?.id
   const listIdItemCart = order?.split('--')
 
-  const [session, province, district, commune] = await Promise.all([
-    auth(),
-    getDataProxy('/api/province'),
-    getDataProxy('/api/district'),
-    getDataProxy('/api/commune'),
-  ])
+  const [session, province, district, commune, detailOrder] = await Promise.all(
+    [
+      auth(),
+      getDataProxy('/api/province'),
+      getDataProxy('/api/district'),
+      getDataProxy('/api/commune'),
+      id && getData(`/okhub/v1/order/${id}`),
+    ],
+  )
 
   const request1 = {
     api: '/okhub/v1/cart',
@@ -45,6 +50,8 @@ export default async function page({searchParams}) {
       dataCarts={listCartNew}
       dataCartsDefault={dataCarts}
       profile={profile}
+      detailOrder={detailOrder}
+      id={id}
     />
   )
 }

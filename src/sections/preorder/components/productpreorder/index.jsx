@@ -11,7 +11,7 @@ export default function ProductPreOrder({session, products}) {
         </h2>
       </div>
       <div className='grid grid-cols-5 grid-rows-2 gap-x-[0.88rem] gap-y-[1.17rem] w-full xmd:grid-cols-2 xmd:grid-rows-4 xmd:gap-[0.59rem]'>
-        {products?.map((product, index) => (
+        {products?.item?.map((product, index) => (
           <CardProduct
             key={index}
             session={session}

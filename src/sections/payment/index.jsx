@@ -61,7 +61,11 @@ export default function PaymentIndex({
   dataCarts,
   profile,
   dataCartsDefault,
+  detailOrder,
+  id,
 }) {
+  console.log('🚀 ~ detailOrder:', detailOrder)
+
   const isBuyNow = listIdItemCart ? false : true
   const router = useRouter()
 
@@ -102,7 +106,9 @@ export default function PaymentIndex({
 
   const [ship, setShip] = useState('in')
   const [payment, setPayment] = useState()
-  const [carts, setCarts] = useState(isAuth ? dataCarts : [])
+  const [carts, setCarts] = useState(
+    id ? detailOrder?.product : isAuth ? dataCarts : [],
+  )
   console.log('🚀 ~ carts:', carts)
   const [coupon, setCoupon] = useState(null)
   const [couponSearch, setCouponSearch] = useState(null)
@@ -131,13 +137,13 @@ export default function PaymentIndex({
 
   useEffect(() => {
     let sessionCart = null
-    if (isBuyNow) {
+    if (!id && isBuyNow) {
       sessionCart = JSON.parse(localStorage.getItem('sessionCart'))
       setCarts([sessionCart])
     }
 
     const productIds = handleGenderCoupon(
-      isBuyNow && sessionCart
+      isBuyNow && sessionCart && !id
         ? [sessionCart]
         : isAuth
         ? carts
@@ -292,6 +298,7 @@ export default function PaymentIndex({
   }
 
   const handleGenderObjProduct = (product, isAuth) => {
+    if (product?.meta?.[0]?.key?.includes('parent')) return null
     if (product?.type === 'variable') {
       return {
         product_id: product?.id,
@@ -381,14 +388,17 @@ export default function PaymentIndex({
         sessionCart = JSON.parse(localStorage.getItem('sessionCart'))
       }
       if (isAuth) {
-        if (isBuyNow) {
+        if (isBuyNow && !id) {
           ;[sessionCart]?.forEach((e) =>
             productIds.push(handleGenderObjProduct(e, isAuth)),
           )
         } else {
-          carts?.forEach((e) =>
-            productIds.push(handleGenderObjProduct(e, isAuth)),
-          )
+          carts?.forEach((e) => {
+            const data = handleGenderObjProduct(e, isAuth)
+            if (data) {
+              productIds.push(data)
+            }
+          })
         }
       } else {
         carts?.forEach((e) =>
@@ -399,6 +409,7 @@ export default function PaymentIndex({
           }),
         )
       }
+      console.log('🚀 ~ setTransition ~ productIds:', productIds)
 
       const totalPrice = handlePriceTotalOrder(
         carts,
@@ -461,30 +472,30 @@ export default function PaymentIndex({
             : null,
       })
 
-      createOrder(JSON.stringify(body))
-        .then((res) => {
-          if (res?.success) {
-            if (res?.paymen_cod === 'cod') {
-              router.push(
-                `/payment?tracking=${res?.order_id}&vpc_TxnResponseCode=0`,
-              )
-            } else {
-              router.push(res?.url)
-            }
-            //   4000 0000 0000 1091
-            // 05/26
-          } else {
-            return toast.error(
-              res?.message?.includes('Quantity in stock is not enough')
-                ? 'Sản phẩm bạn mua đã hết hàng!'
-                : 'Đã có lỗi xảy ra!',
-              {
-                position: 'bottom-center',
-              },
-            )
-          }
-        })
-        .catch((err) => console.log('error payment', err))
+      // createOrder(JSON.stringify(body))
+      //   .then((res) => {
+      //     if (res?.success) {
+      //       if (res?.paymen_cod === 'cod') {
+      //         router.push(
+      //           `/payment?tracking=${res?.order_id}&vpc_TxnResponseCode=0`,
+      //         )
+      //       } else {
+      //         router.push(res?.url)
+      //       }
+      //       //   4000 0000 0000 1091
+      //       // 05/26
+      //     } else {
+      //       return toast.error(
+      //         res?.message?.includes('Quantity in stock is not enough')
+      //           ? 'Sản phẩm bạn mua đã hết hàng!'
+      //           : 'Đã có lỗi xảy ra!',
+      //         {
+      //           position: 'bottom-center',
+      //         },
+      //       )
+      //     }
+      //   })
+      //   .catch((err) => console.log('error payment', err))
     })
   }
 

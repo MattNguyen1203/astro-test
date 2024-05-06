@@ -3,7 +3,7 @@ import getData from '@/lib/getData'
 import {getDataProfile} from '@/lib/getDataProfile'
 import ProductDetail from '@/sections/productDetail'
 export async function generateStaticParams() {
-  const products = await getData('/okhub/v1/product/allProduct')
+  const products = await getData('/okhub/v1/product')
   const productsNew = products?.item?.filter(
     (e) =>
       e?.type !== 'wooco' && e?.meta_detect?.pre_order?._is_pre_order !== 'yes',
@@ -32,7 +32,10 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
   const bestCouponReq = getData(`/okhub/v1/coupon/product-detail/${slug}/best`)
   const mainDataReq = getData(`/wp/v2/product?slug=${slug}`)
 
-  const FiveProductReq = getData(`/okhub/v1/product/allProduct?limit=5&page=1`)
+  // const FiveProductReq = getData(`/okhub/v1/product/allProduct?limit=5&page=1`)
+  const callRelatedProduct = getData(
+    `/okhub/v1/product/related-products/slug/${slug}`,
+  )
 
   const [
     dataProductDetail,
@@ -41,7 +44,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     dataBestCoupon,
     session,
     mainData,
-    FiveProduct,
+    relatedProduct,
   ] = await Promise.all([
     dataProductDetailReq,
     dataProductVoucherReq,
@@ -49,21 +52,15 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     bestCouponReq,
     auth(),
     mainDataReq,
-    FiveProductReq,
+    callRelatedProduct,
   ])
 
   const request = {
     api: '/custom/v1/wistlist/getWishlist',
     token: session?.accessToken,
   }
-  const productCat = dataProductDetail?.categories?.[0]
 
-  const [wishList, relatedProduct] = await Promise.all([
-    getDataProfile(request),
-    getData(
-      `/okhub/v1/product/productByCategory/${productCat?.slug}?limit=5&page=1`,
-    ),
-  ])
+  const [wishList] = await Promise.all([getDataProfile(request)])
 
   return (
     <main className='bg-elevation-20'>
@@ -77,7 +74,6 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
         session={session}
         wishList={wishList}
         mainData={mainData}
-        FiveProduct={FiveProduct}
       />
     </main>
   )

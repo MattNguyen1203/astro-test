@@ -2,17 +2,6 @@ import {formatToVND, handlePercentSale, renderPriceProduct} from '@/lib/utils'
 import Image from 'next/image'
 
 export default function ItemProductPayment({item, length, index}) {
-  const handleFindParent = (meta) => {
-    let isCheck = false
-    meta?.forEach((item) => {
-      if (item?.key?.includes('parent')) {
-        return (isCheck = true)
-      }
-    })
-    return isCheck
-  }
-  if (handleFindParent(item?.meta)) return null
-
   const price = renderPriceProduct(item)
   const percentSale = handlePercentSale(item)
 
@@ -79,7 +68,7 @@ export default function ItemProductPayment({item, length, index}) {
           </div>
         </div>
       </div>
-      {index < length - 1 && (
+      {index !== length - 1 && (
         <hr className='my-[0.59rem] bg-[#1E417C14] h-[0.07321rem]' />
       )}
     </>

@@ -20,7 +20,7 @@ export default async function PreOrderPage({searchParams}) {
     <IndexPreOrder
       isMobile={isMobile}
       datavideo={datavideo?.acf?.video}
-      products={products?.item}
+      products={products}
     />
   )
 }

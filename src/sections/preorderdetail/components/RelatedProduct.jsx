@@ -26,11 +26,11 @@ const RelatedProduct = ({relatedProduct, session}) => {
         </div>
       </div>
 
-      <div className='xmd:overflow-x-auto hidden-scrollbar'>
+      <div className='xmd:overflow-x-auto hidden-scrollbar xmd:pl-[0.73rem]'>
         <div className='grid grid-cols-5 gap-[0.88rem] xmd:flex xmd:gap-0 xmd:w-max'>
           {relatedProduct?.map((item, index) => (
             <div
-              className='xmd:w-[15rem] xmd:mr-[0.88rem]'
+              className='xmd:w-[15rem] xmd:mr-[0.73rem]'
               key={index}
             >
               <CardProduct

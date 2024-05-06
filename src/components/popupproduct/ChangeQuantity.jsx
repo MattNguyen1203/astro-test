@@ -68,6 +68,7 @@ const ChangeQuantity = ({stockQty, setChangeQty, quantity}) => {
             value={inputVal}
             className='input-hidden sub2 font-semibold text-[#000] flex items-center justify-center w-full h-full text-center px-[0.5rem]'
             onChange={(e) => handleChange(e.target.value)}
+            autoFocus={false}
           />
         </div>
         <div

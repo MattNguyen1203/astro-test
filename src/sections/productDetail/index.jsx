@@ -35,7 +35,6 @@ const ProductDetail = ({
   session,
   wishList,
   mainData,
-  FiveProduct,
 }) => {
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
@@ -186,26 +185,8 @@ const ProductDetail = ({
     return [price, regular_price]
   }, [selectedPrd, isFlashSale])
 
-  const relatedProductList = useMemo(() => {
-    if (!relatedProduct?.item && FiveProduct?.item) return FiveProduct?.item
-
-    if (relatedProduct?.item && relatedProduct?.item?.length > 4) {
-      return relatedProduct?.item
-    }
-
-    if (
-      relatedProduct?.item &&
-      relatedProduct?.item?.length <= 4 &&
-      FiveProduct?.item
-    ) {
-      return FiveProduct?.item
-    }
-
-    return []
-  }, [relatedProduct, FiveProduct])
-
   return (
-    <div className='container mt-[8.1rem] md:pb-[4rem] bg-elevation-10 relative xmd:w-full'>
+    <div className='container mt-[8.1rem] xmd:mt-[4.1rem] md:pb-[4rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
         <BreadCrumb
           category='sản phẩm'
@@ -429,8 +410,8 @@ const ProductDetail = ({
       </div>
 
       {isFlashSale && (
-        <div className='xmd:hidden'>
-          <RelatedProduct relatedProduct={relatedProductList} />
+        <div className=''>
+          <RelatedProduct relatedProduct={relatedProduct} />
         </div>
       )}
     </div>
