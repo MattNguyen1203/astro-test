@@ -31,7 +31,7 @@ export default function ItemTechnology({
       >
         <Image
           className='absolute top-0 left-0 z-0 transition-all duration-300 size-full md:group-hover:scale-110 xmd:rounded-[1.1713rem] object-cover'
-          src={post?.thumbnail_url || '/home/item-post-tech.jpg'}
+          src={post?.thumbnail_url || '/no-image.jpg'}
           alt={post?.title || 'item post tech'}
           fill
           priority={priority}

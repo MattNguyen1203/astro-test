@@ -153,3 +153,26 @@ export function scrollToTop() {
     behavior: 'smooth', // Để có hiệu ứng cuộn mượt
   })
 }
+
+export function handleDate(dateString) {
+  // Tạo một đối tượng Date từ chuỗi ngày tháng
+  const date = new Date(dateString)
+
+  // Định dạng lại ngày tháng
+  const formattedDate =
+    (date.getDate() < 10 ? '0' : '') +
+    date.getDate() +
+    '/' +
+    ((date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1)) +
+    '/' +
+    date.getFullYear()
+  return formattedDate
+}
+export function handleTimeBill(dateTimeString) {
+  const dateTime = new Date(dateTimeString)
+  const hours = dateTime.getHours().toString().padStart(2, '0')
+  const minutes = dateTime.getMinutes().toString().padStart(2, '0')
+  const timeString = `${hours}:${minutes}`
+
+  return timeString
+}

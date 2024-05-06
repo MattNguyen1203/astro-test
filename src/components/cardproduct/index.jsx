@@ -37,7 +37,7 @@ function CardProduct({product, priority = false}) {
       >
         <Image
           className='object-cover size-full'
-          src={product?.featuredImage?.url || '/home/item-product.jpg'}
+          src={product?.featuredImage?.url || '/no-image.jpg'}
           alt={product?.featuredImage?.alt || product?.name || 'ảnh sản phẩm'}
           width={230}
           height={230}

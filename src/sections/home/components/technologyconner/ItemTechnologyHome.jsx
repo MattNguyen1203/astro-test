@@ -15,7 +15,7 @@ export default function ItemTechnologyHome({post, index = ''}) {
       <div className={`relative size-full overflow-hidden xmd:mb-[0.58rem]`}>
         <Image
           className='absolute top-0 left-0 z-0 object-cover transition-all duration-300 size-full md:group-hover:scale-110'
-          src={post?.thumbnail_url || '/home/item-post-tech.jpg'}
+          src={post?.thumbnail_url || '/no-image.jpg'}
           alt={post?.title || 'item post tech'}
           fill
         />
