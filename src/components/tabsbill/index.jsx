@@ -68,10 +68,6 @@ export function TabsBill({isMobile, session}) {
         >
           Đang xử lý
           <div className='absolute top-1/2 -translate-y-1/2 left-[0.5rem] size-[1rem] flex items-center justify-center'>
-            {/* <ICFailedBill
-              className='size-[0.66669rem] flex-shrink-0'
-              stroke={status === 'processing' ? '#FEC400' : ''}
-            /> */}
             <ICCarProcessing
               className='size-[0.9rem] flex-shrink-0'
               stroke={status === 'processing' ? '#FEC400' : ''}

@@ -1,6 +1,6 @@
 'use client'
 import ICSearchAccessory from '@/components/icon/ICSearchAccessory'
-import {fetcher, formatToVND} from '@/lib/utils'
+import {fetcher, formatToVND, handleDate} from '@/lib/utils'
 import ItemProductPayment from '@/sections/payment/ItemProductPayment'
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
 import useSWR from 'swr'
@@ -23,21 +23,6 @@ export default function SearchTracking({isMobile}) {
       revalidateOnReconnect: false,
     },
   )
-
-  const handleDate = (dateString) => {
-    // Tạo một đối tượng Date từ chuỗi ngày tháng
-    const date = new Date(dateString)
-
-    // Định dạng lại ngày tháng
-    const formattedDate =
-      (date.getDate() < 10 ? '0' : '') +
-      date.getDate() +
-      '/' +
-      ((date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1)) +
-      '/' +
-      date.getFullYear()
-    return formattedDate
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault()

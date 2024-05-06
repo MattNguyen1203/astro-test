@@ -19,7 +19,13 @@ export default function ProductSuggest({productSuggest, data, value}) {
       </span>
       {products?.map((product, index) => (
         <Link
-          href={product?.slug}
+          href={
+            product?.type === 'wooco'
+              ? '/combo/' + product?.slug
+              : product?.meta_detect?.pre_order?._is_pre_order === 'yes'
+              ? '/pre-order/' + product?.slug
+              : product?.slug
+          }
           key={index}
           className='flex items-center w-full h-fit'
         >

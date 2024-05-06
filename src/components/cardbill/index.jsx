@@ -1,6 +1,7 @@
 import {formatToVND} from '@/lib/utils'
 import ItemProductPayment from '@/sections/payment/ItemProductPayment'
 import Image from 'next/image'
+import BtnDetailOrder from './BtnDetailOrder'
 
 export default function CardBill({data, status}) {
   const isDone = status === 'completed'
@@ -70,9 +71,7 @@ export default function CardBill({data, status}) {
           <button className='p-[0.73rem] rounded-[0.43924rem] uppercase caption1 tracking-[0.00439rem] font-semibold text-white bg-blue-700 mr-[0.59rem] xmd:w-[49%] '>
             {isDone ? 'Mua lại' : 'Thanh Toán Lại'}
           </button>
-          <button className='p-[0.73rem] rounded-[0.43924rem] uppercase caption1 tracking-[0.00439rem] font-semibold bg-white text-blue-800 border border-solid border-blue-800 xmd:w-[49%]'>
-            CHI TIẾT ĐƠN
-          </button>
+          <BtnDetailOrder id={data?.order_id} />
         </div>
       </div>
     </article>

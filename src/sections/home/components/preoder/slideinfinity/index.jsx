@@ -23,8 +23,8 @@ export default async function SlideInfinity() {
               className='bg-white size-[6.22255rem] rounded-[0.58565rem]'
             >
               <Image
-                className='size-full object-contain rounded-[0.58565rem]'
-                src={product?.featuredImage?.url || '/home/item-loop.png'}
+                className='size-full object-cover rounded-[0.58565rem]'
+                src={product?.featuredImage?.url || '/no-image.jpg'}
                 alt={product?.featuredImage?.alt || product?.name}
                 width={85}
                 height={85}
