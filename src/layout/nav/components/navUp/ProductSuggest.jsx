@@ -1,4 +1,5 @@
 'use client'
+import useStore from '@/app/(store)/store'
 import Image from 'next/image'
 import Link from 'next/link'
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
@@ -7,6 +8,8 @@ export default function ProductSuggest({productSuggest, data, value}) {
   const router = useRouter()
   const pathName = usePathname()
   const searchParams = useSearchParams()
+
+  const setIsFocusSearchNav = useStore((state) => state.setIsFocusSearchNav)
 
   const products = data
     ? data?.item?.slice(0, 3)
@@ -19,6 +22,7 @@ export default function ProductSuggest({productSuggest, data, value}) {
       </span>
       {products?.map((product, index) => (
         <Link
+          onClick={() => setIsFocusSearchNav(false)}
           href={
             product?.type === 'wooco'
               ? '/combo/' + product?.slug
@@ -47,6 +51,7 @@ export default function ProductSuggest({productSuggest, data, value}) {
       ))}
       <button
         onClick={() => {
+          setIsFocusSearchNav(false)
           const paramNew = new URLSearchParams(searchParams)
           if (value) {
             paramNew.set('search', encodeURI(value))
