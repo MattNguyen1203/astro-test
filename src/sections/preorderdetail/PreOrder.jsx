@@ -92,7 +92,7 @@ const PreOrder = ({
   console.log(selectedPrd)
   return (
     <>
-      <div className='w-[73.7rem] mx-auto mt-[8.1rem] xmd:mt-[4.5rem] bg-elevation-10 relative xmd:w-full'>
+      <div className='w-[73.7rem] mx-auto mt-[8.1rem] xmd:mt-[4.1rem] bg-elevation-10 relative xmd:w-full'>
         <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
           <BreadCrumb
             category='sản phẩm'

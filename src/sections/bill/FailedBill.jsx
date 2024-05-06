@@ -28,6 +28,9 @@ export default function FailedBill({session, setCount}) {
       revalidateOnReconnect: false,
     },
   )
+
+  console.log('🚀 ~ FailedBill ~ data:', data)
+
   useEffect(() => {
     if (data?.count) {
       setCount(data.count)

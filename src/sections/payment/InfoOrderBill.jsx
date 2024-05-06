@@ -1,7 +1,7 @@
 'use client'
 import {rePayment} from '@/actions/rePayment'
 import {propertyPayment} from '@/lib/constants'
-import {formatToVND} from '@/lib/utils'
+import {formatToVND, handleDate} from '@/lib/utils'
 import Link from 'next/link'
 import {useRouter} from 'next/navigation'
 import {useTransition} from 'react'
@@ -11,20 +11,6 @@ export default function InfoOrderBill({detailOrder, isSuccess}) {
   const router = useRouter()
 
   const [isPending, setTransition] = useTransition()
-  const handleDate = (dateString) => {
-    // Tạo một đối tượng Date từ chuỗi ngày tháng
-    const date = new Date(dateString)
-
-    // Định dạng lại ngày tháng
-    const formattedDate =
-      (date.getDate() < 10 ? '0' : '') +
-      date.getDate() +
-      '/' +
-      ((date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1)) +
-      '/' +
-      date.getFullYear()
-    return formattedDate
-  }
 
   const isShipIn = detailOrder?.shipping_lines?.[0]?.method_id === 'in_hcm'
   const isFreeShip =
