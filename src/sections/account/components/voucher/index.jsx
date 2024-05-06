@@ -23,17 +23,16 @@ export default function IndexVoucher() {
             Voucher thành viên:
           </h3>
           <div className='space-y-[0.59rem]'>
-            {Array(4)
-              .fill(0)
-              .map((_, index) => (
-                <CardVoucher
-                  isIndex={isIndex}
-                  setIsIndex={setIsIndex}
-                  index={index}
-                  className='w-full'
-                  key={index}
-                />
-              ))}
+            {couponRank?.coupon_list?.map((item, index) => (
+              <CardVoucher
+                isIndex={isIndex}
+                setIsIndex={setIsIndex}
+                index={index}
+                className='w-full'
+                key={index}
+                item={item}
+              />
+            ))}
           </div>
         </div>
         <div>
@@ -41,16 +40,15 @@ export default function IndexVoucher() {
             Voucher ngành hàng:
           </h3>
           <div className='space-y-[0.59rem]'>
-            {Array(4)
-              .fill(0)
-              .map((_, index) => (
-                <CardVoucher
-                  setDisabled={setDisabled}
-                  disabled={disabled}
-                  className='w-full'
-                  key={index}
-                />
-              ))}
+            {couponCategories?.coupon_list?.map((item, index) => (
+              <CardVoucher
+                setDisabled={setDisabled}
+                disabled={disabled}
+                className='w-full'
+                key={index}
+                item={item}
+              />
+            ))}
           </div>
         </div>
       </div>

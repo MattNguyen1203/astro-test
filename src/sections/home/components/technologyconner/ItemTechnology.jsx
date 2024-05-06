@@ -80,7 +80,8 @@ export default function ItemTechnology({
             isOther ? 'xmd:h-[3.3rem]' : ''
           } xmd:p-0 p-[1.46rem] xmd:flex xmd:flex-col xmd:overflow-hidden xmd:items-start xmd:w-full rounded-[0.58565rem] backdrop-blur-[15px] bg-[linear-gradient(101deg,rgba(0,0,0,0.31)_0.17%,rgba(0,0,0,0.26)_87.85%)] xmd:bg-[linear-gradient(101deg,rgba(0,0,0,0),rgba(0,0,0,0))] xlg:relative lg:relative xlg:h-fit lg:h-[9.6rem]`}
         >
-          <div className='xmd:hidden xlg:absolute lg:absolute z-[1] size-full bottom-0 left-1/2 -translate-x-1/2 group-hover:border-t-[2px] group-hover:border-r-[2px] rounded-[0.58565rem] group-hover:border-l-[2px] group-hover:border-white group-hover:border-solid transition-all duration-200 '></div>
+          {/* <div className='xmd:hidden xlg:absolute lg:absolute z-[1] size-full bottom-0 left-1/2 -translate-x-1/2 group-hover:border-t-[2px] group-hover:border-r-[2px] rounded-[0.58565rem] group-hover:border-l-[2px] group-hover:border-white group-hover:border-solid transition-all duration-200 '></div> */}
+
           <h2
             className={`${
               isOther ? 'xmd:button xmd:mb-0' : 'xmd:h5'
