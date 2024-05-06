@@ -6,7 +6,7 @@ import FormContact from './FormContact'
 export default function IndexFormContact() {
   return (
     <div
-      className='flex flex-col xmd:container xmd:order-1 lg:sticky h-fit w-[39.01903rem] xmd:w-[26.35432rem] lg:pt-[1.75695rem] pb-[3.51391rem] 
+      className='flex flex-col xmd:container xmd:order-1 lg:sticky h-fit w-[39.01903rem] xmd:w-[26.35432rem] lg:pt-[1.75695rem] pb-[3.51391rem] xmd:pb-[3.51rem]
     items-start rounded-[0.87848rem] bg-white 
     shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] 
      top-[15rem] lg:translate-y-[-6.58858rem] 

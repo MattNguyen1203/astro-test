@@ -51,8 +51,8 @@ export default function DialogProductCombo({
       onOpenChange={setIsOpen}
     >
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className='sm:max-w-[425px] p-0 rounded-[0.8rem] w-fit h-fit max-w-screen xmd:rounded-b-none xmd:bottom-0 xmd:top-auto xmd:translate-y-0'>
-        <div className='relative bg-elevation-20 rounded-[0.87848rem] w-[55.49048rem] h-[37.84773rem] xmd:w-screen xmd:h-[35rem] xmd:overflow-y-scroll'>
+      <DialogContent className='sm:max-w-[425px] p-0 rounded-[0.8rem] w-fit h-fit max-w-screen-md xmd:rounded-b-none xmd:bottom-0 xmd:top-auto xmd:translate-y-0 xmd:max-h-[80vh]'>
+        <div className='relative bg-elevation-20 rounded-[0.87848rem] w-[55.49048rem] h-[37.84773rem] xmd:w-screen xmd:h-[80vh] xmd:overflow-y-scroll'>
           <div className='flex xmd:hidden w-full h-[8.05rem] py-[0.87848rem] px-[1.75695rem] bg-white rounded-[0.87848rem]'>
             {listImg?.map((item, index) => {
               return (

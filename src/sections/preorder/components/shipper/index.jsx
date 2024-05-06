@@ -21,7 +21,7 @@ export default function Shipper({isMobile}) {
 
         <Image
           className='w-[9.51684rem] h-[14.05564rem] xmd:w-[6.07613rem] xmd:h-[9.0776rem] object-cover absolute bottom-0 left-[0.73rem] md:group-hover:scale-110 origin-bottom-left transition-all duration-300 xmd:bottom-[0.73rem] xmd:left-auto xmd:right-[1.54rem] xmd:scale-x-[-1] xmd:origin-center xmd:z-20 xmd:pointer-events-none'
-          src={'/preorder/shipper.png'}
+          src={'/preorder/shippers.png'}
           alt='shipper'
           width={130}
           height={200}
@@ -29,10 +29,10 @@ export default function Shipper({isMobile}) {
         />
         <div className='flex flex-col md:w-[36.08565rem] md:ml-[15.45rem] h-fit relative z-10'>
           <h1 className='font-medium text-blue-600 transition-all duration-300 sub1 md:group-hover:text-white font-svnGraphik xmd:caption2 xmd:tracking-[0.00732rem] xmd:text-brown-800'>
-            AstroMazing cam kết
+            AstroMazing
           </h1>
-          <h2 className='md:mt-[0.59rem] h5 font-bold text-blue-600 md:group-hover:text-white transition-all duration-300 font-svnGraphik xmd:sub2 xmd:font-semibold xmd:text-greyscale-80'>
-            Giao Hàng Đúng Thời Gian
+          <h2 className='md:mt-[0.59rem] md:uppercase h5 font-bold text-blue-600 md:group-hover:text-white transition-all duration-300 font-svnGraphik xmd:sub2 xmd:font-semibold xmd:text-greyscale-80'>
+            Cam kết giao hàng đúng hẹn
           </h2>
           {!isMobile && (
             <ICArrowRightWhite className='absolute top-1/2 -translate-y-1/2 -left-[2.49rem] -translate-x-full md:group-hover:-left-[1rem] transition-all duration-300' />

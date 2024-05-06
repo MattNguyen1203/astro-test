@@ -1,7 +1,13 @@
 import {cn} from '@/lib/utils'
 import Image from 'next/image'
 
-const Progress = ({ordered, totalProd, icon, className}) => {
+const Progress = ({
+  ordered,
+  totalProd,
+  icon,
+  className,
+  boxProgress = false,
+}) => {
   const percent = (ordered / totalProd) * 100
   return (
     <div className='h-[1.76rem] rounded-[0.3rem] bg-[#10273F] relative overflow-hidden'>
@@ -21,7 +27,12 @@ const Progress = ({ordered, totalProd, icon, className}) => {
           height={16}
         />
         <span className='font-semibold text-white caption1 inline-block ml-[0.29rem]'>
-          Số lượng đã đặt {ordered}/{totalProd} sản phẩm
+          {ordered &&
+            !boxProgress &&
+            `Số lượng đã đặt ${ordered}/${totalProd} sản phẩm`}
+          {boxProgress && ordered
+            ? `Đã đặt ${ordered} sản phẩm`
+            : boxProgress && `Đã đặt 0 sản phẩm`}
         </span>
       </div>
     </div>

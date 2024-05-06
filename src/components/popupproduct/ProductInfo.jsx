@@ -96,7 +96,7 @@ export default function ProductInfo({
             <div className='flex xmd:flex-col-reverse xmd:fixed xmd:left-0 xmd:bottom-0 xmd:bg-white xmd:w-full z-10 xmd:p-[0.73rem] '>
               <button
                 onClick={() => setIsOpen(false)}
-                className='w-[8.63836rem] xmd:w-full h-[2.34261rem] xmd:h-[2.928rem] p-[0.73206rem] xmd:px-[1.17rem] mx-[0.59rem] xmd:mx-0 flex items-center justify-center rounded-[0.43924rem] bg-white xmd:bg-[#ECECEC] caption1 font-semibold text-blue-800 xmd:text-greyscale-50 select-none xmd:uppercase shadow-[-3px_-5px_20px_0px_rgba(0,0,0,0.10),2px_-2px_12px_0px_rgba(0,0,0,0.02)]'
+                className='uppercase w-[8.63836rem] xmd:w-full h-[2.34261rem] xmd:h-[2.928rem] p-[0.73206rem] xmd:px-[1.17rem] mx-[0.59rem] xmd:mx-0 flex items-center justify-center rounded-[0.43924rem] bg-white xmd:bg-[#ECECEC] caption1 font-semibold text-blue-800 xmd:text-greyscale-50 select-none xmd:uppercase shadow-[-3px_-5px_20px_0px_rgba(0,0,0,0.10),2px_-2px_12px_0px_rgba(0,0,0,0.02)]'
               >
                 Hủy bỏ
               </button>
@@ -104,7 +104,7 @@ export default function ProductInfo({
                 onClick={() => handleChangeVariation(data)}
                 disabled={!data?.variation?.attributes}
                 className={cn(
-                  'w-[8.63836rem] xmd:w-full h-[2.34261rem] xmd:h-[2.928rem] p-[0.73206rem] xmd:px-[1.17rem] xmd:mb-[0.59rem] flex items-center justify-center rounded-[0.43924rem] bg-blue-700 caption1 font-semibold text-white select-none xmd:uppercase',
+                  'uppercase w-[8.63836rem] xmd:w-full h-[2.34261rem] xmd:h-[2.928rem] p-[0.73206rem] xmd:px-[1.17rem] xmd:mb-[0.59rem] flex items-center justify-center rounded-[0.43924rem] bg-blue-700 caption1 font-semibold text-white select-none xmd:uppercase',
                   !data?.variation?.attributes &&
                     data?.type === 'variable' &&
                     'opacity-50',

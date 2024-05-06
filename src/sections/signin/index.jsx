@@ -23,6 +23,7 @@ import BtnSubmit from '../auth/components/btnsubmit'
 import {PopupResetPass} from '../auth/components/popup/PopupResetPass'
 import ICEyeActive from '@/components/icon/ICEyeActive'
 import ICEyeActiveDisable from '@/components/icon/ICEyeActiveDisable'
+import ICCheck from '@/components/icon/ICCheck'
 
 const formSchema = z.object({
   // email: z.string().email({message: 'Nhập đúng định dạng email!'}),
@@ -108,7 +109,7 @@ export default function SignInIndex({status}) {
                 <FormControl>
                   <Input
                     className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik xmd:rounded-[0.58565rem] placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40'
-                    placeholder='Nhập số điện thoại'
+                    placeholder='+84   |   Nhập số điện thoại'
                     type='tel'
                     {...field}
                   />
@@ -185,7 +186,7 @@ export default function SignInIndex({status}) {
         <div>
           <label
             htmlFor='forfet_password'
-            className='flex items-center cursor-pointer w-fit'
+            className='relative flex items-center cursor-pointer w-fit'
           >
             <input
               onChange={(e) => {
@@ -196,6 +197,11 @@ export default function SignInIndex({status}) {
               id='forfet_password'
               name='forfet_password'
             />
+            {notePass && (
+              <div className='absolute top-0 left-0 flex items-center justify-center bg-blue-700 size-[1.1rem] rounded-[0.25rem]'>
+                <ICCheck className='w-[0.8rem] h-auto' />
+              </div>
+            )}
             <span className='text-blue-500 caption1 font-semibold opacity-45 block w-fit ml-[0.44rem] select-none group-checked:opacity-1'>
               Ghi nhớ mật khẩu
             </span>
@@ -213,7 +219,7 @@ export default function SignInIndex({status}) {
           Bạn chưa có tài khoản ?
         </span>
         <Link
-          className='p-[0.59rem] font-semibold caption1 text-blue-500'
+          className='px-[0.59rem] font-semibold caption1 text-black'
           href={'/dang-ky'}
         >
           Đăng ký

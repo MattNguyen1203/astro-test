@@ -84,7 +84,7 @@ const ComboDetail = ({
   }, [listProduct, selectedPrd])
 
   return (
-    <div className='container mt-[8.1rem] bg-elevation-10 relative xmd:w-full'>
+    <div className='container mt-[8.1rem] xmd:mt-[4.5rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
         <BreadCrumb
           category='combo'

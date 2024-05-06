@@ -10,7 +10,7 @@ export default function PreOder() {
         <div className='relative size-full group'>
           <Image
             className='w-[11.9rem] h-[11.7rem] object-cover absolute -left-[2.12rem] bottom-0 z-50 group-hover:scale-110 origin-bottom transition-all duration-500'
-            src={'/home/customer-preoder.png'}
+            src={'/home/customer-preoders.png'}
             alt='customer'
             width={165}
             height={165}
@@ -48,7 +48,7 @@ export default function PreOder() {
             </Link>
           </div>
         </div>
-        <div className='absolute top-0 w-[17.2rem] h-full right-[1rem] bg-[linear-gradient(90deg,#FFF_5.23%,rgba(255,255,255,0.00)_89%)] translate-x-full z-[5] pointer-events-none'></div>
+        <div className='absolute top-0 w-[10.2rem] h-full right-[1rem] bg-[linear-gradient(90deg,#FFF_5.23%,rgba(255,255,255,0.00)_89%)] translate-x-full z-[5] pointer-events-none'></div>
       </div>
       <div className='w-[calc(100%-48.16984rem)] h-full bg-[#ffedd2] rounded-tr-[0.87848rem] rounded-br-[0.87848rem]'>
         <SlideInfinity />

@@ -9,7 +9,6 @@ export default function ItemCategory({index, isMobile, category}) {
 
   const isActive =
     device === category?.slug ? true : !device && index === 0 ? true : false
-
   return (
     <button
       onClick={() => {
@@ -26,7 +25,7 @@ export default function ItemCategory({index, isMobile, category}) {
       className={`${index ? 'md:mt-[0.88rem]' : ''} ${
         isActive
           ? 'md:border-[#EEF8FF] md:bg-[#EBF0F7] md:shadow-[3px_4px_3px_0px_rgba(22,53,86,0.29)_inset,6px_5px_3px_0px_rgba(3,30,59,0.02)_inset]'
-          : 'md:hover:border-[#EEF8FF] md:hover:bg-[#EBF0F7] md:hover:shadow-[3px_4px_3px_0px_rgba(22,53,86,0.29)_inset,6px_5px_3px_0px_rgba(3,30,59,0.02)_inset]'
+          : 'xmd:border-none md:hover:border-[#EEF8FF] md:hover:bg-[#EBF0F7] md:hover:shadow-[3px_4px_3px_0px_rgba(22,53,86,0.29)_inset,6px_5px_3px_0px_rgba(3,30,59,0.02)_inset]'
       } xmd:h-[2.92826rem] w-full px-[0.59rem] h-[3.51rem] rounded-[0.58565rem] border border-solid border-[rgba(193,212,231,0.10)] bg-[rgba(20,20,20,0.10)] relative backdrop-blur-[5px] flex items-center group transition-all duration-300 select-none cursor-pointer xmd:border-[2px] xmd:border-blue-500 xmd:rounded-[7.5rem] xmd:ml-[0.59rem] xmd:w-fit xmd:bg-white xmd:shadow-[11px_6px_24px_0px_rgba(0,0,0,0.04),0px_2px_32px_0px_rgba(0,0,0,0.04)] xmd:flex-shrink-0`}
     >
       <Image
@@ -38,8 +37,10 @@ export default function ItemCategory({index, isMobile, category}) {
       />
       <span
         className={`${
-          isActive ? 'md:text-greyscale-80' : 'md:group-hover:text-greyscale-80'
-        } font-semibold text-white transition-all duration-300 whitespace-nowrap md:line-clamp-1 caption1 xmd:caption1 xmd:w-fit xmd:text-greyscale-80`}
+          isActive
+            ? 'md:text-greyscale-80 xmd:text-greyscale-80'
+            : 'xmd:text-greyscale-30 md:group-hover:text-greyscale-80'
+        } font-semibold text-white transition-all duration-300 whitespace-nowrap md:line-clamp-1 caption1 xmd:caption1 xmd:w-fit `}
       >
         {category?.name}
       </span>

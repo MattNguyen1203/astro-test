@@ -105,7 +105,7 @@ export default function MenuUser2() {
               priority
             />
             <span
-              className={`text-greyscale-20 font-normal sub2 inline-block ml-[0.59rem]`}
+              className={`text-greyscale-20 font-medium sub2 inline-block ml-[0.59rem]`}
             >
               Đăng xuất
             </span>
