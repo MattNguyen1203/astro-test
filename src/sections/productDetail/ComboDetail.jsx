@@ -89,7 +89,7 @@ const ComboDetail = ({
         <BreadCrumb
           category='combo'
           name={data?.name}
-          categorySlg=''
+          categorySlg='/san-pham'
         />
       </div>
       <div className='relative flex justify-between xmd:flex-col'>
