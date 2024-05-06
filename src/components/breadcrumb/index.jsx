@@ -31,7 +31,7 @@ export default function BreadCrumb({
       </Link>
       {categorySlg && (
         <Link
-          href={categorySlg || ''}
+          href={categorySlg || '/'}
           className={`${classNameCat} flex items-center w-fit mx-[0.29rem] xmd:max-w-[6rem] relative xmd:pl-[1rem] xmd:h-[1.1713rem]`}
         >
           <svg
