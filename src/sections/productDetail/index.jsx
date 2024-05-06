@@ -76,7 +76,7 @@ const ProductDetail = ({
         : []
 
       if (listImgVariations)
-        return [gallery.concat(listImgVariations), isFlashSale]
+        return [gallery?.concat(listImgVariations), isFlashSale]
     } else {
       return [gallery, isFlashSale]
     }
