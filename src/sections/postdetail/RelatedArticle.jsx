@@ -33,7 +33,7 @@ const RelatedArticle = ({isMobile, productByCate}) => {
           }
         >
           <h2 className='font-medium h6 xmd:text-[1.34261rem] font-svnGraphik xmd:font-semibold xmd:text-blue-700 xmd:uppercase'>
-            {isMobile ? 'Tin Tức Liên Quan' : 'Bài viết liên quan'}
+            {isMobile ? 'Tin Tức liên quan' : 'Bài viết liên quan'}
           </h2>
           <div className='group h-[2.92826rem] cursor-pointer flex items-center py-[0.29283rem] px-[0.87848rem] bg-elevation-20 rounded-[0.43924rem]'>
             <Link
