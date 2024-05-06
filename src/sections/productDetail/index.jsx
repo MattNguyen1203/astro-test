@@ -205,7 +205,7 @@ const ProductDetail = ({
   }, [relatedProduct, FiveProduct])
 
   return (
-    <div className='container mt-[8.1rem] md:pb-[4rem] bg-elevation-10 relative xmd:w-full'>
+    <div className='container mt-[8.1rem] xmd:mt-[4.5rem] md:pb-[4rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
         <BreadCrumb
           category='sản phẩm'
@@ -268,8 +268,8 @@ const ProductDetail = ({
                 className={cn(
                   data?.type === 'variable' &&
                     (!selectedPrd?.variation || !selectedPrd?.variation.max_qty)
-                    ? 'pointer-events-none opacity-40 cursor-not-allowed'
-                    : '',
+                    ? 'pointer-events-none opacity-40 cursor-not-allowed xmd:w-full'
+                    : 'xmd:w-full',
                 )}
               >
                 <ChangeQuantity
@@ -327,7 +327,7 @@ const ProductDetail = ({
                   />
                 </div>
                 {selectedPrd?.meta_detect?.flash_sale?.flash_sale_date && (
-                  <div className='ml-[0.59rem]'>
+                  <div className='ml-[0.59rem] mt-[0.87848rem]'>
                     <span className='caption1 font-medium text-greyscale-80 mr-[0.25rem]'>
                       Còn
                     </span>

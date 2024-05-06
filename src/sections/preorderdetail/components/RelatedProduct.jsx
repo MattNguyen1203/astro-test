@@ -34,6 +34,7 @@ const RelatedProduct = ({relatedProduct, session}) => {
               key={index}
             >
               <CardProduct
+                boxPlaced
                 product={item}
                 session={session}
               />

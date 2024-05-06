@@ -84,7 +84,6 @@ export default function CardVoucher({
               setIsIndex(index)
               const couponCode = item?.code?.toString()
               navigator.clipboard.writeText(couponCode)
-              console.log('lot')
             }
           }}
           className={`${

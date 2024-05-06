@@ -5,6 +5,8 @@ import 'swiper/css'
 import {useRef, useState} from 'react'
 import NavigationCustom from '@/components/navigationcustom'
 import CardRelatedArticle from './CardRelatedArticle'
+import Image from 'next/image'
+import Link from 'next/link'
 const RelatedArticle = ({isMobile, productByCate}) => {
   const swiperRef = useRef(null)
   const [indexSlider, setIndexSlider] = useState(0)
@@ -25,12 +27,31 @@ const RelatedArticle = ({isMobile, productByCate}) => {
       <div className='md:py-[1.1713rem] md:px-[1.46413rem] bg-[#FFF] self-stretch rounded-[0.87848rem] '>
         <div
           className={
-            isMobile ? 'flex justify-start flex-col space-y-[0.87848rem] ' : ' '
+            isMobile
+              ? 'flex justify-start xmd:items-center xmd:justify-between lg:flex-col lg:space-y-[0.87848rem] '
+              : 'flex justify-between'
           }
         >
-          <h2 className='font-medium h6 xmd:text-[2.34261rem] font-svnGraphik xmd:font-semibold xmd:text-blue-700 xmd:uppercase'>
+          <h2 className='font-medium h6 xmd:text-[1.34261rem] font-svnGraphik xmd:font-semibold xmd:text-blue-700 xmd:uppercase'>
             {isMobile ? 'Tin Tức Liên Quan' : 'Bài viết liên quan'}
           </h2>
+          <div className='group h-[2.92826rem] cursor-pointer flex items-center py-[0.29283rem] px-[0.87848rem] bg-elevation-20 rounded-[0.43924rem]'>
+            <Link
+              href={'/tin-tuc'}
+              className='p-[0.58565rem] group-hover:border-[1px] group-hover:border-solid group-hover:border-blue-400 rounded-[0.43924rem] flex items-center'
+            >
+              <span className='caption1 font-medium text-blue-200 mr-[0.29rem] group-hover:text-blue-500'>
+                Xem tất cả
+              </span>
+              <Image
+                src='/components/arrow.svg'
+                alt='arrow icon'
+                width={20}
+                height={20}
+                className='object-contain size-[0.87848rem]'
+              />
+            </Link>
+          </div>
           {/* {isMobile && (
             <div className='w-full overflow-x-auto hidden-scrollbar'>
               <div className='w-max pb-2  flex items-start  gap-[0.87848rem]'>

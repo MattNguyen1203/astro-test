@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function Contact() {
   return (
-    <section className='container space-y-[0.88rem] items-end pr-[1.17rem] fixed flex flex-col right-[7rem] bottom-[3rem] xmd:right-[1rem] xmd:bottom-[4rem] z-[9999]'>
+    <section className='xmd:hidden container space-y-[0.88rem] items-end pr-[1.17rem] fixed flex flex-col right-[7rem] bottom-[3rem] xmd:right-[1rem] xmd:bottom-[4rem] z-[9999]'>
       <Link
         href='tel:+0815850292'
         className='size-[2.92826rem] rounded-full p-[0.73206rem] bg-[#FEBE10]'
@@ -34,7 +34,7 @@ export default function Contact() {
         href={'https://www.facebook.com/astromazing.official'}
         className='size-[2.92826rem] rounded-full bg-[#0084FF] flex justify-center items-center'
       >
-        <div className='size-[1.4642rem]'>
+        <div className='size-[1.4642rem] translate-y-[-25%]'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             width='24'

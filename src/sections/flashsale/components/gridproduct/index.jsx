@@ -19,7 +19,7 @@ export default async function GridProductFL({isMobile, id, title, session}) {
         className='absolute top-0 left-0 -translate-y-[18rem] xmd:-translate-y-[10rem]'
       ></div>
       <div className='md:bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)] md:absolute md:w-[40.81091rem] h-[4.465rem] md:-top-[1.47rem] md:left-1/2 md:-translate-x-1/2 rounded-[1.1713rem] flex justify-center items-center xmd:bg-[#F4F4F4] xmd:rounded-[0.58565rem] xmd:h-[2.92826rem] xmd:justify-between xmd:px-[0.88rem] xmd:w-full'>
-        <h2 className='font-bold h5 text-greyscale-80 xmd:sub2 xmd:font-semibold xmd:tracking-[0.01025rem] md:uppercase'>
+        <h2 className='font-bold h5 text-greyscale-80 xmd:sub2 xmd:font-semibold xmd:tracking-[0.01025rem] uppercase'>
           {title}
         </h2>
         {isMobile && <ICArrowRightBlack className='size-[1.46413rem]' />}
@@ -37,6 +37,7 @@ export default async function GridProductFL({isMobile, id, title, session}) {
         <div className='w-full grid grid-cols-4 grid-rows-2 gap-[1.17rem] xmd:gap-[0.59rem] xmd:grid-cols-2 xnd:grid-rows-4'>
           {products?.item?.map((product, index) => (
             <CardProduct
+              boxPlaced
               key={index}
               session={session}
               product={product}

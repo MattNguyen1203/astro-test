@@ -50,7 +50,7 @@ const MainPostdetail = ({data}) => {
         </div>
       </div>
       {/* main title */}
-      <div className='self-stretch font-semibold h4 xmd:h5 text-greyscale-80 font-svnGraphik'>
+      <div className='self-stretch font-semibold h4 xmd:h5 xmd:text-[1.46413rem] text-greyscale-80 font-svnGraphik'>
         {data?.post_title}
       </div>
 

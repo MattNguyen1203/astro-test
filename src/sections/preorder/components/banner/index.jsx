@@ -13,7 +13,7 @@ export default async function BannerPreOrder({isMobile}) {
       <div className='w-full h-[67.82577rem] 3xl:h-[76.82577rem] relative xmd:h-fit'>
         <Image
           className='object-fill size-full xmd:h-[22.98682rem] xmd:block xmd:relative xmd:z-10'
-          src={isMobile ? '/preorder/banner-res.jpg' : '/preorder/banner.png'}
+          src={isMobile ? '/preorder/banners-res.jpg' : '/preorder/banner.png'}
           alt='banner'
           width={isMobile ? 380 : 1400}
           height={isMobile ? 320 : 950}

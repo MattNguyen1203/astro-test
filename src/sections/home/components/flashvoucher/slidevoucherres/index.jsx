@@ -9,7 +9,7 @@ export default function VoucherSlideRes({data = [], className = ''}) {
     <div
       className={`${className} relative w-full overflow-x-auto h-[8.8rem] hidden-scrollbar`}
     >
-      <div className='absolute top-0 left-0 w-fit px-[0.55rem] h-full flex flex-col justify-between'>
+      <div className='absolute top-0 left-0 w-fit px-[0.59rem] h-full flex flex-col justify-between'>
         {Array(2)
           .fill(0)
           .map((_, index) => (
@@ -26,7 +26,7 @@ export default function VoucherSlideRes({data = [], className = ''}) {
                   <CardVoucher
                     isIndex={isIndex}
                     setIsIndex={setIsIndex}
-                    index={index}
+                    index={index === 0 ? idx : idx + (data.length / 2) * index}
                     className={idx === 0 ? '!ml-0' : 'ml-[0.59rem]'}
                     key={idx}
                     isPriority={idx < 2 ? true : false}

@@ -23,7 +23,7 @@ const ContentPostDetail = ({data}) => {
           href='#section1'
           className='th-fl md:w-[55.7101rem] h-[1.75695rem] '
         >
-          <div className='cursor-pointer body1 font-normal text-greyscale-40 md:w-[55.7101rem] md:shrink-0 md:self-stretch font-svnGraphik'>
+          <div className='mb-[0.88rem] cursor-pointer body1 font-normal text-greyscale-40 md:w-[55.7101rem] md:shrink-0 md:self-stretch font-svnGraphik xmd:text-[1.1713rem] xmd:font-normal xmd:leading-[1.5]'>
             Redmi Buds 5 - Pin "khủng", khử tiếng ồn chủ động ANC
           </div>
         </Link>
@@ -31,7 +31,7 @@ const ContentPostDetail = ({data}) => {
           href='#section2'
           className='th-fl md:w-[55.7101rem] h-[1.75695rem] '
         >
-          <div className='cursor-pointer body1 font-normal text-greyscale-40 md:w-[55.7101rem] md:shrink-0 md:self-stretch font-svnGraphik'>
+          <div className='mb-[0.88rem] cursor-pointer body1 font-normal text-greyscale-40 md:w-[55.7101rem] md:shrink-0 md:self-stretch font-svnGraphik xmd:text-[1.1713rem] xmd:font-normal xmd:leading-[1.5]'>
             Redmi Buds 5 Pro - Chất âm HIFI cao cấp, khử ồn thông minh được cá
             nhân hóa
           </div>
@@ -40,7 +40,7 @@ const ContentPostDetail = ({data}) => {
           href='#section3'
           className='th-fl md:w-[55.7101rem] h-[1.75695rem] '
         >
-          <div className='cursor-pointer body1 font-normal text-greyscale-40 md:w-[55.7101rem] md:shrink-0 md:self-stretch font-svnGraphik'>
+          <div className='cursor-pointer body1 font-normal text-greyscale-40 md:w-[55.7101rem] md:shrink-0 md:self-stretch font-svnGraphik xmd:text-[1.1713rem] xmd:font-normal xmd:leading-[1.5]'>
             Chương trình ưu đãi
           </div>
         </Link>

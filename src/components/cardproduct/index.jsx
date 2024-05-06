@@ -5,12 +5,13 @@ import Link from 'next/link'
 import {memo, useState} from 'react'
 import dynamic from 'next/dynamic'
 import {useRouter} from 'next/navigation'
+import Progress from '../progress'
 
 const DialogProduct = dynamic(() =>
   import('@/sections/home/components/dialog').then((mod) => mod.DialogProduct),
 )
 
-function CardProduct({product, priority = false}) {
+function CardProduct({product, priority = false, boxPlaced = false}) {
   const [isOpen, setIsOpen] = useState(false)
   const percentSale = handlePercentSale(product)
   const price = renderPriceProduct(product)
@@ -24,7 +25,11 @@ function CardProduct({product, priority = false}) {
   })
 
   return (
-    <div className='w-full h-[28.2rem] xmd:h-[23.1rem] first:ml-0 rounded-[0.87848rem] md:border md:border-solid md:border-[#E5E7EB] group shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] md:hover:shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_32px_0px_rgba(12,46,112,0.08)] select-none xmd:shadow-[-6px_2px_28px_0px_rgba(12,46,112,0.08),2px_4px_16px_0px_rgba(12,46,112,0.04)]'>
+    <div
+      className={`${
+        boxPlaced ? 'h-[30.527rem]' : 'h-[28.2rem]'
+      } w-full xmd:h-[23.1rem] first:ml-0 rounded-[0.87848rem] md:border md:border-solid md:border-[#E5E7EB] group shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] md:hover:shadow-[2px_4px_20px_0px_rgba(12,46,112,0.04),-6px_2px_32px_0px_rgba(12,46,112,0.08)] select-none xmd:shadow-[-6px_2px_28px_0px_rgba(12,46,112,0.08),2px_4px_16px_0px_rgba(12,46,112,0.04)]`}
+    >
       <Link
         href={
           isCombo
@@ -64,7 +69,16 @@ function CardProduct({product, priority = false}) {
             {product?.name || 'Chưa có thông tin!'}
           </h2>
         </Link>
-        {/* {false && <Progress />} */}
+        {boxPlaced && (
+          <div className='mt-[0.75rem] mb-[0.5rem]'>
+            <Progress
+              ordered={product?.meta_detect?.pre_order?._pre_order_total_buyed}
+              totalProd={product?.meta_detect?.pre_order?._pre_order_total_sale}
+              boxProgress
+              icon='/preorder/flash.png'
+            />
+          </div>
+        )}
         <ul className='mt-[0.4rem] flex flex-wrap *:mt-[0.29rem] *:ml-[0.29rem] *:px-[0.58565rem] *:py-[0.29283rem] *:rounded-[7.5rem] *:bg-[#F6F6F6] max-h-[3.8rem] h-[3.8rem] overflow-hidden md:*:h-fit md:*:whitespace-nowrap'>
           {product?.categories?.slice(0, 4)?.map((category, index) => (
             <li

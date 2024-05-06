@@ -39,10 +39,10 @@ export default async function Footer({isMobile}) {
                     />
                   </div>
                   <span className='font-semibold text-blue-500 body2'>
-                    {footer?.tong_dai_ho_tro?.title}
+                    {footer?.tong_dai_ho_tro?.[0]?.title}
                   </span>
                   <span className='font-bold text-blue-500 body2'>
-                    {footer?.tong_dai_ho_tro?.phone}
+                    {footer?.tong_dai_ho_tro?.[0]?.phone}
                   </span>
                 </Link>
                 <hr className='h-[0.0366rem] bg-[#ECECEC66] w-full my-[2.05rem] opacity-40' />
@@ -77,11 +77,11 @@ export default async function Footer({isMobile}) {
                     quality={100}
                   />
                 </div>
-                <span className='font-semibold text-blue-500 body2'>
-                  CSKH... (9h-21h)
+                <span className='font-semibold text-blue-500 body2 xmd:flex-1 xmd:ml-[0.88rem]'>
+                  {footer?.tong_dai_ho_tro?.[1]?.title}
                 </span>
                 <span className='font-bold text-blue-500 body2'>
-                  094 749 2020
+                  {footer?.tong_dai_ho_tro?.[1]?.phone}
                 </span>
               </Link>
             </div>

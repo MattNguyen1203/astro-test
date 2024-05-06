@@ -17,19 +17,21 @@ export default async function TechnologyConner({isMobile}) {
       title: 'Facebook',
       src: '/home/fb.svg',
       href: linkSocials?.facebook,
-      className: 'w-[1.31772rem] h-[2.2694rem]',
+      className:
+        'w-[1.31772rem] h-[2.2694rem] xmd:h-[1.36493rem] xmd:w-[0.79253rem]',
     },
     {
       title: 'Lazada',
       src: '/home/lazada.svg',
       href: linkSocials?.lazada,
-      className: 'w-[2.82958rem] h-[2.32277rem]',
+      className:
+        'w-[2.82958rem] h-[2.32277rem] xmd:h-[1.36479rem] xmd:w-[1.66252rem]',
     },
     {
       title: 'TikTok',
       src: '/home/tiktok.svg',
       href: linkSocials?.tiktok,
-      className: 'size-[2.34261rem]',
+      className: 'size-[2.34261rem] xmd:size-[1.36501rem]',
     },
   ]
 
@@ -45,7 +47,7 @@ export default async function TechnologyConner({isMobile}) {
               href={e.href}
               target='_blank'
               prefetch={false}
-              className='py-[1.17rem] px-[1.76rem] xmd:px-[0.81rem] xmd:py-[0.73rem] bg-white md:hover:bg-[#F4F4F4] transition-all duration-500 rounded-[0.58565rem] shadow-[1px_4px_32px_0px_rgba(0,0,0,0.08)] flex items-center xmd:flex-col xmd:justify-between'
+              className='py-[1.17rem] px-[1.76rem] xmd:px-[0.81rem] xmd:py-[0.73rem] bg-white md:hover:scale-[1.2] transition-all duration-500 rounded-[0.58565rem] shadow-[1px_4px_32px_0px_rgba(0,0,0,0.08)] flex items-center xmd:flex-col xmd:justify-between'
             >
               <Image
                 className={`${e.className} object-contain`}
@@ -54,7 +56,7 @@ export default async function TechnologyConner({isMobile}) {
                 width={38}
                 height={38}
               />
-              <span className='inline-block md:ml-[1.46rem] sub1 font-medium text-blue-600 xmd:mt-[0.59rem]'>
+              <span className='inline-block md:ml-[1.46rem] sub1 font-medium xmd:font-semibold text-blue-600 xmd:mt-[0.59rem]'>
                 {e.title}
               </span>
             </Link>

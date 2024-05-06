@@ -137,7 +137,7 @@ export default function SignUpIndex() {
                 <FormControl>
                   <Input
                     className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik xmd:rounded-[0.58565rem]'
-                    placeholder='Số điện thoại *'
+                    placeholder='+84   |   Nhập số điện thoại *'
                     type='tel'
                     {...field}
                   />

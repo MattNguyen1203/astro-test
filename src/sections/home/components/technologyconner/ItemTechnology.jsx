@@ -70,7 +70,7 @@ export default function ItemTechnology({
               width={16}
               height={16}
             />
-            <span className='caption1 ml-[0.29rem] text-greyscale-80 font-medium block w-fit -mb-[0.4px] xmd:ml-[0.29283rem] font-svnGraphik'>
+            <span className='caption1 ml-[0.29rem] text-greyscale-80 font-medium xmd:font-normal block w-fit -mb-[0.4px] xmd:ml-[0.29283rem] font-svnGraphik'>
               {convertDateFormat(post?.post_date)}
             </span>
           </div>
@@ -84,7 +84,7 @@ export default function ItemTechnology({
 
           <h2
             className={`${
-              isOther ? 'xmd:button xmd:mb-0' : 'xmd:h5'
+              isOther ? 'xmd:button xmd:mb-0 xmd:!text-[1.02489rem]' : 'xmd:h5'
             } line-clamp-2 lg:h-[2.78184rem] sub1 font-medium xmd:font-semibold text-white xmd:text-greyscale-80 mb-[0.88rem] relative z-10 xmd:text-[1.46413rem] xmd:leading-[1.2] font-svnGraphik`}
           >
             {post?.title}

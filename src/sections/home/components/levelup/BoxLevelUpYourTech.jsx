@@ -46,7 +46,7 @@ export default function BoxLevelUpYourTech({
           />
           <div className='absolute px-[0.88rem] left-0 bottom-[0.88rem] z-10 w-full'>
             <CategoryProductRes
-              title='LEVEL UP YOUR TECH'
+              title='Level up your tech'
               href='/'
             />
           </div>

@@ -228,7 +228,7 @@ export default function SearchTracking({isMobile}) {
                         3 sản phẩm
                       </span> */}
                     </div>
-                    <div className='h-[20rem]'>
+                    <div className=''>
                       {data?.product?.map((item, index) => (
                         <ItemProductPayment
                           key={index}
