@@ -9,6 +9,8 @@ import {Input} from '@/components/ui/input'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
 import {toast} from 'sonner'
+import {submitForm} from '@/actions/submitForm'
+import {IDFORMFOOTER} from '@/lib/IdPageAPI'
 
 const formSchema = z.object({
   email: z
@@ -17,7 +19,6 @@ const formSchema = z.object({
     .email({message: 'Nhập đúng định dạng email!'}),
 })
 export default function SignInIndex({status}) {
-  // const [isPending, startTransition] = useTransition()
   const [isFailed, setIsFailed] = useState(false)
 
   const form = useForm({
@@ -51,14 +52,26 @@ export default function SignInIndex({status}) {
     }
   }, [errors?.email?.message])
 
-  // const values = form.watch()
-
   function onSubmit(values) {
-    // startTransition(() => {})
+    const formData = new FormData()
+    formData.append('email', values.email)
+    formData.append('_wpcf7_unit_tag', IDFORMFOOTER)
+
     const promise = () =>
-      new Promise((resolve) =>
-        setTimeout(() => resolve({email: values?.email}), 2000),
+      submitForm(
+        `/contact-form-7/v1/contact-forms/${IDFORMFOOTER}/feedback`,
+        formData,
       )
+        .then((res) => {
+          if (res?.status === 'mail_sent') {
+            return res
+          } else {
+            throw new Error(res?.message || 'Lỗi không xác định.')
+          }
+        })
+        .catch((err) => {
+          throw new Error(err)
+        })
     toast.promise(promise, {
       loading: 'Đang xử lý...',
       success: (values) => {

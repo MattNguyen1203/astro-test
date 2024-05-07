@@ -100,7 +100,7 @@ export default function PaymentIndex({
   const communeSearch =
     communeSplit?.[1]?.toLowerCase() || communeSplit?.[0]?.toLowerCase()
   const defaultValueCommune =
-    commune.find((e) => e?.name?.toLowerCase()?.includes(communeSearch))
+    commune?.find((e) => e?.name?.toLowerCase()?.includes(communeSearch))
       ?.name || null
   const [valueCommune, setValueCommune] = useState(defaultValueCommune)
 
@@ -462,40 +462,39 @@ export default function PaymentIndex({
             : 'Cash on delivery',
         propertyShip:
           ship === 'in' ? shipIn : isFreeShip ? shipFree : priceShip,
-        cardList:
-          payment === 'ck'
-            ? 'DOMESTIC'
-            : payment === 'credit'
-            ? 'INTERNATIONAL'
-            : payment === 'momo'
-            ? 'MOMO'
-            : null,
+        cardList: null,
       })
-
-      // createOrder(JSON.stringify(body))
-      //   .then((res) => {
-      //     if (res?.success) {
-      //       if (res?.paymen_cod === 'cod') {
-      //         router.push(
-      //           `/payment?tracking=${res?.order_id}&vpc_TxnResponseCode=0`,
-      //         )
-      //       } else {
-      //         router.push(res?.url)
-      //       }
-      //       //   4000 0000 0000 1091
-      //       // 05/26
-      //     } else {
-      //       return toast.error(
-      //         res?.message?.includes('Quantity in stock is not enough')
-      //           ? 'Sản phẩm bạn mua đã hết hàng!'
-      //           : 'Đã có lỗi xảy ra!',
-      //         {
-      //           position: 'bottom-center',
-      //         },
-      //       )
-      //     }
-      //   })
-      //   .catch((err) => console.log('error payment', err))
+      // payment === 'ck'
+      //   ? 'DOMESTIC'
+      //   : payment === 'credit'
+      //   ? 'INTERNATIONAL'
+      //   : payment === 'momo'
+      //   ? 'MOMO'
+      //   : null
+      createOrder(JSON.stringify(body))
+        .then((res) => {
+          if (res?.success) {
+            if (res?.paymen_cod === 'cod') {
+              router.push(
+                `/payment?tracking=${res?.order_id}&vpc_TxnResponseCode=0`,
+              )
+            } else {
+              router.push(res?.url)
+            }
+            //   4000 0000 0000 1091
+            // 05/26
+          } else {
+            return toast.error(
+              res?.message?.includes('Quantity in stock is not enough')
+                ? 'Sản phẩm bạn mua đã hết hàng!'
+                : 'Đã có lỗi xảy ra!',
+              {
+                position: 'bottom-center',
+              },
+            )
+          }
+        })
+        .catch((err) => console.log('error payment', err))
     })
   }
 
@@ -758,6 +757,7 @@ export default function PaymentIndex({
         isCouponBest={isCouponBest || couponSearch}
         isFreeShipDefault={isFreeShipDefault}
         handleAddCoupon={handleAddCoupon}
+        id={id}
       />
     </section>
   )

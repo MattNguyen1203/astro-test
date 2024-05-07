@@ -83,7 +83,7 @@ export default function IndexAccount({
   const communeSearch =
     communeSplit?.[1]?.toLowerCase() || communeSplit?.[0]?.toLowerCase()
   const defaultValueCommune =
-    commune.find((e) => e?.name?.toLowerCase()?.includes(communeSearch))
+    commune?.find((e) => e?.name?.toLowerCase()?.includes(communeSearch))
       ?.name || null
 
   const [valueCommune, setValueCommune] = useState(defaultValueCommune)

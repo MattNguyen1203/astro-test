@@ -8,6 +8,7 @@ import {useTransition} from 'react'
 import {toast} from 'sonner'
 
 export default function InfoOrderBill({detailOrder, isSuccess}) {
+  console.log('🚀 ~ InfoOrderBill ~ detailOrder:', detailOrder)
   const router = useRouter()
 
   const [isPending, setTransition] = useTransition()
@@ -39,6 +40,16 @@ export default function InfoOrderBill({detailOrder, isSuccess}) {
         )
     })
   }
+
+  const handleTotalBill = () => {
+    let sum = 0
+    detailOrder?.coupon?.forEach(
+      (item) => (sum += Number(item?.coupon_discount)),
+    )
+    return sum + Number(detailOrder?.total)
+  }
+
+  const totalBill = handleTotalBill()
 
   return (
     <aside className='sticky top-[9.76rem] right-0 w-[36.2rem]'>
@@ -131,7 +142,7 @@ export default function InfoOrderBill({detailOrder, isSuccess}) {
               Tổng tiền hàng:
             </span>
             <span className='font-semibold caption1 text-greyscale-80'>
-              {formatToVND(detailOrder?.total)}
+              {formatToVND(totalBill)}
             </span>
           </div>
           <div className='flex items-center justify-between'>
@@ -142,6 +153,16 @@ export default function InfoOrderBill({detailOrder, isSuccess}) {
               {isShipIn ? 'Nhân viên sẽ liên hệ' : '30.000đ'}
             </span>
           </div>
+          {detailOrder?.coupon?.length && (
+            <div className='flex items-center justify-between'>
+              <span className='font-medium caption1 text-greyscale-40'>
+                Voucher giảm giá
+              </span>
+              <span className='font-semibold caption1 text-greyscale-80'>
+                -{formatToVND(detailOrder?.coupon?.[0]?.coupon_discount)}
+              </span>
+            </div>
+          )}
           {!!detailOrder?.counpon?.length && (
             <div className='flex items-center justify-between'>
               <span className='font-medium caption1 text-greyscale-40'>

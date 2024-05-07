@@ -14,16 +14,8 @@ export default function InfoOrder({
   isFreeShipDefault,
   handleAddCoupon,
   shipValue,
+  id,
 }) {
-  const totalPrice = handlePriceTotalOrder(
-    carts,
-    isFreeShipDefault || shipValue === 'in',
-    handleAddCoupon,
-    coupon,
-  )
-
-  const isFreeShip = totalPrice?.before >= rangeFreeShip
-
   const handleShowPrice = (price) => {
     if (Number(price)) {
       return '-' + formatToVND(price)
@@ -32,8 +24,23 @@ export default function InfoOrder({
     }
   }
 
+  const dataCartNew = carts?.filter((item) => {
+    if (!Array.isArray(item?.meta)) return true
+    return !item?.meta?.find((e) => e?.key?.includes('parent'))
+  })
+  console.log('🚀 ~ dataCartNew:', dataCartNew)
+
+  const totalPrice = handlePriceTotalOrder(
+    id ? dataCartNew : carts,
+    isFreeShipDefault || shipValue === 'in',
+    handleAddCoupon,
+    coupon,
+    id,
+  )
+  const isFreeShip = totalPrice?.before >= rangeFreeShip
+
   return (
-    <aside className='w-[34.91947rem] flex-shrink-0 h-fit sticky top-[9.76rem] right-0 rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] p-[1.17rem]'>
+    <aside className='w-[34.91947rem] flex-shrink-0 h-fit sticky top-[9.76rem] right-0 rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] p-[1.17rem] bg-white'>
       <h3 className='font-medium sub2 text-greyscale-80'>
         THÔNG TIN ĐƠN HÀNG:
       </h3>
@@ -43,16 +50,20 @@ export default function InfoOrder({
           Danh sách sản phẩm :
         </span>
         <span className='font-normal caption1 text-greyscale-30'>
-          {carts?.length} sản phẩm
+          {dataCartNew?.length} sản phẩm
         </span>
       </div>
-      <div className='mt-[0.59rem]'>
-        {carts?.map((item, index) => (
+      <div
+        className={`${
+          dataCartNew?.length === 1 ? 'mb-[0.59rem]' : ''
+        } mt-[0.59rem]`}
+      >
+        {dataCartNew?.map((item, index) => (
           <ItemProductPayment
             key={index}
             item={item}
             index={index}
-            length={carts?.length}
+            length={dataCartNew?.length}
           />
         ))}
       </div>

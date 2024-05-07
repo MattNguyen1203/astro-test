@@ -18,6 +18,8 @@ import Image from 'next/image'
 import {useState, useTransition} from 'react'
 import {Textarea} from '@/components/ui/textarea'
 import {toast} from 'sonner'
+import {IDFORMCONTACT} from '@/lib/IdPageAPI'
+import {submitForm} from '@/actions/submitForm'
 
 const formSchema = z.object({
   name: z.string().min(1, {message: 'Vui lòng không để trống!'}),
@@ -47,10 +49,29 @@ export default function FormContact() {
 
   function onSubmit(values) {
     startTransition(() => {
+      const formData = new FormData()
+      formData.append('name', values.name)
+      formData.append('phone', values.phone)
+      formData.append('email', values.email)
+      formData.append('message', values.note)
+      formData.append('_wpcf7_unit_tag', IDFORMCONTACT)
+
       const promise = () =>
-        new Promise((resolve) =>
-          setTimeout(() => resolve({email: values?.email}), 2000),
+        submitForm(
+          `/contact-form-7/v1/contact-forms/${IDFORMCONTACT}/feedback`,
+          formData,
         )
+          .then((res) => {
+            console.log('🚀 ~ .then ~ res:', res)
+            if (res?.status === 'mail_sent') {
+              return res
+            } else {
+              throw new Error(res?.message || 'Lỗi không xác định.')
+            }
+          })
+          .catch((err) => {
+            throw new Error(err)
+          })
       toast.promise(promise, {
         loading: 'Đang gửi yêu cầu...',
         success: (values) => {
