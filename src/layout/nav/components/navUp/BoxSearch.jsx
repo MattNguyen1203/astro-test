@@ -24,8 +24,12 @@ const linkNavUp = [
     href: '',
   },
   {
-    title: 'Chính sách',
-    href: '/danh-muc/chinh-sach',
+    title: 'Flash sale',
+    href: '/flash-sale',
+  },
+  {
+    title: 'Pre-order',
+    href: '/pre-order',
   },
 ]
 

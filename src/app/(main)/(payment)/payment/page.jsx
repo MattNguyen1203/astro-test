@@ -19,6 +19,11 @@ export default async function PaymentPage({searchParams}) {
     return false
   }
 
+  const dataCartNew = detailOrder?.product?.filter((item) => {
+    if (!Array.isArray(item?.meta)) return true
+    return !item?.meta?.find((e) => e?.key?.includes('parent'))
+  })
+
   return (
     <section className='container relative flex justify-between pb-[7.17rem]'>
       <article className='sticky top-[9.76rem] left-0 w-[50.87848rem] space-y-[0.88rem]'>
@@ -31,17 +36,17 @@ export default async function PaymentPage({searchParams}) {
             <span className='text-[0.87848rem] leading-[1.833] tracking-[0.0022rem] text-greyscale-40'>
               Danh sách sản phẩm :
             </span>
-            {/* <span className='font-normal caption1 text-greyscale-30'>
-              {detailOrder?.product?.length} sản phẩm
-            </span> */}
+            <span className='font-normal caption1 text-greyscale-30'>
+              {dataCartNew?.length} sản phẩm
+            </span>
           </div>
           <hr className='my-[0.59rem] bg-[#1E417C14] h-[0.07321rem]' />
           <div className='mt-[0.59rem]'>
-            {detailOrder?.product?.map((item, index) => (
+            {dataCartNew?.map((item, index) => (
               <ItemProductPayment
                 key={index}
                 item={item}
-                length={detailOrder?.product?.length}
+                length={dataCartNew?.length}
                 index={index}
               />
             ))}

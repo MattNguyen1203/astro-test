@@ -17,7 +17,6 @@ import BtnCombo from './BtnCombo'
 import CardCombo from './CardCombo'
 
 export default function ItemCart({cart, setCart, index, isMobile, item}) {
-  console.log('🚀 ~ ItemCart ~ item:', item)
   const session = useSession()
 
   const isAuth = session?.status === 'authenticated'
@@ -151,7 +150,7 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
       if (isAuth) {
         const priceTotal =
           Number(productSelected?.line_total) /
-            Number(productSelected.quantity) || 0
+            Number(productSelected?.quantity) || 0
         return [priceTotal, priceTotal]
       } else {
         const totalPrice =
@@ -183,6 +182,9 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
       ]
     }
   }, [productSelected, isAuth])
+
+  const isEqual = price === regular_price
+  console.log('🚀 ~ ItemCart ~ isEqual:', isEqual)
 
   if (isLoading) return <SkeletonItemCart />
 
@@ -227,7 +229,7 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
                 <span className='font-semibold text-blue-600 sub2 xmd:caption1 md:mr-[0.25rem]'>
                   {formatToVND(price)}
                 </span>
-                {regular_price && (
+                {!isEqual && (
                   <span className='font-normal line-through giagoc text-greyscale-40 xmd:tracking-normal'>
                     {formatToVND(regular_price)}
                   </span>
@@ -298,7 +300,7 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
               <span className='font-semibold text-blue-600 sub2 xmd:caption1 md:mr-[0.25rem]'>
                 {formatToVND(price)}
               </span>
-              {regular_price && (
+              {!isEqual && (
                 <span className='font-normal line-through giagoc text-greyscale-40 xmd:tracking-normal'>
                   {formatToVND(regular_price)}
                 </span>

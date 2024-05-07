@@ -5,8 +5,7 @@ import ProductDetail from '@/sections/productDetail'
 export async function generateStaticParams() {
   const products = await getData('/okhub/v1/product')
   const productsNew = products?.filter(
-    (e) =>
-      e?.type !== 'wooco' && e?.meta_detect?.pre_order?._is_pre_order !== 'yes',
+    (e) => e?.type !== 'wooco' && e?.meta?.pre_order?._is_pre_order !== 'yes',
   )
 
   return productsNew.map((product) => ({
