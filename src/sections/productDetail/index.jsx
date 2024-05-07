@@ -184,7 +184,7 @@ const ProductDetail = ({
 
     return [price, regular_price]
   }, [selectedPrd, isFlashSale])
-
+  console.log(listCrossell)
   return (
     <div className='container mt-[8.1rem] xmd:mt-[4.1rem] md:pb-[4rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>

@@ -143,7 +143,7 @@ export default function SearchTracking({isMobile}) {
           {tracking && data?.id && (
             <div className='flex w-[100rem] xmd:w-full xmd:py-[1.1713rem ] px-[24.52416rem] pb-[0.58565rem] justify-center items-center xmd:px-0'>
               <div className='flex w-[50.87848rem] xmd:w-full p-[1.1713rem] flex-col items-start rounded-[0.58565rem] bg-white xmd:px-[0.88rem]'>
-                <div className='flex flex-col items-start mb-[1.76rem]'>
+                <div className='flex flex-col items-start mb-[1.76rem] xmd:w-full'>
                   <div className='flex flex-col justify-start'>
                     <div className='flex items-center justify-between'>
                       <div className='flex items-center flex-1'>
@@ -213,7 +213,7 @@ export default function SearchTracking({isMobile}) {
                         3 sản phẩm
                       </span> */}
                     </div>
-                    <div className=''>
+                    <div className='w-full'>
                       {data?.product?.map((item, index) => (
                         <ItemProductPayment
                           key={index}

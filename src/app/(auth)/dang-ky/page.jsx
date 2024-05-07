@@ -4,11 +4,12 @@ import Image from 'next/image'
 export default function SignUpPage({searchParams}) {
   const {viewport} = searchParams
   const isMobile = viewport === 'mobile'
+  // className='absolute top-0 -translate-y-[calc(100%+3.49rem)] left-1/2 -translate-x-1/2 w-[17.68755rem] h-[4.68521rem] object-contain z-50'
   return (
     <>
       {isMobile && (
         <Image
-          className='absolute top-0 -translate-y-[calc(100%+3.49rem)] left-1/2 -translate-x-1/2 w-[17.68755rem] h-[4.68521rem] object-contain z-50'
+          className='h-[4.68521rem] object-contain z-50 w-full text-center absolute top-[-11vh]'
           src={'/auth/slogan.png'}
           alt='AstroMazing'
           width={250}

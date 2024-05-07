@@ -26,7 +26,7 @@ export default function NavAuth({children}) {
           <TitleAuth />
         </nav>
       </header>
-      <main className='mt-[4.5388rem] h-[44.3631rem] relative xmd:h-[calc(100vh-4.1rem)]'>
+      <main className='mt-[4.5388rem] h-[44.3631rem] relative xmd:h-[calc(100vh-5.1rem)]'>
         <Image
           className='z-0 object-cover size-full xmd:hidden'
           src={'/auth/bg-auth.jpg'}
