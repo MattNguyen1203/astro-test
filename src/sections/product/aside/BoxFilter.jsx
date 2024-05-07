@@ -5,7 +5,7 @@ import {useParams} from 'next/navigation'
 import useClickOutSide from '@/hooks/useClickOutSide'
 
 import dynamic from 'next/dynamic'
-const PopupCategories = dynamic(() => import('./PopupCategories'))
+const PopupCategories = dynamic(() => import('./PopupCategories'), {ssr: false})
 
 export default function BoxFilter({categories}) {
   const params = useParams()

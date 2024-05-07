@@ -1,25 +1,22 @@
 'use client'
-// import SlideMultiple from '@/components/slidemultiple'
 import SocialProduct from '../product/aside/SocialProduct'
 import BreadCrumb from '@/components/breadcrumb'
 import Variation from '@/components/popupproduct/Variation'
-// import TemVoucher from '@/components/popupproduct/TemVoucher'
-// import ChangeQuantity from '@/components/popupproduct/ChangeQuantity'
 import ItemProduct from './itemProduct/Crosssell'
 import {cn, fetcher, formatToVND} from '@/lib/utils'
 import AddToCartBtn from './addToCartBtn'
-import WishListIcon from './Wishlist'
 import ProductPrice from '@/components/popupproduct/Price'
 import SubInfo from './SubInfo/SubInfo'
 import TechnicalInfo from './SubInfo/TechnicalInfo'
 import VoucherList from './VoucherList'
 import TabInfo from './SubInfo/TabInfo'
 import {useEffect, useMemo, useRef, useState} from 'react'
-// import DialogProductCombo from '../home/components/dialogCrossell'
-
 import CountDown from '@/components/countdown'
 import Progress from '@/components/progress'
-// import RelatedProduct from '../preorderdetail/components/RelatedProduct'
+import Loading from '@/components/loading'
+import {useRouter} from 'next/navigation'
+import {handleAddToSession} from './function'
+
 import dynamic from 'next/dynamic'
 const RelatedProduct = dynamic(
   () => import('../preorderdetail/components/RelatedProduct'),
@@ -34,16 +31,15 @@ const TemVoucher = dynamic(
     ssr: false,
   },
 )
+const WishListIcon = dynamic(() => import('./Wishlist'), {
+  ssr: false,
+})
 const ChangeQuantity = dynamic(
   () => import('@/components/popupproduct/ChangeQuantity'),
   {
     ssr: false,
   },
 )
-
-import Loading from '@/components/loading'
-import {useRouter} from 'next/navigation'
-import {handleAddToSession} from './function'
 
 const ProductDetail = ({
   isMobile,
