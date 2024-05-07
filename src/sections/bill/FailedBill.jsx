@@ -29,8 +29,6 @@ export default function FailedBill({session, setCount}) {
     },
   )
 
-  console.log('🚀 ~ FailedBill ~ data:', data)
-
   useEffect(() => {
     if (data?.count) {
       setCount(data.count)

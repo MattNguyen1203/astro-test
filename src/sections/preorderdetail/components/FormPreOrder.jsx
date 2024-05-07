@@ -75,7 +75,7 @@ export default function FormPreOrder({data, setSelectedPrd, selectedPrd}) {
   }, [selectedPrd, form])
 
   const onSubmit = async (value) => {
-    await startTransition(async () => {
+    startTransition(async () => {
       const formData = new FormData()
 
       formData.append('fullname', value.fullname)
