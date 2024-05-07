@@ -1,0 +1,31 @@
+@media (max-width: 767px) {
+  .text_accordion strong {
+    color: var(--greyscaletext-50, #454545);
+
+    font-size: 1.02489rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    letter-spacing: 0.00256rem;
+  }
+  .text_accordion p {
+    color: var(--greyscaletext-50, #454545);
+    text-align: justify;
+    font-size: 1.02489rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.00256rem;
+
+    margin-top: 0.59rem;
+    margin-bottom: 0.59rem;
+  }
+  /* 
+  .text_accordion p:nth-child(1) {
+    margin: 0;
+  } */
+
+  .text_accordion img {
+    border-radius: 0.5rem;
+  }
+}

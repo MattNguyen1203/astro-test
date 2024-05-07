@@ -5,7 +5,7 @@ export default function ProductPreOrder({session, products}) {
   const lengthMore = Number(products?.count) - 10
   return (
     <section className='container relative z-10'>
-      <div className='my-[3.51rem] flex justify-center items-center rounded-[0.87848rem] md:bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] px-[4.39rem] py-[1.17rem] xmd:py-[0.73206rem] w-fit mx-auto xmd:mt-[2.34rem] xmd:mb-[1.17rem] xmd:w-full xmd:bg-[rgba(244,244,244,0.90)]'>
+      <div className='my-[3.51rem] flex justify-center items-center rounded-[0.87848rem] xmd:rounded-[0.58565rem] md:bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] px-[4.39rem] py-[1.17rem] xmd:py-[0.73206rem] w-fit mx-auto xmd:mt-[2.34rem] xmd:mb-[1.17rem] xmd:w-full xmd:bg-[rgba(244,244,244,0.90)]'>
         <h2 className='md:bg-[linear-gradient(44deg,#FFF0D8_52.89%,#FFD797_107.96%)] h6 font-bold font-svnGraphik md:bg-clip-text xmd:rounded-[0.58565rem] xmd:sub2 xmd:tracking-[0.01025rem] xmd:text-greyscale-80 xmd:font-semibold'>
           SẢN PHẨM SẮP RA MẮT
         </h2>
@@ -16,6 +16,7 @@ export default function ProductPreOrder({session, products}) {
             key={index}
             session={session}
             product={product}
+            boxPlaced
           />
         ))}
       </div>

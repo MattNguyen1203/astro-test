@@ -41,7 +41,7 @@ export default function BannerFlashSale({isMobile}) {
     <section className='relative'>
       <Image
         className='w-full object-cover h-[41.28843rem] 3xl:h-[56.28843rem] xmd:h-[22.98682rem]'
-        src={isMobile ? '/flashsale/banner-mb.jpg' : '/flashsale/banner.jpg'}
+        src={isMobile ? '/flashsale/banners-mb.jpg' : '/flashsale/banner.jpg'}
         alt='banner'
         width={isMobile ? 380 : 1400}
         height={isMobile ? 320 : 600}

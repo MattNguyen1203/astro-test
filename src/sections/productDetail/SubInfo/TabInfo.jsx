@@ -16,7 +16,7 @@ const TabInfo = ({isMobile, data}) => {
           defaultValue='1'
           className='bg-white p-[1.17rem] rounded-[0.87848rem] mb-[0.88rem] xmd:hidden'
         >
-          <TabsList className='bg-transparent pb-[1.17rem] mb-[1.17rem] border-b border-[#ECECECB2] w-full justify-start h-fit'>
+          <TabsList className='bg-transparent pb-[1.17rem] border-b border-[#ECECECB2] w-full justify-start h-fit'>
             <TabsTrigger
               value={'1'}
               className='cation1 font-semibold px-[1.02rem] py-[0.59rem] rounded-[0.58565rem] bg-elevation-20 text-greyscale-20 mr-[0.59rem] !shadow-none data-[state=active]:bg-[linear-gradient(44deg,#FFF0D8_50.63%,#FFD797_106.58%)] data-[state=active]:text-greyscale-80 uppercase'
@@ -70,7 +70,10 @@ const TabInfo = ({isMobile, data}) => {
                 url: '/product/arrow.svg',
               }}
             >
-              <div dangerouslySetInnerHTML={{__html: data?.detail_info}}></div>
+              <div
+                className='noibat'
+                dangerouslySetInnerHTML={{__html: data?.detail_info}}
+              ></div>
             </ShowMore>
           </TabsContent>
 
@@ -87,6 +90,7 @@ const TabInfo = ({isMobile, data}) => {
               }}
             >
               <div
+                className='noibat'
                 dangerouslySetInnerHTML={{__html: data?.warranty_info}}
               ></div>
             </ShowMore>

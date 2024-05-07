@@ -4,7 +4,7 @@ import CardVoucher from '@/components/cardvoucher'
 import {useState} from 'react'
 
 const VoucherList = ({voucher}) => {
-  const [disabled, setDisabled] = useState(false)
+  const [isIndex, setIsIndex] = useState(false)
   return (
     <>
       <div className='grid grid-cols-1 gap-y-[0.59rem]'>
@@ -12,8 +12,9 @@ const VoucherList = ({voucher}) => {
           <CardVoucher
             key={index}
             item={voucherItem}
-            setDisabled={setDisabled}
-            disabled={disabled}
+            isIndex={isIndex}
+            setIsIndex={setIsIndex}
+            index={index}
           />
         ))}
       </div>

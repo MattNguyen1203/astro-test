@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/accordion'
 import {useState} from 'react'
 import ShowMore from '@/components/showmore'
+import './style.css'
 
 const AccordionInfo = ({data}) => {
   return (
@@ -35,7 +36,7 @@ const AccordionInfo = ({data}) => {
           >
             <div
               dangerouslySetInnerHTML={{__html: data?.important_info}}
-              className='sub2 text-greyscale-50 leading-[1.5] text-justify'
+              className='sub2 text-greyscale-50 leading-[1.5] text-justify text_accordion'
             ></div>
           </ShowMore>
         </AccordionContent>
@@ -60,7 +61,7 @@ const AccordionInfo = ({data}) => {
           >
             <div
               dangerouslySetInnerHTML={{__html: data?.detail_info}}
-              className='sub2 text-greyscale-50 leading-[1.5] text-justify'
+              className='sub2 text-greyscale-50 leading-[1.5] text-justify text_accordion'
             ></div>
           </ShowMore>
         </AccordionContent>
@@ -85,7 +86,7 @@ const AccordionInfo = ({data}) => {
           >
             <div
               dangerouslySetInnerHTML={{__html: data?.warranty_info}}
-              className='sub2 text-greyscale-50 leading-[1.5] text-justify'
+              className='sub2 text-greyscale-50 leading-[1.5] text-justify text_accordion'
             ></div>
           </ShowMore>
         </AccordionContent>

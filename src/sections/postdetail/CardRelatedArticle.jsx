@@ -13,11 +13,11 @@ const CardRelatedArticle = ({data}) => {
       <div className=' flex xmd:flex-col-reverse flex-col xmd:self-stretch items-start xmd:w-[11.49341] md:w-[28.03807rem] md:py-[1.46413rem] md:p-[1.46413rem] xmd:gap-[0.58565rem] gap-[0.87848rem]'>
         <Link
           href={`/tin-tuc/${data?.post_slug}`}
-          className='self-stretch overflow-hidden font-medium sub1 xmd:sub2 line-clamp-2 text-ellipsis text-greyscale-80 font-svnGraphik'
+          className='md:h-[2.78rem] self-stretch overflow-hidden font-medium sub1 xmd:sub2 line-clamp-2 text-ellipsis text-greyscale-80 font-svnGraphik'
         >
           {data?.title}
         </Link>
-        <div className='overflow-hidden font-normal body2 xmd:hidden line-clamp-3 text-ellipsis text-greyscale-30 font-svnGraphik'>
+        <div className='md:h-[4.61rem] overflow-hidden font-normal body2 xmd:hidden line-clamp-3 text-ellipsis text-greyscale-30 font-svnGraphik'>
           {data?.post_excerpt}
         </div>
         <div className=' gap-[0.58565rem] flex items-start'>

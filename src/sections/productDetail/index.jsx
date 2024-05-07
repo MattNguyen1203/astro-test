@@ -249,8 +249,8 @@ const ProductDetail = ({
                 className={cn(
                   data?.type === 'variable' &&
                     (!selectedPrd?.variation || !selectedPrd?.variation.max_qty)
-                    ? 'pointer-events-none opacity-40 cursor-not-allowed'
-                    : '',
+                    ? 'pointer-events-none opacity-40 cursor-not-allowed xmd:w-full'
+                    : 'xmd:w-full',
                 )}
               >
                 <ChangeQuantity
@@ -308,7 +308,7 @@ const ProductDetail = ({
                   />
                 </div>
                 {selectedPrd?.meta_detect?.flash_sale?.flash_sale_date && (
-                  <div className='ml-[0.59rem]'>
+                  <div className='ml-[0.59rem] mt-[0.87848rem]'>
                     <span className='caption1 font-medium text-greyscale-80 mr-[0.25rem]'>
                       Còn
                     </span>

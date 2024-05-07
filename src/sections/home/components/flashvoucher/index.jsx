@@ -22,7 +22,7 @@ export default async function FlashVoucher({isMobile}) {
             quality={100}
           />
         )}
-        <div className='flex items-center justify-between pb-[2.05rem] xmd:px-[0.55rem]'>
+        <div className='flex items-center justify-between pb-[2.05rem] xmd:pb-[1.54rem] xmd:px-[0.55rem]'>
           <div className='relative flex w-fit'>
             <Image
               className='object-contain size-[10rem] absolute top-[45%] -translate-y-1/2 -left-[0.2rem] xmd:size-[5rem] xmd:-left-[0.2rem] pointer-events-none'
@@ -61,7 +61,7 @@ export default async function FlashVoucher({isMobile}) {
             )}
             <Image
               className='absolute bottom-0 left-[0.33rem] w-[9.39971rem] h-[15.66618rem] xmd:w-[4.1142rem] xmd:h-[6.85695rem] xmd:bottom-[0.76rem] xmd:left-auto xmd:right-[1.71rem] z-20'
-              src={'/home/girl-voucher.png'}
+              src={'/home/girl-vouchers.png'}
               alt='girl voucher'
               width={130}
               height={215}
