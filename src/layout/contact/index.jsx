@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Contact() {
@@ -34,19 +35,14 @@ export default function Contact() {
         href={'https://www.facebook.com/astromazing.official'}
         className='size-[2.92826rem] rounded-full bg-[#0084FF] flex justify-center items-center'
       >
-        <div className='size-[1.4642rem] translate-y-[-25%]'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='24'
-            height='24'
-            viewBox='0 0 24 24'
-            fill='none'
-          >
-            <path
-              d='M11.9259 0C5.33941 0 0 4.9746 0 11.1111C0 14.6078 1.73423 17.7267 4.44444 19.7635V24L8.50511 21.7576C9.58875 22.0593 10.7369 22.2222 11.9259 22.2222C18.5124 22.2222 23.8518 17.2476 23.8518 11.1111C23.8518 4.9746 18.5124 0 11.9259 0ZM13.1111 14.963L10.0741 11.7037L4.14815 14.963L10.6667 8L13.7778 11.2593L19.6296 8L13.1111 14.963Z'
-              fill='white'
-            />
-          </svg>
+        <div className='size-[1.4642rem]'>
+          <Image
+            className='size-full'
+            alt='mess'
+            src={'/home/mess.svg'}
+            width={20}
+            height={20}
+          />
         </div>
       </Link>
     </section>

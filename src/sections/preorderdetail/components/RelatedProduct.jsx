@@ -3,6 +3,7 @@ import Image from 'next/image'
 
 const RelatedProduct = ({relatedProduct, session}) => {
   // const relatedProduct = new Array(5).fill(0)
+  // console.log(relatedProduct)
   return (
     <>
       <div className='flex justify-between items-center bg-white py-[0.22rem] px-[0.59rem] rounded-[0.58565rem] mb-[0.88rem]'>

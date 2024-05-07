@@ -262,8 +262,8 @@ export default function SignUpIndex() {
         </form>
       </Form>
 
-      <div className='flex items-center mx-auto w-fit mt-[2.3rem] xmd:mt-[7rem]'>
-        <span className='font-semibold text-blue-500 cpation1 opacity-45'>
+      <div className='flex items-center mx-auto w-fit mt-[2.3rem] '>
+        <span className='font-semibold text-blue-500 caption1 opacity-45'>
           Bạn đã có tài khoản ?
         </span>
         <Link

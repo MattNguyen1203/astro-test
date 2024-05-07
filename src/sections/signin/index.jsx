@@ -215,7 +215,7 @@ export default function SignInIndex({status}) {
         </Link>
       </div>
       <div className='flex items-center mx-auto w-fit'>
-        <span className='font-semibold text-blue-500 cpation1 opacity-45'>
+        <span className='font-semibold text-blue-500 caption1 opacity-45'>
           Bạn chưa có tài khoản ?
         </span>
         <Link

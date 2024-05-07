@@ -9,7 +9,7 @@ export default function ResetPage({searchParams}) {
     <>
       {isMobile && (
         <Image
-          className='absolute top-0 -translate-y-[calc(100%+9.61rem)] left-1/2 -translate-x-1/2 w-[17.68755rem] h-[4.68521rem] object-contain z-50'
+          className='h-[4.68521rem] object-contain z-50 w-full text-center absolute top-[-11vh]'
           src={'/auth/slogan.png'}
           alt='AstroMazing'
           width={250}
