@@ -1,5 +1,5 @@
 'use client'
-import BoxSort from './BoxSort'
+// import BoxSort from './BoxSort'
 import SortRes from './sortRes/SortRes'
 import dynamic from 'next/dynamic'
 const BoxSort = dynamic(() => import('./BoxSort'), {ssr: false})
