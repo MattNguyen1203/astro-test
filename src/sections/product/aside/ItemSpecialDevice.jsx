@@ -4,21 +4,21 @@ import CheckDefault from '@/components/sheetcategories/CheckDefault'
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
 import {useState} from 'react'
 
-export default function ItemSpecial({item, onMobile}) {
+export default function ItemSpecialDevice({item, onMobile}) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathName = usePathname()
-  const type = searchParams.get('type')?.split('--')
+  const device = searchParams.get('device')?.split('--')
 
   const [isCheck, setIsCheck] = useState(
-    type?.includes(item?.slug) ? true : false,
+    device?.includes(item?.slug) ? true : false,
   )
 
-  const handleFilterSpecialPc = () => {
+  const handleFilterDevicePc = () => {
     if (isCheck) {
       const paramNew = new URLSearchParams(searchParams)
 
-      const dataNew = type?.length > 0 && [...type]
+      const dataNew = device?.length > 0 && [...device]
       dataNew?.splice(
         dataNew?.findIndex((e) => e === item?.slug),
         1,
@@ -26,9 +26,9 @@ export default function ItemSpecial({item, onMobile}) {
       const searchParamsNew =
         dataNew?.length > 1 ? dataNew?.join('--') : dataNew?.[0]
       if (dataNew?.length > 0) {
-        paramNew.set('type', searchParamsNew)
+        paramNew.set('device', searchParamsNew)
       } else {
-        paramNew.delete('type', searchParamsNew)
+        paramNew.delete('device', searchParamsNew)
       }
       router.push(pathName + '?' + paramNew, {
         scroll: false,
@@ -36,10 +36,10 @@ export default function ItemSpecial({item, onMobile}) {
       return setIsCheck(false)
     } else {
       const paramNew = new URLSearchParams(searchParams)
-      const searchParamsNew = type
-        ? type?.join('--') + '--' + item?.slug
+      const searchParamsNew = device
+        ? device?.join('--') + '--' + item?.slug
         : item?.slug
-      paramNew.set('type', searchParamsNew)
+      paramNew.set('device', searchParamsNew)
       router.push(pathName + '?' + paramNew.toString(), {
         scroll: false,
       })
@@ -47,17 +47,17 @@ export default function ItemSpecial({item, onMobile}) {
     }
   }
 
-  const handleFilterSpecialMobile = () => {
+  const handleFilterDeviceMobile = () => {
     if (isCheck) {
       const dataQuery = JSON.parse(localStorage.getItem('dataQuery'))
       if (!dataQuery) return
-      const dataDevices = [...dataQuery.type?.split('--')]
+      const dataDevices = [...dataQuery.device?.split('--')]
       dataDevices?.splice(
         dataDevices?.findIndex((e) => e === item?.slug),
         1,
       )
       const dataNew = dataDevices?.join('--')
-      dataQuery.type = dataNew || ''
+      dataQuery.device = dataNew || ''
 
       localStorage.setItem('dataQuery', JSON.stringify(dataQuery))
       return setIsCheck(false)
@@ -65,25 +65,25 @@ export default function ItemSpecial({item, onMobile}) {
       const dataQuery = JSON.parse(localStorage.getItem('dataQuery'))
       if (!dataQuery) return
 
-      dataQuery.type = dataQuery.type
-        ? dataQuery.type + '--' + item?.slug
+      dataQuery.device = dataQuery.device
+        ? dataQuery.device + '--' + item?.slug
         : item?.slug
       localStorage.setItem('dataQuery', JSON.stringify(dataQuery))
       return setIsCheck(true)
     }
   }
 
-  const handleFilterSpecial = () => {
+  const handleFilterDevice = () => {
     if (onMobile) {
-      return handleFilterSpecialMobile()
+      return handleFilterDeviceMobile()
     } else {
-      return handleFilterSpecialPc()
+      return handleFilterDevicePc()
     }
   }
 
   return (
     <div
-      onClick={handleFilterSpecial}
+      onClick={handleFilterDevice}
       className='mt-[0.73rem] mb-[0.59rem] flex items-center select-none cursor-pointer'
     >
       <CheckDefault

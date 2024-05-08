@@ -4,7 +4,13 @@ import Wrapper from './Wrapper'
 import Aside, {AsideLoading} from './aside'
 import {Suspense} from 'react'
 
-export default function IndexProduct({products, isMobile, categories}) {
+export default function IndexProduct({
+  products,
+  isMobile,
+  categories,
+  devices,
+  page,
+}) {
   return (
     <main className='bg-elevation-20 pt-[9.76rem] xmd:pt-[5.5rem]'>
       <section className='container'>
@@ -27,6 +33,8 @@ export default function IndexProduct({products, isMobile, categories}) {
         isMobile={isMobile}
         products={products}
         categories={categories}
+        devices={devices}
+        page={page}
       >
         {!isMobile && (
           <Suspense fallback={<AsideLoading />}>

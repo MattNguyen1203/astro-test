@@ -28,6 +28,7 @@ export default function BoxSort() {
   const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
 
   const flashsale = searchParams.get('flashsale') === 'true'
+  const preorder = searchParams.get('preorder') === 'true'
 
   useEffect(() => {
     if (isOutSide) return setIsOpen(false)
@@ -71,6 +72,17 @@ export default function BoxSort() {
       scroll: false,
     })
   }
+  const handleFilterPreOrder = (preorder) => {
+    const paramNew = new URLSearchParams(searchParams)
+    if (preorder) {
+      paramNew.delete('preorder')
+    } else {
+      paramNew.set('preorder', 'true')
+    }
+    return router.push(pathName + '?' + paramNew.toString(), {
+      scroll: false,
+    })
+  }
   return (
     <div className='flex'>
       <button
@@ -82,6 +94,16 @@ export default function BoxSort() {
         } w-fit h-[2.63543rem] px-[0.73rem] rounded-[0.43924rem] mr-[0.44rem] flex items-center caption font-semibold`}
       >
         FLASHSALE
+      </button>
+      <button
+        onClick={() => handleFilterPreOrder(preorder)}
+        className={`${
+          preorder
+            ? 'bg-[linear-gradient(180deg,#E0B181_0.72%,#BE9367_99.87%)] text-white'
+            : 'bg-[#F0F0F0] text-blue-800'
+        } w-fit h-[2.63543rem] px-[0.73rem] rounded-[0.43924rem] mr-[0.44rem] flex items-center caption font-semibold`}
+      >
+        PRE-ORDER
       </button>
       <div
         ref={sideRef}
