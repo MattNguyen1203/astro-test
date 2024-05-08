@@ -32,8 +32,12 @@ const listCategories = [
     href: '/cua-hang',
   },
   {
-    title: 'CHÍNH SÁCH',
-    href: '/danh-muc/chinh-sach',
+    title: 'Flash sale',
+    href: '/flash-sale',
+  },
+  {
+    title: 'Pre-order',
+    href: '/pre-order',
   },
 ]
 

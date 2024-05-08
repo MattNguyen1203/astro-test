@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
-const SheetSort = dynamic(() => import('@/components/sheetsort'))
+const SheetSort = dynamic(() => import('@/components/sheetsort'), {ssr: false})
 
 export default function SortRes({categories = []}) {
   return (

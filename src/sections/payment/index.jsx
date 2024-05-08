@@ -100,7 +100,7 @@ export default function PaymentIndex({
   const communeSearch =
     communeSplit?.[1]?.toLowerCase() || communeSplit?.[0]?.toLowerCase()
   const defaultValueCommune =
-    commune.find((e) => e?.name?.toLowerCase()?.includes(communeSearch))
+    commune?.find((e) => e?.name?.toLowerCase()?.includes(communeSearch))
       ?.name || null
   const [valueCommune, setValueCommune] = useState(defaultValueCommune)
 
@@ -462,15 +462,16 @@ export default function PaymentIndex({
             : 'Cash on delivery',
         propertyShip:
           ship === 'in' ? shipIn : isFreeShip ? shipFree : priceShip,
-        cardList:
-          payment === 'ck'
-            ? 'DOMESTIC'
-            : payment === 'credit'
-            ? 'INTERNATIONAL'
-            : payment === 'momo'
-            ? 'MOMO'
-            : null,
+        cardList: null,
       })
+
+      // payment === 'ck'
+      //   ? 'DOMESTIC'
+      //   : payment === 'credit'
+      //   ? 'INTERNATIONAL'
+      //   : payment === 'momo'
+      //   ? 'MOMO'
+      //   : null
 
       createOrder(JSON.stringify(body))
         .then((res) => {
@@ -758,6 +759,7 @@ export default function PaymentIndex({
         isCouponBest={isCouponBest || couponSearch}
         isFreeShipDefault={isFreeShipDefault}
         handleAddCoupon={handleAddCoupon}
+        id={id}
       />
     </section>
   )

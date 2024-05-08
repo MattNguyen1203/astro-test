@@ -120,7 +120,7 @@ export default function ExpRank({session, dataRank, rank}) {
                 className='flex flex-col items-center w-[8.56515rem]'
               >
                 <p className='w-[8.56515rem] mb-[0.29283rem] text-center sub2 font-semibold bg-gradient-to-l from-[#E0B181] to-[#BE9367] bg-clip-text'>
-                  {parseInt(rank.amount_up_level).toLocaleString('vi-VN')}đ
+                  {parseInt(rank?.amount_up_level).toLocaleString('vi-VN')}đ
                 </p>
                 <p className='font-normal body2 text-greyscale-40'>
                   {rank.ten}

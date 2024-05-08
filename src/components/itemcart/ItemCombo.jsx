@@ -8,7 +8,28 @@ import Link from 'next/link'
 const ItemCombo = ({data}) => {
   const [regularPriceResult, priceResult] = handlePrice(data)
 
+  const isVariation = data?.type === 'variable'
+
+  const arrVariations = []
+
+  const handleVariation = () => {
+    if (!isVariation || !data?.meta) return
+
+    Object.keys(data?.meta)?.forEach((key) => {
+      if (!Number(data?.meta?.[key])) {
+        arrVariations.push(data?.meta?.[key])
+      }
+    })
+  }
+
+  handleVariation()
+
   const isEqual = Number(regularPriceResult) === Number(priceResult)
+
+  const dataVariations = arrVariations?.length
+    ? arrVariations
+    : data?.variation && Object?.values(data?.variation)
+
   return (
     <div className='relative flex xmd:flex-col xmd:justify-start xmd:items-start justify-between items-center bg-white py-[0.88rem] px-[0.59rem] xmd:p-[0.73rem] rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)]'>
       <div className='flex items-center relative'>
@@ -41,14 +62,14 @@ const ItemCombo = ({data}) => {
             )}
           </div>
 
-          {data?.type === 'variable' && data?.variation && (
+          {isVariation && (
             <div className='flex xmd:hidden'>
-              {Object.values(data?.variation)?.map((item, index) => (
+              {dataVariations?.map((item, index) => (
                 <div
                   key={index}
                   className='caption1 text-greyscale-40 py-[0.44rem] px-[0.59rem] rounded-[0.43924rem] bg-elevation-20 mr-[0.59rem]'
                 >
-                  {item?.label}
+                  {item?.label || item}
                 </div>
               ))}
             </div>
@@ -56,23 +77,10 @@ const ItemCombo = ({data}) => {
         </div>
       </div>
 
-      <div className='flex xmd:justify-between xmd:items-center xmd:w-full xmd:mt-[0.73rem]'>
-        {data?.type === 'variable' &&
-          data?.variation &&
-          data?.variation?.attributes && (
-            <div className='hidden xmd:flex'>
-              {Object.values(data?.variation?.attributes)?.map(
-                (item, index) => (
-                  <div
-                    key={index}
-                    className='caption1 text-greyscale-40 py-[0.44rem] px-[0.59rem] rounded-[0.43924rem] bg-elevation-20 mr-[0.59rem]'
-                  >
-                    {item?.label}
-                  </div>
-                ),
-              )}
-            </div>
-          )}
+      <div className='flex items-end justify-end h-[4.9rem]'>
+        <span className='font-medium caption1 text-greyscale-40'>
+          x{data?.quantity?.toString()?.padStart(2, '0')}
+        </span>
       </div>
     </div>
   )

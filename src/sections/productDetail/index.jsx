@@ -1,29 +1,45 @@
 'use client'
-import SlideMultiple from '@/components/slidemultiple'
 import SocialProduct from '../product/aside/SocialProduct'
 import BreadCrumb from '@/components/breadcrumb'
 import Variation from '@/components/popupproduct/Variation'
-import TemVoucher from '@/components/popupproduct/TemVoucher'
-import ChangeQuantity from '@/components/popupproduct/ChangeQuantity'
 import ItemProduct from './itemProduct/Crosssell'
 import {cn, fetcher, formatToVND} from '@/lib/utils'
 import AddToCartBtn from './addToCartBtn'
-import WishListIcon from './Wishlist'
 import ProductPrice from '@/components/popupproduct/Price'
 import SubInfo from './SubInfo/SubInfo'
 import TechnicalInfo from './SubInfo/TechnicalInfo'
 import VoucherList from './VoucherList'
 import TabInfo from './SubInfo/TabInfo'
 import {useEffect, useMemo, useRef, useState} from 'react'
-import DialogProductCombo from '../home/components/dialogCrossell'
-
 import CountDown from '@/components/countdown'
 import Progress from '@/components/progress'
-import RelatedProduct from '../preorderdetail/components/RelatedProduct'
-
 import Loading from '@/components/loading'
 import {useRouter} from 'next/navigation'
 import {handleAddToSession} from './function'
+
+import dynamic from 'next/dynamic'
+const RelatedProduct = dynamic(
+  () => import('../preorderdetail/components/RelatedProduct'),
+  {ssr: false},
+)
+const SlideMultiple = dynamic(() => import('@/components/slidemultiple'), {
+  ssr: false,
+})
+const TemVoucher = dynamic(
+  () => import('@/components/popupproduct/TemVoucher'),
+  {
+    ssr: false,
+  },
+)
+const WishListIcon = dynamic(() => import('./Wishlist'), {
+  ssr: false,
+})
+const ChangeQuantity = dynamic(
+  () => import('@/components/popupproduct/ChangeQuantity'),
+  {
+    ssr: false,
+  },
+)
 
 const ProductDetail = ({
   isMobile,
@@ -36,7 +52,7 @@ const ProductDetail = ({
   wishList,
   mainData,
 }) => {
-  const [isOpen, setIsOpen] = useState(false) // open popup product
+  // const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
   const [isLoading, setIsLoading] = useState(true)
 
@@ -360,7 +376,7 @@ const ProductDetail = ({
                   >
                     <ItemProduct
                       data={item}
-                      setIsOpen={setIsOpen}
+                      setIsOpen={() => {}}
                       setActiveId={setActiveId}
                       listCrossellIndex={listCrossellIndex}
                       setCrossellIndex={setCrossellIndex}
@@ -370,7 +386,7 @@ const ProductDetail = ({
                 ))
               )}
 
-              <DialogProductCombo
+              {/* <DialogProductCombo
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
                 data={listCrossell}
@@ -378,7 +394,7 @@ const ProductDetail = ({
                 activeId={activeId}
                 setActiveId={setActiveId}
                 session={session}
-              ></DialogProductCombo>
+              ></DialogProductCombo> */}
 
               <div className='flex items-center justify-between mt-[1.17rem]'>
                 <div className='flex items-center xmd:flex-col xmd:items-start'>
@@ -409,11 +425,9 @@ const ProductDetail = ({
         </div>
       </div>
 
-      {isFlashSale && (
-        <div className=''>
-          <RelatedProduct relatedProduct={relatedProduct} />
-        </div>
-      )}
+      <div className=''>
+        <RelatedProduct relatedProduct={relatedProduct} />
+      </div>
     </div>
   )
 }
