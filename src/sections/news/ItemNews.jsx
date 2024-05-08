@@ -39,7 +39,7 @@ export default function ItemNews({borderClass = '', isOption = false, post}) {
             className={`${
               isOption
                 ? 'xmd:body2 xmd:font-normal xmd:line-clamp-2'
-                : 'h-[2.78184rem]'
+                : 'h-[2.68184rem] xmd:!text-[1.02489rem] xmd:!font-semibold'
             } xmd:order-2 sub1 font-medium tracking-[0.01464rem] text-greyscale-80`}
           >
             {post?.title}
@@ -55,7 +55,7 @@ export default function ItemNews({borderClass = '', isOption = false, post}) {
         </p>
         <div
           className={`${
-            isOption ? 'lg:p-[0.59rem] ' : ''
+            isOption ? 'lg:p-[0.59rem] opacity-50' : ''
           } xmd:order-1 xmd:mb-[0.29283rem] flex items-center`}
         >
           <Image

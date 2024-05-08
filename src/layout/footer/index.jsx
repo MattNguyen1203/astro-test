@@ -38,7 +38,7 @@ export default async function Footer({isMobile}) {
                       quality={100}
                     />
                   </div>
-                  <span className='font-semibold text-blue-500 body2'>
+                  <span className='font-semibold text-blue-500 body2 xmd:flex-1 xmd:ml-[0.88rem]'>
                     {footer?.tong_dai_ho_tro?.[0]?.title}
                   </span>
                   <span className='font-bold text-blue-500 body2'>

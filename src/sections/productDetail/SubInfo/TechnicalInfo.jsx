@@ -15,8 +15,8 @@ const detailPrd = [
 const TechnicalInfo = ({techInfo}) => {
   return (
     <>
-      <div className='uppercase caption1 xmd:text-[1.31772rem] xmd:font-semibold xmd:leading-[1.2] font-medium pb-[1.17rem] border-b border-[#ECECECB2] mb-[1.17rem]'>
-        Thông tin kĩ thuật
+      <div className='caption1 xmd:text-[1.31772rem] xmd:leading-[1.2] font-medium pb-[1.17rem] border-b border-[#ECECECB2] mb-[1.17rem]'>
+        Thông số kỹ thuật
       </div>
 
       {techInfo?.map((item, index) => {
