@@ -310,7 +310,7 @@ const ProductDetail = ({
               </div>
             </div>
             {isFlashSale && (
-              <div className='mb-[2rem] flex xmd:flex-col w-full xmd:mt-[1rem]'>
+              <div className='md:mb-[2rem] flex xmd:flex-col w-full xmd:mt-[1rem]'>
                 <div className='w-[18.08rem]'>
                   <Progress
                     ordered={
@@ -324,7 +324,7 @@ const ProductDetail = ({
                   />
                 </div>
                 {selectedPrd?.meta_detect?.flash_sale?.flash_sale_date && (
-                  <div className='ml-[0.59rem] mt-[0.87848rem]'>
+                  <div className='ml-[0.59rem] xmd:mt-[0.87848rem]'>
                     <span className='caption1 font-medium text-greyscale-80 mr-[0.25rem]'>
                       Còn
                     </span>

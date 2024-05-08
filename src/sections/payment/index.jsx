@@ -464,6 +464,7 @@ export default function PaymentIndex({
           ship === 'in' ? shipIn : isFreeShip ? shipFree : priceShip,
         cardList: null,
       })
+
       // payment === 'ck'
       //   ? 'DOMESTIC'
       //   : payment === 'credit'
@@ -471,6 +472,7 @@ export default function PaymentIndex({
       //   : payment === 'momo'
       //   ? 'MOMO'
       //   : null
+
       createOrder(JSON.stringify(body))
         .then((res) => {
           if (res?.success) {

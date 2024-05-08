@@ -11,10 +11,11 @@ export default function GridProductHandBook({posts = []}) {
           <div className='w-[57.9795rem] day xmd:w-full h-full rounded-[1.1713rem] lg:overflow-hidden lg:mr-[1.83rem] flex-shrink-0'>
             <ItemTechnology
               post={posts[0]}
+              mbCard={true}
               priority={true}
               prominent
               widthHeightImg='w-[57.9795rem] h-[36.01757rem] xmd:w-full xmd:h-[16.32613rem]'
-              boxClass='pt-[1.83rem] pb-[1.17rem] px-[1.46rem] xmd:p-0 lg:absolute lg:top-0'
+              boxClass='!pt-[1.83rem] !pb-[1.17rem] !px-[1.46rem] xmd:p-0 lg:absolute lg:top-0'
             />
           </div>
         )}
@@ -26,6 +27,7 @@ export default function GridProductHandBook({posts = []}) {
               className='rounded-[1.1713rem] '
               boxClass='!p-[1.17rem]'
               post={posts[1]}
+              mbCard={true}
             />
             {posts[2] && (
               <ItemTechnology
@@ -34,6 +36,7 @@ export default function GridProductHandBook({posts = []}) {
                 className='rounded-[1.1713rem] '
                 boxClass='!p-[1.17rem] lg:absolute'
                 post={posts[2]}
+                mbCard={true}
               />
             )}
           </div>

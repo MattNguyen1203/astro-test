@@ -21,8 +21,8 @@ const AccordionInfo = ({data}) => {
         className={cn('relative')}
         value='1'
       >
-        <AccordionTrigger className='caption4 font-semibold capitalize !no-underline text-greyscale-70'>
-          ĐẶC ĐIỂM NỔI BẬT
+        <AccordionTrigger className='caption4 font-semibold xmd:font-medium capitalize !no-underline text-greyscale-70'>
+          Thông tin sản phẩm
         </AccordionTrigger>
         <AccordionContent>
           <ShowMore
@@ -43,36 +43,11 @@ const AccordionInfo = ({data}) => {
       </AccordionItem>
 
       <AccordionItem
-        className={cn('relative')}
+        className={cn('relative border-none')}
         value='2'
       >
-        <AccordionTrigger className='caption4 font-semibold capitalize !no-underline text-greyscale-70'>
-          THÔNG TIN CHI TIẾT
-        </AccordionTrigger>
-        <AccordionContent>
-          <ShowMore
-            maxHeight={200}
-            textClass='sub2 text-greyscale-30 font-medium mr-0.29rem'
-            iconProp={{
-              className: 'w-[1.1713rem] h-[1.1713rem] object-contain',
-              url: '/product/arrow.svg',
-            }}
-            wrapperClass='bg-transparent relative'
-          >
-            <div
-              dangerouslySetInnerHTML={{__html: data?.detail_info}}
-              className='sub2 text-greyscale-50 leading-[1.5] text-justify text_accordion'
-            ></div>
-          </ShowMore>
-        </AccordionContent>
-      </AccordionItem>
-
-      <AccordionItem
-        className={cn('relative border-none')}
-        value='3'
-      >
-        <AccordionTrigger className='caption4 font-semibold capitalize !no-underline text-greyscale-70'>
-          CÁCH SỬ DỤNG & BẢO HÀNH
+        <AccordionTrigger className='caption4 font-semibold xmd:font-medium capitalize !no-underline text-greyscale-70'>
+          Cách sử dụng và bảo hành
         </AccordionTrigger>
         <AccordionContent>
           <ShowMore

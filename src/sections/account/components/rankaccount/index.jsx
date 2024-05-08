@@ -35,7 +35,7 @@ export default function RackAccount({session, dataRank}) {
         setLinkRank('/account/cup-start.svg')
         break
       case '1':
-        setLinkRank('/account/cup-silver.svg')
+        setLinkRank('/account/cup-sivel.svg')
         break
       case '2':
         setLinkRank('/account/cup-gold.svg')
@@ -61,7 +61,9 @@ export default function RackAccount({session, dataRank}) {
       }
     }
   }, [session, dataRank])
-
+  console.log(dataRank)
+  console.log(rank)
+  console.log(session)
   return (
     <div className='flex flex-col items-start w-full'>
       <div className='w-[50.87848rem] xmd:w-full flex flex-col p-[1.1713rem] justify-center items-start rounded-[0.58565rem] bg-white shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>
@@ -119,6 +121,7 @@ export default function RackAccount({session, dataRank}) {
       </div>
       <div className='flex overflow-hidden xmd:flex-col my-[0.58565rem] justify-start relative items-center xmd:items-start w-[50.8784rem] xmd:w-full lg:h-[10.6881rem] rounded-[0.58565rem] xmd:shadow-[2px_2px_12px_0px_rgba(0, 0, 0, 0.02)_-3px_2px_20px_0px_rgba(0,0,0,0.04)]'>
         <ExpRank
+          rank={rank}
           dataRank={dataRank}
           session={session}
         />
