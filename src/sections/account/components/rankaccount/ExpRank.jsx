@@ -1,17 +1,29 @@
 'use client'
 import Image from 'next/image'
 import {Swiper, SwiperSlide} from 'swiper/react'
+import {FreeMode} from 'swiper/modules'
 import 'swiper/css'
-export default function ExpRank({session, dataRank}) {
+import {useState} from 'react'
+export default function ExpRank({session, dataRank, rank}) {
   const lastRank = dataRank[Object?.keys(dataRank)?.length - 1]
-  const percentPC = Math.min(
-    (session?.memberTotalCharge / parseInt(lastRank?.amount_give_level)) * 95,
-    95,
-  )
-
+  // const percentPC = Math.min(
+  //   (session?.memberTotalCharge / parseInt(lastRank?.amount_give_level)) * 95,
+  //   95,
+  // )
+  const percentPC =
+    rank == 'Kim Cương'
+      ? 100
+      : (session?.memberTotalCharge / lastRank?.amount_up_level) * 95
   return (
     <Swiper
       slidesPerView={'auto'}
+      initialSlide={
+        (session?.memberTotalCharge / lastRank?.amount_up_level) * 95 > 50
+          ? 1
+          : 0
+      }
+      freeMode={true}
+      modules={[FreeMode]}
       className='lg:w-[101.7568rem] xmd:w-full h-[10.68rem]'
     >
       <SwiperSlide>
@@ -93,8 +105,13 @@ export default function ExpRank({session, dataRank}) {
           <div className='flex my-[0.87848rem] justify-start items-center h-[1.75695rem] pl-[1.31772rem] pr-[3.3675rem] overflow-hidden'>
             <div className='w-[95%] xmd:w-[53.73352rem] h-[1.75695rem] absolute rounded-[1.0981rem] bg-[#F0F0F0]'></div>
             <div
-              className={`w-[${percentPC}%] h-[1.75695rem] absolute z-10 rounded-[0.43924rem] bg-gradient-to-l from-[#407F0F] to-[#29AA4D] shadow-[4px_4px_8px_0px_rgba(83,118,209,0.10)]`}
-            ></div>
+              style={{width: `${percentPC}%`}}
+              className={`h-[1.75695rem] text-end absolute z-10 rounded-[0.43924rem] bg-gradient-to-l from-[#407F0F] to-[#29AA4D] shadow-[4px_4px_8px_0px_rgba(83,118,209,0.10)]`}
+            >
+              <span className='caption1 font-semibold text-white mr-[0.44rem]'>
+                {session?.memberTotalCharge}
+              </span>
+            </div>
           </div>
           <div className='flex items-center justify-between w-full'>
             {Object.values(dataRank)?.map((rank, index) => (
@@ -103,7 +120,7 @@ export default function ExpRank({session, dataRank}) {
                 className='flex flex-col items-center w-[8.56515rem]'
               >
                 <p className='w-[8.56515rem] mb-[0.29283rem] text-center sub2 font-semibold bg-gradient-to-l from-[#E0B181] to-[#BE9367] bg-clip-text'>
-                  {parseInt(rank.amount_give_level).toLocaleString('vi-VN')}đ
+                  {parseInt(rank.amount_up_level).toLocaleString('vi-VN')}đ
                 </p>
                 <p className='font-normal body2 text-greyscale-40'>
                   {rank.ten}

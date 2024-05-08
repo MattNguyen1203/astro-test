@@ -13,6 +13,7 @@ export default function GridProductReview({posts = []}) {
           boxClass='lg:!p-[1.46rem]'
           widthHeightImg='w-[57.9795rem] h-[36.01757rem] xmd:w-full xmd:h-[16.32613rem] xmd:px-[0.59rem]'
           post={posts[0]}
+          mbCard={true}
         />
       </div>
       <div className='relative w-full h-full xmd:h-[12.08rem] overflow-hidden'>

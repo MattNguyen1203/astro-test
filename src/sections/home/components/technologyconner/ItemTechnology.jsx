@@ -58,9 +58,7 @@ export default function ItemTechnology({
           </div>
         ) : (
           <div
-            className={`${
-              isOther && 'opacity-50'
-            } flex items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] p-[0.59rem] bg-white/85 backdrop-blur-[2.5px] w-fit`}
+            className={`flex items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] p-[0.59rem] bg-white/85 backdrop-blur-[2.5px] w-fit`}
           >
             <Image
               className='size-[1.02489rem] object-contain'

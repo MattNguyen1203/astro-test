@@ -472,30 +472,30 @@ export default function PaymentIndex({
             : null,
       })
 
-      // createOrder(JSON.stringify(body))
-      //   .then((res) => {
-      //     if (res?.success) {
-      //       if (res?.paymen_cod === 'cod') {
-      //         router.push(
-      //           `/payment?tracking=${res?.order_id}&vpc_TxnResponseCode=0`,
-      //         )
-      //       } else {
-      //         router.push(res?.url)
-      //       }
-      //       //   4000 0000 0000 1091
-      //       // 05/26
-      //     } else {
-      //       return toast.error(
-      //         res?.message?.includes('Quantity in stock is not enough')
-      //           ? 'Sản phẩm bạn mua đã hết hàng!'
-      //           : 'Đã có lỗi xảy ra!',
-      //         {
-      //           position: 'bottom-center',
-      //         },
-      //       )
-      //     }
-      //   })
-      //   .catch((err) => console.log('error payment', err))
+      createOrder(JSON.stringify(body))
+        .then((res) => {
+          if (res?.success) {
+            if (res?.paymen_cod === 'cod') {
+              router.push(
+                `/payment?tracking=${res?.order_id}&vpc_TxnResponseCode=0`,
+              )
+            } else {
+              router.push(res?.url)
+            }
+            //   4000 0000 0000 1091
+            // 05/26
+          } else {
+            return toast.error(
+              res?.message?.includes('Quantity in stock is not enough')
+                ? 'Sản phẩm bạn mua đã hết hàng!'
+                : 'Đã có lỗi xảy ra!',
+              {
+                position: 'bottom-center',
+              },
+            )
+          }
+        })
+        .catch((err) => console.log('error payment', err))
     })
   }
 

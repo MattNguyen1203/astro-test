@@ -190,7 +190,7 @@ const PreOrder = ({
                 </div>
 
                 {selectedPrd?.meta_detect?.pre_order?._pre_order_date && (
-                  <div className='ml-[0.59rem] mt-[0.87848rem]'>
+                  <div className='ml-[0.59rem] xmd:mt-[0.87848rem]'>
                     <span className='caption1 font-medium text-greyscale-80 mr-[0.25rem]'>
                       Còn
                     </span>
