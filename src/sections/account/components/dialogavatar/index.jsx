@@ -111,8 +111,8 @@ export function DialogAvatar({
       onOpenChange={setIsOpen}
     >
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className='sm:max-w-[425px] w-[29.28258rem] rounded-[0.58565rem] py-[2.64rem] px-[1.17rem]'>
-        <div className='relative block font-medium sub2 text-greyscale-80'>
+      <DialogContent className='sm:max-w-[425px] xmd:translate-x-[-13rem] xmd:w-[25rem] w-[29.28258rem] rounded-[0.58565rem] py-[2.64rem] px-[1.17rem]'>
+        <div className='xmd:w-[22rem] relative block font-medium sub2 text-greyscale-80'>
           Cập nhật ảnh đại diện
           <div
             onClick={() => {
@@ -139,9 +139,11 @@ export function DialogAvatar({
             </svg>
           </div>
         </div>
-        <hr className='h-[0.07321rem] bg-[#ECECECB2] mt-[0.59rem] mb-[1.17rem]' />
+        <hr className='xmd:w-[22.5rem] h-[0.07321rem] bg-[#ECECECB2] mt-[0.59rem] mb-[1.17rem]' />
         <div
-          className={`${src ? 'h-[13.46999rem]' : ' h-[30.3rem]'} bg-[#EBF0F7]`}
+          className={`${
+            src ? 'h-[13.46999rem]' : ' h-[30.3rem]'
+          } xmd:w-[22.5rem] bg-[#EBF0F7]`}
         >
           <div
             className={`${
@@ -174,7 +176,7 @@ export function DialogAvatar({
               onClick={() => fileRef?.current.click()}
               className={`${
                 src ? '' : 'border border-dashed border-blue-200'
-              } rounded-[0.58565rem] flex justify-center items-center h-full cursor-crosshair w-full`}
+              } xmd:w-[9rem] rounded-[0.58565rem] flex justify-center items-center h-full cursor-crosshair w-full`}
             >
               <input
                 onChange={handleChangeFile}

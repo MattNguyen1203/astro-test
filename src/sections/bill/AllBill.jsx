@@ -5,7 +5,7 @@ import CardBill from '@/components/cardbill'
 import useSWR from 'swr'
 import PaginationOrder from '../account/components/pagination/PaginationOrder'
 import SkeletonCardOder from '@/components/cardbill/SkeletonCardOder'
-export default function AllBill({session, setCount}) {
+export default function AllBill({session, setCount, isMobile}) {
   const [currentPage, setCurrentPage] = useState(1)
   const status = useSearchParams().get('status')
   const page = useSearchParams().get('page')
@@ -47,6 +47,7 @@ export default function AllBill({session, setCount}) {
           {data?.data?.length > 0
             ? data.data.map((e, index) => (
                 <CardBill
+                  isMobile={isMobile}
                   key={index}
                   data={e}
                   status={status}
@@ -55,10 +56,10 @@ export default function AllBill({session, setCount}) {
             : 'Không có đơn hàng nào'}
         </div>
       )}
-      {!isLoading && !error && (
+      {data?.count > 10 && !isLoading && !error && (
         <PaginationOrder
           pageRangeDisplayed={3}
-          pageCount={Math.ceil(data?.count / 5)}
+          pageCount={Math.ceil(data?.count / 10)}
           handleRouter={handlePageChange}
           currentPage={page || currentPage}
         />

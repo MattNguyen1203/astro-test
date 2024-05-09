@@ -17,6 +17,8 @@ import Gift from './components/Gift'
 import {useMemo, useState} from 'react'
 import {cn} from '@/lib/utils'
 import {useRouter} from 'next/navigation'
+import VoucherSlideRes from '../home/components/flashvoucher/slidevoucherres'
+import VoucherList from '../productDetail/VoucherList'
 
 const PreOrder = ({
   isMobile,
@@ -89,7 +91,6 @@ const PreOrder = ({
 
     return []
   }, [relatedProduct, FiveProduct])
-  console.log(selectedPrd)
   return (
     <>
       <div className='w-[73.7rem] mx-auto mt-[8.1rem] xmd:mt-[4.1rem] bg-elevation-10 relative xmd:w-full'>
@@ -113,10 +114,18 @@ const PreOrder = ({
               <div className='xmd:hidden'>
                 <SocialProduct />
               </div>
+              {!isMobile && (
+                <div className='w-[32.9429rem] mt-[1.46rem] flex flex-col items-start col h-full sticky top-[9rem] xmd:hidden'>
+                  <span className='w-[14.64129rem] font-medium text-greyscale-60 sub2 mb-[0.88rem]'>
+                    Voucher ưu đãi dành cho bạn
+                  </span>
+                  <VoucherList voucher={voucher} />
+                </div>
+              )}
             </div>
           </div>
 
-          <div className='col w-[52.2694rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[6.6rem] xmd:mb-[1.17rem]'>
+          <div className='col flex-1 w-[52.2694rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[6.6rem] xmd:mb-[1.17rem]'>
             <div className='subContainer xmd:rounded-0 md:relative'>
               <h2 className='md:w-[38rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'>
                 {data?.name}
@@ -176,7 +185,7 @@ const PreOrder = ({
                   </button>
                 </div>
               </div>
-              <div className='flex xmd:flex-col xmd:items-start items-center border-b xmd:border-none border-[rgba(236,236,236,0.70)] pb-[1.46rem] xmd:py-0 mb-[1.46rem]'>
+              <div className='flex xmd:flex-col xmd:items-start items-center border-b xmd:border-none border-[rgba(236,236,236,0.70)] pb-[1.46rem] xmd:py-0 mb-[1.46rem] xmd:mb-0'>
                 <div className='w-[18.08rem]'>
                   <Progress
                     ordered={
@@ -209,7 +218,12 @@ const PreOrder = ({
               </div>
               <SubInfo />
             </div>
-
+            {isMobile && (
+              <VoucherSlideRes
+                className='bg-white'
+                data={voucher?.coupon_list}
+              />
+            )}
             {(mainData?.[0]?.acf?.gift ||
               mainData?.[0]?.acf?.gift?.is_show_gift) && (
               <div className='w-full mb-[1.46rem] mt-[0.5rem]'>

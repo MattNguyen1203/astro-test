@@ -44,7 +44,7 @@ export default function IndexVoucher({couponRank, couponCategories}) {
               <CardVoucher
                 isIndex={isIndex}
                 setIsIndex={setIsIndex}
-                index={index}
+                index={index + couponRank?.coupon_list?.length}
                 className='w-full'
                 key={index}
                 item={item}

@@ -235,7 +235,7 @@ export default function IndexAccount({
                     <span className='w-[11.2rem] block caption1 font-normal text-greyscale-80'>
                       SĐT đăng nhập:
                     </span>
-                    <span className='block font-medium caption1 text-greyscale-80'>
+                    <span className='block xmd:ml-[0.7rem] font-medium caption1 text-greyscale-80'>
                       {profile?.phone || profile?.email}
                     </span>
                   </div>
@@ -290,44 +290,46 @@ export default function IndexAccount({
                     />
                   </div>
                 </div>
-                <DialogAvatar
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
-                  setBase64={setBase64}
-                  setSrcAvatar={setSrc}
-                >
-                  <div
-                    onClick={() => {
-                      setIsEdit(true)
-                      setIsOpen(true)
-                    }}
-                    className={`${
-                      !isEdit ? 'pointer-events-none cursor-not-allowed' : ''
-                    } size-[8.63836rem] relative`}
+                {!isMobile && (
+                  <DialogAvatar
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    setBase64={setBase64}
+                    setSrcAvatar={setSrc}
                   >
-                    <Image
-                      className='object-cover rounded-full cursor-pointer size-full'
-                      src={
-                        src ||
-                        profile?.picture_profile ||
-                        profile?.avatar_url ||
-                        '/account/avatar-edit.svg'
-                      }
-                      alt={profile?.display_name || 'icon avatar default'}
-                      width={120}
-                      height={120}
-                    />
-                    {(profile?.picture_profile || profile?.avatar_url) && (
+                    <div
+                      onClick={() => {
+                        setIsEdit(true)
+                        setIsOpen(true)
+                      }}
+                      className={`${
+                        !isEdit ? 'pointer-events-none cursor-not-allowed' : ''
+                      } size-[8.63836rem] relative`}
+                    >
                       <Image
-                        className='absolute size-[1.90337rem] bottom-0 right-0 cursor-pointer'
-                        src={'/account/edit-avatar.svg'}
-                        alt='icon edit avatar'
-                        width={36}
-                        height={36}
+                        className='object-cover rounded-full cursor-pointer size-full'
+                        src={
+                          src ||
+                          profile?.picture_profile ||
+                          profile?.avatar_url ||
+                          '/account/avatar-edit.svg'
+                        }
+                        alt={profile?.display_name || 'icon avatar default'}
+                        width={120}
+                        height={120}
                       />
-                    )}
-                  </div>
-                </DialogAvatar>
+                      {(profile?.picture_profile || profile?.avatar_url) && (
+                        <Image
+                          className='absolute size-[1.90337rem] bottom-0 right-0 cursor-pointer'
+                          src={'/account/edit-avatar.svg'}
+                          alt='icon edit avatar'
+                          width={36}
+                          height={36}
+                        />
+                      )}
+                    </div>
+                  </DialogAvatar>
+                )}
               </div>
               <div>
                 <div className='flex items-center my-[0.5rem]'>
@@ -435,15 +437,15 @@ export default function IndexAccount({
               <span className='inline-block font-medium sub2 text-greyscale-80'>
                 Địa chỉ nhận hàng
               </span>
-              <hr className='bg-[#ECECECB2] h-[0.07rem] w-full my-[0.59rem] block' />
-              <div className='flex items-center'>
+              <hr className='xmd:mb-[1rem] bg-[#ECECECB2] h-[0.07rem] w-full my-[0.59rem] block' />
+              <div className='flex items-center xmd:items-start'>
                 <span className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'>
                   Địa chỉ:
                 </span>
                 <div
                   className={`${
                     !isEdit ? 'cursor-not-allowed' : ''
-                  } grid grid-cols-3 gap-x-[0.75rem] w-full`}
+                  } grid grid-cols-3 md:gap-x-[0.75rem] w-full xmd:grid-cols-1 xmd:gap-y-[0.73rem]`}
                 >
                   <PopupProvince
                     province={province}

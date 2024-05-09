@@ -1,11 +1,16 @@
-import Image from 'next/image'
+'use client'
 
-export default function ItemStep({item, status}) {
+import Image from 'next/image'
+import {usePathname} from 'next/navigation'
+
+export default function ItemStep({item, status, index}) {
+  const pathName = usePathname()
+  const isThanhToan = pathName?.includes('/thanh-toan')
   return (
     <div className='flex items-center'>
       <div
         className={`${
-          status
+          status || (isThanhToan && index === 0)
             ? 'bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)]'
             : ' bg-white'
         } size-[2.34261rem] rounded-full flex justify-center items-center`}

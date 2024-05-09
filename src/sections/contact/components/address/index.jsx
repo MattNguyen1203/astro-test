@@ -79,16 +79,15 @@ export default function AddressContact() {
             </div>
           </div>
         </div>
-        <div
-          className='flex justify-start items-center relative rounded-[0.87848rem] w-full h-[23.06003rem]
-         tablet:h-[50rem]'
-        >
-          <Image
-            className='lg:object-cover rounded-[0.87848rem] tablet:rounded-xl'
-            fill
-            alt='img map'
-            src={'/contact/imagemap.png'}
-          />
+        <div className='flex justify-start items-center relative rounded-[0.87848rem] w-full h-[23.06003rem] tablet:h-[50rem]'>
+          <iframe
+            className='h-[23.06003rem] tablet:h-[50rem] w-full'
+            src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d489.9388888643839!2d106.687698!3d10.772111!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ff7bdb7260d%3A0x28be00753ed31c8e!2sASTROMAZING!5e0!3m2!1sen!2s!4v1715189918792!5m2!1sen!2s'
+            style={{border: '0'}}
+            allowfullscreen=''
+            loading='lazy'
+            referrerpolicy='no-referrer-when-downgrade'
+          ></iframe>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ const VoucherList = ({voucher}) => {
   const [isIndex, setIsIndex] = useState(false)
   return (
     <>
-      <div className='grid grid-cols-1 gap-y-[0.59rem]'>
+      <div className='grid grid-cols-1 gap-y-[0.59rem] w-full'>
         {voucher?.coupon_list?.map((voucherItem, index) => (
           <CardVoucher
             key={index}

@@ -62,6 +62,9 @@ export function TabsVoucher() {
             .fill(0)
             .map((_, index) => (
               <CardVoucher
+                isIndex={isIndex}
+                setIsIndex={setIsIndex}
+                index={index + 8}
                 className='xmd:!w-full'
                 key={index}
               />

@@ -55,10 +55,10 @@ export default function DoneBill({session, setCount}) {
             : 'Không có đơn hàng nào'}
         </div>
       )}
-      {!isLoading && !error && (
+      {data?.count > 10 && !isLoading && !error && (
         <PaginationOrder
           pageRangeDisplayed={5}
-          pageCount={Math.ceil(data?.count / 5)}
+          pageCount={Math.ceil(data?.count / 10)}
           handleRouter={handlePageChange}
           currentPage={page || currentPage}
         />

@@ -212,7 +212,7 @@ export default function InfoOrderBill({detailOrder, isSuccess}) {
       ) : (
         <div className='space-y-[0.88rem] mt-[0.88rem]'>
           <div className='font-normal text-greyscale-40 caption1 h-[2.19619rem] rounded-[0.58565rem] bg-white flex items-center justify-center'>
-            Đơn hàng sẽ tự động đưa vào mục "Chờ thanh toán" khi bạn rời trang
+            Đơn hàng sẽ tự động đưa vào mục "Chưa thanh toán" khi bạn rời trang
             này.
           </div>
           <button

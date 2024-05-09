@@ -5,11 +5,10 @@ import ShowMore from '@/components/showmore'
 import './style.css'
 
 const TabInfo = ({isMobile, data}) => {
-  console.log(data)
   return (
     <>
       {isMobile ? (
-        <div className='px-[0.73rem] bg-white mb-[1.17rem]'>
+        <div className='px-[1.17rem] bg-white mb-[1.17rem]'>
           <AccordionInfo data={data} />
         </div>
       ) : (

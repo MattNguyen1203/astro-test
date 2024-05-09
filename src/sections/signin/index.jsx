@@ -219,7 +219,7 @@ export default function SignInIndex({status}) {
           Bạn chưa có tài khoản ?
         </span>
         <Link
-          className='px-[0.59rem] font-semibold caption1 text-black'
+          className='px-[0.59rem] font-semibold caption1 text-blue-500'
           href={'/dang-ky'}
         >
           Đăng ký

@@ -33,6 +33,7 @@ export default function GridWishlist({wishList, isMobile, session}) {
   const dataWishList = page ? data?.item : wishList?.item
 
   const colsWishlist = Math.ceil(dataWishList?.length / 4)
+  console.log(wishList)
   return (
     <>
       <div className='w-full rounded-[0.58565rem] bg-white p-[1.17rem] xmd:bg-transparent xmd:p-0'>
@@ -66,9 +67,11 @@ export default function GridWishlist({wishList, isMobile, session}) {
               ))}
         </div>
       </div>
-      <div className='mt-[1.25rem]'>
-        <PaginationWishlist pageCount={Math.ceil(wishList?.count / 12)} />
-      </div>
+      {wishList?.count > 30 && (
+        <div className='mt-[1.25rem]'>
+          <PaginationWishlist pageCount={Math.ceil(wishList?.count / 30)} />
+        </div>
+      )}
     </>
   )
 }
