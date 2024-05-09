@@ -29,7 +29,7 @@ export default async function page({searchParams}) {
         dataRank={dataRank}
         session={session}
       />
-      <MenuUser2 />
+      <MenuUser2 session={session} />
     </div>
   )
 }

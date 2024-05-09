@@ -61,9 +61,7 @@ export default function RackAccount({session, dataRank}) {
       }
     }
   }, [session, dataRank])
-  console.log(dataRank)
-  console.log(rank)
-  console.log(session)
+
   return (
     <div className='flex flex-col items-start w-full'>
       <div className='w-[50.87848rem] xmd:w-full flex flex-col p-[1.1713rem] justify-center items-start rounded-[0.58565rem] bg-white shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>

@@ -1,16 +1,14 @@
+'use client'
 import useStore from '@/app/(store)/store'
 import {handleCart} from '@/components/itemcart/handleCart'
 import Loading from '@/components/loading'
 import {cn} from '@/lib/utils'
-import {useSession} from 'next-auth/react'
 
 import Image from 'next/image'
 import {useState} from 'react'
 
-const AddToCartBtn = ({className, listProduct}) => {
+const AddToCartBtn = ({className, listProduct, session}) => {
   const [isLoading, setIsLoading] = useState(false)
-
-  const session = useSession()
 
   const listCart = useStore((state) => state.listCart)
   const setListCart = useStore((state) => state.setListCart)

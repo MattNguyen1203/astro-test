@@ -5,20 +5,32 @@ import BoxCheck from '../sheetcart/BoxCheck'
 import useStore from '@/app/(store)/store'
 import {formatToVND} from '@/lib/utils'
 import {useEffect, useMemo, useState} from 'react'
-import {DialogProduct} from '@/sections/home/components/dialog'
 import {deleteDataAuth} from '@/lib/deleteData'
 import {toast} from 'sonner'
 import {putDataAuth} from '@/lib/putData'
 import Link from 'next/link'
 import {handleUpdateCart} from './handleUpdateCart'
-import {useSession} from 'next-auth/react'
 import SkeletonItemCart from './SkeletonItemCart'
 import BtnCombo from './BtnCombo'
 import CardCombo from './CardCombo'
 
-export default function ItemCart({cart, setCart, index, isMobile, item}) {
-  const session = useSession()
+import dynamic from 'next/dynamic'
+const DialogProduct = dynamic(
+  () =>
+    import('@/sections/home/components/dialog').then(
+      (mod) => mod.DialogProduct,
+    ),
+  {ssr: false},
+)
 
+export default function ItemCart({
+  cart,
+  setCart,
+  index,
+  isMobile,
+  item,
+  session,
+}) {
   const isAuth = session?.status === 'authenticated'
   const setActionCart = useStore((state) => state.setActionCart)
   const actionCart = useStore((state) => state.actionCart)
@@ -38,7 +50,7 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
     if (isAuth) {
       const result = await deleteDataAuth({
         api: '/okhub/v1/cart',
-        token: session?.data?.accessToken,
+        token: session?.accessToken,
         body: {
           ['cart_items']: [{key: key}],
         },
@@ -100,7 +112,7 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
       } else {
         const putData = async () => {
           const result = await putDataAuth({
-            token: session?.data?.accessToken,
+            token: session?.accessToken,
             api: `/okhub/v1/cart`,
             body: {
               cart_items: [
@@ -184,7 +196,6 @@ export default function ItemCart({cart, setCart, index, isMobile, item}) {
   }, [productSelected, isAuth])
 
   const isEqual = price === regular_price
-  console.log('🚀 ~ ItemCart ~ isEqual:', isEqual)
 
   if (isLoading) return <SkeletonItemCart />
 

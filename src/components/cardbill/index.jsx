@@ -9,7 +9,6 @@ import {toast} from 'sonner'
 import {useRouter} from 'next/navigation'
 
 export default function CardBill({data, status}) {
-  console.log('🚀 ~ CardBill ~ data:', data)
   const router = useRouter()
   const [isLoading, setTransition] = useTransition()
   const isDone = status === 'completed'

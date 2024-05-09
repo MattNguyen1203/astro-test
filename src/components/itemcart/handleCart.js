@@ -28,7 +28,7 @@ export const handleCart = async (
 
           return await postData('/okhub/v1/cart', JSON.stringify(reqBody), {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${session?.data?.accessToken}`,
+            Authorization: `Bearer ${session?.accessToken}`,
           })
         }),
       )
