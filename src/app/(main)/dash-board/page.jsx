@@ -44,7 +44,7 @@ export default async function page({searchParams}) {
           isMobile={isMobile}
         />
       </div>
-      <MenuUser2 />
+      <MenuUser2 session={session} />
     </div>
   )
 }

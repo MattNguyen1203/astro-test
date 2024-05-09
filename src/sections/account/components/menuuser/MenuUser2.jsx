@@ -3,7 +3,7 @@ import {logout} from '@/actions/logout'
 import Image from 'next/image'
 import Link from 'next/link'
 import {usePathname, useRouter} from 'next/navigation'
-import {getSession, useSession} from 'next-auth/react'
+import {getSession} from 'next-auth/react'
 import {Fragment} from 'react'
 
 const menuOptions = [
@@ -39,8 +39,7 @@ const menuOptions = [
   },
 ]
 
-export default function MenuUser2() {
-  const session = useSession()
+export default function MenuUser2({session}) {
   const pathName = usePathname()
   const router = useRouter()
 
@@ -81,7 +80,7 @@ export default function MenuUser2() {
           )}
         </Fragment>
       ))}
-      {session?.data?.accessToken ? (
+      {session?.accessToken ? (
         <div
           onClick={() => {
             logout().then(() => {

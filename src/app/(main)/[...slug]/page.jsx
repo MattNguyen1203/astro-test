@@ -53,7 +53,8 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     mainDataReq,
     callRelatedProduct,
   ])
-
+  // notFound()
+  // if (!dataProductDetail) throw Error('failed!')
   const request = {
     api: '/custom/v1/wistlist/getWishlist',
     token: session?.accessToken,

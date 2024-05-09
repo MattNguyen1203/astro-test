@@ -1,12 +1,16 @@
 'use client'
 import useStore from '@/app/(store)/store'
-import SheetCart from '@/components/sheetcart'
+// import SheetCart from '@/components/sheetcart'
 import {getDataAuth} from '@/lib/getDataAuth'
-import {getSession} from 'next-auth/react'
+// import {getSession} from 'next-auth/react'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
 
+import dynamic from 'next/dynamic'
+const SheetCart = dynamic(() => import('@/components/sheetcart'), {ssr: false})
+
 export default function Cart({isMobile, cartDefault, session}) {
+  console.log('🚀 ~ Cart ~ session:', session)
   const isAuth = session?.status === 'authenticated'
 
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
@@ -14,13 +18,14 @@ export default function Cart({isMobile, cartDefault, session}) {
   const listCart = useStore((state) => state.listCart)
   const setListCart = useStore((state) => state.setListCart)
   const [isLoading, setIsLoading] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    async function myFunction() {
-      const session = await getSession()
-      return session
-    }
-    myFunction()
+    // async function myFunction() {
+    //   const session = await getSession()
+    //   return session
+    // }
+    // myFunction()
     if (cartDefault) {
       setListCart(Array.isArray(cartDefault) ? cartDefault : [])
       setIsLoading(false)
@@ -51,12 +56,9 @@ export default function Cart({isMobile, cartDefault, session}) {
   }, [actionCart, isAuth])
 
   return (
-    <SheetCart
-      isMobile={isMobile}
-      isLoading={isLoading}
-      isAuth={isAuth}
-    >
+    <>
       <div
+        onClick={() => setIsOpen(!isOpen)}
         className={`${
           isOpenMegaMenuRes ? 'opacity-0 pointer-events-none' : 'opacity-100'
         } transition-all duration-200 size-[2.63543rem] xmd:size-[2.34261rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center cursor-pointer relative`}
@@ -75,6 +77,14 @@ export default function Cart({isMobile, cartDefault, session}) {
           </div>
         )}
       </div>
-    </SheetCart>
+      <SheetCart
+        isMobile={isMobile}
+        isLoading={isLoading}
+        isAuth={isAuth}
+        session={session}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
+    </>
   )
 }

@@ -17,7 +17,7 @@ export default function PreOder() {
           />
           <div className='relative z-10 size-full rounded-tr-[0.87848rem] rounded-br-[0.87848rem] bg-white before:absolute before:origin-bottom-right before:w-0 before:h-full before:bg-blue-700 before:rounded-tr-[0.87848rem] before:rounded-br-[0.87848rem] group-hover:before:size-full before:transition-all before:duration-700 before:right-0 before:bottom-0 before:opacity-0 group-hover:before:opacity-100 flex justify-end items-center pr-[2.49rem]'>
             <Link
-              href={'/'}
+              href={'/pre-order'}
               className='relative z-20 flex'
             >
               <ICArrowRightWhite className='absolute top-1/2 -translate-y-1/2 -left-[2.48rem] -translate-x-full opacity-0 group-hover:opacity-100 group-hover:-left-[1.24rem] transition-all duration-200 delay-300' />

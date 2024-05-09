@@ -11,16 +11,24 @@ import PaginationIndex from '../account/components/pagination'
 import GridProduct, {GridProductLoading} from './gridproduct'
 import Sort from './sort'
 
-export default function Wrapper({isMobile, products, children, categories}) {
+export default function Wrapper({
+  isMobile,
+  products,
+  children,
+  categories,
+  devices,
+  page,
+}) {
   const boxRef = useRef(null)
   const searchParams = useSearchParams()
   const params = useParams()
-  const sort = searchParams.get('sort')
-  const price = searchParams.get('orderby')
-  const device = searchParams.get('device')
-  const type = searchParams.get('type')
+  const sort = searchParams.get('sort') || ''
+  const price = searchParams.get('orderby') || ''
+  const device = searchParams.get('device')?.split('--') || ''
+  const type = searchParams.get('type')?.split('--') || ''
   const search = decodeURI(searchParams.get('search') || '')
-  const flashsale = searchParams.get('flashsale')
+  const flashsale = searchParams.get('flashsale') || false
+  const preorder = searchParams.get('preorder') || false
 
   const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
 
@@ -28,10 +36,11 @@ export default function Wrapper({isMobile, products, children, categories}) {
     if (price) return true
     if (sort === 'asc') return true
     if (sort === 'desc') return true
-    if (device) return true
+    if (device?.length > 0) return true
     if (search) return true
     if (type) return true
     if (flashsale) return true
+    if (preorder) return true
     return false
   }
   // const filterCategory = params?.category?.length && [...params?.category[0]]
@@ -39,6 +48,22 @@ export default function Wrapper({isMobile, products, children, categories}) {
   // if (device) {
   //   filterCategory.push(device)
   // }
+
+  useEffect(() => {
+    if (isMobile) {
+      const dataQueryDefault = {
+        sort: sort,
+        orderby: sort ? 'price' : '',
+        type: type?.length ? type?.join('--') : '',
+        search: search,
+        flashsale: flashsale,
+        preorder: preorder,
+        device: device?.length ? device?.join('--') : '',
+        page: page,
+      }
+      localStorage.setItem('dataQuery', JSON.stringify(dataQueryDefault))
+    }
+  }, [])
 
   const {data, isLoading, error} = useSWR(
     isFilter()
@@ -48,7 +73,9 @@ export default function Wrapper({isMobile, products, children, categories}) {
               ? 'category=' + JSON.stringify(params?.category[0]) + '&'
               : ''
           }limit=16${type ? `&type=${type}` : ''}${
-            flashsale ? `&is_flashsale=true` : ''
+            device?.length > 0 ? `&device=${JSON.stringify(device)}` : ''
+          }${flashsale ? `&is_flashsale=true` : ''}${
+            preorder ? `&is_preorder=true` : ''
           }${price ? `&orderby=${price}` : ''}&page=${
             params?.category?.length > 1 ? params?.category?.[1] : 1
           }&order=${sort ? sort : 'desc'}${search ? `&keyword=${search}` : ''}`
@@ -62,10 +89,8 @@ export default function Wrapper({isMobile, products, children, categories}) {
   )
 
   useEffect(() => {
-    if (!isLoading) {
-      setIsFilterProduct(false)
-    }
-  }, [searchParams])
+    setIsFilterProduct(false)
+  }, [searchParams, isLoading])
 
   const pageCount = Math.ceil(
     Number((isFilter() ? data?.count : products?.count) / 16),
@@ -82,6 +107,7 @@ export default function Wrapper({isMobile, products, children, categories}) {
           categories={categories}
           isMobile={isMobile}
           products={isFilter() ? data : products}
+          devices={devices}
         />
         <Suspense fallback={<GridProductLoading />}>
           <GridProduct

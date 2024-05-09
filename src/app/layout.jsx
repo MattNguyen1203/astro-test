@@ -89,11 +89,9 @@ export default async function RootLayout({children}) {
         suppressHydrationWarning={true}
         className={`${svnGraphik.className} ${svnGraphik.variable} ${workSans.variable}`}
       >
-        <SessionProvider session={session}>
-          {children}
-          <Footer isMobile={isMobile} />
-          <Contact />
-        </SessionProvider>
+        <SessionProvider session={session}>{children}</SessionProvider>
+        <Footer isMobile={isMobile} />
+        <Contact />
       </body>
     </html>
   )

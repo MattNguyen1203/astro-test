@@ -19,10 +19,6 @@ export const {
       return true
     },
     async jwt({token, account, user}) {
-      // if (trigger === 'update' && user?.update === 'update') {
-      //   console.log('trigger')
-      //   return {...token, ...session.user}
-      // }
       if (account?.provider === 'google') {
         // Chỉ thực hiện khi người dùng đăng nhập và có thông tin từ provider
         // Khi người dùng đăng nhập bằng Google, lưu access token vào token
@@ -36,18 +32,6 @@ export const {
         // Lấy được token từ api, gán lại token đó vào accessToken của nextAuth, để bên dưới session có thể hứng được token
         token.accessToken = res?.token
       }
-
-      // if (account?.provider === 'facebook') {
-      //   const res = await postData(
-      //     '/custom/v1/customer/loginCustomer',
-      //     JSON.stringify({
-      //       token: account?.access_token,
-      //       type: 'facebook',
-      //     }),
-      //   )
-      //   // Lấy được token từ api, gán lại token đó vào accessToken của nextAuth, để bên dưới session có thể hứng được token
-      //   token.accessToken = res?.token
-      // }
 
       if (account?.provider === 'credentials') {
         token.accessToken = user?.token

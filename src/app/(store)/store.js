@@ -10,6 +10,7 @@ const useStore = create((set) => ({
       sort: '',
       type: '',
       flashsale: '',
+      preorder: '',
       device: '',
       orderby: '',
       page: 1,

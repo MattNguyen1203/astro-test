@@ -10,93 +10,72 @@ import {
 import {useEffect, useState} from 'react'
 import {RadioGroup, RadioGroupItem} from '../ui/radio-group'
 import {Label} from '../ui/label'
-import {
-  useParams,
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from 'next/navigation'
+import {usePathname, useRouter, useSearchParams} from 'next/navigation'
 import Device from '@/sections/product/aside/Device'
 import Special from '@/sections/product/aside/Special'
 import useStore from '@/app/(store)/store'
 // import dynamic from 'next/dynamic'
 // const SheetCategories = dynamic(() => import('../sheetcategories'))
 
-export default function SheetSort({children, isMobile = false, categories}) {
+export default function SheetSort({
+  children,
+  isMobile = false,
+  categories,
+  devices,
+}) {
   const router = useRouter()
-  const params = useParams()
   const searchParams = useSearchParams()
   const pathName = usePathname()
 
-  // const [isOpen, setIsOpen] = useState(false)
   const [isOpens, setIsOpens] = useState(false)
   const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
-  const setUrlFilter = useStore((state) => state.setUrlFilter)
-  const urlFilter = useStore((state) => state.urlFilter)
+  const device = searchParams.get('device')?.split('--') || ''
+  const type = searchParams.get('type')?.split('--') || ''
+  const search = decodeURI(searchParams.get('search') || '')
 
   const sort = searchParams.get('sort') || ''
-  const price = searchParams.get('orderby') || ''
-  const device = searchParams.get('device') || ''
-  const type = searchParams.get('type') || ''
   const flashsale = searchParams.get('flashsale') || ''
+  const preorder = searchParams.get('preorder') || ''
+  const [isFlashsale, setIsFlashsale] = useState(!!flashsale)
+  const [isPreorder, setIsPreorder] = useState(!!preorder)
 
   useEffect(() => {
-    setUrlFilter({
-      pathName,
-      searchParams: {
-        sort,
-        type,
-        flashsale,
-        device,
-        orderby: price,
-        page: Number(params?.category?.[0])
-          ? Number(params?.category?.[0])
-          : Number(params?.category?.[1])
-          ? Number(params?.category?.[1])
-          : 1,
-      },
-    })
-
-    const isSpecial = localStorage.getItem('isSpecial')
-
-    if (isSpecial) {
-      localStorage.setItem('filterType', JSON.stringify(['simple', 'wooco']))
-    } else {
-      if (type) {
-        localStorage.setItem('filterType', JSON.stringify([type]))
-      } else {
-        localStorage.removeItem('filterType')
-      }
+    setIsFlashsale(!!flashsale)
+    setIsPreorder(!!preorder)
+    const dataQuery = JSON.parse(localStorage.getItem('dataQuery'))
+    const dataQueryDefault = {
+      sort: sort,
+      orderby: sort ? 'price' : '',
+      type: type?.length ? type?.join('--') : '',
+      search: search,
+      flashsale: flashsale,
+      preorder: preorder,
+      device: device?.length ? device?.join('--') : '',
+      page: dataQuery?.page || 1,
     }
-  }, [isOpens])
-
-  // function handleNameCategory(categories, slug) {
-  //   return categories?.find((e) => e?.slug === slug)?.name || 'Tất cả sản phẩm'
-  // }
+    localStorage.setItem('dataQuery', JSON.stringify(dataQueryDefault))
+  }, [isOpens, searchParams])
 
   const handleFilterFlashsale = () => {
-    setUrlFilter({
-      pathName: urlFilter.pathName,
-      searchParams: {
-        ...urlFilter?.searchParams,
-        flashsale: urlFilter?.searchParams?.flashsale ? '' : 'true',
-      },
-    })
+    const dataQuery = JSON.parse(localStorage.getItem('dataQuery'))
+    if (!dataQuery) return
+    dataQuery.flashsale = !dataQuery.flashsale
+    localStorage.setItem('dataQuery', JSON.stringify(dataQuery))
+    return setIsFlashsale(!!dataQuery.flashsale)
   }
-
-  const handleSort = (query) => {
-    setUrlFilter({
-      pathName: urlFilter.pathName,
-      searchParams: {
-        ...urlFilter?.searchParams,
-        orderby: query === 'new' ? '' : 'price',
-        sort: query === 'new' ? '' : query,
-      },
-    })
+  const handleFilterPreorder = () => {
+    const dataQuery = JSON.parse(localStorage.getItem('dataQuery'))
+    if (!dataQuery) return
+    dataQuery.preorder = !dataQuery.preorder
+    localStorage.setItem('dataQuery', JSON.stringify(dataQuery))
+    return setIsPreorder(!!dataQuery.preorder)
   }
-  const isReset = () => {
-    if (pathName !== '/san-pham' || searchParams?.size) return true
-    return false
+  const handleSort = (value) => {
+    const dataQuery = JSON.parse(localStorage.getItem('dataQuery'))
+    if (!dataQuery) return
+    dataQuery.sort = value === 'new' ? '' : value
+    dataQuery.orderby = value === 'new' ? '' : 'price'
+    localStorage.setItem('dataQuery', JSON.stringify(dataQuery))
   }
 
   function createQueryString(searchParams) {
@@ -110,31 +89,31 @@ export default function SheetSort({children, isMobile = false, categories}) {
     return query
   }
 
+  const handleFilterSubmit = () => {
+    const dataQuery = JSON.parse(localStorage.getItem('dataQuery'))
+    if (!dataQuery) return
+
+    const paramNew = new URLSearchParams(searchParams)
+
+    const searchParamsNew = createQueryString(dataQuery)
+    if (paramNew.toString() === searchParamsNew) return setIsOpens(false)
+    router.push(pathName + '?' + searchParamsNew, {
+      scroll: false,
+    })
+    setIsFilterProduct(true)
+    return setIsOpens(false)
+  }
+
+  const isReset = () => {
+    if (pathName !== '/san-pham' || searchParams?.size) return true
+    return false
+  }
+
   const handleReset = () => {
     if (!isReset()) return
     setIsOpens(false)
     setIsFilterProduct(true)
     router.push('/san-pham', {
-      scroll: false,
-    })
-  }
-
-  const handleFilterSubmit = () => {
-    setIsOpens(false)
-    setIsFilterProduct(true)
-    const typeLocal = JSON.parse(localStorage.getItem('filterType'))
-    if (typeLocal?.length === 2) {
-      localStorage.setItem('isSpecial', 'all')
-    } else {
-      localStorage.removeItem('isSpecial')
-    }
-    const pathNameNew =
-      urlFilter?.pathName +
-      (Number(urlFilter?.searchParams?.page) > 1
-        ? '/' + urlFilter?.searchParams?.page
-        : '')
-    const searchParamsNew = createQueryString(urlFilter?.searchParams)
-    router.push(pathNameNew + '?' + searchParamsNew, {
       scroll: false,
     })
   }
@@ -156,12 +135,22 @@ export default function SheetSort({children, isMobile = false, categories}) {
           <button
             onClick={handleFilterFlashsale}
             className={`${
-              urlFilter?.searchParams?.flashsale
+              isFlashsale
                 ? 'bg-[linear-gradient(180deg,#E0B181_0.72%,#BE9367_99.87%)] text-white'
                 : 'bg-elevation-20 text-greyscale-80'
             } rounded-[0.43924rem] w-full flex justify-center items-center caption font-semibold h-[2.63543rem]`}
           >
             FLASHSALE
+          </button>
+          <button
+            onClick={handleFilterPreorder}
+            className={`${
+              isPreorder
+                ? 'bg-[linear-gradient(180deg,#E0B181_0.72%,#BE9367_99.87%)] text-white'
+                : 'bg-elevation-20 text-greyscale-80'
+            } rounded-[0.43924rem] w-full flex justify-center items-center caption font-semibold h-[2.63543rem]`}
+          >
+            PRE-ORDER
           </button>
           {/* <SheetCategories
             categories={categories}
@@ -185,7 +174,10 @@ export default function SheetSort({children, isMobile = false, categories}) {
             <span className='block font-medium caption1 text-greyscale-70 mb-[0.15rem]'>
               Dành cho thiết bị:
             </span>
-            <Device onMobile={true} />
+            <Device
+              onMobile={true}
+              devices={devices}
+            />
           </div>
         </div>
         <div className='mt-[1.17rem] pb-[0.88rem] border-b border-solid border-[#454545]/20'>

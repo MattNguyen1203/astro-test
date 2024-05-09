@@ -63,7 +63,7 @@ export const handleUpdateCart = async (
     }
     setIsLoading(true)
     const result = await putDataAuth({
-      token: session?.data?.accessToken,
+      token: session?.accessToken,
       api: `/okhub/v1/cart`,
       body: reqBody,
     })

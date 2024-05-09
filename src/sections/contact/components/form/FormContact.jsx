@@ -62,7 +62,6 @@ export default function FormContact() {
           formData,
         )
           .then((res) => {
-            console.log('🚀 ~ .then ~ res:', res)
             if (res?.status === 'mail_sent') {
               return res
             } else {

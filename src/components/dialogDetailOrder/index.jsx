@@ -16,7 +16,6 @@ export function DialogDetailOrder({children, isOpen, setIsOpen, id}) {
     },
   )
 
-  console.log('🚀 ~ DialogDetailOrder ~ data:', data)
   return (
     <Dialog
       open={isOpen}
@@ -34,7 +33,7 @@ export function DialogDetailOrder({children, isOpen, setIsOpen, id}) {
             <span className='sub2 font-semibold text-greyscale-80 block mr-[0.59rem]'>
               THÔNG TIN ĐƠN HÀNG:
             </span>
-            <span className='sub2 font-semibold text-brown-500'>
+            <span className='font-semibold sub2 text-brown-500'>
               {data?.id}
             </span>
           </div>

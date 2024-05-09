@@ -37,18 +37,17 @@ export default async function CategoryProductPage({params, searchParams}) {
   const {category} = params
   const {viewport} = searchParams
   const isMobile = viewport === 'mobile'
+  const page = Number(category?.[0])
+    ? Number(category?.[0])
+    : Number(category?.[1])
+    ? Number(category?.[1])
+    : 1
 
   const [products, categories] = await Promise.all([
     getData(
       `/okhub/v1/product/filter/products?${
         !Number(category?.[0]) ? `category=${category?.[0]}&` : ''
-      }limit=16&page=${
-        Number(category?.[0])
-          ? Number(category?.[0])
-          : Number(category?.[1])
-          ? Number(category?.[1])
-          : 1
-      }&order=desc`,
+      }limit=16&page=${page}&order=desc`,
     ),
     getData('/okhub/v1/category/category'),
   ])
@@ -59,6 +58,7 @@ export default async function CategoryProductPage({params, searchParams}) {
       products={products}
       params={params}
       categories={categories}
+      page={page}
     />
   )
 }
