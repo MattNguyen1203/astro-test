@@ -25,6 +25,7 @@ export default function StepPayment() {
           <ItemStep
             item={item}
             status={isPayment}
+            index={index}
           />
           {index < listStepPayment?.length - 1 && (
             <div className='border-t border-dashed border-[#45617D] mx-[1.46rem] w-full'></div>

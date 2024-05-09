@@ -42,10 +42,10 @@ export default function CardVoucher({
 
   return (
     <article
-      className={`${className} bg-white w-[21.22987rem] h-[5.12rem] xmd:w-[18.66764rem] xmd:h-[4.1rem] rounded-[0.58565rem] xmd:bg-white flex transition-all duration-200 select-none xmd:shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)]`}
+      className={`${className} bg-white w-[32.9429rem] h-[7.75988rem] xmd:w-[18.66764rem] xmd:h-[4.1rem] rounded-[0.58565rem] xmd:bg-white flex transition-all duration-200 select-none xmd:shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)]`}
     >
       {item?.categories?.length > 0 && (
-        <div className='w-[5.12rem] h-full xmd:w-[4.09956rem] flex flex-col justify-center items-center bg-[linear-gradient(44deg,#FFF5E6_50.63%,#FFE4B9_106.58%)] rounded-tl-[0.58565rem] rounded-bl-[0.58565rem]'>
+        <div className='w-[7.75988rem] h-full xmd:w-[4.09956rem] flex flex-col justify-center items-center bg-[linear-gradient(44deg,#FFF5E6_50.63%,#FFE4B9_106.58%)] rounded-tl-[0.58565rem] rounded-bl-[0.58565rem]'>
           <Image
             className='size-[2.34261rem] xmd:size-[1.75695rem] object-contain'
             src={'/home/circle-flash-voucher1.png'}
@@ -74,7 +74,7 @@ export default function CardVoucher({
       <div
         className={`${
           item?.categories?.length > 0
-            ? 'justify-center'
+            ? 'justify-end pr-[0.88rem]'
             : 'justify-end pr-[0.88rem]'
         } flex items-center flex-1 size-full`}
       >

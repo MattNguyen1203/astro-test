@@ -21,7 +21,7 @@ const AccordionInfo = ({data}) => {
         className={cn('relative')}
         value='1'
       >
-        <AccordionTrigger className='caption4 font-semibold xmd:font-medium capitalize !no-underline text-greyscale-70'>
+        <AccordionTrigger className='caption4 xmd:text-[1.02489rem] font-semibold xmd:font-medium capitalize xmd:uppercase !no-underline text-greyscale-70'>
           Thông tin sản phẩm
         </AccordionTrigger>
         <AccordionContent>
@@ -46,7 +46,7 @@ const AccordionInfo = ({data}) => {
         className={cn('relative border-none')}
         value='2'
       >
-        <AccordionTrigger className='caption4 font-semibold xmd:font-medium capitalize !no-underline text-greyscale-70'>
+        <AccordionTrigger className='caption4 xmd:text-[1.02489rem] font-semibold xmd:font-medium capitalize xmd:uppercase !no-underline text-greyscale-70'>
           Cách sử dụng và bảo hành
         </AccordionTrigger>
         <AccordionContent>

@@ -35,7 +35,7 @@ export default async function page({params, searchParams}) {
   const isMobile = viewport?.includes('mobile')
   return (
     <main className='md:pb-[6rem] xmd:mt-[6rem] md:bg-elevation-20'>
-      <div className='container'>
+      <div className='container pt-[10rem]'>
         <BreadCrumb
           category={'Tin tức'}
           categorySlg={'/tin-tuc'}

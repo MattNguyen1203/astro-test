@@ -43,7 +43,7 @@ const ItemCombo = ({data}) => {
 
         <div className='w-full h-[4.9rem]'>
           <Link
-            href={`/${data?.slug}`}
+            href={data?.slug ? `/${data?.slug}` : '/'}
             title={data?.name}
             className='caption font-medium text-greyscale-40 line-clamp-1'
           >

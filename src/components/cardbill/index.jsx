@@ -8,7 +8,7 @@ import {useTransition} from 'react'
 import {toast} from 'sonner'
 import {useRouter} from 'next/navigation'
 
-export default function CardBill({data, status}) {
+export default function CardBill({data, status, isMobile}) {
   const router = useRouter()
   const [isLoading, setTransition] = useTransition()
   const isDone = status === 'completed'
@@ -89,7 +89,21 @@ export default function CardBill({data, status}) {
         />
       ))}
       <hr className='bg-[#ECECECB2] h-[0.07rem] w-full my-[0.88rem] block' />
-      <div className='flex justify-end w-full xmd:flex xmd:justify-between xmd:items-center'>
+      <div className='flex justify-end w-full xmd:flex xmd:items-center xmd:justify-between'>
+        {!isDone && !isPending && isMobile && (
+          <div className='flex items-center'>
+            <Image
+              className='size-[1.1713rem] object-contain'
+              src={'/account/car.svg'}
+              alt='icon car'
+              width={16}
+              height={16}
+            />
+            <span className='font-medium sub2 text-brown-600 inline-block ml-[0.59rem] w-fit'>
+              Đang xử lý
+            </span>
+          </div>
+        )}
         <span className='text-[#D48E43] sub1 font-bold block text-end'>
           {formatToVND(data?.order_total)}
         </span>
@@ -99,7 +113,7 @@ export default function CardBill({data, status}) {
           isDone ? 'justify-end' : 'justify-between'
         } flex mt-[0.88rem] xmd:w-full`}
       >
-        {!isDone && !isPending && (
+        {!isDone && !isPending && !isMobile && (
           <div className='flex items-center'>
             <Image
               className='size-[1.1713rem] object-contain'

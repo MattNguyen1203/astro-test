@@ -501,8 +501,11 @@ export default function PaymentIndex({
   }
 
   return (
-    <section className='container relative flex justify-between pb-[7.17rem]'>
-      <article className='w-[50.88rem] h-fit sticky top-[9.76rem] left-0 space-y-[0.88rem]'>
+    <section className='container xmd:w-full relative flex justify-between pb-[7.17rem] bg-white'>
+      <article className='w-[50.88rem] xmd:w-full h-fit sticky top-[9.76rem] left-0 space-y-[0.88rem]'>
+        <h5 className='mt-[1.17rem] sub2 font-medium text-greyscale-80 lg:hidden'>
+          THÔNG TIN KHÁCH MUA HÀNG:
+        </h5>
         <div className='bg-white rounded-[0.58565rem] p-[1.76rem]'>
           <Form {...form}>
             <form

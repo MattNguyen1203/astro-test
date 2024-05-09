@@ -5,6 +5,7 @@ import Image from 'next/image'
 import {useEffect, useState} from 'react'
 
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 const MenuUser = dynamic(() => import('@/sections/account/components/menuuser'))
 
 export default function Account({session, isMobile, profile}) {
@@ -28,21 +29,45 @@ export default function Account({session, isMobile, profile}) {
         session?.accessToken ? '' : 'mr-[0.44rem]'
       } size-[2.63543rem] xmd:size-[2.34261rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center ml-[1.17rem] relative cursor-pointer transition-all duration-200 xmd:mx-[0.73rem]`}
     >
-      <Image
-        onClick={() => setIsOpen(!isOpen)}
-        className={`${
-          isHasImage ? 'size-full' : 'size-[1.31772rem] xmd:size-[1.1713rem]'
-        } flex-shrink-0 object-cover rounded-full `}
-        src={
-          profile?.picture_profile ||
-          profile?.avatar_url ||
-          '/layout/nav/user.svg'
-        }
-        alt='icon user'
-        width={18}
-        height={18}
-        priority
-      />
+      {isMobile ? (
+        <Link
+          href={'/dash-board'}
+          className='size-full'
+        >
+          <Image
+            className={`${
+              isHasImage
+                ? 'size-full'
+                : 'size-[1.31772rem] xmd:size-[1.1713rem]'
+            } flex-shrink-0 object-cover rounded-full `}
+            src={
+              profile?.picture_profile ||
+              profile?.avatar_url ||
+              '/layout/nav/user.svg'
+            }
+            alt='icon user'
+            width={18}
+            height={18}
+            priority
+          />
+        </Link>
+      ) : (
+        <Image
+          onClick={() => setIsOpen(!isOpen)}
+          className={`${
+            isHasImage ? 'size-full' : 'size-[1.31772rem] xmd:size-[1.1713rem]'
+          } flex-shrink-0 object-cover rounded-full `}
+          src={
+            profile?.picture_profile ||
+            profile?.avatar_url ||
+            '/layout/nav/user.svg'
+          }
+          alt='icon user'
+          width={18}
+          height={18}
+          priority
+        />
+      )}
       {isOpen && !isOutSide && (
         <div
           id='popup_account_nav'

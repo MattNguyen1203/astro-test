@@ -24,7 +24,7 @@ const arr = [
   },
 ]
 
-export default function RackAccount({session, dataRank}) {
+export default function RackAccount({session, dataRank, isMobile}) {
   const [isActive, setIsActive] = useState(null)
   const [newFormat, setNewFormat] = useState('')
   const [rank, setRank] = useState('')
@@ -63,7 +63,7 @@ export default function RackAccount({session, dataRank}) {
   }, [session, dataRank])
 
   return (
-    <div className='flex flex-col items-start w-full'>
+    <div className='flex flex-col items-start w-full xmd:pl-[0.59rem]'>
       <div className='w-[50.87848rem] xmd:w-full flex flex-col p-[1.1713rem] justify-center items-start rounded-[0.58565rem] bg-white shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>
         <div className='flex items-center justify-between w-full xmd:flex-col xmd:items-start'>
           <div className='flex items-center justify-center'>
@@ -117,9 +117,9 @@ export default function RackAccount({session, dataRank}) {
           </div>
         </div>
       </div>
-      <div className='flex overflow-hidden xmd:flex-col my-[0.58565rem] justify-start relative items-center xmd:items-start w-[50.8784rem] xmd:w-full lg:h-[10.6881rem] rounded-[0.58565rem] xmd:shadow-[2px_2px_12px_0px_rgba(0, 0, 0, 0.02)_-3px_2px_20px_0px_rgba(0,0,0,0.04)]'>
+      <div className='bg-white flex overflow-hidden xmd:flex-col my-[0.58565rem] justify-start relative items-center xmd:items-start w-[50.8784rem] xmd:w-full lg:h-[10.6881rem] rounded-[0.58565rem] xmd:shadow-[2px_2px_12px_0px_rgba(0, 0, 0, 0.02)_-3px_2px_20px_0px_rgba(0,0,0,0.04)]'>
         <ExpRank
-          rank={rank}
+          isMobile={isMobile}
           dataRank={dataRank}
           session={session}
         />

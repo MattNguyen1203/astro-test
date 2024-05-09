@@ -18,6 +18,7 @@ import {useRouter} from 'next/navigation'
 import {handleAddToSession} from './function'
 
 import dynamic from 'next/dynamic'
+import VoucherSlideRes from '../home/components/flashvoucher/slidevoucherres'
 const RelatedProduct = dynamic(
   () => import('../preorderdetail/components/RelatedProduct'),
   {ssr: false},
@@ -200,7 +201,6 @@ const ProductDetail = ({
 
     return [price, regular_price]
   }, [selectedPrd, isFlashSale])
-  console.log(listCrossell)
   return (
     <div className='container mt-[8.1rem] xmd:mt-[4.1rem] md:pb-[4rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
@@ -224,10 +224,18 @@ const ProductDetail = ({
             <div className='xmd:hidden'>
               <SocialProduct />
             </div>
+            {!isMobile && (
+              <div className='w-[32.9429rem] mt-[1.46rem] flex flex-col items-start col h-full sticky top-[9rem] xmd:hidden'>
+                <span className='w-[14.64129rem] font-medium text-greyscale-60 sub2 mb-[0.88rem]'>
+                  Voucher ưu đãi dành cho bạn
+                </span>
+                <VoucherList voucher={voucher} />
+              </div>
+            )}
           </div>
         </div>
 
-        <div className='col w-[43.48rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[6.6rem] xmd:mb-[1.17rem]'>
+        <div className='col flex-1 w-[43.48463rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[6.6rem] xmd:mb-[1.17rem]'>
           <div className='subContainer xmd:rounded-0 md:relative'>
             <h2 className='md:w-[38rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'>
               {data?.name}
@@ -342,6 +350,13 @@ const ProductDetail = ({
             <SubInfo />
           </div>
 
+          {isMobile && (
+            <VoucherSlideRes
+              className='bg-white'
+              data={voucher?.coupon_list}
+            />
+          )}
+
           {/* thông tin kĩ thuật */}
           <div className='subContainer mt-[0.88rem] mb-[1.46rem]'>
             <TechnicalInfo techInfo={mainData?.[0]?.acf?.tech_info || []} />
@@ -418,10 +433,6 @@ const ProductDetail = ({
               </div>
             </div>
           )}
-        </div>
-
-        <div className='w-[21.22rem] flex flex-col items-center col h-full sticky top-[9rem] xmd:hidden'>
-          <VoucherList voucher={voucher} />
         </div>
       </div>
 

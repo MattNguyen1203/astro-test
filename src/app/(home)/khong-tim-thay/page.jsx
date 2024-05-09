@@ -1,6 +1,6 @@
 export default function NotFoundPage({searchParams}) {
   return (
-    <main className='relative pt-[10.04rem] bg-elevation-20 flex justify-center items-center pb-[3.44rem]'>
+    <main className='relative pt-[10.04rem] xmd:pt-[4.04rem] xmd:pb-0 bg-elevation-20 flex justify-center items-center pb-[3.44rem]'>
       <div className='w-[51.53734rem] rounded-[0.58565rem] bg-white p-[1.17rem]'>
         <h1 className='font-medium text-center text-blue-800 sub1 px-[1.46rem] py-[1.02rem] rounded-[0.58565rem] bg-elevation-20'>
           Không tìm kiếm được kết quả nào phù hợp “

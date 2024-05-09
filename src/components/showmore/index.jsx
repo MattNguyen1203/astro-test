@@ -52,10 +52,13 @@ const ShowMore = ({
       {showButton && (
         <div
           className={cn(
-            'w-full h-[3.5rem] bg-white absolute flex justify-center items-center bottom-0 left-1/2 -translate-x-1/2',
+            ' w-full h-[3.5rem] bg-white absolute flex justify-center items-center bottom-0 left-1/2 -translate-x-1/2',
             wrapperClass,
           )}
         >
+          {!isExpanded && (
+            <div className='absolute top-[-100%] left-0 w-full h-full right-[1rem] bg-[linear-gradient(360deg,#FFF_5.23%,rgba(255,255,255,0.00)_89%)] z-[5] pointer-events-none'></div>
+          )}
           <div
             className='flex items-center justify-center cursor-pointer'
             onClick={toggleExpand}

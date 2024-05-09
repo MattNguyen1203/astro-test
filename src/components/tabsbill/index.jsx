@@ -98,6 +98,7 @@ export function TabsBill({isMobile, session}) {
       </TabsList>
       <TabsContent value='all'>
         <AllBill
+          isMobile={isMobile}
           session={session}
           setCount={setCount}
         />

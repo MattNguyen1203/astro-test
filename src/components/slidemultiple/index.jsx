@@ -37,8 +37,9 @@ function SlideMultiple({listGallery = [], activeImage, data}) {
 
   return (
     <>
-      <div className='w-[21.81552rem] mr-[1.17rem] select-none xmd:w-full xmd:mr-0 overflow-hidden xmd:px-[0.73rem]'>
-        <div className='relative bg-white w-full h-[21.76764rem] xmd:h-[18.59444rem] rounded-[0.67818rem] xmd:rounded-0 overflow-hidden'>
+      {/* w-[21.81552rem] */}
+      <div className='w-[32.9429rem] mr-[1.17rem] select-none xmd:w-full xmd:mr-0 overflow-hidden xmd:px-[0.73rem]'>
+        <div className='relative bg-white w-full h-[32.9429rem] xmd:h-[18.59444rem] rounded-[0.67818rem] xmd:rounded-0 overflow-hidden'>
           <Swiper
             loop={true}
             slidesPerView={1.5}

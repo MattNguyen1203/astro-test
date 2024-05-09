@@ -38,9 +38,13 @@ export default async function AccountPage({searchParams}) {
               Thông tin tài khoản
             </span>
           </Link>
-          <AvatarRes />
+          <AvatarRes
+            session={session}
+            profile={profile}
+          />
         </>
       )}
+      {/* {!isMobile && ( */}
       <TabsProfile
         profile={profile}
         isMobile={isMobile}
@@ -49,6 +53,7 @@ export default async function AccountPage({searchParams}) {
         commune={commune}
         session={session}
       />
+      {/* )} */}
     </>
   )
 }

@@ -3,34 +3,42 @@ import Image from 'next/image'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import {FreeMode} from 'swiper/modules'
 import 'swiper/css'
-import {useState} from 'react'
-export default function ExpRank({session, dataRank, rank}) {
+import './style.css'
+export default function ExpRank({session, dataRank, isMobile}) {
   const lastRank = dataRank[Object?.keys(dataRank)?.length - 1]
   // const percentPC = Math.min(
   //   (session?.memberTotalCharge / parseInt(lastRank?.amount_give_level)) * 95,
   //   95,
   // )
+
+  // maxWidth = x rem
+  let maxWidth = isMobile ? 60 : 120
+  let trans = 5
+  const widthRank = maxWidth / (Object?.keys(dataRank)?.length - 1)
+  const numberRank = parseInt(session?.memberlevel)
+  const nextRank =
+    dataRank[numberRank + 1]?.amount_up_level -
+    dataRank[numberRank]?.amount_up_level
+  const wasRank =
+    session?.memberTotalCharge - dataRank[numberRank]?.amount_up_level
   const percentPC =
-    rank == 'Kim Cương'
-      ? 100
-      : (session?.memberTotalCharge / lastRank?.amount_up_level) * 95
+    dataRank[numberRank]?.sort * 100 + (wasRank / nextRank) * 100
   return (
     <Swiper
       slidesPerView={'auto'}
-      initialSlide={
-        (session?.memberTotalCharge / lastRank?.amount_up_level) * 95 > 50
-          ? 1
-          : 0
-      }
+      initialSlide={numberRank === 0 ? 0 : numberRank}
       freeMode={true}
       modules={[FreeMode]}
-      className='lg:w-[101.7568rem] xmd:w-full h-[10.68rem]'
+      className='lg:w-[101.7568rem] xmd:w-full h-[10.68rem] expRank'
     >
       <SwiperSlide>
-        <div className='flex lg:w-[101.7568rem] absolute py-[1.1713rem] px-[0.87848rem] xmd:px-0 flex-col justify-center items-start rounded-[0.58565rem] bg-white shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] xmd:overflow-hidden'>
-          <div className='flex justify-between items-center w-full xmd:w-[53.73352rem]'>
-            <div className='flex relative flex-col justify-center items-center w-[8.56515rem] xmd:w-[7.39385rem]'>
-              <div className='flex justify-center items-center w-[1.75695rem] h-[1.75695rem] pr-[0.00117rem]'>
+        <div className='flex lg:w-[101.7568rem] xmd:w-[100rem] absolute py-[1.1713rem] pl-[1.5rem] xmd:px-0 flex-col justify-center items-start rounded-[0.58565rem] bg-white xmd:overflow-hidden'>
+          <div
+            style={{width: `${maxWidth}rem`}}
+            className='flex items-center xmd:w-[53.73352rem] z-[99]'
+          >
+            <div className='flex relative flex-col justify-center items-start w-0 md:pl-[0.5rem]'>
+              <div className='xmd:ml-[2rem] flex justify-center items-center w-[1.75695rem] h-[1.75695rem] pr-[0.00117rem]'>
                 <Image
                   width={23.984}
                   height={24}
@@ -38,16 +46,14 @@ export default function ExpRank({session, dataRank, rank}) {
                   src={'/account/icon-rank-1.svg'}
                 />
               </div>
-              <div className='absolute h-[1.1713rem] w-[1.1713rem] bottom-[-2.35rem] z-10'>
-                <Image
-                  width={16}
-                  height={16}
-                  alt='elli'
-                  src={'/account/elli.svg'}
-                />
-              </div>
             </div>
-            <div className='flex relative flex-col justify-center items-center w-[8.56515rem]'>
+            <div
+              style={{
+                width: `${widthRank}rem`,
+                transform: `translateX(${trans}rem)`,
+              }}
+              className='flex relative flex-col justify-center items-end md:pl-[0.5rem]'
+            >
               <div className='flex justify-center items-center w-[1.75695rem] h-[1.75695rem] pr-[0.00117rem]'>
                 <Image
                   width={23.984}
@@ -56,16 +62,21 @@ export default function ExpRank({session, dataRank, rank}) {
                   src={'/account/cup-sivel.svg'}
                 />
               </div>
-              <div className='absolute h-[1.1713rem] w-[1.1713rem] bottom-[-2.35rem] z-10'>
-                <Image
-                  width={16}
-                  height={16}
-                  alt='elli'
-                  src={'/account/elli.svg'}
-                />
-              </div>
+              <div
+                style={{
+                  backgroundColor:
+                    session?.memberlevel < 1 ? '#2f9f3e' : 'white',
+                }}
+                className='translate-x-[-0.35rem] rounded-full z-[99] absolute h-[1.1713rem] w-[1.1713rem] bottom-[-2.35rem] ml-[0.35rem]'
+              ></div>
             </div>
-            <div className='flex relative flex-col justify-center items-center w-[8.56515rem]'>
+            <div
+              style={{
+                width: `${widthRank}rem`,
+                transform: `translateX(${trans}rem)`,
+              }}
+              className='flex relative flex-col justify-center items-end md:pl-[0.5rem]'
+            >
               <div className='flex justify-center items-center w-[1.75695rem] h-[1.75695rem] pr-[0.00117rem]'>
                 <Image
                   width={23.984}
@@ -74,16 +85,21 @@ export default function ExpRank({session, dataRank, rank}) {
                   src={'/account/cup-gold.svg'}
                 />
               </div>
-              <div className='absolute h-[1.1713rem] w-[1.1713rem] bottom-[-2.35rem] z-10'>
-                <Image
-                  width={16}
-                  height={16}
-                  alt='elli'
-                  src={'/account/elli.svg'}
-                />
-              </div>
+              <div
+                style={{
+                  backgroundColor:
+                    session?.memberlevel < 2 ? '#2f9f3e' : 'white',
+                }}
+                className='translate-x-[-0.35rem] rounded-full z-[99] absolute h-[1.1713rem] w-[1.1713rem] bottom-[-2.35rem] ml-[0.35rem]'
+              ></div>
             </div>
-            <div className='flex relative flex-col justify-center items-center w-[8.56515rem]'>
+            <div
+              style={{
+                width: `${widthRank}rem`,
+                transform: `translateX(${trans}rem)`,
+              }}
+              className='flex relative flex-col justify-center items-end md:pl-[0.5rem]'
+            >
               <div className='flex justify-center items-center w-[1.75695rem] h-[1.75695rem] pr-[0.00117rem] '>
                 <Image
                   width={23.984}
@@ -92,44 +108,75 @@ export default function ExpRank({session, dataRank, rank}) {
                   src={'/account/cup-kc.svg'}
                 />
               </div>
-              <div className='absolute h-[1.1713rem] w-[1.1713rem] bottom-[-2.35rem] z-10'>
-                <Image
-                  width={16}
-                  height={16}
-                  alt='elli'
-                  src={'/account/elli.svg'}
-                />
-              </div>
+              <div
+                style={{
+                  backgroundColor:
+                    session?.memberlevel < 3 ? '#2f9f3e' : 'white',
+                }}
+                className='translate-x-[-0.35rem] rounded-full z-[99] absolute h-[1.1713rem] w-[1.1713rem] bottom-[-2.35rem] ml-[0.35rem]'
+              ></div>
             </div>
           </div>
-          <div className='flex my-[0.87848rem] justify-start items-center h-[1.75695rem] pl-[1.31772rem] pr-[3.3675rem] overflow-hidden'>
-            <div className='w-[95%] xmd:w-[53.73352rem] h-[1.75695rem] absolute rounded-[1.0981rem] bg-[#F0F0F0]'></div>
-            <div
-              style={{width: `${percentPC}%`}}
-              className={`h-[1.75695rem] text-end absolute z-10 rounded-[0.43924rem] bg-gradient-to-l from-[#407F0F] to-[#29AA4D] shadow-[4px_4px_8px_0px_rgba(83,118,209,0.10)]`}
-            >
-              <span className='caption1 font-semibold text-white mr-[0.44rem]'>
-                {session?.memberTotalCharge}
-              </span>
+          <div
+            style={{width: `${widthRank + trans}rem`}}
+            className='flex my-[0.87848rem] relative justify-start items-center h-[1.75695rem] pl-[1.31772rem] pr-[3.3675rem]'
+          >
+            <div className='w-[1000%] xmd:w-[100rem] h-[1.75695rem] absolute rounded-[1.0981rem] bg-[#F0F0F0]'></div>
+            <div className='w-[100%] absolute top-0'>
+              <div
+                style={{width: `${percentPC}%`}}
+                className={`h-[1.75695rem] text-end flex items-center justify-end absolute z-10 rounded-[0.43924rem] bg-gradient-to-l from-[#407F0F] to-[#29AA4D] shadow-[4px_4px_8px_0px_rgba(83,118,209,0.10)]`}
+              ></div>
             </div>
           </div>
-          <div className='flex items-center justify-between w-full'>
+          <div
+            style={{width: `${maxWidth}rem`}}
+            className='flex items-center'
+          >
             {Object.values(dataRank)?.map((rank, index) => (
               <div
                 key={index}
-                className='flex flex-col items-center w-[8.56515rem]'
+                style={{
+                  width: `${widthRank}rem`,
+                  transform:
+                    index === 0
+                      ? 'translateX(0rem)'
+                      : `translateX(${trans}rem)`,
+                }}
+                className='first:!w-0 flex flex-col items-end'
               >
-                <p className='w-[8.56515rem] mb-[0.29283rem] text-center sub2 font-semibold bg-gradient-to-l from-[#E0B181] to-[#BE9367] bg-clip-text'>
-                  {parseInt(rank?.amount_up_level).toLocaleString('vi-VN')}đ
-                </p>
-                <p className='font-normal body2 text-greyscale-40'>
-                  {rank.ten}
-                </p>
+                <div
+                  style={
+                    isMobile
+                      ? {
+                          transform:
+                            index === 0
+                              ? 'translateX(5rem)'
+                              : 'translateX(1.5rem)',
+                        }
+                      : {
+                          transform:
+                            index === 0
+                              ? 'translateX(4rem)'
+                              : 'translateX(2.5rem)',
+                        }
+                  }
+                  className='flex flex-col items-center w-max'
+                >
+                  <p className='font-normal body2 text-greyscale-40'>
+                    {rank.ten}
+                  </p>
+                  <p className='mb-[0.29283rem] text-center sub2 font-semibold bg-gradient-to-l from-[#E0B181] to-[#BE9367] bg-clip-text'>
+                    {parseInt(rank?.amount_up_level).toLocaleString('vi-VN')}đ
+                  </p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </SwiperSlide>
+      <SwiperSlide></SwiperSlide>
+      <SwiperSlide></SwiperSlide>
       <SwiperSlide></SwiperSlide>
     </Swiper>
   )

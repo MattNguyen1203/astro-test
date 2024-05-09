@@ -3,10 +3,8 @@
 import ICBoxCheck from '@/components/icon/ICBoxCheck'
 import ICCheck from '@/components/icon/ICCheck'
 import {formatToVND} from '@/lib/utils'
-import {DialogProduct} from '@/sections/home/components/dialog'
 import Image from 'next/image'
 import Link from 'next/link'
-import {useEffect, useState} from 'react'
 import {handlePrice} from '../function'
 
 const ItemProduct = (props) => {
@@ -32,9 +30,9 @@ const ItemProduct = (props) => {
 
   return (
     <div className='relative flex xmd:flex-col xmd:justify-start xmd:items-start justify-between items-center bg-white p-[1.17rem] xmd:p-[0.73rem] rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)]'>
-      <div className='flex items-center relative'>
+      <div className='flex items-center justify-between'>
         {type !== 'combo' && (
-          <div className='relative size-[1.75695rem] xmd:size-[1.46413rem] mr-[0.88rem] xmd:absolute xmd:bottom-[0.4rem] xmd:left-[0.4rem] xmd:mr-0'>
+          <div className='relative size-[1.75695rem] xmd:size-[1.46413rem] mr-[0.88rem] xmd:mr-[1rem]'>
             <ICBoxCheck className='size-full' />
             {listCrossellIndex.includes(index) && (
               <div className='absolute top-0 left-0 flex items-center justify-center bg-blue-700 size-full rounded-[0.25rem]'>
@@ -63,7 +61,7 @@ const ItemProduct = (props) => {
           className='size-[7.32rem] mr-[0.88rem] rounded-[0.5rem] xmd:border xmd:border-greyscale-10 xmd:rounded-[0.5rem] xmd:size-[5.27086rem] object-cover'
         />
 
-        <div className=''>
+        <div className='flex-1'>
           <Link
             href={`/${data?.slug}`}
             className='caption1 font-medium text-greyscale-40 mb-[0.29rem] xmd:text-[1.02489rem] xmd:font-semibold line-clamp-3'
