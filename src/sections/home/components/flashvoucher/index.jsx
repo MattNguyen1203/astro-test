@@ -4,9 +4,12 @@ import VoucherSlide from './slidevoucher'
 import VoucherSlideRes from './slidevoucherres'
 import CountDown from './countdown'
 import getData from '@/lib/getData'
+import {IDHOMEPAGE} from '@/lib/IdPageAPI'
 
 export default async function FlashVoucher({isMobile}) {
   const coupons = await getData('/okhub/v1/coupon/category/flash-sale')
+  const countdown = await getData(`/wp/v2/pages/${IDHOMEPAGE}`)
+  console.log(countdown?.acf)
   return (
     <article className='w-full bg-[linear-gradient(180deg,#02315D_26.21%,rgba(246,187,145,0.55)_68.35%,rgba(255,255,255,0.00)_105.67%)] xmd:bg-[linear-gradient(180deg,#002C54_0%,#02315D_16.27%,#02315D_30.03%,rgba(92,100,112,0.83)_48.06%,rgba(246,187,145,0.55)_78.73%,rgba(255,255,255,0.00)_94.11%)] backdrop-blur-[5px] h-fit xmd:mt-[0.88rem] xmd:rounded-tl-[1.1713rem] xmd:rounded-tr-[1.1713rem]'>
       <div className='container pt-[3.5rem] xmd:pt-[1.76rem] relative xmd:full-mb'>
@@ -39,7 +42,7 @@ export default async function FlashVoucher({isMobile}) {
               12.12
             </h2>
           </div>
-          <CountDown />
+          <CountDown timecountdown={countdown?.acf?.time_flash} />
         </div>
         {isMobile ? (
           <VoucherSlideRes data={coupons?.coupon_list} />

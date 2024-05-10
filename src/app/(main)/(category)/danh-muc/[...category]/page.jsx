@@ -1,9 +1,11 @@
 import getData from '@/lib/getData'
 import AllNews from '@/sections/news/allnews'
 import {notFound} from 'next/navigation'
+import {IDGLOBALAPI} from '@/lib/IdPageAPI'
 
 export async function generateStaticParams() {
   const categories = await getData(`/okhub/v1/category/post/build`)
+  const linkSocials = await getData(`/wp/v2/pages/${IDGLOBALAPI}`)
   const staticParams = []
 
   const handleRenderPage = (length, before = '') => {
@@ -50,6 +52,7 @@ export default async function page({params}) {
   return (
     <div className='pt-[9.76rem] -mt-[9.76rem]'>
       <AllNews
+        linkSocials={linkSocials}
         posts={posts}
         categories={categories}
         url='/danh-muc/'

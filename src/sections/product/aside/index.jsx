@@ -6,9 +6,11 @@ import Special from './Special'
 import Device from './Device'
 import {Skeleton} from '@/components/ui/skeleton'
 import getData from '@/lib/getData'
+import {IDGLOBALAPI} from '@/lib/IdPageAPI'
 
 export default async function Aside() {
   const devices = await getData('/okhub/v1/product/devices')
+  const linkSocials = await getData(`/wp/v2/pages/${IDGLOBALAPI}`)
   return (
     <aside className='w-[16.17862rem] h-fit sticky top-[9.76rem] left-0 z-[99]'>
       <div className='w-full rounded-[0.87848rem] bg-white shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)] p-[0.88rem] h-fit'>
@@ -28,7 +30,10 @@ export default async function Aside() {
         <span className='font-medium text-greyscale-30 block pl-[0.59rem]'>
           Ghé thăm gian hàng tại:
         </span>
-        <SocialProduct priority={true} />
+        <SocialProduct
+          linkSocials={linkSocials}
+          priority={true}
+        />
       </div>
     </aside>
   )

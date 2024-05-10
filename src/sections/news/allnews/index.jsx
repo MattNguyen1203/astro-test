@@ -9,7 +9,14 @@ import PaginationPosts from '@/sections/account/components/pagination/Pagination
 import MenuNewsLink from '../MenuNewsLink'
 import GridNews from './GridNews'
 
-export default function AllNews({posts, categories, before, url, products}) {
+export default function AllNews({
+  posts,
+  categories,
+  before,
+  url,
+  products,
+  linkSocials,
+}) {
   const boxRef = useRef(null)
   const searchParams = useSearchParams()
   const params = useParams()
@@ -100,7 +107,7 @@ export default function AllNews({posts, categories, before, url, products}) {
                 Like
               </div>
               <Link
-                href={'https://www.facebook.com/astromazing.official'}
+                href={linkSocials?.acf?.link_social?.facebook}
                 className='size-[2rem] transition-all cursor-pointer group-hover:block hidden'
               >
                 <svg
@@ -146,9 +153,7 @@ export default function AllNews({posts, categories, before, url, products}) {
                 Follow
               </div>
               <Link
-                href={
-                  'https://www.lazada.vn/shop/astromazing-store/?path=index.htm'
-                }
+                href={linkSocials?.acf?.link_social?.lazada}
                 className='size-[2rem] transition-all cursor-pointer group-hover:block hidden'
               >
                 <svg
@@ -194,7 +199,7 @@ export default function AllNews({posts, categories, before, url, products}) {
                 Follow
               </div>
               <Link
-                href={'https://www.tiktok.com/@astromazing.com'}
+                href={linkSocials?.acf?.link_social?.tiktok}
                 className='size-[2rem] transition-all cursor-pointer group-hover:block hidden'
               >
                 <svg

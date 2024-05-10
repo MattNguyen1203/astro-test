@@ -16,6 +16,7 @@ const ItemProduct = (props) => {
     setCrossellIndex,
     listCrossellIndex,
     index,
+    space = false,
   } = props
 
   const [regularPriceResult, priceResult] = handlePrice(data)
@@ -113,7 +114,7 @@ const ItemProduct = (props) => {
         {data?.type === 'variable' &&
           data?.variation &&
           data?.variation?.attributes && (
-            <div className='hidden xmd:flex xmd:ml-[2.3rem]'>
+            <div className={`${space && 'xmd:ml-[2.3rem]'} hidden xmd:flex`}>
               {Object.values(data?.variation?.attributes)?.map(
                 (item, index) => (
                   <div

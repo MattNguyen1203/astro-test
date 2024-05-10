@@ -29,6 +29,7 @@ const ComboDetail = ({
   mainData,
   FiveProduct,
   wishList,
+  linkSocials,
 }) => {
   const [isOpen, setIsOpen] = useState(false) // open popup product
   const [activeId, setActiveId] = useState('') // activeID in open popup;
@@ -101,7 +102,7 @@ const ComboDetail = ({
               Ghé thăm gian hàng tại:
             </div>
             <div className='xmd:hidden'>
-              <SocialProduct />
+              <SocialProduct linkSocials={linkSocials} />
             </div>
             {!isMobile && (
               <div className='w-[32.9429rem] mt-[1.46rem] flex flex-col items-start col h-full sticky top-[9rem] right-0 xmd:hidden'>

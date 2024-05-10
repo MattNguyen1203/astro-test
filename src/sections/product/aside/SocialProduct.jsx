@@ -1,33 +1,33 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-const listSocial = [
-  {
-    src: '/product/shopee.svg',
-    alt: 'icon shopee',
-    href: '/',
-    className: 'size-[1.61054rem]',
-  },
-  {
-    src: '/product/lazada.svg',
-    alt: 'icon lazada',
-    href: '/',
-    className: 'w-[1.56281rem] h-[1.28287rem]',
-  },
-  {
-    src: '/product/tiktok.svg',
-    alt: 'icon tiktok',
-    href: '/',
-    className: 'size-[1.39092rem]',
-  },
-  {
-    src: '/product/facebook.svg',
-    alt: 'icon facebook',
-    href: '/',
-    className: 'size-[1.61054rem]',
-  },
-]
-export default function SocialProduct({priority}) {
+export default function SocialProduct({priority, linkSocials}) {
+  const listSocial = [
+    {
+      src: '/product/shopee.svg',
+      alt: 'icon shopee',
+      href: linkSocials?.shoppee,
+      className: 'size-[1.61054rem]',
+    },
+    {
+      src: '/product/lazada.svg',
+      alt: 'icon lazada',
+      href: linkSocials?.lazada,
+      className: 'w-[1.56281rem] h-[1.28287rem]',
+    },
+    {
+      src: '/product/tiktok.svg',
+      alt: 'icon tiktok',
+      href: linkSocials?.tiktok,
+      className: 'size-[1.39092rem]',
+    },
+    {
+      src: '/product/facebook.svg',
+      alt: 'icon facebook',
+      href: linkSocials?.facebook,
+      className: 'size-[1.61054rem]',
+    },
+  ]
   return (
     <ul className='flex mt-[0.59rem]'>
       {listSocial.map((e, index) => (

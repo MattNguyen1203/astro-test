@@ -17,10 +17,9 @@ import Gift from './components/Gift'
 import {useMemo, useState} from 'react'
 import {cn} from '@/lib/utils'
 import {useRouter} from 'next/navigation'
-import VoucherSlideRes from '../home/components/flashvoucher/slidevoucherres'
-import VoucherList from '../productDetail/VoucherList'
 
 const PreOrder = ({
+  linkSocials,
   isMobile,
   data,
   voucher,
@@ -112,7 +111,7 @@ const PreOrder = ({
                 Ghé thăm gian hàng tại:
               </div>
               <div className='xmd:hidden'>
-                <SocialProduct />
+                <SocialProduct linkSocials={linkSocials} />
               </div>
             </div>
           </div>

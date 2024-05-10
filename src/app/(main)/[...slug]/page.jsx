@@ -3,6 +3,8 @@ import getData from '@/lib/getData'
 import {getDataProfile} from '@/lib/getDataProfile'
 import ProductDetail from '@/sections/productDetail'
 import {notFound} from 'next/navigation'
+import {IDGLOBALAPI} from '@/lib/IdPageAPI'
+
 export async function generateStaticParams() {
   const products = await getData('/okhub/v1/product')
   const productsNew = products?.filter(
@@ -37,6 +39,8 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     `/okhub/v1/product/related-products/slug/${slug}`,
   )
 
+  const linkSocials = getData(`/wp/v2/pages/${IDGLOBALAPI}`)
+
   const [
     dataProductDetail,
     dataProductVoucher,
@@ -45,6 +49,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     session,
     mainData,
     relatedProduct,
+    datalinkSocials,
   ] = await Promise.all([
     dataProductDetailReq,
     dataProductVoucherReq,
@@ -53,6 +58,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     auth(),
     mainDataReq,
     callRelatedProduct,
+    linkSocials,
   ])
   if (!dataProductDetail) return notFound()
   const request = {
@@ -61,10 +67,11 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
   }
 
   const [wishList] = await Promise.all([getDataProfile(request)])
-
+  console.log(linkSocials?.acf?.link_social)
   return (
     <main className='bg-elevation-20'>
       <ProductDetail
+        linkSocials={datalinkSocials?.acf?.link_social}
         isMobile={isMobile}
         data={dataProductDetail}
         voucher={dataProductVoucher}
