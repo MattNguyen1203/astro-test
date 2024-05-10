@@ -128,7 +128,9 @@ export default function ExpRank({session, dataRank, isMobile}) {
                     trans *
                     (dataRank[numberRank]?.sort === 0
                       ? 0
-                      : dataRank[numberRank]?.sort - 1)
+                      : isMobile
+                      ? dataRank[numberRank]?.sort - 1
+                      : dataRank[numberRank]?.sort)
                   }rem)`,
                 }}
                 className={`h-[1.75695rem] text-end flex items-center justify-end absolute z-10 rounded-[0.43924rem] bg-gradient-to-l from-[#407F0F] to-[#29AA4D] shadow-[4px_4px_8px_0px_rgba(83,118,209,0.10)]`}
