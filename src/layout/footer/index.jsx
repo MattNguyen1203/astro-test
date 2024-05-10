@@ -7,8 +7,15 @@ import MenuFooter from './components/menufooter'
 import {Toaster} from '@/components/ui/sonner'
 import getData from '@/lib/getData'
 import {IDGLOBALAPI} from '@/lib/IdPageAPI'
+import {headers} from 'next/headers'
 
-export default async function Footer({isMobile}) {
+export default async function Footer() {
+  const headersList = headers()
+  const userAgent = headersList.get('user-agent')
+  const isMobile =
+    /Android|webOS|iPhone|BlackBerry|IEMobile|ZaloTheme|FB_IAB|Opera Mini/i.test(
+      userAgent,
+    )
   const data = await getData(`/wp/v2/pages/${IDGLOBALAPI}`, 3600)
   const footer = data?.acf?.footer
   const linkSocial = data?.acf?.link_social

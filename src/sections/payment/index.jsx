@@ -40,16 +40,6 @@ const formSchema = z.object({
   address: z.string(),
   street: z.string(),
   note: z.string(),
-  // password: z
-  //   .string()
-  //   .min(6, {message: 'Mật khẩu phải có từ 6 kí tự trở lên!'}),
-  // .regex(/[a-z]/, {
-  //   message: 'Mật khẩu phải có ít nhất 1 chữ thường!',
-  // })
-  // .regex(/[A-Z]/, {
-  //   message: 'Mật khẩu phải có ít nhất 1 chữ hoa!',
-  // })
-  // .regex(/[0-9]/, {message: 'Mật khẩu phải có ít nhất 1 chữ số!'}),
 })
 
 export default function PaymentIndex({
@@ -64,8 +54,6 @@ export default function PaymentIndex({
   detailOrder,
   id,
 }) {
-  console.log('🚀 ~ detailOrder:', detailOrder)
-
   const isBuyNow = listIdItemCart ? false : true
   const router = useRouter()
 
@@ -109,10 +97,8 @@ export default function PaymentIndex({
   const [carts, setCarts] = useState(
     id ? detailOrder?.product : isAuth ? dataCarts : [],
   )
-  console.log('🚀 ~ carts:', carts)
   const [coupon, setCoupon] = useState(null)
   const [couponSearch, setCouponSearch] = useState(null)
-  console.log('🚀 ~ couponSearch:', couponSearch)
   const [isCouponBest, setIsCouponBest] = useState(true)
   const [isFreeShipDefault, setIsFreeShipDefault] = useState(true)
 
@@ -409,7 +395,6 @@ export default function PaymentIndex({
           }),
         )
       }
-      console.log('🚀 ~ setTransition ~ productIds:', productIds)
 
       const totalPrice = handlePriceTotalOrder(
         carts,

@@ -40,7 +40,6 @@ export default function BoxSearch({
   linkSocial,
   session,
 }) {
-  console.log('BoxSearch')
   const [value, setValue] = useState('')
   const isFocusSearchNav = useStore((state) => state.isFocusSearchNav)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)

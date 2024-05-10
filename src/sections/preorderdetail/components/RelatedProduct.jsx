@@ -2,12 +2,10 @@ import CardProduct from '@/components/cardproduct'
 import Image from 'next/image'
 
 const RelatedProduct = ({relatedProduct, session}) => {
-  // const relatedProduct = new Array(5).fill(0)
-  // console.log(relatedProduct)
   return (
     <>
       <div className='flex justify-between items-center bg-white py-[0.22rem] px-[0.59rem] rounded-[0.58565rem] mb-[0.88rem]'>
-        <span className='uppercase font-semibold sub2 text-greyscale-80'>
+        <span className='font-semibold uppercase sub2 text-greyscale-80'>
           SẢN PHẨM TƯƠNG TỰ
         </span>
 

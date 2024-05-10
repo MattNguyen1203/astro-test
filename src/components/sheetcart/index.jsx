@@ -27,7 +27,6 @@ export default function SheetCart({
   setIsOpen,
   session,
 }) {
-  console.log('🚀 ~ SheetCart:')
   const router = useRouter()
 
   const [cart, setCart] = useState([])

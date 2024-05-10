@@ -23,16 +23,14 @@ export default function Account({session, isMobile, profile}) {
   return (
     <div
       ref={sideRef}
-      className={`${
-        isOpenMegaMenuRes ? 'opacity-0 pointer-events-none' : 'opacity-100'
-      } ${
+      className={`${isOpenMegaMenuRes ? 'opacity-0 pointer-events-none' : ''} ${
         session?.accessToken ? '' : 'mr-[0.44rem]'
       } size-[2.63543rem] xmd:size-[2.34261rem] bg-elevation-20 rounded-[6.5vw] flex justify-center items-center ml-[1.17rem] relative cursor-pointer transition-all duration-200 xmd:mx-[0.73rem]`}
     >
       {isMobile ? (
         <Link
           href={'/dash-board'}
-          className='size-full'
+          className='flex items-center justify-center size-full'
         >
           <Image
             className={`${

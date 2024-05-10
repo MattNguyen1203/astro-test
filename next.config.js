@@ -16,20 +16,29 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [{protocol: 'https', hostname: '**'}],
   },
-  // experimental: {
-  //   optimizePackageImports: ["gsap", "embla-carousel-react"],
-  // },
   // compiler: {
   //   removeConsole: true,
   // },
-  // experimental: {
-  //   scrollRestoration: true,
-  // },
   reactStrictMode: false,
   staticPageGenerationTimeout: 5000,
-  // experimental: {
-  //   nextScriptWorkers: true,
-  // },
+  experimental: {
+    // nextScriptWorkers: true,
+    optimizePackageImports: [
+      'sharp',
+      'swiper',
+      'zod',
+      'sonner',
+      'next-auth',
+      'cmdk',
+    ],
+  },
+  devIndicators: {
+    buildActivityPosition: 'bottom-left',
+  },
+  onDemandEntries: {
+    maxInactiveAge: 600 * 1000,
+    pagesBufferLength: 10,
+  },
 }
 
 // module.exports = withBundleAnalyzer(nextConfig)

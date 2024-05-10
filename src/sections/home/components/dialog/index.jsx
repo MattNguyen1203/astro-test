@@ -50,8 +50,6 @@ export function DialogProduct({
     }
   }, [initData])
 
-  // console.log('initData', initData)
-
   return (
     <Dialog
       open={isOpen}

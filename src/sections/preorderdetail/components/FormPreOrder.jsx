@@ -98,8 +98,6 @@ export default function FormPreOrder({data, setSelectedPrd, selectedPrd}) {
       )
       const result = await res.json()
 
-      console.log('result', result)
-
       if (result.status === 'mail_sent') {
         toast.success('Gửi yêu cẩu thành công')
         form.reset()

@@ -33,10 +33,6 @@ const PreOrder = ({
 }) => {
   const router = useRouter()
 
-  // if (data?.meta_detect?.pre_order?._is_pre_order !== 'yes') {
-  //   router.push('/404')
-  // }
-  console.log(data)
   const [selectedPrd, setSelectedPrd] = useState({
     ...data,
     variations: variations,
@@ -209,9 +205,6 @@ const PreOrder = ({
                           selectedPrd?.meta_detect?.pre_order?._pre_order_date
                         }
                       />
-                      {console.log(
-                        selectedPrd?.meta_detect?.pre_order?._pre_order_date,
-                      )}
                     </span>
                   </div>
                 )}

@@ -1,17 +1,12 @@
-import {auth} from '@/auth'
-import {getDataProfile} from '@/lib/getDataProfile'
+import getData from '@/lib/getData'
 import InfoOrderBill from '@/sections/payment/InfoOrderBill'
 import ItemProductPayment from '@/sections/payment/ItemProductPayment'
 import StatusPayment from '@/sections/payment/StatusPayment'
 
 export default async function PaymentPage({searchParams}) {
   const tracking = searchParams?.tracking
-  const session = await auth()
-  const request = {
-    api: `/okhub/v1/order/${tracking}`,
-    token: session?.accessToken,
-  }
-  const detailOrder = session?.accessToken && (await getDataProfile(request))
+
+  const detailOrder = tracking && (await getData(`/okhub/v1/order/${tracking}`))
 
   const handleCheckStatusOrder = () => {
     if (detailOrder?.status === 'processing') return true

@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
-    "@next/bundle-analyzer": "^14.1.0",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
     "@radix-ui/react-checkbox": "^1.0.4",
@@ -28,7 +27,6 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^0.2.0",
-    "gsap": "^3.12.5",
     "html-to-image": "^1.11.11",
     "input-otp": "^1.2.4",
     "lucide-react": "^0.312.0",

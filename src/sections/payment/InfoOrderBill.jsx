@@ -4,14 +4,27 @@ import {propertyPayment} from '@/lib/constants'
 import {formatToVND, handleDate} from '@/lib/utils'
 import Link from 'next/link'
 import {useRouter} from 'next/navigation'
-import {useTransition} from 'react'
+import {useEffect, useTransition} from 'react'
 import {toast} from 'sonner'
 
 export default function InfoOrderBill({detailOrder, isSuccess}) {
-  console.log('🚀 ~ InfoOrderBill ~ detailOrder:', detailOrder)
   const router = useRouter()
 
   const [isPending, setTransition] = useTransition()
+
+  useEffect(() => {
+    const productsBill = detailOrder?.product
+    localStorage.removeItem('sessionCart')
+    const localGet = localStorage.getItem('cartAstro')
+      ? JSON.parse(localStorage.getItem('cartAstro'))
+      : []
+
+    if (!localGet?.length) return
+    const localGetNew = localGet?.filter((item) =>
+      productsBill?.find((product) => product?.id !== item?.id),
+    )
+    localStorage.setItem('cartAstro', JSON.stringify(localGetNew))
+  }, [])
 
   const isShipIn = detailOrder?.shipping_lines?.[0]?.method_id === 'in_hcm'
   const isFreeShip =

@@ -96,7 +96,6 @@ export default function ResetPassIndex() {
           }
         })
         .catch((err) => {
-          console.log(err)
           form.setValue('confirmPassword', err?.message)
         })
     })

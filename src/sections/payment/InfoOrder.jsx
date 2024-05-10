@@ -28,7 +28,6 @@ export default function InfoOrder({
     if (!Array.isArray(item?.meta)) return true
     return !item?.meta?.find((e) => e?.key?.includes('parent'))
   })
-  console.log('🚀 ~ dataCartNew:', dataCartNew)
 
   const totalPrice = handlePriceTotalOrder(
     id ? dataCartNew : carts,

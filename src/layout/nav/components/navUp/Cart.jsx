@@ -1,8 +1,7 @@
 'use client'
 import useStore from '@/app/(store)/store'
-// import SheetCart from '@/components/sheetcart'
 import {getDataAuth} from '@/lib/getDataAuth'
-// import {getSession} from 'next-auth/react'
+import {getSession} from 'next-auth/react'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
 
@@ -10,7 +9,6 @@ import dynamic from 'next/dynamic'
 const SheetCart = dynamic(() => import('@/components/sheetcart'), {ssr: false})
 
 export default function Cart({isMobile, cartDefault, session}) {
-  console.log('🚀 ~ Cart ~ session:', session)
   const isAuth = session?.status === 'authenticated'
 
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
@@ -21,11 +19,11 @@ export default function Cart({isMobile, cartDefault, session}) {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    // async function myFunction() {
-    //   const session = await getSession()
-    //   return session
-    // }
-    // myFunction()
+    async function myFunction() {
+      const session = await getSession()
+      return session
+    }
+    myFunction()
     if (cartDefault) {
       setListCart(Array.isArray(cartDefault) ? cartDefault : [])
       setIsLoading(false)
