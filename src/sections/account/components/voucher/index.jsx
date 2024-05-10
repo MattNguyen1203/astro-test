@@ -28,6 +28,7 @@ export default function IndexVoucher({couponRank, couponCategories}) {
                 isIndex={isIndex}
                 setIsIndex={setIsIndex}
                 index={index}
+                noDetail
                 className='w-full'
                 key={index}
                 item={item}
@@ -45,6 +46,7 @@ export default function IndexVoucher({couponRank, couponCategories}) {
                 isIndex={isIndex}
                 setIsIndex={setIsIndex}
                 index={index + couponRank?.coupon_list?.length}
+                noDetail
                 className='w-full'
                 key={index}
                 item={item}

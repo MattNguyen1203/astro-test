@@ -220,7 +220,7 @@ const PreOrder = ({
             </div>
             {isMobile && (
               <VoucherSlideRes
-                className='bg-white'
+                className='mt-[0.88rem]'
                 data={voucher?.coupon_list}
               />
             )}
