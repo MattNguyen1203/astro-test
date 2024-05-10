@@ -3,16 +3,16 @@ import getData from '@/lib/getData'
 import {getDataProfile} from '@/lib/getDataProfile'
 import ProductDetail from '@/sections/productDetail'
 import {notFound} from 'next/navigation'
-// export async function generateStaticParams() {
-//   const products = await getData('/okhub/v1/product')
-//   const productsNew = products?.filter(
-//     (e) => e?.type !== 'wooco' && e?.meta?.pre_order?._is_pre_order !== 'yes',
-//   )
+export async function generateStaticParams() {
+  const products = await getData('/okhub/v1/product')
+  const productsNew = products?.filter(
+    (e) => e?.type !== 'wooco' && e?.meta?.pre_order?._is_pre_order !== 'yes',
+  )
 
-//   return productsNew.map((product) => ({
-//     slug: [product.slug],
-//   }))
-// }
+  return productsNew.map((product) => ({
+    slug: [product.slug],
+  }))
+}
 
 const ProductDetailPage = async ({searchParams, params: {slug}}) => {
   const {viewport} = searchParams
