@@ -38,10 +38,10 @@ export default function SocialProduct({priority, linkSocials}) {
           <Link
             prefetch={false}
             className='size-[3.22108rem] flex justify-center items-center bg-white rounded-full'
-            href={e.href}
+            href={e?.href || ''}
           >
             <Image
-              className={`${e.className} object-contain group-hover:scale-125 origin-center transition-all duration-200`}
+              className={`${e?.className} object-contain group-hover:scale-125 origin-center transition-all duration-200`}
               src={e.src}
               alt={e.alt}
               width={30}

@@ -14,7 +14,6 @@ export default function Cart({isMobile, cartDefault, session}) {
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
   const actionCart = useStore((state) => state.actionCart)
   const listCart = useStore((state) => state.listCart)
-  console.log('🚀 ~ Cart ~ listCart:', listCart)
   const setListCart = useStore((state) => state.setListCart)
   const [isLoading, setIsLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
