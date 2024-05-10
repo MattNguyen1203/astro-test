@@ -244,7 +244,7 @@ export default function IndexAccount({
                       htmlFor='nickname'
                       className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'
                     >
-                      Nick name:
+                      Họ và tên:
                     </FormLabel>
                     <FormField
                       control={form.control}
@@ -415,10 +415,15 @@ export default function IndexAccount({
                     setBirthDay={setBirthDay}
                   />
                   <PopupDate
-                    data={renderArrayDate(1, 13, 'Tháng ')}
+                    data={renderArrayDate(1, 13, isMobile ? '' : 'Tháng ')}
                     type={1}
                     defaultValue={
-                      convertDefaultValue(birthDay?.[1], 'Tháng ') || 'Tháng 1'
+                      convertDefaultValue(
+                        birthDay?.[1],
+                        isMobile ? '' : 'Tháng ',
+                      ) || isMobile
+                        ? '1'
+                        : 'Tháng 1'
                     }
                     disabled={!isEdit}
                     setBirthDay={setBirthDay}
@@ -528,10 +533,10 @@ export default function IndexAccount({
             </div>
 
             {isEdit ? (
-              <div className='flex items-center justify-end !mt-[0.88rem]'>
+              <div className='flex items-center justify-end xmd:justify-center !mt-[0.88rem]'>
                 <div
                   onClick={handleReset}
-                  className='caption font-semibold text-blue-800 rounded-[0.43924rem] bg-white w-[8.63836rem] h-[2.4rem] flex items-center justify-center ml-auto mr-[0.59rem] cursor-pointer'
+                  className='caption font-semibold text-blue-800 rounded-[0.43924rem] bg-white w-[8.63836rem] h-[2.4rem] flex items-center justify-center md:ml-auto mr-[0.59rem] cursor-pointer'
                 >
                   HỦY BỎ
                 </div>
@@ -544,7 +549,7 @@ export default function IndexAccount({
             ) : (
               <div
                 onClick={() => setIsEdit(true)}
-                className='caption font-semibold text-white rounded-[0.43924rem] bg-blue-700 w-[11.78624rem] h-[2.4rem] flex items-center justify-center ml-auto !mt-[0.88rem] cursor-pointer'
+                className='caption font-semibold text-white rounded-[0.43924rem] bg-blue-700 w-[11.78624rem] h-[2.4rem] flex items-center justify-center xmd:mx-auto md:ml-auto !mt-[0.88rem] cursor-pointer'
               >
                 CHỈNH SỬA
               </div>

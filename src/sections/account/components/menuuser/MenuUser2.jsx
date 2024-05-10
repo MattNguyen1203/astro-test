@@ -68,8 +68,8 @@ export default function MenuUser2({session}) {
               />
               <span
                 className={`${
-                  pathName.includes(e.href) ? 'text-white' : 'text-greyscale-20'
-                } font-normal sub2 inline-block ml-[0.59rem]`}
+                  pathName.includes(e.href) ? 'text-white' : 'text-greyscale-80'
+                } font-medium sub2 inline-block ml-[0.59rem]`}
               >
                 {e.title}
               </span>
@@ -104,7 +104,7 @@ export default function MenuUser2({session}) {
               priority
             />
             <span
-              className={`text-greyscale-20 font-medium sub2 inline-block ml-[0.59rem]`}
+              className={`text-greyscale-80 font-medium sub2 inline-block ml-[0.59rem]`}
             >
               Đăng xuất
             </span>
@@ -125,7 +125,7 @@ export default function MenuUser2({session}) {
               priority
             />
             <span
-              className={`text-greyscale-20 font-normal sub2 inline-block ml-[0.59rem]`}
+              className={`text-greyscale-80 font-normal sub2 inline-block ml-[0.59rem]`}
             >
               Đăng nhập
             </span>

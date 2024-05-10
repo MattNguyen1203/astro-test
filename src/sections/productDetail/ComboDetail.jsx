@@ -83,7 +83,7 @@ const ComboDetail = ({
       return [selectedPrd?.regular_price, selectedPrd?.price]
     }
   }, [listProduct, selectedPrd])
-
+  console.log(FiveProduct?.item)
   return (
     <div className='container mt-[8.1rem] xmd:mt-[4.1rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
@@ -228,7 +228,7 @@ const ComboDetail = ({
       </div>
 
       {FiveProduct?.item && (
-        <div className='xmd:hidden pb-[3rem] mt-[2rem]'>
+        <div className='pb-[3rem] mt-[2rem]'>
           <RelatedProduct relatedProduct={FiveProduct?.item} />
         </div>
       )}

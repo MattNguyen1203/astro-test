@@ -81,7 +81,7 @@ export default function AllNews({posts, categories, before, url, products}) {
             </div>
           </div>
           <div className='mb-[0.87848rem] w-full flex py-[0.58565rem] pr-[1.1713rem] pl-[1.1713rem] rounded-[0.87848rem] bg-[rgba(232,235,239,0.60)]'>
-            <div className='flex items-center justify-between w-full'>
+            <div className='group flex items-center justify-between w-full'>
               <div className='flex items-center'>
                 <div className='w-[2.63543rem] h-[2.63543rem] flex justify-center items-center mr-[0.88rem] relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)] rounded-[0.51245rem] bg-[#4B6FBE]'>
                   <Image
@@ -96,13 +96,36 @@ export default function AllNews({posts, categories, before, url, products}) {
                   1,000,000 Fan
                 </span>
               </div>
-              <div className='flex items-center h-[1.9rem] sub2 text-[#4B6FBE] font-medium border-l border-solid border-[#B7C2CC]/50 pl-[1.17rem]'>
+              <div className='group-hover:hidden transition-all flex items-center h-[1.9rem] sub2 text-[#4B6FBE] font-medium border-l border-solid border-[#B7C2CC]/50 pl-[1.17rem]'>
                 Like
               </div>
+              <Link
+                href={'https://www.facebook.com/astromazing.official'}
+                className='size-[2rem] transition-all cursor-pointer group-hover:block hidden'
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth='1.5'
+                  stroke='currentColor'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z'
+                  ></path>
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z'
+                  ></path>
+                </svg>
+              </Link>
             </div>
           </div>
           <div className='mb-[0.87848rem] w-full flex py-[0.58565rem] pr-[1.1713rem] pl-[1.1713rem] rounded-[0.87848rem] bg-[rgba(232,235,239,0.60)]'>
-            <div className='flex items-center justify-between w-full'>
+            <div className='group flex items-center justify-between w-full'>
               <div className='flex items-center'>
                 <div className='w-[2.63543rem] h-[2.63543rem] flex justify-center items-center mr-[0.88rem] relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)] rounded-[0.51245rem] bg-gradient-to-t to-[#2C5BB7] from-[#1B2852]'>
                   <div className='flex items-center justify-center w-[1.46413rem] h-[1.46413rem]'>
@@ -119,13 +142,38 @@ export default function AllNews({posts, categories, before, url, products}) {
                   1,000,000 Lượt bán
                 </span>
               </div>
-              <div className='flex items-center h-[1.9rem] border-l border-solid borders-[#B7C2CC]/50 pl-[1.17rem] sub2 text-[#4B6FBE] font-medium'>
+              <div className='group-hover:hidden transition-all flex items-center h-[1.9rem] border-l border-solid borders-[#B7C2CC]/50 pl-[1.17rem] sub2 text-[#4B6FBE] font-medium'>
                 Follow
               </div>
+              <Link
+                href={
+                  'https://www.lazada.vn/shop/astromazing-store/?path=index.htm'
+                }
+                className='size-[2rem] transition-all cursor-pointer group-hover:block hidden'
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth='1.5'
+                  stroke='currentColor'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z'
+                  ></path>
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z'
+                  ></path>
+                </svg>
+              </Link>
             </div>
           </div>
           <div className='mb-[0.87848rem] w-full flex py-[0.58565rem] pr-[1.1713rem] pl-[1.1713rem] rounded-[0.87848rem] bg-[rgba(232,235,239,0.60)]'>
-            <div className='flex items-center justify-between w-full'>
+            <div className='group flex items-center justify-between w-full'>
               <div className='flex items-center'>
                 <div className='w-[2.63543rem] h-[2.63543rem] flex justify-center items-center mr-[0.88rem] relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)] rounded-[0.51245rem] bg-gradient-to-t to-[#EEF8FF] from-[rgba(255,245,237,0.90)]'>
                   <div className='w-[1.75695rem] h-[1.75695rem] flex justify-center items-center z-10'>
@@ -142,9 +190,32 @@ export default function AllNews({posts, categories, before, url, products}) {
                   1,000,000 Follower
                 </span>
               </div>
-              <div className='flex items-center h-[1.9rem] border-l border-solid borders-[#B7C2CC]/50 pl-[1.17rem] py-[0.07321rem] sub2 text-[#4B6FBE] font-medium'>
+              <div className='group-hover:hidden transition-all flex items-center h-[1.9rem] border-l border-solid borders-[#B7C2CC]/50 pl-[1.17rem] py-[0.07321rem] sub2 text-[#4B6FBE] font-medium'>
                 Follow
               </div>
+              <Link
+                href={'https://www.tiktok.com/@astromazing.com'}
+                className='size-[2rem] transition-all cursor-pointer group-hover:block hidden'
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth='1.5'
+                  stroke='currentColor'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z'
+                  ></path>
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z'
+                  ></path>
+                </svg>
+              </Link>
             </div>
           </div>
         </div>

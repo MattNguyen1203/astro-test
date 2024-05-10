@@ -1,7 +1,7 @@
 import CardProduct from '@/components/cardproduct'
 import Image from 'next/image'
 
-const RelatedProduct = ({relatedProduct, session}) => {
+const RelatedProduct = ({relatedProduct, session, boxPlaced = false}) => {
   // const relatedProduct = new Array(5).fill(0)
   // console.log(relatedProduct)
   return (
@@ -35,7 +35,7 @@ const RelatedProduct = ({relatedProduct, session}) => {
               key={index}
             >
               <CardProduct
-                boxPlaced
+                boxPlaced={boxPlaced}
                 product={item}
                 session={session}
               />
