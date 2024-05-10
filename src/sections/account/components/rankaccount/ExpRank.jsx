@@ -5,12 +5,11 @@ import {FreeMode} from 'swiper/modules'
 import 'swiper/css'
 import './style.css'
 export default function ExpRank({session, dataRank, isMobile}) {
-  const lastRank = dataRank[Object?.keys(dataRank)?.length - 1]
+  // const lastRank = dataRank[Object?.keys(dataRank)?.length - 1]
   // const percentPC = Math.min(
   //   (session?.memberTotalCharge / parseInt(lastRank?.amount_give_level)) * 95,
   //   95,
   // )
-
   // maxWidth = x rem
   let maxWidth = isMobile ? 60 : 120
   let trans = 5
@@ -119,12 +118,19 @@ export default function ExpRank({session, dataRank, isMobile}) {
           </div>
           <div
             style={{width: `${widthRank + trans}rem`}}
-            className='flex my-[0.87848rem] relative justify-start items-center h-[1.75695rem] pl-[1.31772rem] pr-[3.3675rem]'
+            className='flex my-[0.87848rem] relative justify-start items-center h-[1.75695rem]'
           >
             <div className='w-[1000%] xmd:w-[100rem] h-[1.75695rem] absolute rounded-[1.0981rem] bg-[#F0F0F0]'></div>
             <div className='w-[100%] absolute top-0'>
               <div
-                style={{width: `${percentPC}%`}}
+                style={{
+                  width: `calc(${percentPC}% - ${
+                    trans *
+                    (dataRank[numberRank]?.sort === 0
+                      ? 0
+                      : dataRank[numberRank]?.sort - 1)
+                  }rem)`,
+                }}
                 className={`h-[1.75695rem] text-end flex items-center justify-end absolute z-10 rounded-[0.43924rem] bg-gradient-to-l from-[#407F0F] to-[#29AA4D] shadow-[4px_4px_8px_0px_rgba(83,118,209,0.10)]`}
               ></div>
             </div>
@@ -151,14 +157,14 @@ export default function ExpRank({session, dataRank, isMobile}) {
                       ? {
                           transform:
                             index === 0
-                              ? 'translateX(5rem)'
-                              : 'translateX(1.5rem)',
+                              ? 'translateX(4.5rem)'
+                              : 'translateX(1rem)',
                         }
                       : {
                           transform:
                             index === 0
-                              ? 'translateX(4rem)'
-                              : 'translateX(2.5rem)',
+                              ? 'translateX(3.5rem)'
+                              : 'translateX(2rem)',
                         }
                   }
                   className='flex flex-col items-center w-max'

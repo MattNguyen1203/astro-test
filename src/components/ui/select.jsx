@@ -1,7 +1,6 @@
 'use client'
 
 import * as SelectPrimitive from '@radix-ui/react-select'
-import {Check, ChevronDown, ChevronUp} from 'lucide-react'
 
 import {cn} from '@/lib/utils'
 import {forwardRef} from 'react'
@@ -23,7 +22,20 @@ const SelectTrigger = forwardRef(({className, children, ...props}, ref) => (
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <ChevronDown className='w-4 h-4 opacity-50' />
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        fill='none'
+        viewBox='0 0 24 24'
+        strokeWidth='1.5'
+        stroke='currentColor'
+        className='w-4 h-4 opacity-50'
+      >
+        <path
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          d='m19.5 8.25-7.5 7.5-7.5-7.5'
+        />
+      </svg>
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ))
@@ -38,7 +50,20 @@ const SelectScrollUpButton = forwardRef(({className, ...props}, ref) => (
     )}
     {...props}
   >
-    <ChevronUp className='w-4 h-4' />
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      strokeWidth='1.5'
+      stroke='currentColor'
+      className='w-4 h-4'
+    >
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='m4.5 15.75 7.5-7.5 7.5 7.5'
+      />
+    </svg>
   </SelectPrimitive.ScrollUpButton>
 ))
 SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName
@@ -52,7 +77,20 @@ const SelectScrollDownButton = forwardRef(({className, ...props}, ref) => (
     )}
     {...props}
   >
-    <ChevronDown className='w-4 h-4' />
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      strokeWidth='1.5'
+      stroke='currentColor'
+      className='w-4 h-4'
+    >
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='m19.5 8.25-7.5 7.5-7.5-7.5'
+      />
+    </svg>
   </SelectPrimitive.ScrollDownButton>
 ))
 SelectScrollDownButton.displayName =
@@ -109,7 +147,20 @@ const SelectItem = forwardRef(({className, children, ...props}, ref) => (
   >
     <span className='absolute left-2 flex h-3.5 w-3.5 items-center justify-center'>
       <SelectPrimitive.ItemIndicator>
-        <Check className='w-4 h-4' />
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          fill='none'
+          viewBox='0 0 24 24'
+          strokeWidth='1.5'
+          stroke='currentColor'
+          className='w-4 h-4'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            d='m4.5 12.75 6 6 9-13.5'
+          />
+        </svg>
       </SelectPrimitive.ItemIndicator>
     </span>
 

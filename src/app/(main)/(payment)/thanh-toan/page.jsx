@@ -5,9 +5,13 @@ import getDataProxy from '@/lib/getDataProxy'
 import PaymentIndex from '@/sections/payment'
 
 export default async function page({searchParams}) {
+  const {viewport} = searchParams
+  const isMobile = viewport === 'mobile'
   const order = searchParams?.order
   const id = searchParams?.id
   const listIdItemCart = order?.split('--')
+
+  const coupons = await getData('/okhub/v1/coupon/category/flash-sale')
 
   const [session, province, district, commune, detailOrder] = await Promise.all(
     [
@@ -52,6 +56,8 @@ export default async function page({searchParams}) {
       profile={profile}
       detailOrder={detailOrder}
       id={id}
+      isMobile={isMobile}
+      coupons={coupons}
     />
   )
 }

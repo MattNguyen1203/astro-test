@@ -30,7 +30,7 @@ export default function StatusPayment({isSuccess, idOrder}) {
           {isSuccess ? 'ĐẶT HÀNG THÀNH CÔNG' : 'ĐƠN HÀNG CHƯA THANH TOÁN'}
         </span>
       </div>
-      <div className='w-full px-[1.17rem] py-[0.88rem] rounded-[0.58565rem] bg-white'>
+      <div className='w-full px-[1.17rem] xmd:px-[0.88rem] py-[0.88rem] rounded-[0.58565rem] bg-white'>
         {isSuccess ? (
           <p className='font-normal text-center body2 text-greyscale-40'>
             Cảm ơn quý khách đã cho AstroMazing cơ hội được phục vụ.

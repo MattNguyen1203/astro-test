@@ -1,7 +1,7 @@
 import CardProduct from '@/components/cardproduct'
 import Image from 'next/image'
 
-const RelatedProduct = ({relatedProduct, session}) => {
+const RelatedProduct = ({relatedProduct, session, boxPlaced = false}) => {
   return (
     <>
       <div className='flex justify-between items-center bg-white py-[0.22rem] px-[0.59rem] rounded-[0.58565rem] mb-[0.88rem]'>
@@ -33,7 +33,7 @@ const RelatedProduct = ({relatedProduct, session}) => {
               key={index}
             >
               <CardProduct
-                boxPlaced
+                boxPlaced={boxPlaced}
                 product={item}
                 session={session}
               />

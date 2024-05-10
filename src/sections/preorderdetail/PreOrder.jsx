@@ -89,7 +89,7 @@ const PreOrder = ({
   }, [relatedProduct, FiveProduct])
   return (
     <>
-      <div className='w-[73.7rem] mx-auto mt-[8.1rem] xmd:mt-[4.1rem] bg-elevation-10 relative xmd:w-full'>
+      <div className='container mx-auto mt-[8.1rem] xmd:mt-[4.1rem] bg-elevation-10 relative xmd:w-full'>
         <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
           <BreadCrumb
             category='sản phẩm'
@@ -110,14 +110,6 @@ const PreOrder = ({
               <div className='xmd:hidden'>
                 <SocialProduct />
               </div>
-              {!isMobile && (
-                <div className='w-[32.9429rem] mt-[1.46rem] flex flex-col items-start col h-full sticky top-[9rem] xmd:hidden'>
-                  <span className='w-[14.64129rem] font-medium text-greyscale-60 sub2 mb-[0.88rem]'>
-                    Voucher ưu đãi dành cho bạn
-                  </span>
-                  <VoucherList voucher={voucher} />
-                </div>
-              )}
             </div>
           </div>
 
@@ -211,12 +203,7 @@ const PreOrder = ({
               </div>
               <SubInfo />
             </div>
-            {isMobile && (
-              <VoucherSlideRes
-                className='mt-[0.88rem]'
-                data={voucher?.coupon_list}
-              />
-            )}
+
             {(mainData?.[0]?.acf?.gift ||
               mainData?.[0]?.acf?.gift?.is_show_gift) && (
               <div className='w-full mb-[1.46rem] mt-[0.5rem]'>

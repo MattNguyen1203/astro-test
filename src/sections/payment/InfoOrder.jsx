@@ -39,7 +39,7 @@ export default function InfoOrder({
   const isFreeShip = totalPrice?.before >= rangeFreeShip
 
   return (
-    <aside className='w-[34.91947rem] flex-shrink-0 h-fit sticky top-[9.76rem] right-0 rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] p-[1.17rem] bg-white'>
+    <aside className='w-[34.91947rem] xmd:w-full flex-shrink-0 h-fit md:sticky top-[9.76rem] right-0 rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] p-[1.17rem] bg-white'>
       <h3 className='font-medium sub2 text-greyscale-80'>
         THÔNG TIN ĐƠN HÀNG:
       </h3>

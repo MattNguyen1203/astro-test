@@ -65,7 +65,7 @@ export default function ItemProductPayment({item, length, index}) {
 
   return (
     <>
-      <div className='p-[0.59rem] h-fit w-full flex space-x-[0.88rem]'>
+      <div className='p-[0.59rem] xmd:p-0 h-fit w-full flex space-x-[0.88rem]'>
         <Image
           className='object-cover rounded-[0.3631rem] size-[5.27086rem]'
           src={
