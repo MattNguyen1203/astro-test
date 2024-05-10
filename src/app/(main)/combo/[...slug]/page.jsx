@@ -2,6 +2,7 @@ import {auth} from '@/auth'
 import getData from '@/lib/getData'
 import {getDataProfile} from '@/lib/getDataProfile'
 import ComboDetail from '@/sections/productDetail/ComboDetail'
+import {notFound} from 'next/navigation'
 
 export async function generateStaticParams() {
   const products = await getData('/okhub/v1/product')
@@ -41,6 +42,9 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     mainDataReq,
     FiveProductReq,
   ])
+
+  if (!dataProductDetail) return notFound()
+
   let newDataProduct = {}
   if (dataProductDetail) {
     await Promise.all(

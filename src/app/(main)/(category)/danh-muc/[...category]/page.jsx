@@ -1,5 +1,6 @@
 import getData from '@/lib/getData'
 import AllNews from '@/sections/news/allnews'
+import {notFound} from 'next/navigation'
 
 export async function generateStaticParams() {
   const categories = await getData(`/okhub/v1/category/post/build`)
@@ -43,6 +44,8 @@ export default async function page({params}) {
     getData(`/okhub/v1/category/post`),
     getData('/okhub/v1/product/allProduct?limit=5&page=1'),
   ])
+
+  if (!posts) return notFound()
 
   return (
     <div className='pt-[9.76rem] -mt-[9.76rem]'>

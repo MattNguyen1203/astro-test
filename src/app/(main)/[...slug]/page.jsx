@@ -2,6 +2,7 @@ import {auth} from '@/auth'
 import getData from '@/lib/getData'
 import {getDataProfile} from '@/lib/getDataProfile'
 import ProductDetail from '@/sections/productDetail'
+import {notFound} from 'next/navigation'
 export async function generateStaticParams() {
   const products = await getData('/okhub/v1/product')
   const productsNew = products?.filter(
@@ -53,8 +54,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
     mainDataReq,
     callRelatedProduct,
   ])
-  // notFound()
-  // if (!dataProductDetail) throw Error('failed!')
+  if (!dataProductDetail) return notFound()
   const request = {
     api: '/custom/v1/wistlist/getWishlist',
     token: session?.accessToken,

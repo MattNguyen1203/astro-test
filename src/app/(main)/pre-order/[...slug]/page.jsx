@@ -2,6 +2,7 @@ import {auth} from '@/auth'
 import getData from '@/lib/getData'
 import {getDataProfile} from '@/lib/getDataProfile'
 import PreOrder from '@/sections/preorderdetail/PreOrder'
+import {notFound} from 'next/navigation'
 
 const page = async ({searchParams, params: {slug}}) => {
   const {viewport} = searchParams
@@ -32,6 +33,7 @@ const page = async ({searchParams, params: {slug}}) => {
     mainDataReq,
     FiveProductReq,
   ])
+  if (!dataProductDetail) return notFound()
 
   const productCat = dataProductDetail?.categories?.[0]
 

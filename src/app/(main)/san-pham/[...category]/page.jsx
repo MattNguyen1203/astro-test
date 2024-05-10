@@ -1,5 +1,6 @@
 import getData from '@/lib/getData'
 import IndexProduct from '@/sections/product'
+import {notFound} from 'next/navigation'
 
 export async function generateStaticParams() {
   const categories = await getData('/okhub/v1/category/product/build')
@@ -51,6 +52,8 @@ export default async function CategoryProductPage({params, searchParams}) {
     ),
     getData('/okhub/v1/category/category'),
   ])
+
+  if (!products) return notFound()
 
   return (
     <IndexProduct
