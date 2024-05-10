@@ -1,13 +1,10 @@
-import Image from 'next/image'
-import Link from 'next/link'
-
-export default function NotFound() {
+export default async function Error500() {
   return (
     <div className='w-full h-[100vh] relative'>
       <Image
         className='object-cover size-full xmd:hidden tablet:hidden'
         alt='404'
-        src={'/notfound.jpg'}
+        src={'/ERROR.jpg'}
         width={1600}
         height={758}
         quality={100}
@@ -16,7 +13,7 @@ export default function NotFound() {
       <Image
         className='object-cover size-full md:hidden'
         alt='404'
-        src={'/notfound-res.jpg'}
+        src={'/error-mobile.jpg'}
         width={1600}
         height={758}
         quality={100}
@@ -25,7 +22,7 @@ export default function NotFound() {
       <Image
         className='object-cover size-full xmd:hidden lg:hidden'
         alt='404'
-        src={'/notfound-tablet.jpg'}
+        src={'/error-table.jpg'}
         width={1600}
         height={758}
         quality={100}

@@ -31,6 +31,8 @@ export default function ItemCart({
   item,
   session,
 }) {
+  console.log('🚀 ~ item:', item)
+
   const isAuth = session?.status === 'authenticated'
   const setActionCart = useStore((state) => state.setActionCart)
   const actionCart = useStore((state) => state.actionCart)
@@ -209,7 +211,7 @@ export default function ItemCart({
             index={index}
           />
         </div>
-        <div className='w-[6.44217rem] xmd:w-[6.00293rem] bg-white rounded-[0.48023rem] overflow-hidden flex-shrink-0 xmd:border xmd:border-solid xmd:border-[#F6F6F6]'>
+        <div className='w-[6.44217rem] xmd:w-[6.00293rem] bg-white rounded-[0.48023rem] overflow-hidden flex-shrink-0 xmd:border xmd:border-solid xmd:border-[#F6F6F6] relative'>
           <Image
             className='object-cover size-full'
             src={
@@ -225,6 +227,9 @@ export default function ItemCart({
             width={82}
             height={82}
           />
+          {/* <div className='absolute top-0 left-0 flex items-center justify-center size-full bg-black/50'>
+            <div className='size-[75%] rounded-full'></div>
+          </div> */}
         </div>
         <div className='flex justify-between w-full xmd:flex-col'>
           <div className='pl-[0.88rem] flex flex-col justify-between xmd:pl-[0.44rem]'>
