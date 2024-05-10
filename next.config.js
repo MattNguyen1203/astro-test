@@ -21,24 +21,24 @@ const nextConfig = {
   // },
   reactStrictMode: false,
   staticPageGenerationTimeout: 5000,
-  experimental: {
-    // nextScriptWorkers: true,
-    optimizePackageImports: [
-      'sharp',
-      'swiper',
-      'zod',
-      'sonner',
-      'next-auth',
-      'cmdk',
-    ],
-  },
+  // experimental: {
+  //   // nextScriptWorkers: true,
+  //   optimizePackageImports: [
+  //     'sharp',
+  //     'swiper',
+  //     'zod',
+  //     'sonner',
+  //     'next-auth',
+  //     'cmdk',
+  //   ],
+  // },
   devIndicators: {
     buildActivityPosition: 'bottom-left',
   },
-  onDemandEntries: {
-    maxInactiveAge: 600 * 1000,
-    pagesBufferLength: 10,
-  },
+  // onDemandEntries: {
+  //   maxInactiveAge: 600 * 1000,
+  //   pagesBufferLength: 10,
+  // },
 }
 
 // module.exports = withBundleAnalyzer(nextConfig)
