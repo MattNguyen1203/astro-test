@@ -3,6 +3,7 @@ import getData from '@/lib/getData'
 import {getDataProfile} from '@/lib/getDataProfile'
 import ComboDetail from '@/sections/productDetail/ComboDetail'
 import {notFound} from 'next/navigation'
+import {IDGLOBALAPI} from '@/lib/IdPageAPI'
 
 export async function generateStaticParams() {
   const products = await getData('/okhub/v1/product')
@@ -23,6 +24,9 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
   const dataProductVoucherReq = getData(
     `/okhub/v1/coupon/product-detail/${slug}?limit=10`,
   )
+
+  const linkSocials = await getData(`/wp/v2/pages/${IDGLOBALAPI}`)
+
   const bestCouponReq = getData(`/okhub/v1/coupon/product-detail/${slug}/best`)
   const mainDataReq = getData(`/wp/v2/product?slug=${slug}`)
   const FiveProductReq = getData(`/okhub/v1/product/allProduct?limit=5&page=1`)
@@ -84,6 +88,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
   return (
     <main className='bg-elevation-20'>
       <ComboDetail
+        linkSocials={linkSocials?.acf?.link_social}
         wishList={wishList}
         isMobile={isMobile}
         data={newDataProduct}

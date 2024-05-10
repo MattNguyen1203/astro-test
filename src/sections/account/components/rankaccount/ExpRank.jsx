@@ -128,8 +128,6 @@ export default function ExpRank({session, dataRank, isMobile}) {
                     trans *
                     (dataRank[numberRank]?.sort === 0
                       ? 0
-                      : isMobile
-                      ? dataRank[numberRank]?.sort - 1
                       : dataRank[numberRank]?.sort)
                   }rem)`,
                 }}

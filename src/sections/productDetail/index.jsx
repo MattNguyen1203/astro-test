@@ -43,6 +43,7 @@ const ChangeQuantity = dynamic(
 )
 
 const ProductDetail = ({
+  linkSocials,
   isMobile,
   data,
   voucher,
@@ -222,7 +223,7 @@ const ProductDetail = ({
               Ghé thăm gian hàng tại:
             </div>
             <div className='xmd:hidden'>
-              <SocialProduct />
+              <SocialProduct linkSocials={linkSocials} />
             </div>
             {!isMobile && (
               <div className='w-[32.9429rem] mt-[1.46rem] flex flex-col items-start col h-full sticky top-[9rem] xmd:hidden'>
@@ -390,6 +391,7 @@ const ProductDetail = ({
                     )}
                   >
                     <ItemProduct
+                      space
                       data={item}
                       setIsOpen={() => {}}
                       setActiveId={setActiveId}

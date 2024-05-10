@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
 
-export default function CountDown() {
+export default function CountDown({timecountdown}) {
   const [time, setTime] = useState({})
   const [isClientSide, setIsClientSide] = useState(false)
 
@@ -25,7 +25,7 @@ export default function CountDown() {
   // Định dạng thời gian để hiển thị
   // fake thời gian
   // định dạng nhận vào "yyyy-mm-dd hh:mm:ss"
-  const timeNew = '2024-05-04 20:00:00'
+  const timeNew = timecountdown ? timecountdown : '2024-05-20 20:00:00'
   const calculateTimeLeft = () => {
     const difference = +new Date(timeNew.replace(' ', 'T')) - +new Date()
     let time = {}
@@ -77,14 +77,16 @@ export default function CountDown() {
           height={54}
         />
         <span className='text-[2.04978rem] xmd:text-[1.1713rem] leading-[1.2] font-bold bg-[linear-gradient(99deg,#FFF0D8_-58.6%,#E99207_95.15%)] bg-clip-text text-transparent relative z-10'>
-          {time?.days > 0
-            ? time.days * 24 + time.hours
-            : formatTime(time?.hours)}
+          {time?.seconds
+            ? time?.days > 0
+              ? time.days * 24 + time.hours
+              : formatTime(time?.hours)
+            : '0'}
         </span>
       </div>
       <div className='w-[5.12445rem] h-[3.95315rem] xmd:w-[2.63543rem] xmd:h-[2.04525rem] flex justify-center items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] xmd:shadow-[0px_0.447px_8.491px_0px_rgba(255,255,255,0.22)] bg-white'>
         <span className='text-[2.04978rem] xmd:text-[1.1713rem] leading-[1.2] font-bold bg-[linear-gradient(99deg,#FFF0D8_-58.6%,#E99207_95.15%)] bg-clip-text text-transparent'>
-          {formatTime(time?.minutes)}
+          {time?.seconds ? formatTime(time?.minutes) : '0'}
         </span>
       </div>
       <div className='w-[5.12445rem] h-[3.95315rem] xmd:w-[2.63543rem] xmd:h-[2.04525rem] flex justify-center items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] xmd:shadow-[0px_0.447px_8.491px_0px_rgba(255,255,255,0.22)] relative '>
@@ -96,7 +98,7 @@ export default function CountDown() {
           height={54}
         />
         <span className='text-[2.04978rem] xmd:text-[1.1713rem] leading-[1.2] font-bold bg-[linear-gradient(99deg,#FFF0D8_-58.6%,#E99207_95.15%)] bg-clip-text text-transparent relative z-10'>
-          {formatTime(time?.seconds)}
+          {time?.seconds ? formatTime(time?.seconds) : '0'}
         </span>
       </div>
     </div>

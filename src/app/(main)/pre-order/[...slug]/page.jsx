@@ -3,6 +3,7 @@ import getData from '@/lib/getData'
 import {getDataProfile} from '@/lib/getDataProfile'
 import PreOrder from '@/sections/preorderdetail/PreOrder'
 import {notFound} from 'next/navigation'
+import {IDGLOBALAPI} from '@/lib/IdPageAPI'
 
 const page = async ({searchParams, params: {slug}}) => {
   const {viewport} = searchParams
@@ -49,10 +50,11 @@ const page = async ({searchParams, params: {slug}}) => {
     token: session?.accessToken,
   }
   const wishList = session?.accessToken && (await getDataProfile(request))
-
+  const linkSocials = await getData(`/wp/v2/pages/${IDGLOBALAPI}`)
   return (
     <main className='bg-elevation-20'>
       <PreOrder
+        linkSocials={linkSocials?.acf?.link_social}
         isMobile={isMobile}
         data={dataProductDetail}
         voucher={dataProductVoucher}
