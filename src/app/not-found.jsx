@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <div className='w-full h-[100vh] relative'>
       <Image
-        className='size-full xmd:hidden tablet:hidden'
+        className='size-full xmd:hidden tablet:hidden object-cover'
         alt='404'
         src={'/notfound.jpg'}
         width={1600}
@@ -14,7 +14,7 @@ export default function NotFound() {
         draggable='false'
       />
       <Image
-        className='size-full md:hidden'
+        className='size-full md:hidden object-cover'
         alt='404'
         src={'/notfound-res.jpg'}
         width={1600}
@@ -23,7 +23,7 @@ export default function NotFound() {
         draggable='false'
       />
       <Image
-        className='size-full xmd:hidden lg:hidden'
+        className='size-full xmd:hidden lg:hidden object-cover'
         alt='404'
         src={'/notfound-tablet.jpg'}
         width={1600}
@@ -31,7 +31,7 @@ export default function NotFound() {
         quality={100}
         draggable='false'
       />
-      <div className='absolute xmd:w-full xmd:justify-center top-[50%] translate-y-[11rem] tablet:translate-y-[20rem] left-1/2 -translate-x-1/2 flex space-x-[0.59rem]'>
+      <div className='absolute xmd:w-full xmd:justify-center top-[50%] translate-y-[12rem] tablet:translate-y-[21rem] left-1/2 -translate-x-1/2 flex space-x-[0.59rem]'>
         <Link
           href={'/'}
           className='bg-white flex items-center space-x-[0.59rem] rounded-[0.58565rem] h-[3.22108rem] xmd:h-[2.34261rem] tablet:h-[2.92826rem] py-[0.73206rem] px-[1.46413rem] tablet:px-[1.1713rem] xmd:p-[0.73206rem]'

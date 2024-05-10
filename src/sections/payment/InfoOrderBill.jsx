@@ -6,8 +6,14 @@ import Link from 'next/link'
 import {useRouter} from 'next/navigation'
 import {useTransition} from 'react'
 import {toast} from 'sonner'
+import ItemProductPayment from './ItemProductPayment'
 
-export default function InfoOrderBill({detailOrder, isSuccess}) {
+export default function InfoOrderBill({
+  detailOrder,
+  isSuccess,
+  isMobile,
+  dataCartNew,
+}) {
   console.log('🚀 ~ InfoOrderBill ~ detailOrder:', detailOrder)
   const router = useRouter()
 
@@ -52,8 +58,8 @@ export default function InfoOrderBill({detailOrder, isSuccess}) {
   const totalBill = handleTotalBill()
 
   return (
-    <aside className='sticky top-[9.76rem] right-0 w-[36.2rem]'>
-      <div className=' p-[1.46rem] rounded-[0.58565rem] bg-white'>
+    <aside className='md:sticky top-[9.76rem] right-0 w-[36.2rem] xmd:w-full'>
+      <div className='xmd:px-[0.58565rem] p-[1.46rem] rounded-[0.58565rem] bg-white'>
         <div className='flex items-center'>
           <span className='block w-fit mr-[0.59rem] sub2 font-semibold text-greyscale-80'>
             THÔNG TIN MÃ ĐƠN HÀNG:
@@ -62,7 +68,7 @@ export default function InfoOrderBill({detailOrder, isSuccess}) {
             {detailOrder?.id}
           </span>
         </div>
-        <hr className='my-[0.59rem] bg-[#ECECECB2] h-[0.07321rem]' />
+        <hr className='my-[0.59rem] bg-[#ECECECB2] h-[0.07321rem] xmd:my-[0.88rem]' />
         <ul className='space-y-[0.88rem]'>
           <li className='flex'>
             <span className='w-[12.1rem] caption1 font-semibold text-greyscale-80 flex-shrink-0'>
@@ -110,6 +116,29 @@ export default function InfoOrderBill({detailOrder, isSuccess}) {
             </span>
           </li>
         </ul>
+        {isMobile && (
+          <div className='p-[1.46rem] xmd:px-[0.58565rem] rounded-[0.58565rem] bg-white'>
+            <div className='flex items-center justify-between'>
+              <span className='text-[0.87848rem] leading-[1.833] tracking-[0.0022rem] text-greyscale-40'>
+                Danh sách sản phẩm :
+              </span>
+              <span className='font-normal caption1 text-greyscale-30'>
+                {dataCartNew?.length} sản phẩm
+              </span>
+            </div>
+            <hr className='my-[0.59rem] bg-[#1E417C14] h-[0.07321rem] xmd:my-[0.88rem]' />
+            <div className='mt-[0.59rem]'>
+              {dataCartNew?.map((item, index) => (
+                <ItemProductPayment
+                  key={index}
+                  item={item}
+                  length={dataCartNew?.length}
+                  index={index}
+                />
+              ))}
+            </div>
+          </div>
+        )}
         <div
           className={`${
             isSuccess ? 'bg-[#F3F9F0]' : 'bg-brown-50'
@@ -136,7 +165,7 @@ export default function InfoOrderBill({detailOrder, isSuccess}) {
             </span>
           </div>
 
-          <hr className='h-[0.07321rem] bg-[#1E417C29] my-[0.29rem]' />
+          <hr className='h-[0.07321rem] bg-[#1E417C29] my-[0.29rem] xmd:my-[0.88rem]' />
           <div className='flex items-center justify-between'>
             <span className='font-medium caption1 text-greyscale-40'>
               Tổng tiền hàng:
@@ -191,7 +220,7 @@ export default function InfoOrderBill({detailOrder, isSuccess}) {
               </span>
             </div>
           )}
-          <hr className='h-[0.07321rem] bg-[#1E417C29] my-[0.29rem]' />
+          <hr className='h-[0.07321rem] bg-[#1E417C29] my-[0.29rem] xmd:my-[0.88rem]' />
           <div className='flex items-center justify-between'>
             <span className='font-semibold sub2 text-greyscale-50'>
               Tổng thanh toán:
@@ -210,7 +239,7 @@ export default function InfoOrderBill({detailOrder, isSuccess}) {
           QUAY VỀ TRANG CHỦ
         </Link>
       ) : (
-        <div className='space-y-[0.88rem] mt-[0.88rem]'>
+        <div className='space-y-[0.88rem] mt-[0.88rem] xmd:px-[0.88rem]'>
           <div className='font-normal text-greyscale-40 caption1 h-[2.19619rem] rounded-[0.58565rem] bg-white flex items-center justify-center'>
             Đơn hàng sẽ tự động đưa vào mục "Chưa thanh toán" khi bạn rời trang
             này.

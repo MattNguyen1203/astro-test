@@ -436,7 +436,7 @@ const ProductDetail = ({
         </div>
       </div>
 
-      <div className=''>
+      <div className='a'>
         <RelatedProduct relatedProduct={relatedProduct} />
       </div>
     </div>

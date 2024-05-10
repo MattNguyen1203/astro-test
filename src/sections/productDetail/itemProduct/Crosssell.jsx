@@ -113,7 +113,7 @@ const ItemProduct = (props) => {
         {data?.type === 'variable' &&
           data?.variation &&
           data?.variation?.attributes && (
-            <div className='hidden xmd:flex'>
+            <div className='hidden xmd:flex xmd:ml-[2.3rem]'>
               {Object.values(data?.variation?.attributes)?.map(
                 (item, index) => (
                   <div

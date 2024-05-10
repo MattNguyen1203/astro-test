@@ -1,7 +1,5 @@
 'use client'
 
-import {Check, ChevronsUpDown} from 'lucide-react'
-
 import {cn} from '@/lib/utils'
 import {Button} from '@/components/ui/button'
 import {
@@ -56,7 +54,20 @@ export default function page() {
           {value
             ? frameworks.find((framework) => framework.value === value)?.label
             : 'Select framework...'}
-          <ChevronsUpDown className='w-4 h-4 ml-2 opacity-50 shrink-0' />
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth='1.5'
+            stroke='currentColor'
+            className='w-4 h-4 ml-2 opacity-50 shrink-0'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              d='M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9'
+            />
+          </svg>
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-[200px] p-0'>
@@ -73,12 +84,24 @@ export default function page() {
                   setOpen(false)
                 }}
               >
-                <Check
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth='1.5'
+                  stroke='currentColor'
                   className={cn(
                     'mr-2 h-4 w-4',
                     value === framework.value ? 'opacity-100' : 'opacity-0',
                   )}
-                />
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='m4.5 12.75 6 6 9-13.5'
+                  />
+                </svg>
+
                 {framework.label}
               </CommandItem>
             ))}

@@ -33,6 +33,7 @@ import {
 import {handlePriceTotalOrder} from '@/lib/utils'
 import {bestCouponOrder} from '@/actions/bestCouponOrder'
 import CheckDefault from '@/components/sheetcategories/CheckDefault'
+import VoucherSlide from '../home/components/flashvoucher/slidevoucher'
 
 const formSchema = z.object({
   name: z.string(),
@@ -63,6 +64,8 @@ export default function PaymentIndex({
   dataCartsDefault,
   detailOrder,
   id,
+  isMobile,
+  coupons,
 }) {
   console.log('🚀 ~ detailOrder:', detailOrder)
 
@@ -501,120 +504,123 @@ export default function PaymentIndex({
   }
 
   return (
-    <section className='container xmd:w-full relative flex xmd:flex-col justify-between pb-[7.17rem] bg-white'>
-      <article className='w-[50.88rem] xmd:w-full h-fit sticky top-[9.76rem] left-0 space-y-[0.88rem]'>
-        <h5 className='mt-[1.17rem] pl-[0.88rem] sub2 font-medium text-greyscale-80 lg:hidden'>
-          THÔNG TIN KHÁCH MUA HÀNG:
-        </h5>
-        <div className='bg-white rounded-[0.58565rem] p-[1.76rem] xmd:p-[0.88rem]'>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className='space-y-[0.88rem]'
-            >
-              <div className='w-full flex md:flex-col md:space-y-[0.88rem] xmd:space-x-[0.59rem]'>
+    <>
+      <section className='container xmd:w-full relative flex xmd:flex-col justify-between pb-[1.17rem] bg-white xmd:pb-0'>
+        <article className='w-[50.88rem] xmd:w-full h-fit md:sticky top-[9.76rem] left-0 space-y-[0.88rem]'>
+          <h5 className='mt-[1.17rem] pl-[0.88rem] sub2 font-medium text-greyscale-80 lg:hidden'>
+            THÔNG TIN KHÁCH MUA HÀNG:
+          </h5>
+          <div className='bg-white rounded-[0.58565rem] p-[1.76rem] xmd:p-[0.88rem]'>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className='space-y-[0.88rem]'
+              >
+                <div className='w-full flex md:flex-col md:space-y-[0.88rem] xmd:space-x-[0.59rem]'>
+                  <FormField
+                    className='flex-1'
+                    control={form.control}
+                    name='name'
+                    render={({field}) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
+                            placeholder='Họ và tên *'
+                            {...field}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    className='flex-1'
+                    name='phone'
+                    render={({field}) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
+                            placeholder='Số điện thoại *'
+                            {...field}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
                 <FormField
-                  className='flex-1'
                   control={form.control}
-                  name='name'
-                  render={({field}) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
-                          placeholder='Họ và tên *'
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  className='flex-1'
-                  name='phone'
+                  name='email'
                   render={({field}) => (
                     <FormItem>
                       <FormControl>
                         <Input
                           className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
-                          placeholder='Số điện thoại *'
+                          placeholder='Email *'
                           {...field}
                         />
                       </FormControl>
                     </FormItem>
                   )}
                 />
-              </div>
-
-              <FormField
-                control={form.control}
-                name='email'
-                render={({field}) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
-                        placeholder='Email *'
-                        {...field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <div className='flex xmd:flex-col xmd:space-y-[0.88rem] md:space-x-[0.88rem]'>
-                <PopupProvince
-                  province={province}
-                  valueProvince={valueProvince}
-                  setValueProvince={setValueProvince}
-                  setIdProvince={setIdProvince}
-                />
-                <PopupDistrict
-                  district={district?.filter(
-                    (e) => e?.idProvince === idProvince,
+                <div className='flex xmd:flex-col xmd:space-y-[0.88rem] md:space-x-[0.88rem]'>
+                  <PopupProvince
+                    province={province}
+                    valueProvince={valueProvince}
+                    setValueProvince={setValueProvince}
+                    setIdProvince={setIdProvince}
+                  />
+                  <PopupDistrict
+                    district={district?.filter(
+                      (e) => e?.idProvince === idProvince,
+                    )}
+                    valueDistrict={valueDistrict}
+                    setValueDistrict={setValueDistrict}
+                    setIdDistrict={setIdDistrict}
+                    idProvince={idProvince}
+                  />
+                  <PopupCommune
+                    commune={commune?.filter(
+                      (e) => e?.idDistrict === idDistrict,
+                    )}
+                    valueCommune={valueCommune}
+                    setValueCommune={setValueCommune}
+                    idDistrict={idDistrict}
+                  />
+                </div>
+                <FormField
+                  control={form.control}
+                  name='street'
+                  render={({field}) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
+                          placeholder='Số nhà, tên đường *'
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
                   )}
-                  valueDistrict={valueDistrict}
-                  setValueDistrict={setValueDistrict}
-                  setIdDistrict={setIdDistrict}
-                  idProvince={idProvince}
                 />
-                <PopupCommune
-                  commune={commune?.filter((e) => e?.idDistrict === idDistrict)}
-                  valueCommune={valueCommune}
-                  setValueCommune={setValueCommune}
-                  idDistrict={idDistrict}
+                <FormField
+                  control={form.control}
+                  name='note'
+                  render={({field}) => (
+                    <FormItem>
+                      <FormControl>
+                        <Textarea
+                          placeholder='Ghi chú cho giao hàng (tùy chọn)'
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
                 />
-              </div>
-              <FormField
-                control={form.control}
-                name='street'
-                render={({field}) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
-                        placeholder='Số nhà, tên đường *'
-                        {...field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name='note'
-                render={({field}) => (
-                  <FormItem>
-                    <FormControl>
-                      <Textarea
-                        placeholder='Ghi chú cho giao hàng (tùy chọn)'
-                        {...field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              {/* <FormField
+                {/* <FormField
                 control={form.control}
                 name='password'
                 render={({field}) => (
@@ -629,19 +635,19 @@ export default function PaymentIndex({
                   </FormItem>
                 )}
               /> */}
-            </form>
-          </Form>
-        </div>
-        <div className='bg-white rounded-[0.58565rem] p-[1.76rem] space-y-[1.17rem]'>
-          <h3 className='font-medium sub2 text-greyscale-80'>
-            VOUCHER CỦA BẠN
-          </h3>
-          <div className='flex items-center'>
-            <CheckDefault
-              isCheck={isFreeShipDefault}
-              setIsCheck={setIsFreeShipDefault}
-            />
-            {/* <div className='size-[1.75695rem] relative overflow-hidden cursor-pointer '>
+              </form>
+            </Form>
+          </div>
+          <div className='bg-white rounded-[0.58565rem] p-[1.76rem] space-y-[1.17rem] xmd:px-[0.88rem]'>
+            <h3 className='font-medium sub2 text-greyscale-80'>
+              VOUCHER CỦA BẠN
+            </h3>
+            <div className='flex items-center'>
+              <CheckDefault
+                isCheck={isFreeShipDefault}
+                setIsCheck={setIsFreeShipDefault}
+              />
+              {/* <div className='size-[1.75695rem] relative overflow-hidden cursor-pointer '>
               <ICBoxCheck className='size-full' />
               <div className='absolute top-0 left-0 flex items-center justify-center bg-blue-700 size-full rounded-[0.25rem]'>
                 <ICCheck className='w-[0.8rem] h-auto' />
@@ -652,123 +658,131 @@ export default function PaymentIndex({
                 className='opacity-0 pointer-events-none size-0'
               />
             </div> */}
-            <p className='font-normal text-greyscale-40 ml-[0.59rem]'>
-              Áp dụng{' '}
-              <span className='font-semibold'>Voucher miễn phí vận chuyển</span>{' '}
-              cho đơn hàng trên 300k
-            </p>
+              <p className='font-normal text-greyscale-40 ml-[0.59rem] xmd:flex-1'>
+                Áp dụng{' '}
+                <span className='font-semibold'>
+                  Voucher miễn phí vận chuyển
+                </span>{' '}
+                cho đơn hàng trên 300k
+              </p>
+            </div>
+            <div className='flex items-center'>
+              <CheckDefault
+                isCheck={isCouponBest}
+                setIsCheck={setIsCouponBest}
+              />
+              <p className='font-normal text-greyscale-40 ml-[0.59rem] xmd:flex-1'>
+                Tự động áp dụng Voucher có giá trị cao nhất
+              </p>
+            </div>
+            <div>
+              <span className='inline-block mb-[0.59rem]'>
+                Hoặc nhập mã Voucher
+              </span>
+              <FormUseVoucher
+                setCouponSearch={setCouponSearch}
+                setIsCouponBest={setIsCouponBest}
+                isCouponBest={isCouponBest}
+                isAuth={isAuth}
+                carts={carts}
+              />
+            </div>
           </div>
-          <div className='flex items-center'>
-            <CheckDefault
-              isCheck={isCouponBest}
-              setIsCheck={setIsCouponBest}
-            />
-            <p className='font-normal text-greyscale-40 ml-[0.59rem]'>
-              Tự động áp dụng Voucher có giá trị cao nhất
-            </p>
-          </div>
-          <div>
-            <span className='inline-block mb-[0.59rem]'>
-              Hoặc nhập mã Voucher
-            </span>
-            <FormUseVoucher
-              setCouponSearch={setCouponSearch}
-              setIsCouponBest={setIsCouponBest}
-              isCouponBest={isCouponBest}
-              isAuth={isAuth}
-              carts={carts}
-            />
-          </div>
-        </div>
-        <div className='bg-white rounded-[0.58565rem] p-[1.76rem]'>
-          <h3 className='font-medium sub2 text-greyscale-80'>
-            HÌNH THỨC THANH TOÁN:
-          </h3>
+          <div className='bg-white rounded-[0.58565rem] p-[1.76rem] xmd:px-[0.88rem]'>
+            <h3 className='font-medium sub2 text-greyscale-80'>
+              HÌNH THỨC THANH TOÁN:
+            </h3>
 
-          <RadioGroup
-            defaultValue={payment}
-            onValueChange={(value) => setPayment(value)}
-            className='grid grid-cols-2 gap-[0.59rem] mt-[1.17rem]'
-          >
-            {propertyPayment?.map((e, index) => (
-              <Label
-                key={index}
-                htmlFor={e?.id}
-                className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer select-none'
-              >
-                <RadioGroupItem
-                  className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
-                  value={e?.value}
-                  id={e?.id}
-                />
-                <Image
-                  className='w-[1.46413rem] h-auto object-contain block ml-[0.88rem] mr-[0.44rem]'
-                  src={e?.icon}
-                  alt={e?.title}
-                  width={24}
-                  height={24}
-                />
-                <span className='font-medium caption1 text-greyscale-40'>
-                  {e?.title}
-                </span>
-              </Label>
-            ))}
-          </RadioGroup>
-        </div>
-        <div className='bg-white rounded-[0.58565rem] p-[1.76rem]'>
-          <h3 className='font-medium sub2 text-greyscale-80'>
-            PHƯƠNG THỨC VẬN CHUYỂN:
-          </h3>
-          <RadioGroup
-            defaultValue={ship}
-            onValueChange={(value) => {
-              setShip(value)
-            }}
-            className='grid grid-cols-2 gap-[0.59rem] mt-[1.17rem]'
-          >
-            {propertyShip?.map((e, index) => (
-              <Label
-                key={index}
-                htmlFor={e?.value}
-                className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer select-none'
-              >
-                <RadioGroupItem
-                  className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
-                  value={e?.value}
-                  id={e?.value}
-                />
-                <Image
-                  className='w-[1.46413rem] h-auto object-contain block ml-[0.88rem] mr-[0.44rem]'
-                  src={e?.icon}
-                  alt={e?.title}
-                  width={24}
-                  height={24}
-                />
-                <span className='font-medium caption1 text-greyscale-40'>
-                  {e?.title}
-                </span>
-              </Label>
-            ))}
-          </RadioGroup>
-          <div className='rounded-[0.58565rem] bg-elevation-20 p-[0.88rem] mt-[1.17rem]'>
-            {ship === 'out' ? <ShipTC /> : <ShipHT />}
+            <RadioGroup
+              defaultValue={payment}
+              onValueChange={(value) => setPayment(value)}
+              className='grid grid-cols-2 gap-[0.59rem] mt-[1.17rem] xmd:grid-cols-1'
+            >
+              {propertyPayment?.map((e, index) => (
+                <Label
+                  key={index}
+                  htmlFor={e?.id}
+                  className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer select-none'
+                >
+                  <RadioGroupItem
+                    className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
+                    value={e?.value}
+                    id={e?.id}
+                  />
+                  <Image
+                    className='w-[1.46413rem] h-auto object-contain block ml-[0.88rem] mr-[0.44rem]'
+                    src={e?.icon}
+                    alt={e?.title}
+                    width={24}
+                    height={24}
+                  />
+                  <span className='font-medium caption1 text-greyscale-40'>
+                    {e?.title}
+                  </span>
+                </Label>
+              ))}
+            </RadioGroup>
           </div>
+          <div className='bg-white rounded-[0.58565rem] p-[1.76rem] xmd:px-[0.88rem]'>
+            <h3 className='font-medium sub2 text-greyscale-80'>
+              PHƯƠNG THỨC VẬN CHUYỂN:
+            </h3>
+            <RadioGroup
+              defaultValue={ship}
+              onValueChange={(value) => {
+                setShip(value)
+              }}
+              className='grid grid-cols-2 gap-[0.59rem] mt-[1.17rem] xmd:grid-cols-1'
+            >
+              {propertyShip?.map((e, index) => (
+                <Label
+                  key={index}
+                  htmlFor={e?.value}
+                  className='flex items-center px-[0.88rem] py-[0.73rem] border border-solid border-white shadow-[0px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] bg-white rounded-[0.58565rem] cursor-pointer select-none'
+                >
+                  <RadioGroupItem
+                    className='size-[1.46413rem] rounded-full border-[2px] border-solid border-[#ECECEC]'
+                    value={e?.value}
+                    id={e?.value}
+                  />
+                  <Image
+                    className='w-[1.46413rem] h-auto object-contain block ml-[0.88rem] mr-[0.44rem]'
+                    src={e?.icon}
+                    alt={e?.title}
+                    width={24}
+                    height={24}
+                  />
+                  <span className='font-medium caption1 text-greyscale-40'>
+                    {e?.title}
+                  </span>
+                </Label>
+              ))}
+            </RadioGroup>
+            <div className='rounded-[0.58565rem] bg-elevation-20 p-[0.88rem] mt-[1.17rem]'>
+              {ship === 'out' ? <ShipTC /> : <ShipHT />}
+            </div>
+          </div>
+        </article>
+        <InfoOrder
+          carts={carts}
+          onSubmit={onSubmit}
+          shipValue={ship}
+          ship={propertyShip?.find((e) => e?.value === ship)?.label}
+          payment={propertyPayment?.find((e) => e?.value === payment)?.label}
+          isCOD={payment === 'cod'}
+          isPending={isPending}
+          coupon={isCouponBest ? coupon : couponSearch}
+          isCouponBest={isCouponBest || couponSearch}
+          isFreeShipDefault={isFreeShipDefault}
+          handleAddCoupon={handleAddCoupon}
+          id={id}
+        />
+      </section>
+      {!isMobile && (
+        <div className='my-[2.34rem]'>
+          <VoucherSlide data={coupons?.coupon_list} />
         </div>
-      </article>
-      <InfoOrder
-        carts={carts}
-        onSubmit={onSubmit}
-        shipValue={ship}
-        ship={propertyShip?.find((e) => e?.value === ship)?.label}
-        payment={propertyPayment?.find((e) => e?.value === payment)?.label}
-        isCOD={payment === 'cod'}
-        isPending={isPending}
-        coupon={isCouponBest ? coupon : couponSearch}
-        isCouponBest={isCouponBest || couponSearch}
-        isFreeShipDefault={isFreeShipDefault}
-        handleAddCoupon={handleAddCoupon}
-        id={id}
-      />
-    </section>
+      )}
+    </>
   )
 }

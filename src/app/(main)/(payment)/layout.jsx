@@ -1,9 +1,8 @@
 import BreadCrumb from '@/components/breadcrumb'
-import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
 import StepPayment from '@/sections/payment/StepPayment'
 import {headers} from 'next/headers'
 import Image from 'next/image'
-import Link from 'next/link'
+import Back from './components/Back'
 
 export default function PaymentLayout({children}) {
   const headersList = headers()
@@ -30,16 +29,7 @@ export default function PaymentLayout({children}) {
           />
         </div>
       ) : (
-        <div className='lg:hidden my-[0.88rem] ml-[0.66rem]'>
-          <Link
-            href={'/'}
-            className='flex items-center pl-[0.59rem] h-[2.93rem] relative'
-          >
-            <ICArrowRightBlack className='rotate-180 size-[1.75rem] mr-[0.59rem]' />
-            <span className='font-medium h5 text-greyscale-50'>Thanh Toán</span>
-          </Link>
-          <hr className='h-[0.06rem] w-full mt-[0.5rem] mb-[1.25rem] bg-[#ECECEC]' />
-        </div>
+        <Back />
       )}
       {!isMobile ? (
         <StepPayment />
