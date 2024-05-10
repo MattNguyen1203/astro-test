@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 export default async function Error500() {
   return (
     <div className='w-full h-[100vh] relative'>

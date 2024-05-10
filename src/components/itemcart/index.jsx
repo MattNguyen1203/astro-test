@@ -227,8 +227,12 @@ export default function ItemCart({
             width={82}
             height={82}
           />
-          {/* <div className='absolute top-0 left-0 flex items-center justify-center size-full bg-black/50'>
-            <div className='size-[75%] rounded-full'></div>
+          {/* <div className='absolute top-0 left-0 flex items-center justify-center size-full bg-black/20'>
+            <div className='size-[75%] rounded-full bg-white flex justify-center items-center'>
+              <span className='font-semibold text-black text-[0.75rem] leading-[1.2]'>
+                Hết hàng
+              </span>
+            </div>
           </div> */}
         </div>
         <div className='flex justify-between w-full xmd:flex-col'>
