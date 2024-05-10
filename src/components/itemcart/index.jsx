@@ -31,8 +31,6 @@ export default function ItemCart({
   item,
   session,
 }) {
-  console.log('🚀 ~ item:', item)
-
   const isAuth = session?.status === 'authenticated'
   const setActionCart = useStore((state) => state.setActionCart)
   const actionCart = useStore((state) => state.actionCart)
@@ -201,15 +199,21 @@ export default function ItemCart({
 
   if (isLoading) return <SkeletonItemCart />
 
+  const isZero = Number(item?.stock_quantity) < 1
+
   return (
     <>
       <article className='rounded-[0.58565rem] bg-white shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)] py-[0.73rem] pl-[0.59rem] pr-[1.17rem] flex xmd:px-[0.73rem] xmd:py-[0.59rem] xmd:shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] md:min-h-[7rem]'>
         <div className='flex flex-col items-center justify-center md:px-[0.59rem] xmd:mr-[0.44rem]'>
-          <BoxCheck
-            setCart={setCart}
-            cart={cart}
-            index={index}
-          />
+          {isZero ? (
+            <div className='size-[1.75695rem]'></div>
+          ) : (
+            <BoxCheck
+              setCart={setCart}
+              cart={cart}
+              index={index}
+            />
+          )}
         </div>
         <div className='w-[6.44217rem] xmd:w-[6.00293rem] bg-white rounded-[0.48023rem] overflow-hidden flex-shrink-0 xmd:border xmd:border-solid xmd:border-[#F6F6F6] relative'>
           <Image
@@ -227,13 +231,15 @@ export default function ItemCart({
             width={82}
             height={82}
           />
-          {/* <div className='absolute top-0 left-0 flex items-center justify-center size-full bg-black/20'>
-            <div className='size-[75%] rounded-full bg-white flex justify-center items-center'>
-              <span className='font-semibold text-black text-[0.75rem] leading-[1.2]'>
-                Hết hàng
-              </span>
+          {isZero && (
+            <div className='absolute top-0 left-0 flex items-center justify-center size-full bg-black/20'>
+              <div className='size-[75%] rounded-full bg-white flex justify-center items-center'>
+                <span className='font-semibold text-black text-[0.75rem] leading-[1.2]'>
+                  Hết hàng
+                </span>
+              </div>
             </div>
-          </div> */}
+          )}
         </div>
         <div className='flex justify-between w-full xmd:flex-col'>
           <div className='pl-[0.88rem] flex flex-col justify-between xmd:pl-[0.44rem]'>

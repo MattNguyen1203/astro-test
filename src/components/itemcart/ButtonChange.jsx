@@ -5,14 +5,11 @@ import {useEffect, useState} from 'react'
 import {toast} from 'sonner'
 
 export default function ButtonChange({handleQuantity, initQuantity, stockQty}) {
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState(initQuantity)
   const [action, setAction] = useState(false)
 
   const debounceQuantity = useDebounce(quantity, 300)
 
-  useEffect(() => {
-    setQuantity(initQuantity)
-  }, [initQuantity])
   const handleDecre = () => {
     if (quantity === 1) {
       return toast.info('Số lượng sản phẩm đã giảm đến mức tối thiểu!', {
@@ -25,14 +22,14 @@ export default function ButtonChange({handleQuantity, initQuantity, stockQty}) {
   }
 
   const handleIncre = () => {
-    if (stockQty === quantity || !stockQty) {
-      toast.info('Số lượng tồn kho không đủ!', {
+    if (quantity > stockQty || !stockQty) {
+      return toast.info('Số lượng tồn kho không đủ!', {
         position: 'top-center',
       })
-      return
+    } else {
+      setQuantity((prev) => prev + 1)
+      setAction(true)
     }
-    setQuantity((prev) => prev + 1)
-    setAction(true)
   }
 
   useEffect(() => {
