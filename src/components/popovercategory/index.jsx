@@ -2,12 +2,10 @@
 import useStore from '@/app/(store)/store'
 import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover'
 import Image from 'next/image'
-import {useParams, useRouter, useSearchParams} from 'next/navigation'
+import {useParams} from 'next/navigation'
 import {useState} from 'react'
 
 export function PopoverCategory({children, category}) {
-  const router = useRouter()
-  const searchParams = useSearchParams()
   const params = useParams()
   const [isOpen, setIsOpen] = useState(false)
   const setUrlFilter = useStore((state) => state.setUrlFilter)

@@ -3,6 +3,7 @@ import './style.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import TitleAuth from '../title'
+import {Suspense} from 'react'
 
 export default function NavAuth({children}) {
   return (
@@ -23,7 +24,9 @@ export default function NavAuth({children}) {
             />
           </Link>
           <div className='h-[1.53734rem] w-[0.07321rem] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] mx-[1.76rem] xmd:hidden'></div>
-          <TitleAuth />
+          <Suspense>
+            <TitleAuth />
+          </Suspense>
         </nav>
       </header>
       <main className='mt-[4.5388rem] h-[44.3631rem] relative xmd:h-[calc(100vh-5.1rem)]'>

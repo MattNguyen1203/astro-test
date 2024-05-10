@@ -1,5 +1,6 @@
 import ResetPassIndex from '@/sections/resetpass'
 import Image from 'next/image'
+import {Suspense} from 'react'
 
 export default function ResetPage({searchParams}) {
   const {viewport} = searchParams
@@ -43,7 +44,9 @@ export default function ResetPage({searchParams}) {
         <p className='mt-[0.59rem] text-greyscale-50/50 caption1 font-normal'>
           Vui lòng nhập mật khẩu mới và xác nhận.
         </p>
-        <ResetPassIndex />
+        <Suspense>
+          <ResetPassIndex />
+        </Suspense>
       </div>
     </>
   )

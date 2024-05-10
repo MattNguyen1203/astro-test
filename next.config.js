@@ -12,8 +12,8 @@ const nextConfig = {
     formats: ['image/webp'],
     minimumCacheTTL: 3600,
     dangerouslyAllowSVG: true,
-    // contentDispositionType: 'attachment',
-    // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [{protocol: 'https', hostname: '**'}],
   },
   // experimental: {
@@ -26,6 +26,10 @@ const nextConfig = {
   //   scrollRestoration: true,
   // },
   reactStrictMode: false,
+  staticPageGenerationTimeout: 5000,
+  // experimental: {
+  //   nextScriptWorkers: true,
+  // },
 }
 
 // module.exports = withBundleAnalyzer(nextConfig)

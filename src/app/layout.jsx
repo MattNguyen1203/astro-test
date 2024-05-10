@@ -3,9 +3,6 @@ import './globals.css'
 import localFont from 'next/font/local'
 import Footer from '@/layout/footer'
 import {Work_Sans} from 'next/font/google'
-import {headers} from 'next/headers'
-import {SessionProvider} from 'next-auth/react'
-import {auth} from '@/auth'
 import Contact from '@/layout/contact'
 
 export const metadata = {
@@ -70,13 +67,6 @@ export const viewport = {
 }
 
 export default async function RootLayout({children}) {
-  const session = await auth()
-  const headersList = headers()
-  const userAgent = headersList.get('user-agent')
-  const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|ZaloTheme|FB_IAB|Opera Mini/i.test(
-      userAgent,
-    )
   return (
     <html lang='en'>
       <head>
@@ -89,8 +79,8 @@ export default async function RootLayout({children}) {
         suppressHydrationWarning={true}
         className={`${svnGraphik.className} ${svnGraphik.variable} ${workSans.variable}`}
       >
-        <SessionProvider session={session}>{children}</SessionProvider>
-        <Footer isMobile={isMobile} />
+        {children}
+        <Footer />
         <Contact />
       </body>
     </html>

@@ -1,8 +1,9 @@
 import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
 import {TabsBill} from '@/components/tabsbill'
-import { auth } from '@/auth'
-import { getDataAuth } from '@/lib/getDataAuth'
+import {auth} from '@/auth'
+import {getDataAuth} from '@/lib/getDataAuth'
 import Link from 'next/link'
+import {Suspense} from 'react'
 
 export default async function BillPage({searchParams}) {
   const {viewport} = searchParams
@@ -29,7 +30,13 @@ export default async function BillPage({searchParams}) {
           <hr className='h-[0.06rem] w-full mt-[0.5rem] mb-[1.25rem] bg-[#ECECEC]' />
         </>
       )}
-      <TabsBill isMobile={isMobile} session={session} searchParams={searchParams}/>
+      <Suspense>
+        <TabsBill
+          isMobile={isMobile}
+          session={session}
+          searchParams={searchParams}
+        />
+      </Suspense>
     </>
   )
 }
