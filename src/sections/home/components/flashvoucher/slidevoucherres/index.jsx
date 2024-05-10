@@ -15,7 +15,7 @@ export default function VoucherSlideRes({data = [], className = ''}) {
           .map((_, index) => (
             <div
               key={index}
-              className='flex flex-nowrap'
+              className='flex flex-nowrap '
             >
               {data
                 .slice(

@@ -501,47 +501,52 @@ export default function PaymentIndex({
   }
 
   return (
-    <section className='container xmd:w-full relative flex justify-between pb-[7.17rem] bg-white'>
+    <section className='container xmd:w-full relative flex xmd:flex-col justify-between pb-[7.17rem] bg-white'>
       <article className='w-[50.88rem] xmd:w-full h-fit sticky top-[9.76rem] left-0 space-y-[0.88rem]'>
-        <h5 className='mt-[1.17rem] sub2 font-medium text-greyscale-80 lg:hidden'>
+        <h5 className='mt-[1.17rem] pl-[0.88rem] sub2 font-medium text-greyscale-80 lg:hidden'>
           THÔNG TIN KHÁCH MUA HÀNG:
         </h5>
-        <div className='bg-white rounded-[0.58565rem] p-[1.76rem]'>
+        <div className='bg-white rounded-[0.58565rem] p-[1.76rem] xmd:p-[0.88rem]'>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               className='space-y-[0.88rem]'
             >
-              <FormField
-                control={form.control}
-                name='name'
-                render={({field}) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
-                        placeholder='Họ và tên *'
-                        {...field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name='phone'
-                render={({field}) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
-                        placeholder='Số điện thoại *'
-                        {...field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
+              <div className='w-full flex md:flex-col md:space-y-[0.88rem] xmd:space-x-[0.59rem]'>
+                <FormField
+                  className='flex-1'
+                  control={form.control}
+                  name='name'
+                  render={({field}) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
+                          placeholder='Họ và tên *'
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  className='flex-1'
+                  name='phone'
+                  render={({field}) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          className='placeholder:text-[0.87848rem] placeholder:font-medium placeholder:opacity-60 placeholder:leading-[1.2] placeholder:tracking-[0.00439rem] placeholder:text-greyscale-40 font-svnGraphik'
+                          placeholder='Số điện thoại *'
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
+
               <FormField
                 control={form.control}
                 name='email'
@@ -557,7 +562,7 @@ export default function PaymentIndex({
                   </FormItem>
                 )}
               />
-              <div className='flex space-x-[0.88rem]'>
+              <div className='flex xmd:flex-col xmd:space-y-[0.88rem] md:space-x-[0.88rem]'>
                 <PopupProvince
                   province={province}
                   valueProvince={valueProvince}

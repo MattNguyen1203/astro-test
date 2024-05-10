@@ -7,7 +7,7 @@ const infos = [
   },
   {
     title: 'Liên hệ hợp tác',
-    href: '',
+    href: '/lien-he',
   },
   {
     title: 'Sitemap',

@@ -30,8 +30,7 @@ export default function PaymentLayout({children}) {
           />
         </div>
       ) : (
-        {
-          /* <div className='lg:hidden my-[0.88rem] ml-[0.66rem]'>
+        <div className='lg:hidden my-[0.88rem] ml-[0.66rem]'>
           <Link
             href={'/'}
             className='flex items-center pl-[0.59rem] h-[2.93rem] relative'
@@ -40,14 +39,12 @@ export default function PaymentLayout({children}) {
             <span className='font-medium h5 text-greyscale-50'>Thanh Toán</span>
           </Link>
           <hr className='h-[0.06rem] w-full mt-[0.5rem] mb-[1.25rem] bg-[#ECECEC]' />
-        </div> */
-        }
+        </div>
       )}
       {!isMobile ? (
         <StepPayment />
       ) : (
-        {
-          /* <div className='container rounded-[0.58565rem] bg-[#F9F4F0] mt-[1.17rem] flex justify-center items-center h-[5.7101rem] px-[1.46rem] mb-[1.46rem]'>
+        <div className='container rounded-[0.58565rem] bg-[#F9F4F0] mt-[1.17rem] flex justify-center items-center h-[5.7101rem] px-[1.46rem] mb-[1.46rem]'>
           <div className='flex justify-center items-center flex-col'>
             <div
               className={`bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] size-[2.34261rem] rounded-full flex justify-center items-center`}
@@ -64,8 +61,7 @@ export default function PaymentLayout({children}) {
               Thông tin đặt hàng
             </span>
           </div>
-        </div> */
-        }
+        </div>
       )}
       {children}
     </main>
