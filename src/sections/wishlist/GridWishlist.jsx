@@ -44,7 +44,7 @@ export default function GridWishlist({wishList, isMobile, session}) {
   const colsWishlist = Math.ceil(dataWishList?.length / 4)
   return (
     <>
-      <div className='w-full rounded-[0.58565rem] bg-white p-[1.17rem] xmd:bg-transparent xmd:p-0'>
+      <div className='xmd:px-[0.59rem] w-full rounded-[0.58565rem] bg-white p-[1.17rem] xmd:bg-transparent xmd:p-0'>
         {!isMobile && (
           <>
             <span className='font-medium sub2 text-greyscale-80 inline-block mr-[0.44rem]'>

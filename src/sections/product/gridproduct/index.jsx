@@ -33,7 +33,7 @@ export default function GridProduct({
       } grid gap-y-[1.17rem] gap-x-[0.88rem] xmd:gap-[0.59rem] xmd:container`}
     >
       {isLoading ? (
-        Array(16)
+        Array(50)
           .fill(0)
           .map((_, index) => <SkeletonCardProduct key={index} />)
       ) : (
