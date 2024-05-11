@@ -7,6 +7,7 @@ import NavUp from './components/navUp'
 import WrapNav from './components/wrapnav'
 import getData from '@/lib/getData'
 import {IDGLOBALAPI} from '@/lib/IdPageAPI'
+import LoadingNavbar from './components/loadingbar'
 
 export default async function Nav({isMobile, referer}) {
   const [session, categories, categoryOptions, global] = await Promise.all([
@@ -37,10 +38,7 @@ export default async function Nav({isMobile, referer}) {
             id='nav_down'
             className='my-[0.8rem]'
           >
-            <NavDown
-              categories={categories}
-              categoryOptions={categoryOptions}
-            />
+            <NavDown categoryOptions={categoryOptions} />
           </div>
         )}
       </WrapNav>
