@@ -12,7 +12,7 @@ export const handleCart = async (
   type,
 ) => {
   const isAuth = session?.status === 'authenticated'
-  // const isAuth = true
+
   if (!listProduct) return
 
   //handle request to Add item with token
@@ -26,10 +26,20 @@ export const handleCart = async (
         listProduct.map(async (product) => {
           const reqBody = createRequestBody(product)
 
-          return await postData('/okhub/v1/cart', JSON.stringify(reqBody), {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${session?.accessToken}`,
-          })
+          const data = await postData(
+            '/okhub/v1/cart',
+            JSON.stringify(reqBody),
+            {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${session?.accessToken}`,
+            },
+          )
+
+          return data
+          // return await postData('/okhub/v1/cart', JSON.stringify(reqBody), {
+          //   'Content-Type': 'application/json',
+          //   Authorization: `Bearer ${session?.accessToken}`,
+          // })
         }),
       )
 
@@ -105,7 +115,7 @@ export const handleCart = async (
 
   // handle message when request success or fail
   const processAuthResults = (result) => {
-    if (result.every((item) => !!item?.cart_item)) {
+    if (result?.every((item) => !!item?.cart_item)) {
       toast.success('Đã thêm sản phẩm vào giỏ hàng', {
         duration: 3000,
         position: 'top-center',

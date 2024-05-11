@@ -39,7 +39,7 @@ export default function RackAccount({session, dataRank, isMobile}) {
   }, [])
 
   useEffect(() => {
-    switch (session.memberlevel) {
+    switch (session?.memberlevel) {
       case '0':
         setLinkRank('/account/cup-start.svg')
         break
@@ -56,15 +56,15 @@ export default function RackAccount({session, dataRank, isMobile}) {
         setLinkRank('/account/cup-start.svg')
     }
 
-    if (session) {
-      const dateObject = new Date(session.userRegistered)
+    if (session && dataRank?.length) {
+      const dateObject = new Date(session?.userRegistered)
       const day = String(dateObject.getDate()).padStart(2, '0')
       const month = String(dateObject.getMonth() + 1).padStart(2, '0')
       const year = dateObject.getFullYear()
       setNewFormat(`${day}/${month}/${year}`)
     }
     for (let i = Object.keys(dataRank).length - 1; i >= 0; i--) {
-      if (parseInt(session.memberlevel) >= parseInt(dataRank[i].sort)) {
+      if (parseInt(session?.memberlevel) >= parseInt(dataRank[i].sort)) {
         setRank(dataRank[i].ten)
         break
       }
@@ -120,7 +120,7 @@ export default function RackAccount({session, dataRank, isMobile}) {
                 Đã chi tiêu
               </p>
               <span className='font-normal body2 text-greyscale-40'>
-                {parseInt(session.memberTotalCharge).toLocaleString('vi-VN')}đ
+                {parseInt(session?.memberTotalCharge).toLocaleString('vi-VN')}đ
               </span>
             </div>
           </div>
