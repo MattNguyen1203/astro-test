@@ -61,7 +61,7 @@ const ProductBuyed = ({session, isMobile, products}) => {
         </>
       )}
       <section
-        className='w-full rounded-[0.58565rem] bg-white p-[1.17rem] xmd:bg-transparent xmd:p-0'
+        className='xmd:px-[0.59rem] w-full rounded-[0.58565rem] bg-white p-[1.17rem] xmd:bg-transparent xmd:p-0'
         ref={productRef}
       >
         {!isMobile && (

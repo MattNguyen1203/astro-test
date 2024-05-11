@@ -89,9 +89,9 @@ export default function CardBill({data, status, isMobile}) {
         />
       ))}
       <hr className='bg-[#ECECECB2] h-[0.07rem] w-full my-[0.88rem] block' />
-      <div className='flex justify-end w-full xmd:flex xmd:items-center xmd:justify-between'>
+      <div className='flex justify-end w-full xmd:flex xmd:items-center'>
         {!isDone && !isPending && isMobile && (
-          <div className='flex items-center'>
+          <div className='flex items-center xmd:w-full'>
             <Image
               className='size-[1.1713rem] object-contain'
               src={'/account/car.svg'}

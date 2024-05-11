@@ -192,10 +192,10 @@ export default function ChangePassWord({profile, session}) {
             </div>
           </div>
           {isEdit ? (
-            <div className='flex items-center justify-end !mt-[0.88rem]'>
+            <div className='flex items-center justify-end xmd:justify-center !mt-[0.88rem]'>
               <button
                 onClick={() => setIsEdit(false)}
-                className='caption font-semibold text-blue-800 rounded-[0.43924rem] bg-white w-[8.63836rem] h-[2.4rem] flex items-center justify-center ml-auto mr-[0.59rem]'
+                className='xmd:ml-0 caption font-semibold text-blue-800 rounded-[0.43924rem] bg-white w-[8.63836rem] h-[2.4rem] flex items-center justify-center ml-auto mr-[0.59rem]'
               >
                 HỦY BỎ
               </button>
@@ -208,7 +208,7 @@ export default function ChangePassWord({profile, session}) {
           ) : (
             <button
               onClick={() => setIsEdit(true)}
-              className='caption font-semibold text-white rounded-[0.43924rem] bg-blue-700 w-[11.78624rem] h-[2.4rem] flex items-center justify-center ml-auto !mt-[0.88rem]'
+              className='xmd:mx-auto caption font-semibold text-white rounded-[0.43924rem] bg-blue-700 w-[11.78624rem] h-[2.4rem] flex items-center justify-center ml-auto !mt-[0.88rem]'
             >
               CHỈNH SỬA
             </button>

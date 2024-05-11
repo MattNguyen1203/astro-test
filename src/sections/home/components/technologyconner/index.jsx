@@ -34,7 +34,6 @@ export default async function TechnologyConner({isMobile}) {
       className: 'size-[2.34261rem] xmd:size-[1.36501rem]',
     },
   ]
-
   return (
     <div className='md:bg-elevation-20 pt-[4.39rem]'>
       <span className='block font-medium text-center text-blue-600 h6 xmd:sub1 xmd:tracking-[0.01464rem]'>
@@ -44,7 +43,7 @@ export default async function TechnologyConner({isMobile}) {
         {listSocial.map((e, index) => (
           <li key={index}>
             <Link
-              href={e.href}
+              href={e.href ? e?.href : '/'}
               target='_blank'
               prefetch={false}
               className='py-[1.17rem] px-[1.76rem] xmd:px-[0.81rem] xmd:py-[0.73rem] bg-white md:hover:scale-[1.2] transition-all duration-500 rounded-[0.58565rem] shadow-[1px_4px_32px_0px_rgba(0,0,0,0.08)] flex items-center xmd:flex-col xmd:justify-between'
