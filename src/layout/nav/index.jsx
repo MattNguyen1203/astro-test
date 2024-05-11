@@ -37,10 +37,7 @@ export default async function Nav({isMobile, referer}) {
             id='nav_down'
             className='my-[0.8rem]'
           >
-            <NavDown
-              categories={categories}
-              categoryOptions={categoryOptions}
-            />
+            <NavDown categoryOptions={categoryOptions} />
           </div>
         )}
       </WrapNav>

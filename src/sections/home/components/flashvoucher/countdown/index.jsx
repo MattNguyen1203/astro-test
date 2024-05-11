@@ -1,11 +1,13 @@
 'use client'
 
+import useStore from '@/app/(store)/store'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
 
 export default function CountDown({timecountdown}) {
   const [time, setTime] = useState({})
   const [isClientSide, setIsClientSide] = useState(false)
+  const setProgress = useStore((state) => state.setProgress)
 
   // useEffect(() => {
   //   // Đánh dấu là đã ở phía client
@@ -47,7 +49,10 @@ export default function CountDown({timecountdown}) {
       setTime(calculateTimeLeft())
     }, 1000)
 
-    return () => clearInterval(timer)
+    return () => {
+      clearInterval(timer)
+      setProgress(100)
+    }
   }, [])
 
   const formatTime = (time) => {

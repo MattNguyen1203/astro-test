@@ -3,10 +3,10 @@ import Link from 'next/link'
 
 export default function Contact() {
   return (
-    <section className='container space-y-[0.88rem] items-end pr-[1.17rem] fixed flex flex-col right-[7rem] bottom-[3rem] xmd:right-0 xmd:bottom-[4rem] z-[9999]'>
+    <section className='container space-y-[0.88rem] items-end pr-[1.17rem] fixed flex flex-col right-[7rem] bottom-[3rem] xmd:right-0 xmd:bottom-[4rem] z-[9999] pointer-events-none'>
       <Link
         href='tel:+0815850292'
-        className='size-[2.92826rem] rounded-full p-[0.73206rem] bg-[#FEBE10]'
+        className='size-[2.92826rem] rounded-full p-[0.73206rem] bg-[#FEBE10] pointer-events-auto'
       >
         <div className='size-[1.4642rem]'>
           <svg
@@ -33,7 +33,7 @@ export default function Contact() {
       </Link>
       <Link
         href={'https://www.facebook.com/astromazing.official'}
-        className='size-[2.92826rem] rounded-full bg-[#0084FF] flex justify-center items-center'
+        className='size-[2.92826rem] rounded-full bg-[#0084FF] flex justify-center items-center pointer-events-auto'
       >
         <div className='size-[1.4642rem]'>
           <Image

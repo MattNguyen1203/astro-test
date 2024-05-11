@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const ItemCombo = ({data}) => {
+  let srcImage = null
   const [regularPriceResult, priceResult] = handlePrice(data)
 
   const isVariation = data?.type === 'variable'
@@ -13,13 +14,22 @@ const ItemCombo = ({data}) => {
   const arrVariations = []
 
   const handleVariation = () => {
-    if (!isVariation || !data?.meta) return
+    if (!isVariation) return
 
-    Object.keys(data?.meta)?.forEach((key) => {
-      if (!Number(data?.meta?.[key])) {
-        arrVariations.push(data?.meta?.[key])
-      }
-    })
+    if (data?.meta) {
+      Object.keys(data?.meta)?.forEach((key) => {
+        if (!Number(data?.meta?.[key])) {
+          arrVariations.push(data?.meta?.[key])
+        }
+      })
+    } else {
+      srcImage = data?.variation?.image?.src
+      Object.keys(data?.variation?.attributes)?.forEach((key) => {
+        if (key?.includes('pa_')) {
+          arrVariations.push(data?.variation?.attributes?.[key]?.label)
+        }
+      })
+    }
   }
 
   handleVariation()
@@ -32,9 +42,9 @@ const ItemCombo = ({data}) => {
 
   return (
     <div className='relative flex xmd:flex-col xmd:justify-start xmd:items-start justify-between items-center bg-white py-[0.88rem] px-[0.59rem] xmd:p-[0.73rem] rounded-[0.58565rem] shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)]'>
-      <div className='flex items-center relative'>
+      <div className='relative flex items-center'>
         <Image
-          src={data?.product_image || '/no-image.jpg'}
+          src={data?.product_image || srcImage || '/no-image.jpg'}
           alt=''
           width={200}
           height={200}
@@ -45,7 +55,7 @@ const ItemCombo = ({data}) => {
           <Link
             href={data?.slug ? `/${data?.slug}` : '/'}
             title={data?.name}
-            className='caption font-medium text-greyscale-40 line-clamp-1'
+            className='font-medium caption text-greyscale-40 line-clamp-1'
           >
             {data?.name}
           </Link>
@@ -56,7 +66,7 @@ const ItemCombo = ({data}) => {
             </span>
 
             {!isEqual && regularPriceResult && (
-              <span className='caption1 line-through text-greyscale-40 xmd:font-medium xmd:text-greyscale-30 xmd:leading-normal'>
+              <span className='line-through caption1 text-greyscale-40 xmd:font-medium xmd:text-greyscale-30 xmd:leading-normal'>
                 {formatToVND(regularPriceResult)}
               </span>
             )}

@@ -19,6 +19,15 @@ const useStore = create((set) => ({
   isOpenSortRes: false,
   actionCart: false,
   listCart: [],
+  progress: 0,
+  setProgress: (data) => {
+    set((state) => {
+      return {
+        ...state,
+        progress: data,
+      }
+    })
+  },
   setIsFocusSearchNav: (data) => {
     set((state) => {
       return {

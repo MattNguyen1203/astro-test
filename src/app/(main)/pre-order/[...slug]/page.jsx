@@ -5,6 +5,17 @@ import PreOrder from '@/sections/preorderdetail/PreOrder'
 import {notFound} from 'next/navigation'
 import {IDGLOBALAPI} from '@/lib/IdPageAPI'
 
+export async function generateStaticParams() {
+  const products = await getData('/okhub/v1/product')
+  const productsNew = products?.filter(
+    (e) => e?.meta?.pre_order?._is_pre_order === 'yes',
+  )
+
+  return productsNew?.map((product) => ({
+    slug: [product.slug],
+  }))
+}
+
 const page = async ({searchParams, params: {slug}}) => {
   const {viewport} = searchParams
   const isMobile = viewport.includes('mobile')
