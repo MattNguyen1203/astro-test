@@ -11,7 +11,7 @@ export async function generateStaticParams() {
     (e) => e?.type !== 'wooco' && e?.meta?.pre_order?._is_pre_order !== 'yes',
   )
 
-  return productsNew.map((product) => ({
+  return productsNew?.map((product) => ({
     slug: [product.slug],
   }))
 }
