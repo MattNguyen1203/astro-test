@@ -179,10 +179,6 @@ export default async function Footer() {
             </Link>
           </div>
         </div>
-        <div className='flex gap-x-[1rem]'>
-          <Link href={'/test'}>test</Link>
-          <Link href={'/test1'}>test1</Link>
-        </div>
       </footer>
       <Toaster richColors />
     </>
