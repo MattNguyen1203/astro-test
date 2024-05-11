@@ -1,7 +1,3 @@
-// const withBundleAnalyzer = require('@next/bundle-analyzer')({
-//   enabled: process.env.ANALYZE === 'true',
-// })
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -20,26 +16,7 @@ const nextConfig = {
   //   removeConsole: true,
   // },
   reactStrictMode: false,
-  staticPageGenerationTimeout: 5000,
-  // experimental: {
-  //   // nextScriptWorkers: true,
-  //   optimizePackageImports: [
-  //     'sharp',
-  //     'swiper',
-  //     'zod',
-  //     'sonner',
-  //     'next-auth',
-  //     'cmdk',
-  //   ],
-  // },
-  devIndicators: {
-    buildActivityPosition: 'bottom-left',
-  },
-  // onDemandEntries: {
-  //   maxInactiveAge: 600 * 1000,
-  //   pagesBufferLength: 10,
-  // },
+  // staticPageGenerationTimeout: 5000,
 }
 
-// module.exports = withBundleAnalyzer(nextConfig)
 module.exports = nextConfig
