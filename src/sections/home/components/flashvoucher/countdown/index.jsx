@@ -25,7 +25,7 @@ export default function CountDown({timecountdown}) {
   // Định dạng thời gian để hiển thị
   // fake thời gian
   // định dạng nhận vào "yyyy-mm-dd hh:mm:ss"
-  const timeNew = timecountdown ? timecountdown : '2024-05-20 20:00:00'
+  const timeNew = timecountdown ? timecountdown : '2024-04-20 20:00:00'
   const calculateTimeLeft = () => {
     const difference = +new Date(timeNew.replace(' ', 'T')) - +new Date()
     let time = {}
@@ -60,13 +60,6 @@ export default function CountDown({timecountdown}) {
     <div className='flex relative *:ml-[0.5rem] xmd:*:ml-[0.26rem]'>
       <div className='absolute size-full'>
         {/* <div className='bg-[radial-gradient(circle,rgba(233,214,105,0.6896008403361344)_2%,rgba(241,241,241,0.4010854341736695)_81%)]'></div> */}
-        {/* <Image
-          className=''
-          alt=''
-          src={'/home/frame.png'}
-          width={117}
-          height={159.42}
-        /> */}
       </div>
       <div className='w-[5.12445rem] h-[3.95315rem] xmd:w-[2.63543rem] xmd:h-[2.04525rem] flex justify-center items-center rounded-[0.29283rem] xmd:rounded-[0.58565rem] xmd:shadow-[0px_0.447px_8.491px_0px_rgba(255,255,255,0.22)] ml-0 shadow-[0px_1px_19px_0px_rgba(255,255,255,0.22)] relative'>
         <Image
@@ -75,6 +68,13 @@ export default function CountDown({timecountdown}) {
           alt='border'
           width={70}
           height={54}
+        />
+        <Image
+          className='absolute object-cover xmd:h-[1.653rem] xmd:w-[2.30124rem] size-[5.19766rem] -top-1/2 -left-1/2 md:translate-y-[-0.75rem] xmd:translate-y-[0.2rem] xmd:translate-x-[0.2rem]'
+          alt=''
+          src={'/home/line-star.png'}
+          width={117}
+          height={159.42}
         />
         <span className='text-[2.04978rem] xmd:text-[1.1713rem] leading-[1.2] font-bold bg-[linear-gradient(99deg,#FFF0D8_-58.6%,#E99207_95.15%)] bg-clip-text text-transparent relative z-10'>
           {time?.seconds
@@ -96,6 +96,13 @@ export default function CountDown({timecountdown}) {
           alt='border'
           width={70}
           height={54}
+        />
+        <Image
+          className='absolute object-cover xmd:h-[1.653rem] xmd:w-[1.53734rem] size-[5.19766rem] -bottom-1/2 -right-1/2 md:translate-y-[0.75rem] xmd:translate-y-[-0.2rem] xmd:translate-x-[-0.8rem]'
+          alt=''
+          src={'/home/line-star-res.png'}
+          width={117}
+          height={159.42}
         />
         <span className='text-[2.04978rem] xmd:text-[1.1713rem] leading-[1.2] font-bold bg-[linear-gradient(99deg,#FFF0D8_-58.6%,#E99207_95.15%)] bg-clip-text text-transparent relative z-10'>
           {time?.seconds ? formatTime(time?.seconds) : '0'}

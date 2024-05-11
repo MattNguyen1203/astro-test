@@ -51,11 +51,9 @@ export default function HomeIndex({viewport}) {
       <section className='mt-[3.22rem] xmd:mt-[1.17rem]'>
         <LevelUpYourTech isMobile={isMobile} />
       </section>
-      {!isMobile && (
-        <section className='mt-[5rem]'>
-          <PreOder />
-        </section>
-      )}
+      <section className='mt-[5rem]'>
+        <PreOder />
+      </section>
       <section className='mt-[4.39rem]'>
         <FeedBack isMobile={isMobile} />
       </section>

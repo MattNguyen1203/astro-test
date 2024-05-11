@@ -1,5 +1,8 @@
 'use client'
 
+import Image from 'next/image'
+import Link from 'next/link'
+
 export default function GlobalError({error, reset}) {
   return (
     <html>
@@ -32,7 +35,7 @@ export default function GlobalError({error, reset}) {
             quality={100}
             draggable='false'
           />
-          <div className='absolute xmd:w-full xmd:justify-center top-[50%] translate-y-[12rem] tablet:translate-y-[21rem] left-1/2 -translate-x-1/2 flex space-x-[0.59rem]'>
+          <div className='absolute xmd:w-full xmd:justify-center top-[50%] translate-y-[12rem] xmd:translate-y-[6rem] tablet:translate-y-[21rem] left-1/2 -translate-x-1/2 flex space-x-[0.59rem]'>
             <Link
               href={'/'}
               className='bg-white flex items-center space-x-[0.59rem] rounded-[0.58565rem] h-[3.22108rem] xmd:h-[2.34261rem] tablet:h-[2.92826rem] py-[0.73206rem] px-[1.46413rem] tablet:px-[1.1713rem] xmd:p-[0.73206rem]'

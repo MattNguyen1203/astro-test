@@ -72,7 +72,7 @@ export default function Wrapper({
             params?.category?.length && !Number(params?.category[0])
               ? 'category=' + JSON.stringify(params?.category[0]) + '&'
               : ''
-          }limit=16${type ? `&type=${type}` : ''}${
+          }limit=50${type ? `&type=${type}` : ''}${
             device?.length > 0 ? `&device=${JSON.stringify(device)}` : ''
           }${flashsale ? `&is_flashsale=true` : ''}${
             preorder ? `&is_preorder=true` : ''
@@ -93,9 +93,8 @@ export default function Wrapper({
   }, [searchParams, isLoading])
 
   const pageCount = Math.ceil(
-    Number((isFilter() ? data?.count : products?.count) / 16),
+    Number((isFilter() ? data?.count : products?.count) / 50),
   )
-
   return (
     <section
       ref={boxRef}

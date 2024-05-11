@@ -25,7 +25,7 @@ export function DialogDetailOrder({children, isOpen, setIsOpen, id}) {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent
         className={
-          'rounded-[0.87848rem] !w-[48.53587rem] !max-w-[48.53587rem] h-fit p-[2.34rem] overflow-hidden'
+          'z-[1000] xmd:!w-[95%] rounded-[0.87848rem] !w-[48.53587rem] !max-w-[48.53587rem] h-fit p-[2.34rem] overflow-hidden'
         }
       >
         <div className='absolute top-0 left-0 w-full px-[2.34rem] py-[0.88rem] flex justify-between items-center bg-elevation-20'>
@@ -37,7 +37,12 @@ export function DialogDetailOrder({children, isOpen, setIsOpen, id}) {
               {data?.id}
             </span>
           </div>
-          <div className='rounded-full size-[2.34261rem] bg-white cursor-pointer drop-shadow-[-3px_2px_20px_rgba(0,0,0,0.04)] flex justify-center items-center'>
+          <div
+            onClick={() => {
+              setIsOpen(false)
+            }}
+            className='rounded-full size-[2.34261rem] bg-white cursor-pointer drop-shadow-[-3px_2px_20px_rgba(0,0,0,0.04)] flex justify-center items-center'
+          >
             <ICCloseDetailOrder className='size-[1.8rem]' />
           </div>
         </div>

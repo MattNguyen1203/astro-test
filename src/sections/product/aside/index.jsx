@@ -31,7 +31,7 @@ export default async function Aside() {
           Ghé thăm gian hàng tại:
         </span>
         <SocialProduct
-          linkSocials={linkSocials}
+          linkSocials={linkSocials?.acf?.link_social}
           priority={true}
         />
       </div>
