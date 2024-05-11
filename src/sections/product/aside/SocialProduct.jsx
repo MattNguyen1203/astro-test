@@ -30,7 +30,7 @@ export default function SocialProduct({priority, linkSocials}) {
   ]
   return (
     <ul className='flex mt-[0.59rem]'>
-      {listSocial.map((e, index) => (
+      {listSocial?.map((e, index) => (
         <li
           className='first:ml-0 ml-[0.59rem] group'
           key={index}
@@ -42,8 +42,8 @@ export default function SocialProduct({priority, linkSocials}) {
           >
             <Image
               className={`${e?.className} object-contain group-hover:scale-125 origin-center transition-all duration-200`}
-              src={e.src}
-              alt={e.alt}
+              src={e?.src}
+              alt={e?.alt}
               width={30}
               height={30}
               priority={priority}

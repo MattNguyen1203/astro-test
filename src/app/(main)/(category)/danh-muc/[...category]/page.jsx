@@ -5,7 +5,6 @@ import {IDGLOBALAPI} from '@/lib/IdPageAPI'
 
 export async function generateStaticParams() {
   const categories = await getData(`/okhub/v1/category/post/build`)
-  const linkSocials = await getData(`/wp/v2/pages/${IDGLOBALAPI}`)
   const staticParams = []
 
   const handleRenderPage = (length, before = '') => {
@@ -36,8 +35,9 @@ export async function generateStaticParams() {
   return staticParams
 }
 
-export default async function page({params}) {
-  const [posts, categories, products] = await Promise.all([
+export default async function page({ params }) {
+  
+  const [posts, categories, products,linkSocials] = await Promise.all([
     getData(
       `/okhub/v1/post/postsByCategory/${params?.category[0]}?page=${
         Number(params?.category?.length) > 1 ? params?.category[1] : 1
@@ -45,6 +45,7 @@ export default async function page({params}) {
     ),
     getData(`/okhub/v1/category/post`),
     getData('/okhub/v1/product/allProduct?limit=5&page=1'),
+    getData(`/wp/v2/pages/${IDGLOBALAPI}`)
   ])
 
   if (!posts) return notFound()
