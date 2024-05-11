@@ -19,6 +19,7 @@ export default function Cart({isMobile, cartDefault, session}) {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
+    if (isAuth) return
     async function myFunction() {
       const session = await getSession()
       return session
@@ -67,7 +68,6 @@ export default function Cart({isMobile, cartDefault, session}) {
           alt='icon cart'
           width={18}
           height={18}
-          priority
         />
         {listCart?.length > 0 && (
           <div className='absolute top-0 -translate-y-[0.22rem] right-0 translate-x-1/2 rounded-full bg-blue-600 border border-solid border-white flex justify-center items-center size-fit z-10 py-[0.05rem] px-[0.29rem] caption2 font-normal text-white'>

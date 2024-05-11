@@ -28,16 +28,15 @@ export default function NavDown({categoryOptions}) {
         <NavigationMenuList className='flex justify-between lg:min-w-[87.84773060029283rem] xl:min-w-[1200px]'>
           {categoryOptions?.slice(0, 8)?.map((e, index) => (
             <NavigationMenuItem key={index}>
-              <NavigationMenuTrigger className='px-0 py-[0.52rem] bg-transparent'>
+              <NavigationMenuTrigger className='px-0 bg-transparent'>
                 <Link
                   href={`/san-pham/${e?.slug}`}
-                  className='flex items-center'
+                  className='flex items-center py-[0.52rem]'
                 >
                   <Image
                     className='size-[1.21171rem] object-contain'
                     src={e?.thumbnail || '/layout/nav/pen.svg'}
                     alt={e?.name || 'icon category'}
-                    priority
                     width={20}
                     height={20}
                   />
