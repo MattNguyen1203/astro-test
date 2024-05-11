@@ -4,6 +4,7 @@ import {useState, useEffect} from 'react'
 import CardRank from './CardRank'
 import Image from 'next/image'
 import ExpRank from './ExpRank'
+import useStore from '@/app/(store)/store'
 
 const arr = [
   {
@@ -29,6 +30,14 @@ export default function RackAccount({session, dataRank, isMobile}) {
   const [newFormat, setNewFormat] = useState('')
   const [rank, setRank] = useState('')
   const [linkRank, setLinkRank] = useState('')
+  const setProgress = useStore((state) => state.setProgress)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
+
   useEffect(() => {
     switch (session.memberlevel) {
       case '0':

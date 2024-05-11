@@ -10,16 +10,23 @@ import {FreeMode, Navigation, Thumbs} from 'swiper/modules'
 import {memo, useEffect, useRef, useState} from 'react'
 import Image from 'next/image'
 import ICChevron from '../icon/ICChevron'
-// import Video from '../video/Video'
 import dynamic from 'next/dynamic'
 const Video = dynamic(() => import('../video/Video'), {ssr: false})
 
 import {cn} from '@/lib/utils'
+import useStore from '@/app/(store)/store'
 function SlideMultiple({listGallery = [], activeImage, data}) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
   const slideRef = useRef()
 
   const [isPlaying, setIsPlaying] = useState(false)
+  const setProgress = useStore((state) => state.setProgress)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
 
   useEffect(() => {
     let activeIndex = 0

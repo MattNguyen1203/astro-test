@@ -2,7 +2,6 @@ import {auth} from '@/auth'
 import ICArrowRightBlack from '@/components/icon/ICArrowRightBlack'
 import {getDataProfile} from '@/lib/getDataProfile'
 import GridWishlist from '@/sections/wishlist/GridWishlist'
-import PaginationWishlist from '@/sections/wishlist/PaginationWishlist'
 import Link from 'next/link'
 
 export default async function LikePage({searchParams}) {

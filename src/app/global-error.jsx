@@ -2,8 +2,17 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import {useEffect} from 'react'
+import useStore from './(store)/store'
 
 export default function GlobalError({error, reset}) {
+  const setProgress = useStore((state) => state.setProgress)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
   return (
     <html>
       <body>

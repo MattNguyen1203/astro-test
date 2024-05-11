@@ -1,14 +1,18 @@
 'use client'
+import useStore from '@/app/(store)/store'
 import ICSearchAccessory from '@/components/icon/ICSearchAccessory'
 import {fetcher, formatToVND, handleDate} from '@/lib/utils'
 import ItemProductPayment from '@/sections/payment/ItemProductPayment'
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
+import {useEffect} from 'react'
 import useSWR from 'swr'
 
 export default function SearchTracking({isMobile}) {
   const router = useRouter()
   const pathName = usePathname()
   const searchParams = useSearchParams()
+
+  const setProgress = useStore((state) => state.setProgress)
 
   const tracking = decodeURI(searchParams.get('tracking') || '')
 
@@ -23,6 +27,12 @@ export default function SearchTracking({isMobile}) {
       revalidateOnReconnect: false,
     },
   )
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()

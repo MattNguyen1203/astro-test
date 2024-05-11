@@ -1,11 +1,21 @@
 'use client'
 
+import useStore from '@/app/(store)/store'
 import CardVoucher from '@/components/cardvoucher'
 import Image from 'next/image'
 import {useState} from 'react'
 
 export default function IndexVoucher({couponRank, couponCategories}) {
   const [isIndex, setIsIndex] = useState(false)
+
+  const setProgress = useStore((state) => state.setProgress)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
+
   return (
     <section className='p-[1.17rem] rounded-[0.58565rem] bg-white shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02)]'>
       <div className='w-full h-[13.5rem] mb-[1.76rem] rounded-[0.58565rem] overflow-hidden'>

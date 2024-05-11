@@ -5,6 +5,7 @@ import ActualProduct from '@/sections/postdetail/ActualProduct'
 import MainPostdetail from '@/sections/postdetail/MainPostdetail'
 import RelatedArticle from '@/sections/postdetail/RelatedArticle'
 import Share from '@/sections/postdetail/Share'
+import {notFound} from 'next/navigation'
 
 export async function generateStaticParams() {
   const posts = await getData('/okhub/v1/post/post')
@@ -17,6 +18,8 @@ export async function generateStaticParams() {
 
 export default async function page({params, searchParams}) {
   const data = await getData('/okhub/v1/post/postsBySlug/' + params?.slug[0])
+
+  if (!data) return notFound()
 
   const relatedProduct = await getData(
     '/okhub/v1/post/' + params?.slug[0] + '/product',

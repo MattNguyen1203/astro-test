@@ -67,7 +67,7 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
   }
 
   const [wishList] = await Promise.all([getDataProfile(request)])
-  console.log(linkSocials?.acf?.link_social)
+
   return (
     <main className='bg-elevation-20'>
       <ProductDetail

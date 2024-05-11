@@ -15,11 +15,12 @@ import {
 import {Input} from '@/components/ui/input'
 import Image from 'next/image'
 
-import {useState, useTransition} from 'react'
+import {useEffect, useTransition} from 'react'
 import {Textarea} from '@/components/ui/textarea'
 import {toast} from 'sonner'
 import {IDFORMCONTACT} from '@/lib/IdPageAPI'
 import {submitForm} from '@/actions/submitForm'
+import useStore from '@/app/(store)/store'
 
 const formSchema = z.object({
   name: z.string().min(1, {message: 'Vui lòng không để trống!'}),
@@ -36,7 +37,13 @@ const formSchema = z.object({
 
 export default function FormContact() {
   const [isPending, startTransition] = useTransition()
-  const [isSuccess, setIsSuccess] = useState(false)
+  const setProgress = useStore((state) => state.setProgress)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {

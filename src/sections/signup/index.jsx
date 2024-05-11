@@ -16,13 +16,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {signIn} from 'next-auth/react'
 
-import {useState, useTransition} from 'react'
+import {useEffect, useState, useTransition} from 'react'
 import BtnSubmit from '../auth/components/btnsubmit'
 import {useRouter} from 'next/navigation'
 import {sendOTP} from '@/actions/sendOTP'
 import {convertPhone} from '@/lib/utils'
 import ICEyeActive from '@/components/icon/ICEyeActive'
 import ICEyeActiveDisable from '@/components/icon/ICEyeActiveDisable'
+import useStore from '@/app/(store)/store'
 
 const formSchema = z
   .object({
@@ -63,10 +64,16 @@ const formSchema = z
 
 export default function SignUpIndex() {
   const router = useRouter()
-
+  const setProgress = useStore((state) => state.setProgress)
   const [isPending, startTransition] = useTransition()
   const [isShowConfirmPass, setIsShowConfirmPass] = useState(false)
   const [isShowPass, setIsShowPass] = useState(false)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
 
   const form = useForm({
     resolver: zodResolver(formSchema),

@@ -1,10 +1,13 @@
 'use client'
 
+import useStore from '@/app/(store)/store'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
 
 export default function BannerFlashSale({isMobile}) {
   const [timeLeft, setTimeLeft] = useState({})
+  const setProgress = useStore((state) => state.setProgress)
+
   // fake thời gian
   // định dạng nhận vào "yyyy-mm-dd hh:mm:ss"
   const time = '2025-04-30 00:00:00'
@@ -30,7 +33,10 @@ export default function BannerFlashSale({isMobile}) {
       setTimeLeft(calculateTimeLeft())
     }, 1000)
 
-    return () => clearInterval(timer)
+    return () => {
+      clearInterval(timer)
+      setProgress(100)
+    }
   }, [])
 
   const formatTime = (time) => {

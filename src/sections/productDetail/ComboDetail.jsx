@@ -13,12 +13,13 @@ import TechnicalInfo from './SubInfo/TechnicalInfo'
 import TabInfo from './SubInfo/TabInfo'
 import VoucherList from './VoucherList'
 import ItemProduct from './itemProduct/Crosssell'
-import {useMemo, useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import DialogProductCombo from '../home/components/dialogCrossell'
 import {handleAddToSession, handlePrice} from './function'
 import RelatedProduct from '../preorderdetail/components/RelatedProduct'
 import {useRouter} from 'next/navigation'
 import VoucherSlideRes from '../home/components/flashvoucher/slidevoucherres'
+import useStore from '@/app/(store)/store'
 
 const ComboDetail = ({
   isMobile,
@@ -41,6 +42,14 @@ const ComboDetail = ({
   const router = useRouter()
 
   const [listProduct, setListProduct] = useState(data?.grouped_products)
+
+  const setProgress = useStore((state) => state.setProgress)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
 
   //get list image
   const listGallery = useMemo(() => {
@@ -84,7 +93,6 @@ const ComboDetail = ({
       return [selectedPrd?.regular_price, selectedPrd?.price]
     }
   }, [listProduct, selectedPrd])
-  console.log(FiveProduct?.item)
   return (
     <div className='container mt-[8.1rem] xmd:mt-[4.1rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>

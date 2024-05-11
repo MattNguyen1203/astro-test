@@ -1,4 +1,16 @@
+'use client'
+
+import useStore from '@/app/(store)/store'
+import {useEffect} from 'react'
+
 export default function NotFoundPage({searchParams}) {
+  const setProgress = useStore((state) => state.setProgress)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
   return (
     <main className='relative pt-[10.04rem] xmd:pt-[4.04rem] xmd:pb-0 bg-elevation-20 flex justify-center items-center pb-[3.44rem]'>
       <div className='w-[51.53734rem] rounded-[0.58565rem] bg-white p-[1.17rem]'>

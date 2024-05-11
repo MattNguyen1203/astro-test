@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/form'
 import {Input} from '@/components/ui/input'
 
-import {useState, useTransition} from 'react'
+import {useEffect, useState, useTransition} from 'react'
 import BtnSubmit from '../auth/components/btnsubmit'
 import {useSearchParams} from 'next/navigation'
 
@@ -21,6 +21,7 @@ import {signUpForm} from '@/actions/signUpForm'
 import {toast} from 'sonner'
 
 import dynamic from 'next/dynamic'
+import useStore from '@/app/(store)/store'
 const PopupResetPass = dynamic(() =>
   import('../auth/components/popup/PopupResetPass').then(
     (mod) => mod.PopupResetPass,
@@ -55,6 +56,14 @@ export default function ResetPassIndex() {
   const otp = searchParams.get('otp')
   const [isPending, startTransition] = useTransition()
   const [isSuccess, setIsSuccess] = useState(false)
+
+  const setProgress = useStore((state) => state.setProgress)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
 
   const form = useForm({
     resolver: zodResolver(formSchema),

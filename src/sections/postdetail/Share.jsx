@@ -1,22 +1,17 @@
 'use client'
-import {useState} from 'react'
-import Image from 'next/image'
+import useStore from '@/app/(store)/store'
+import {useEffect, useState} from 'react'
 const Share = () => {
   const [hover, setHover] = useState(false)
   const [hover2, setHover2] = useState(false)
+  const setProgress = useStore((state) => state.setProgress)
 
-  const handleClick = () => {
-    setHover(false)
-    setTimeout(() => {
-      setHover(true)
-    }, 500)
-  }
-  const handleClick2 = () => {
-    setHover2(false)
-    setTimeout(() => {
-      setHover2(true)
-    }, 500)
-  }
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
+
   return (
     <div
       className='flex items-center self-stretch rounded-[0.87848rem] bg-[#FFF]
