@@ -4,6 +4,8 @@ import {getDataProfile} from '@/lib/getDataProfile'
 import ProductDetail from '@/sections/productDetail'
 import {notFound} from 'next/navigation'
 import {IDGLOBALAPI} from '@/lib/IdPageAPI'
+import {fetchMetaData} from '@/lib/fetchMetaData'
+import {getMeta} from '@/lib/getMeta'
 
 export async function generateStaticParams() {
   const products = await getData('/okhub/v1/product')
@@ -14,6 +16,11 @@ export async function generateStaticParams() {
   return productsNew?.map((product) => ({
     slug: [product.slug],
   }))
+}
+
+export async function generateMetadata({params: {slug}}) {
+  const result = await fetchMetaData(`product/${slug}/`)
+  return getMeta(result, slug)
 }
 
 const ProductDetailPage = async ({searchParams, params: {slug}}) => {

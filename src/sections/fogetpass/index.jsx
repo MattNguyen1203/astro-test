@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/form'
 import {Input} from '@/components/ui/input'
 
-import {useTransition} from 'react'
+import {useEffect, useTransition} from 'react'
 import BtnSubmit from '../auth/components/btnsubmit'
 import {sendOTP} from '@/actions/sendOTP'
 import {convertPhone} from '@/lib/utils'

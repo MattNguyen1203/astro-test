@@ -4,6 +4,8 @@ import {getDataProfile} from '@/lib/getDataProfile'
 import PreOrder from '@/sections/preorderdetail/PreOrder'
 import {notFound} from 'next/navigation'
 import {IDGLOBALAPI} from '@/lib/IdPageAPI'
+import {fetchMetaData} from '@/lib/fetchMetaData'
+import {getMeta} from '@/lib/getMeta'
 
 export async function generateStaticParams() {
   const products = await getData('/okhub/v1/product')
@@ -16,6 +18,10 @@ export async function generateStaticParams() {
   }))
 }
 
+export async function generateMetadata({params: {slug}}) {
+  const result = await fetchMetaData(`product/${slug}/`)
+  return getMeta(result, `pre-order/${slug}`)
+}
 const page = async ({searchParams, params: {slug}}) => {
   const {viewport} = searchParams
   const isMobile = viewport.includes('mobile')

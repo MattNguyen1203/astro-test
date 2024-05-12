@@ -1,8 +1,15 @@
 import {auth} from '@/auth'
+import {fetchMetaData} from '@/lib/fetchMetaData'
 import getData from '@/lib/getData'
 import {getDataProfile} from '@/lib/getDataProfile'
 import getDataProxy from '@/lib/getDataProxy'
+import {getMeta} from '@/lib/getMeta'
 import PaymentIndex from '@/sections/payment'
+
+export async function generateMetadata({params}) {
+  const result = await fetchMetaData(`thanh-toan/`)
+  return getMeta(result, `thanh-toan`)
+}
 
 export default async function page({searchParams}) {
   const {viewport} = searchParams

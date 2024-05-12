@@ -4,6 +4,13 @@ import 'swiper/css/free-mode'
 import IndexPreOrder from '@/sections/preorder'
 import getData from '@/lib/getData'
 import {IDPREORDER} from '@/lib/IdPageAPI'
+import {fetchMetaData} from '@/lib/fetchMetaData'
+import {getMeta} from '@/lib/getMeta'
+
+export async function generateMetadata({params}) {
+  const result = await fetchMetaData(`pre-order/`)
+  return getMeta(result, `pre-order/`)
+}
 
 export default async function PreOrderPage({searchParams}) {
   const [datavideo, products] = await Promise.all([
