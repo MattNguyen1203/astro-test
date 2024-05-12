@@ -45,8 +45,8 @@ export default async function CustomerPage({searchParams}) {
       <section className='inline-flex flex-col items-start justify-start w-full xmd:items-center h-fit xmd:mt-[1.17rem]'>
         <RackAccount
           isMobile={isMobile}
-          session={session}
           dataRank={dataRank}
+          profile={profile}
         />
       </section>
     </>
