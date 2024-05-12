@@ -46,7 +46,6 @@ export default function Account({session, isMobile, profile}) {
             alt='icon user'
             width={18}
             height={18}
-            priority
           />
         </Link>
       ) : (
@@ -63,7 +62,6 @@ export default function Account({session, isMobile, profile}) {
           alt='icon user'
           width={18}
           height={18}
-          priority
         />
       )}
       {isOpen && !isOutSide && (

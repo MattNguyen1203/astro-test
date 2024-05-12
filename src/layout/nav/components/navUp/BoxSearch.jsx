@@ -2,13 +2,15 @@
 
 import Link from 'next/link'
 import InputSearchNav from './InputSearchNav'
-import PopupResult from './PopupResult'
 import {useEffect, useState} from 'react'
 import useStore from '@/app/(store)/store'
 import PopupStore from '../popupstore'
 import useSWR from 'swr'
 import {fetcher} from '@/lib/utils'
 import {addWishlist} from '@/actions/addWishlist'
+
+import dynamic from 'next/dynamic'
+const PopupResult = dynamic(() => import('./PopupResult'), {ssr: false})
 
 const linkNavUp = [
   {

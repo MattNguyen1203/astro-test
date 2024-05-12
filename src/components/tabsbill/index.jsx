@@ -12,15 +12,22 @@ import FailedBill from '@/sections/bill/FailedBill'
 import ProcessingBill from '@/sections/bill/ProcessingBill'
 import {useSearchParams} from 'next/navigation'
 import ICCarProcessing from '../icon/ICCarProcessing'
+import useStore from '@/app/(store)/store'
+
 export function TabsBill({isMobile, session}) {
   const [status, setStatus] = useState('all')
 
   const router = useRouter()
   const [count, setCount] = useState('')
+  const setProgress = useStore((state) => state.setProgress)
+
   const statusS = useSearchParams().get('status') || 'all'
 
   useEffect(() => {
     setStatus(statusS)
+    return () => {
+      setProgress(100)
+    }
   }, [])
   return (
     <Tabs

@@ -1,7 +1,17 @@
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
+import {useEffect} from 'react'
+import useStore from './(store)/store'
 
 export default function NotFound() {
+  const setProgress = useStore((state) => state.setProgress)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
   return (
     <div className='w-full h-[100vh] relative'>
       <Image

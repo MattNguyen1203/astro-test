@@ -3,17 +3,28 @@ import useStore from '@/app/(store)/store'
 import {handleCart} from '@/components/itemcart/handleCart'
 import Loading from '@/components/loading'
 import {cn} from '@/lib/utils'
+import {getSession} from 'next-auth/react'
 
 import Image from 'next/image'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
-const AddToCartBtn = ({className, listProduct, session}) => {
+const AddToCartBtn = ({className, listProduct, session: sessionDefault}) => {
+  const [session, setSession] = useState(sessionDefault || null)
   const [isLoading, setIsLoading] = useState(false)
 
   const listCart = useStore((state) => state.listCart)
   const setListCart = useStore((state) => state.setListCart)
   const setActionCart = useStore((state) => state.setActionCart)
   const actionCart = useStore((state) => state.actionCart)
+
+  useEffect(() => {
+    if (sessionDefault) return
+    async function myFunction() {
+      const sessionRefresh = await getSession().then((res) => res)
+      return setSession(sessionRefresh)
+    }
+    myFunction()
+  }, [])
 
   return (
     <button

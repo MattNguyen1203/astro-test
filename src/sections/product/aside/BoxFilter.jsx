@@ -5,12 +5,21 @@ import {useParams} from 'next/navigation'
 import useClickOutSide from '@/hooks/useClickOutSide'
 
 import dynamic from 'next/dynamic'
+import useStore from '@/app/(store)/store'
 const PopupCategories = dynamic(() => import('./PopupCategories'), {ssr: false})
 
 export default function BoxFilter({categories}) {
   const params = useParams()
   const [isOpen, setIsOpen] = useState(false)
   const [sideRef, isOutSide] = useClickOutSide()
+
+  const setProgress = useStore((state) => state.setProgress)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
 
   useEffect(() => {
     if (isOutSide) return setIsOpen(false)

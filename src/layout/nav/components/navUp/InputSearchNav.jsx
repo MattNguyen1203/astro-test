@@ -60,7 +60,6 @@ export default function InputSearchNav({setValue, value, isMobile, data}) {
                 : '/layout/nav/search.svg'
             }
             alt='icon search'
-            priority
             height={20}
             width={20}
           />

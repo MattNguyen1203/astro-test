@@ -13,11 +13,12 @@ import {
 } from '@/components/ui/form'
 import {Input} from '@/components/ui/input'
 
-import {useState, useTransition} from 'react'
+import {useTransition} from 'react'
 import BtnSubmit from '../auth/components/btnsubmit'
 import {sendOTP} from '@/actions/sendOTP'
 import {convertPhone} from '@/lib/utils'
 import {useRouter} from 'next/navigation'
+import useStore from '@/app/(store)/store'
 
 const formSchema = z.object({
   phone: z
@@ -29,7 +30,13 @@ const formSchema = z.object({
 export default function FogetPassIndex() {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
-  const [isSuccess, setIsSuccess] = useState(false)
+  const setProgress = useStore((state) => state.setProgress)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
 
   const form = useForm({
     resolver: zodResolver(formSchema),

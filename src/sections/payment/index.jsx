@@ -34,6 +34,7 @@ import {handlePriceTotalOrder} from '@/lib/utils'
 import {bestCouponOrder} from '@/actions/bestCouponOrder'
 import CheckDefault from '@/components/sheetcategories/CheckDefault'
 import VoucherSlide from '../home/components/flashvoucher/slidevoucher'
+import useStore from '@/app/(store)/store'
 
 const formSchema = z.object({
   name: z.string(),
@@ -104,6 +105,7 @@ export default function PaymentIndex({
   const [couponSearch, setCouponSearch] = useState(null)
   const [isCouponBest, setIsCouponBest] = useState(true)
   const [isFreeShipDefault, setIsFreeShipDefault] = useState(true)
+  const setProgress = useStore((state) => state.setProgress)
 
   useEffect(() => {
     if (isCouponBest && couponSearch) {
@@ -153,6 +155,9 @@ export default function PaymentIndex({
         }
       })
       .catch((err) => console.log(err))
+    return () => {
+      setProgress(100)
+    }
   }, [])
 
   useEffect(() => {

@@ -9,6 +9,7 @@ import GridProductHandBook, {
 
 export default function HandBook({posts, categories}) {
   const searchParams = useSearchParams()
+
   const category = searchParams.get('cam-nang')
   const {data, error, isLoading} = useSWR(
     category

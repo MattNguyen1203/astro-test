@@ -10,20 +10,11 @@ import {
 } from '@/components/ui/navigation-menu'
 import Image from 'next/image'
 import Link from 'next/link'
-// import {useEffect, useState} from 'react'
 import LoadingBar from 'react-top-loading-bar'
 
 export default function NavDown({categoryOptions}) {
-  // const [progress, setProgress] = useState(0)
-
   const progress = useStore((state) => state.progress)
-
-  // useEffect(() => {
-  //   return () => {
-  //     setProgress(100)
-  //     console.log('🚀 ~ NavDown ~ progress:', progress)
-  //   }
-  // }, [])
+  const setProgress = useStore((state) => state.setProgress)
 
   return (
     <>
@@ -31,21 +22,21 @@ export default function NavDown({categoryOptions}) {
         color='#2998ff'
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
+        height={3}
       />
       <NavigationMenu className='max-w-full'>
         <NavigationMenuList className='flex justify-between lg:min-w-[87.84773060029283rem] xl:min-w-[1200px]'>
           {categoryOptions?.slice(0, 8)?.map((e, index) => (
             <NavigationMenuItem key={index}>
-              <NavigationMenuTrigger className='px-0 py-[0.52rem] bg-transparent'>
+              <NavigationMenuTrigger className='px-0 bg-transparent'>
                 <Link
                   href={`/san-pham/${e?.slug}`}
-                  className='flex items-center'
+                  className='flex items-center py-[0.52rem]'
                 >
                   <Image
                     className='size-[1.21171rem] object-contain'
                     src={e?.thumbnail || '/layout/nav/pen.svg'}
                     alt={e?.name || 'icon category'}
-                    priority
                     width={20}
                     height={20}
                   />

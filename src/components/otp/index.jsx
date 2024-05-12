@@ -2,6 +2,7 @@
 
 import {sendOTP} from '@/actions/sendOTP'
 import {signUpForm} from '@/actions/signUpForm'
+import useStore from '@/app/(store)/store'
 import {InputOTP, InputOTPGroup, InputOTPSlot} from '@/components/ui/input-otp'
 import {convertPhone} from '@/lib/utils'
 import BtnSubmit from '@/sections/auth/components/btnsubmit'
@@ -25,6 +26,13 @@ export default function OTP({isMobile}) {
   const [isLock, setIsLock] = useState(false)
   const [isReCount, setIsReCount] = useState(false)
   const [isTriggerFirst, setisTriggerFirst] = useState(false)
+  const setProgress = useStore((state) => state.setProgress)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
 
   useEffect(() => {
     validate && setValidate('')

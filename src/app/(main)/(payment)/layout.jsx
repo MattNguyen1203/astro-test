@@ -1,8 +1,8 @@
 import BreadCrumb from '@/components/breadcrumb'
+import Back from '@/sections/payment/Back'
 import StepPayment from '@/sections/payment/StepPayment'
 import {headers} from 'next/headers'
 import Image from 'next/image'
-import Back from './components/Back'
 
 export default function PaymentLayout({children}) {
   const headersList = headers()
@@ -35,7 +35,7 @@ export default function PaymentLayout({children}) {
         <StepPayment />
       ) : (
         <div className='container rounded-[0.58565rem] bg-[#F9F4F0] mt-[1.17rem] flex justify-center items-center h-[5.7101rem] px-[1.46rem] mb-[1.46rem]'>
-          <div className='flex justify-center items-center flex-col'>
+          <div className='flex flex-col items-center justify-center'>
             <div
               className={`bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] size-[2.34261rem] rounded-full flex justify-center items-center`}
             >

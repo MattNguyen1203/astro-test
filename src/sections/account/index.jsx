@@ -16,7 +16,7 @@ import PopupDate from './components/popupdate'
 import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group'
 import {Label} from '@/components/ui/label'
 import BtnSubmit from '../auth/components/btnsubmit'
-import {useId, useState, useTransition} from 'react'
+import {useEffect, useId, useState, useTransition} from 'react'
 import {DialogAvatar} from './components/dialogavatar'
 import PopupProvince from '../payment/PopupProvince'
 import PopupDistrict from '../payment/PopupDistrict'
@@ -24,6 +24,7 @@ import PopupCommune from '../payment/PopupCommune'
 import {updateProfile} from '@/actions/updateProfile'
 import RevalidateTags from '@/actions/revalidateTags'
 import {toast} from 'sonner'
+import useStore from '@/app/(store)/store'
 
 const formSchema = z.object({
   nickname: z
@@ -90,12 +91,19 @@ export default function IndexAccount({
 
   const [base64, setBase64] = useState('')
   const [src, setSrc] = useState(null)
+  const setProgress = useStore((state) => state.setProgress)
 
   const [birthDay, setBirthDay] = useState(profile?.birthday?.split('/'))
 
   const [gender, setGender] = useState(
     Number(profile?.gender) === 1 ? 'female' : 'male',
   )
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -107,7 +115,6 @@ export default function IndexAccount({
       phoneShip: profile?.shipping_address?.phone,
     },
   })
-  const values = form.watch()
 
   const handleFullName = (fullName) => {
     const fullNameNew = fullName?.trim()

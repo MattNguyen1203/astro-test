@@ -6,6 +6,7 @@ import CardProduct from '@/components/cardproduct'
 import ICArrowRightBlack from '../icon/ICArrowRightBlack'
 import {useEffect, useRef, useState} from 'react'
 import PaginationOrder from '@/sections/account/components/pagination/PaginationOrder'
+import useStore from '@/app/(store)/store'
 
 const ProductBuyed = ({session, isMobile, products}) => {
   const [listProduct, setListProduct] = useState([])
@@ -15,8 +16,15 @@ const ProductBuyed = ({session, isMobile, products}) => {
     page: 1,
     perpage: 30,
   })
+  const setProgress = useStore((state) => state.setProgress)
 
   const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
 
   useEffect(() => {
     setIsLoading(true)

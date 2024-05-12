@@ -19,6 +19,7 @@ import {handleAddToSession} from './function'
 
 import dynamic from 'next/dynamic'
 import VoucherSlideRes from '../home/components/flashvoucher/slidevoucherres'
+import useStore from '@/app/(store)/store'
 const RelatedProduct = dynamic(
   () => import('../preorderdetail/components/RelatedProduct'),
   {ssr: false},
@@ -76,6 +77,14 @@ const ProductDetail = ({
   )
 
   const [listCrossellIndex, setCrossellIndex] = useState([])
+
+  const setProgress = useStore((state) => state.setProgress)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
   //get list image
   const [listGallery, isFlashSale] = useMemo(() => {
     const gallery = data?.galleryImgs

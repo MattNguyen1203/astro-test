@@ -1,7 +1,8 @@
 'use client'
+import useStore from '@/app/(store)/store'
 import ICSearchAccessory from '@/components/icon/ICSearchAccessory'
 import {usePathname, useRouter, useSearchParams} from 'next/navigation'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
 export default function SearchAccessory({isMobile}) {
   const router = useRouter()
@@ -10,6 +11,13 @@ export default function SearchAccessory({isMobile}) {
 
   const search = searchParams?.get('search') || ''
   const [value, setValue] = useState(search)
+  const setProgress = useStore((state) => state.setProgress)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()

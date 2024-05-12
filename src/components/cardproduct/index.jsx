@@ -7,8 +7,12 @@ import dynamic from 'next/dynamic'
 import {useRouter} from 'next/navigation'
 import Progress from '../progress'
 
-const DialogProduct = dynamic(() =>
-  import('@/sections/home/components/dialog').then((mod) => mod.DialogProduct),
+const DialogProduct = dynamic(
+  () =>
+    import('@/sections/home/components/dialog').then(
+      (mod) => mod.DialogProduct,
+    ),
+  {ssr: false},
 )
 
 function CardProduct({product, priority = false, boxPlaced = false}) {

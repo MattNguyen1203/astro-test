@@ -3,12 +3,20 @@
 import {Swiper, SwiperSlide} from 'swiper/react'
 import ItemBannerPreOrder from './ItemBannerPreOrder'
 import {FreeMode} from 'swiper/modules'
-import {useRef, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import NavigationCustom from '@/components/navigationcustom'
+import useStore from '@/app/(store)/store'
 
 export default function SlideBannerPreOrder({products}) {
   const swiperRef = useRef(null)
   const [indexSlider, setIndexSlider] = useState(0)
+  const setProgress = useStore((state) => state.setProgress)
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
 
   const handleSlideChange = (swiper) => {
     setIndexSlider(swiper.realIndex)

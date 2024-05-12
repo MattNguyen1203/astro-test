@@ -7,6 +7,7 @@ import {useRouter} from 'next/navigation'
 import {useEffect, useTransition} from 'react'
 import {toast} from 'sonner'
 import ItemProductPayment from './ItemProductPayment'
+import useStore from '@/app/(store)/store'
 
 export default function InfoOrderBill({
   detailOrder,
@@ -14,10 +15,10 @@ export default function InfoOrderBill({
   isMobile,
   dataCartNew,
 }) {
-  console.log('🚀 ~ InfoOrderBill ~ detailOrder:', detailOrder)
   const router = useRouter()
 
   const [isPending, setTransition] = useTransition()
+  const setProgress = useStore((state) => state.setProgress)
 
   useEffect(() => {
     const productsBill = detailOrder?.product
@@ -31,6 +32,9 @@ export default function InfoOrderBill({
       productsBill?.find((product) => product?.id !== item?.id),
     )
     localStorage.setItem('cartAstro', JSON.stringify(localGetNew))
+    return () => {
+      setProgress(100)
+    }
   }, [])
 
   const isShipIn = detailOrder?.shipping_lines?.[0]?.method_id === 'in_hcm'

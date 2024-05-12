@@ -1,5 +1,5 @@
 'use client'
-import {useRef} from 'react'
+import {useEffect, useRef} from 'react'
 import Image from 'next/image'
 import {useParams, useSearchParams} from 'next/navigation'
 import useSWR from 'swr'
@@ -8,6 +8,7 @@ import Link from 'next/link'
 import PaginationPosts from '@/sections/account/components/pagination/PaginationPosts'
 import MenuNewsLink from '../MenuNewsLink'
 import GridNews from './GridNews'
+import useStore from '@/app/(store)/store'
 
 export default function AllNews({
   posts,
@@ -20,6 +21,8 @@ export default function AllNews({
   const boxRef = useRef(null)
   const searchParams = useSearchParams()
   const params = useParams()
+  const setProgress = useStore((state) => state.setProgress)
+
   const page = searchParams.get('page')
 
   const {data, error, isLoading} = useSWR(
@@ -36,6 +39,12 @@ export default function AllNews({
       revalidateOnReconnect: false,
     },
   )
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
 
   const postsNew = Number(page) > 1 ? data?.item : posts?.item
   const countPage =
@@ -88,7 +97,7 @@ export default function AllNews({
             </div>
           </div>
           <div className='mb-[0.87848rem] w-full flex py-[0.58565rem] pr-[1.1713rem] pl-[1.1713rem] rounded-[0.87848rem] bg-[rgba(232,235,239,0.60)]'>
-            <div className='group flex items-center justify-between w-full'>
+            <div className='flex items-center justify-between w-full group'>
               <div className='flex items-center'>
                 <div className='w-[2.63543rem] h-[2.63543rem] flex justify-center items-center mr-[0.88rem] relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)] rounded-[0.51245rem] bg-[#4B6FBE]'>
                   <Image
@@ -132,7 +141,7 @@ export default function AllNews({
             </div>
           </div>
           <div className='mb-[0.87848rem] w-full flex py-[0.58565rem] pr-[1.1713rem] pl-[1.1713rem] rounded-[0.87848rem] bg-[rgba(232,235,239,0.60)]'>
-            <div className='group flex items-center justify-between w-full'>
+            <div className='flex items-center justify-between w-full group'>
               <div className='flex items-center'>
                 <div className='w-[2.63543rem] h-[2.63543rem] flex justify-center items-center mr-[0.88rem] relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)] rounded-[0.51245rem] bg-gradient-to-t to-[#2C5BB7] from-[#1B2852]'>
                   <div className='flex items-center justify-center w-[1.46413rem] h-[1.46413rem]'>
@@ -178,7 +187,7 @@ export default function AllNews({
             </div>
           </div>
           <div className='mb-[0.87848rem] w-full flex py-[0.58565rem] pr-[1.1713rem] pl-[1.1713rem] rounded-[0.87848rem] bg-[rgba(232,235,239,0.60)]'>
-            <div className='group flex items-center justify-between w-full'>
+            <div className='flex items-center justify-between w-full group'>
               <div className='flex items-center'>
                 <div className='w-[2.63543rem] h-[2.63543rem] flex justify-center items-center mr-[0.88rem] relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.10)] rounded-[0.51245rem] bg-gradient-to-t to-[#EEF8FF] from-[rgba(255,245,237,0.90)]'>
                   <div className='w-[1.75695rem] h-[1.75695rem] flex justify-center items-center z-10'>

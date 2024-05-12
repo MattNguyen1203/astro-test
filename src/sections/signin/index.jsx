@@ -24,6 +24,7 @@ import {PopupResetPass} from '../auth/components/popup/PopupResetPass'
 import ICEyeActive from '@/components/icon/ICEyeActive'
 import ICEyeActiveDisable from '@/components/icon/ICEyeActiveDisable'
 import ICCheck from '@/components/icon/ICCheck'
+import useStore from '@/app/(store)/store'
 
 const formSchema = z.object({
   // email: z.string().email({message: 'Nhập đúng định dạng email!'}),
@@ -38,6 +39,8 @@ const formSchema = z.object({
 
 export default function SignInIndex({status}) {
   const [isPending, startTransition] = useTransition()
+
+  const setProgress = useStore((state) => state.setProgress)
 
   const [isShowPass, setIsShowPass] = useState(false)
   const [isFailed, setIsFailed] = useState(false)
@@ -65,6 +68,9 @@ export default function SignInIndex({status}) {
       setNotePass(true)
       form.setValue('phone', account?.phone)
       form.setValue('password', account?.password)
+    }
+    return () => {
+      setProgress(100)
     }
   }, [])
 

@@ -5,10 +5,13 @@ import {useSearchParams} from 'next/navigation'
 import useSWR from 'swr'
 import PaginationWishlist from './PaginationWishlist'
 import SkeletonCardProduct from '@/components/cardproduct/SkeletonCardProduct'
+import useStore from '@/app/(store)/store'
+import {useEffect} from 'react'
 
 export default function GridWishlist({wishList, isMobile, session}) {
   const searchParams = useSearchParams()
   const page = searchParams.get('page')
+  const setProgress = useStore((state) => state.setProgress)
 
   const fetcher = (url) =>
     fetch(url, {
@@ -29,6 +32,12 @@ export default function GridWishlist({wishList, isMobile, session}) {
       revalidateOnReconnect: false,
     },
   )
+
+  useEffect(() => {
+    return () => {
+      setProgress(100)
+    }
+  }, [])
 
   const dataWishList = page ? data?.item : wishList?.item
 

@@ -30,6 +30,7 @@ export default function SheetCart({
   const router = useRouter()
 
   const [cart, setCart] = useState([])
+  console.log('🚀 ~ cart:', cart)
   const [isLoadingCart, setIsLoadingCart] = useState(false)
   const listCart = useStore((state) => state.listCart)
   const setListCart = useStore((state) => state.setListCart)
@@ -160,7 +161,7 @@ export default function SheetCart({
                   'flex cursor-pointer items w-fit pl-[0.5rem]',
                   listCart?.length === 0 && 'pointer-events-none',
                 )}
-                onClick={listCart?.length > 0 && handleClearCart}
+                onClick={listCart?.length > 0 ? handleClearCart : () => {}}
               >
                 <ICDelete className='w-[0.83272rem] h-auto' />
                 <span className='w-fit ml-[0.46rem] leading-[1.2] tracking-[0.00878rem] font-semibold text-[0.87848rem] text-[#262626] block translate-y-[22.5%] select-none'>
