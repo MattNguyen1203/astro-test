@@ -114,7 +114,7 @@ const PreOrder = ({
 
           <div className='col flex-1 w-[52.2694rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[6.6rem] xmd:mb-[1.17rem]'>
             <div className='subContainer xmd:rounded-0 md:relative'>
-              <h1 className='md:w-[38rem] text-[1.52489rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'>
+              <h1 className='md:w-[38rem] text-[1.52489rem] md:h-[3.8rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'>
                 {data?.name}
               </h1>
               <ProductPrice

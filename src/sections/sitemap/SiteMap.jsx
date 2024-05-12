@@ -16,25 +16,6 @@ const listSiteMapPage = [
   {label: 'Đăng ký', link: '/dang-ky'},
 ]
 
-// function getNamesAndSlugs(item, result) {
-//   result((prev) => {
-//     return [
-//       ...prev,
-//       {
-//         name: item.name,
-//         slug: item.slug,
-//       },
-//     ]
-//   })
-
-//   // Nếu có children, duyệt qua từng children và lấy thông tin của chúng
-//   if (item.children && item.children.length > 0) {
-//     item.children.forEach((child) => {
-//       getNamesAndSlugs(child, result)
-//     })
-//   }
-// }
-
 function getNamesAndCombinedSlugs(item, parentSlug, result) {
   // Tạo slug mới bằng cách kết hợp slug của cha và slug của con
   const combinedSlug = parentSlug ? `${parentSlug}/${item.slug}` : item.slug
@@ -44,7 +25,7 @@ function getNamesAndCombinedSlugs(item, parentSlug, result) {
       ...prev,
       {
         name: item.name,
-        slug: combinedSlug,
+        slug: item.slug,
         order: parentSlug === '' ? 1 : parentSlug.includes('/') ? 3 : 2,
       },
     ]
@@ -58,25 +39,63 @@ function getNamesAndCombinedSlugs(item, parentSlug, result) {
   }
 }
 
+function generateHTML(data, parentSlug) {
+  return (
+    <div className='columns-3 xmd:columns-2'>
+      {data.map((parent) => (
+        <div key={parent.id}>
+          <Link
+            href={`/${parentSlug}/${parent.slug}`}
+            className='flex text-blue-600 hover:underline mb-[1rem] sub1 font-medium'
+          >
+            {parent.name}
+          </Link>
+          <ul>
+            {parent.children.map((child) => (
+              <>
+                <li
+                  key={child.id}
+                  className='flex'
+                >
+                  <Link
+                    href={`/${parentSlug}/${child.slug}`}
+                    className='flex sub2 ml-[1.5rem] text-blue-600 hover:underline mb-[1rem]'
+                  >
+                    {child.name}
+                  </Link>
+                </li>
+
+                {child?.children &&
+                  child?.children?.length > 0 &&
+                  generateItemHTML(child?.children, parentSlug)}
+              </>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function generateItemHTML(data, parentSlug) {
+  return data?.map((item) => {
+    return (
+      <li
+        key={item.id}
+        className='flex'
+      >
+        <Link
+          href={`/${parentSlug}/${item.slug}`}
+          className='flex text-[0.875rem] ml-[2.5rem] text-blue-600 hover:underline mb-[1rem]'
+        >
+          {item.name}
+        </Link>
+      </li>
+    )
+  })
+}
+
 const SiteMap = ({allProductCategory, allBlogCategory}) => {
-  const [listSiteMapProduct, setListSiteMapProduct] = useState([])
-  const [listSiteMapBlog, setlistSiteMapBlog] = useState([])
-
-  useEffect(() => {
-    // const listCateProduct = []
-    // const listCateBlog = []
-
-    allProductCategory.forEach((item) => {
-      getNamesAndCombinedSlugs(item, '', setListSiteMapProduct)
-    })
-
-    allBlogCategory.forEach((item) => {
-      getNamesAndCombinedSlugs(item, '', setlistSiteMapBlog)
-    })
-  }, [allBlogCategory, allProductCategory])
-
-  console.log('listSiteMapProduct', listSiteMapProduct)
-
   return (
     <div className='container mt-[10.76rem] xmd:mt-[5.76rem]'>
       <h1 className='h4 font-semibold pb-[0.5rem] border-b-[1px] border-[rgba(0,0,0,0.1)] text-blue-600 mb-[5rem]'>
@@ -103,47 +122,14 @@ const SiteMap = ({allProductCategory, allBlogCategory}) => {
         <h2 className='h6 font-semibold text-blue-600 mb-[2rem] uppercase'>
           Sản Phẩm
         </h2>
-        <div className='grid grid-cols-3 xmd:grid-cols-2 gap-[1rem]'>
-          {listSiteMapProduct?.map((item) => (
-            <Link
-              href={`/san-pham/${item.slug}`}
-              className={cn(
-                'text-blue-600 hover:underline',
-
-                item.order === 1
-                  ? 'sub1 font-medium'
-                  : item.order === 2
-                  ? 'sub2 ml-[1.5rem]'
-                  : 'text-[0.875rem] ml-[2.5rem]',
-              )}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
+        {generateHTML(allProductCategory, 'san-pham')}
       </section>
 
       <section className='pb-[2rem] xmd:px-[1rem] border-b-[1px] border-[rgba(0,0,0,0.1)] mb-[4rem]'>
         <h2 className='h6 font-semibold text-blue-600 mb-[2rem] uppercase'>
           Tin tức
         </h2>
-        <div className='grid grid-cols-3 xmd:grid-cols-2 gap-[1rem]'>
-          {listSiteMapBlog?.map((item) => (
-            <Link
-              href={`/danh-muc/${item.slug}`}
-              className={cn(
-                'text-blue-600 hover:underline',
-                item.order === 1
-                  ? 'sub1 font-medium'
-                  : item.order === 2
-                  ? 'sub2 ml-[1.5rem]'
-                  : 'text-[0.875rem] ml-[3rem]',
-              )}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
+        {generateHTML(allBlogCategory, 'danh-muc')}
       </section>
     </div>
   )
