@@ -11,9 +11,9 @@ import {getDataTag} from '@/lib/getDataTag'
 export default async function NavUp({
   session,
   isMobile,
-  referer,
   categories,
   linkSocial,
+  categoryOptions,
 }) {
   const request1 = {
     token: session?.accessToken,
@@ -72,8 +72,8 @@ export default async function NavUp({
         />
         {isMobile ? (
           <MenuRes
+            categoryOptions={categoryOptions}
             categories={categories}
-            referer={referer}
           />
         ) : (
           <>

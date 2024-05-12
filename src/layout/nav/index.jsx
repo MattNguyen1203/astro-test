@@ -8,7 +8,7 @@ import WrapNav from './components/wrapnav'
 import getData from '@/lib/getData'
 import {IDGLOBALAPI} from '@/lib/IdPageAPI'
 
-export default async function Nav({isMobile, referer}) {
+export default async function Nav({isMobile}) {
   const [session, categories, categoryOptions, global] = await Promise.all([
     auth(),
     getData('/okhub/v1/category/category'),
@@ -27,8 +27,8 @@ export default async function Nav({isMobile, referer}) {
       <WrapNav isMobile={isMobile}>
         <NavUp
           categories={categories}
+          categoryOptions={categoryOptions}
           isMobile={isMobile}
-          referer={referer}
           session={session}
           linkSocial={linkSocial}
         />

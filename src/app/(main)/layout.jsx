@@ -8,8 +8,6 @@ import VoucherPin from '@/components/voucherpin'
 
 export default function MainLayout({children}) {
   const headersList = headers()
-  const referer = headersList.get('referer')
-
   const userAgent = headersList.get('user-agent')
   const isMobile =
     /Android|webOS|iPhone|BlackBerry|IEMobile|ZaloTheme|FB_IAB|Opera Mini/i.test(
@@ -17,10 +15,7 @@ export default function MainLayout({children}) {
     )
   return (
     <>
-      <Nav
-        isMobile={isMobile}
-        referer={referer}
-      />
+      <Nav isMobile={isMobile} />
       {isMobile && <VoucherPin />}
       {children}
       <ListStrength />

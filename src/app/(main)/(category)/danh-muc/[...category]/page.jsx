@@ -40,11 +40,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({params}) {
   function getSlugHierarchy(data, targetSlug) {
     for (const item of data) {
-      if (item.slug === targetSlug) {
+      if (item?.slug === targetSlug) {
         return item.slug
       }
-      if (item.children && item.children.length > 0) {
-        const result = getSlugHierarchy(item.children, targetSlug)
+      if (item?.children && item?.children?.length > 0) {
+        const result = getSlugHierarchy(item?.children, targetSlug)
         if (result) {
           return `${item.slug}/${result}`
         }

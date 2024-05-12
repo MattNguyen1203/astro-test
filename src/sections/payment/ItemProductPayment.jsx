@@ -17,7 +17,6 @@ export default function ItemProductPayment({item, length, index}) {
 
   const isWooco = item?.type === 'wooco'
 
-  isWooco && console.log('🚀 ~ ItemProductPayment ~ item:', item)
   const isVariation = item?.type === 'variable'
 
   const handleSumPrice = (children) => {
