@@ -66,7 +66,7 @@ export function DialogDetailOrder({children, isOpen, setIsOpen, id}) {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent
         className={
-          'z-[1000] xmd:!w-[95%] rounded-[0.87848rem] !w-[48.53587rem] !max-w-[48.53587rem] h-fit p-[2.34rem] overflow-hidden'
+          'z-[1000] xmd:!w-[95%] rounded-[0.87848rem] !w-[48.53587rem] !max-w-[48.53587rem] h-fit py-[2.34rem] pl-[1.6rem] pr-[0.6rem] xmd:p-[0.88rem] xmd:pr-0 overflow-hidden'
         }
       >
         <div className='absolute z-10 top-0 left-0 w-full px-[2.34rem] py-[0.88rem] flex justify-between items-center bg-elevation-20'>
@@ -91,9 +91,9 @@ export function DialogDetailOrder({children, isOpen, setIsOpen, id}) {
           type='always'
           className='w-full h-[500px]'
         >
-          <div className='space-y-[0.15rem] pt-[2rem]'>
+          <div className='space-y-[0.15rem] pt-[3rem] xmd:pt-[4rem] xmd:w-[24rem] w-[43.5rem]'>
             <div className='flex items-center'>
-              <span className='w-[15.00732rem] block text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-semibold text-greyscale-60'>
+              <span className='w-[15.00732rem] xmd:w-[12rem] flex-shrink-0 block text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-semibold text-greyscale-60'>
                 - Khách hàng:
               </span>
               <span className='text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-normal text-greyscale-40'>
@@ -101,7 +101,7 @@ export function DialogDetailOrder({children, isOpen, setIsOpen, id}) {
               </span>
             </div>
             <div className='flex items-center'>
-              <span className='w-[15.00732rem] block text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-semibold text-greyscale-60'>
+              <span className='w-[15.00732rem] xmd:w-[12rem] flex-shrink-0 block text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-semibold text-greyscale-60'>
                 - Số điện thoại:
               </span>
               <span className='text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-normal text-greyscale-40'>
@@ -109,7 +109,7 @@ export function DialogDetailOrder({children, isOpen, setIsOpen, id}) {
               </span>
             </div>
             <div className='flex items-center'>
-              <span className='w-[15.00732rem] block text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-semibold text-greyscale-60'>
+              <span className='w-[15.00732rem] xmd:w-[12rem] flex-shrink-0 block text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-semibold text-greyscale-60'>
                 - Email:
               </span>
               <span className='text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-normal text-greyscale-40'>
@@ -117,7 +117,7 @@ export function DialogDetailOrder({children, isOpen, setIsOpen, id}) {
               </span>
             </div>
             <div className='flex items-center'>
-              <span className='w-[15.00732rem] block text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-semibold text-greyscale-60'>
+              <span className='w-[15.00732rem] xmd:w-[12rem] flex-shrink-0 block text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-semibold text-greyscale-60'>
                 - Ngày đặt hàng:
               </span>
               <span className='text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-normal text-greyscale-40'>
@@ -125,7 +125,7 @@ export function DialogDetailOrder({children, isOpen, setIsOpen, id}) {
               </span>
             </div>
             <div className='flex items-center'>
-              <span className='w-[15.00732rem] block text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-semibold text-greyscale-60'>
+              <span className='w-[15.00732rem] xmd:w-[12rem] flex-shrink-0 block text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-semibold text-greyscale-60 whitespace-nowrap'>
                 - Địa chỉ nhận hàng:
               </span>
               <span className='text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-normal text-greyscale-40'>
@@ -137,7 +137,7 @@ export function DialogDetailOrder({children, isOpen, setIsOpen, id}) {
               </span>
             </div>
             <div className='flex items-center'>
-              <span className='w-[15.00732rem] block text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-semibold text-greyscale-60'>
+              <span className='w-[15.00732rem] xmd:w-[12rem] flex-shrink-0 block text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-semibold text-greyscale-60 whitespace-nowrap'>
                 - Hình thức thanh toán:
               </span>
               <span className='text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-normal text-greyscale-40'>
@@ -149,7 +149,7 @@ export function DialogDetailOrder({children, isOpen, setIsOpen, id}) {
               </span>
             </div>
             <div className='flex items-center'>
-              <span className='w-[15.00732rem] block text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-semibold text-greyscale-60'>
+              <span className='w-[15.00732rem] xmd:w-[12rem] flex-shrink-0 block text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-semibold text-greyscale-60 whitespace-nowrap'>
                 - Phương thức vận chuyển:
               </span>
               <span className='text-[0.87848rem] leading-[1.83] tracking-[0.0022rem] font-normal text-greyscale-40'>
@@ -157,8 +157,8 @@ export function DialogDetailOrder({children, isOpen, setIsOpen, id}) {
               </span>
             </div>
           </div>
-          <hr className='w-[48.53587rem] my-[0.88rem] h-[0.07321rem] bg-[rgba(236,236,236,0.70)]' />
-          <div className='w-[43.53587rem] flex flex-col items-start'>
+          <hr className='w-[43.3rem] my-[0.88rem] h-[0.07321rem] bg-[rgba(236,236,236,0.70)] xmd:w-[24rem]' />
+          <div className='w-[43.53587rem] flex flex-col items-start xmd:w-[24rem]'>
             <div className='mb-[0.87848rem] w-full flex justify-between items-center'>
               <p className='font-svnGraphik text-[1.02489rem] text-greyscale-40 text-right font-semibold leading-[1.61054rem] tracking-[0.00256rem]'>
                 Danh sách sản phẩm đã mua:
@@ -221,7 +221,7 @@ export function DialogDetailOrder({children, isOpen, setIsOpen, id}) {
                   </span>
                 </div>
               </div>
-              <div className='w-[46.77892rem] xmd:w-[23.93851rem] h-[0.07321rem] bg-[rgba(30,65,124,0.16)] my-[0.87848rem]'></div>
+              <div className='w-[41.77892rem] xmd:w-[23.93851rem] h-[0.07321rem] bg-[rgba(30,65,124,0.16)] my-[0.87848rem]'></div>
               <div className='flex items-center justify-between w-full'>
                 <p className='font-semibold text-right sub2 text-greyscale-50'>
                   Tổng thanh toán:
