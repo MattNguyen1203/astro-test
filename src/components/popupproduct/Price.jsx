@@ -13,8 +13,8 @@ const ProductPrice = ({regularPrice, price, bestCoupon}) => {
             {formatToVND(finalPrice || '')}
           </span>
 
-          {regularPrice && regularPrice != finalPrice && (
-            <span className='md:group-hover:hidden caption1 font-normal text-white line-through xmd:text-greyscale-30 leading-normal'>
+          {!!regularPrice && regularPrice != finalPrice && (
+            <span className='font-normal leading-normal text-white line-through md:group-hover:hidden caption1 xmd:text-greyscale-30'>
               {formatToVND(regularPrice)}
             </span>
           )}
@@ -27,7 +27,7 @@ const ProductPrice = ({regularPrice, price, bestCoupon}) => {
                 </span>
               </span>
               <span className='xmd:hidden w-0 group-hover:w-[9rem] opacity-0 group-hover:opacity-100  z-10 flex absolute top-1/2 -translate-y-1/2 right-[0.59rem] h-[1.9rem] transition-all duration-500 ml-auto p-[0.43924rem] rounded-[0.43924rem] bg-[linear-gradient(104deg,#E78C03_-3.95%,#FFB84F_106.72%)] xmd:bg-[linear-gradient(278deg,#102841_-67.59%,#1359A1_93.68%)] text-white items-center justify-center caption1 font-semibold xmd:text-[0.73206rem] xmd:ml-[1rem]'>
-                <span className='group-hover:opacity-100 opacity-0 delay-300 transition-all duration-500 flex'>
+                <span className='flex transition-all duration-500 delay-300 opacity-0 group-hover:opacity-100'>
                   Tiết kiệm{' '}
                   <p className='ml-[0.25rem]'>{formatToVND(savingMoney)}</p>
                 </span>
