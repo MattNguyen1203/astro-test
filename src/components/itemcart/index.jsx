@@ -30,6 +30,7 @@ export default function ItemCart({
   isMobile,
   item,
   session,
+  setIsCheckNull,
 }) {
   const isAuth = session?.status === 'authenticated'
   const setActionCart = useStore((state) => state.setActionCart)
@@ -40,6 +41,12 @@ export default function ItemCart({
   const [productSelected, setProductSelected] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const [isShow, setIsShow] = useState(false)
+
+  const isZero = Number(item?.stock_quantity) < 1
+
+  useEffect(() => {
+    isZero && setIsCheckNull(isZero)
+  }, [])
 
   useEffect(() => {
     setProductSelected(item)
@@ -199,8 +206,6 @@ export default function ItemCart({
 
   if (isLoading) return <SkeletonItemCart />
 
-  const isZero = Number(item?.stock_quantity) < 1
-
   return (
     <>
       <article className='rounded-[0.58565rem] bg-white shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)] py-[0.73rem] pl-[0.59rem] pr-[1.17rem] flex xmd:px-[0.73rem] xmd:py-[0.59rem] xmd:shadow-[-3px_2px_20px_0px_rgba(0,0,0,0.04),2px_2px_12px_0px_rgba(0,0,0,0.02)] md:min-h-[7rem]'>
@@ -245,6 +250,7 @@ export default function ItemCart({
           <div className='pl-[0.88rem] flex flex-col justify-between xmd:pl-[0.44rem]'>
             <div>
               <Link
+                title={productSelected?.name}
                 href={`/${productSelected?.slug || ''}`}
                 className='capitalize font-medium line-clamp-1 caption1 text-greyscale-40 xmd:text-greyscale-50 xmd:font-semibold leading-[1.2] xmd:tracking-[0.01025rem]'
               >
@@ -332,11 +338,13 @@ export default function ItemCart({
                 </span>
               )}
             </div>
-            <ButtonChange
-              handleQuantity={handleQuantity}
-              initQuantity={item.quantity || 1}
-              stockQty={item?.variation?.max_qty || item?.stock_quantity}
-            />
+            <div className={isZero ? 'pointer-events-none opacity-30' : ''}>
+              <ButtonChange
+                handleQuantity={handleQuantity}
+                initQuantity={item.quantity || 1}
+                stockQty={item?.variation?.max_qty || item?.stock_quantity}
+              />
+            </div>
           </div>
         </div>
       </article>

@@ -27,7 +27,7 @@ export const getMeta = (result, slug) => {
       google: '',
     },
   }
-  if (result?.json?.og_image && result.json.og_image.length > 0) {
+  if (result?.json?.og_image && result?.json?.og_image?.length > 0) {
     meta.openGraph.images.push({
       url: result.json.og_image[0]?.url,
       width: result.json.og_image[0]?.width,

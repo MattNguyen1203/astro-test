@@ -2,7 +2,7 @@ import {fetchMetaData} from '@/lib/fetchMetaData'
 import {getMeta} from '@/lib/getMeta'
 import IndexLookUpOrder from '@/sections/lookuporder'
 
-export async function generateMetadata({params}) {
+export async function generateMetadata() {
   const result = await fetchMetaData(`tra-cuu-don-hang/`)
   return getMeta(result, `tra-cuu-don-hang`)
 }

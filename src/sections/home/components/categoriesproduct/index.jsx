@@ -1,9 +1,12 @@
+import {IDGLOBALAPI} from '@/lib/IdPageAPI'
 import getData from '@/lib/getData'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default async function CategoriesProduct() {
-  const categories = await getData('/okhub/v1/category/category')
+  const categories = await getData(
+    `/okhub/v1/acf-categories/?page_id=${IDGLOBALAPI}&cat_slug=navbar&cat_slug=product_cat`,
+  )
   return (
     <div className='pt-[2.34rem] w-full'>
       <h2 className='font-semibold text-center sub1 text-greyscale-80 mb-[1.17rem]'>
@@ -20,7 +23,7 @@ export default async function CategoriesProduct() {
             >
               <Image
                 className='size-[1.1713rem] object-cover'
-                src={category?.icon || '/layout/nav/pen.svg'}
+                src={category?.thumbnail || '/layout/nav/pen.svg'}
                 alt={category?.name}
                 width={24}
                 height={24}
@@ -30,21 +33,6 @@ export default async function CategoriesProduct() {
               </span>
             </Link>
           ))}
-          <Link
-            href={`/san-pham`}
-            className='flex flex-col p-[0.59rem] rounded-[0.58565rem] bg-white shadow-[2px_4px_20px_0px_rgba(2,87,176,0.04),-6px_2px_32px_0px_rgba(35,101,170,0.04)] justify-between items-center'
-          >
-            <Image
-              className='size-[1.1713rem] object-cover'
-              src={'/layout/nav/other.svg'}
-              alt={'other'}
-              width={24}
-              height={24}
-            />
-            <span className='block font-medium text-center line-clamp-2 caption text-greyscale-40'>
-              Khác
-            </span>
-          </Link>
         </div>
       </div>
     </div>

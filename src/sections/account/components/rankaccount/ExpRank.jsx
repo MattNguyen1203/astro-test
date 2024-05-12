@@ -4,22 +4,20 @@ import {Swiper, SwiperSlide} from 'swiper/react'
 import {FreeMode} from 'swiper/modules'
 import 'swiper/css'
 import './style.css'
-export default function ExpRank({session, dataRank, isMobile}) {
-  // const lastRank = dataRank[Object?.keys(dataRank)?.length - 1]
-  // const percentPC = Math.min(
-  //   (session?.memberTotalCharge / parseInt(lastRank?.amount_give_level)) * 95,
-  //   95,
-  // )
-  // maxWidth = x rem
+export default function ExpRank({dataRank, isMobile, profile}) {
   let maxWidth = isMobile ? 60 : 120
   let trans = 5
+  const lastRank = Object?.keys(dataRank)?.length - 1
   const widthRank = maxWidth / (Object?.keys(dataRank)?.length - 1)
-  const numberRank = parseInt(session?.memberlevel)
+  const numberRank = parseInt(profile?.member_level)
   const nextRank =
-    dataRank[numberRank + 1]?.amount_up_level -
-    dataRank[numberRank]?.amount_up_level
+    numberRank === lastRank
+      ? 1
+      : dataRank[numberRank + 1]?.amount_up_level -
+        dataRank[numberRank]?.amount_up_level
+
   const wasRank =
-    session?.memberTotalCharge - dataRank[numberRank]?.amount_up_level
+    profile?.member_total_charge - dataRank[numberRank]?.amount_up_level
   const percentPC =
     dataRank[numberRank]?.sort * 100 + (wasRank / nextRank) * 100
   return (
@@ -37,7 +35,7 @@ export default function ExpRank({session, dataRank, isMobile}) {
             className='flex items-center xmd:w-[53.73352rem] z-[99]'
           >
             <div className='flex relative flex-col justify-center items-start w-0 md:pl-[0.5rem]'>
-              <div className='xmd:ml-[2rem] flex justify-center items-center w-[1.75695rem] h-[1.75695rem] pr-[0.00117rem]'>
+              <div className='xmd:ml-[1rem] flex justify-center items-center w-[1.75695rem] h-[1.75695rem] pr-[0.00117rem]'>
                 <Image
                   width={23.984}
                   height={24}
@@ -64,7 +62,7 @@ export default function ExpRank({session, dataRank, isMobile}) {
               <div
                 style={{
                   backgroundColor:
-                    session?.memberlevel < 1 ? '#2f9f3e' : 'white',
+                    profile?.member_level < 1 ? '#2f9f3e' : 'white',
                 }}
                 className='translate-x-[-0.35rem] rounded-full z-[99] absolute h-[1.1713rem] w-[1.1713rem] bottom-[-2.35rem] ml-[0.35rem]'
               ></div>
@@ -87,7 +85,7 @@ export default function ExpRank({session, dataRank, isMobile}) {
               <div
                 style={{
                   backgroundColor:
-                    session?.memberlevel < 2 ? '#2f9f3e' : 'white',
+                    profile?.member_level < 2 ? '#2f9f3e' : 'white',
                 }}
                 className='translate-x-[-0.35rem] rounded-full z-[99] absolute h-[1.1713rem] w-[1.1713rem] bottom-[-2.35rem] ml-[0.35rem]'
               ></div>
@@ -110,7 +108,7 @@ export default function ExpRank({session, dataRank, isMobile}) {
               <div
                 style={{
                   backgroundColor:
-                    session?.memberlevel < 3 ? '#2f9f3e' : 'white',
+                    profile?.member_level < 3 ? '#2f9f3e' : 'white',
                 }}
                 className='translate-x-[-0.35rem] rounded-full z-[99] absolute h-[1.1713rem] w-[1.1713rem] bottom-[-2.35rem] ml-[0.35rem]'
               ></div>

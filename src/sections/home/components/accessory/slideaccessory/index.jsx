@@ -7,7 +7,7 @@ import {FreeMode, Scrollbar} from 'swiper/modules'
 import {SwiperSlide, Swiper} from 'swiper/react'
 import useSWR from 'swr'
 
-export default function SlideAccessory({products, session}) {
+export default function SlideAccessory({products, session, isIPhone}) {
   const searchParams = useSearchParams()
   const device = searchParams.get('device')
 
@@ -45,6 +45,7 @@ export default function SlideAccessory({products, session}) {
         >
           <div className='size-full md:px-[0.44rem] px-[0.295rem] flex items-start'>
             <CardProduct
+              isIPhone={isIPhone}
               product={product}
               session={session}
             />

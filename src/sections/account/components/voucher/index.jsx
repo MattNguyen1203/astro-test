@@ -3,7 +3,7 @@
 import useStore from '@/app/(store)/store'
 import CardVoucher from '@/components/cardvoucher'
 import Image from 'next/image'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
 export default function IndexVoucher({couponRank, couponCategories}) {
   const [isIndex, setIsIndex] = useState(false)

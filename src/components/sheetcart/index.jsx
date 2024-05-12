@@ -6,7 +6,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import ItemCart from '../itemcart'
-import {useMemo, useState} from 'react'
+import {useEffect, useState} from 'react'
 import ICDelete from '../icon/ICDelete'
 import {ScrollArea} from '../ui/scroll-area'
 import ICBoxCheck from '../icon/ICBoxCheck'
@@ -30,14 +30,25 @@ export default function SheetCart({
   const router = useRouter()
 
   const [cart, setCart] = useState([])
-  console.log('🚀 ~ cart:', cart)
-  const [isLoadingCart, setIsLoadingCart] = useState(false)
+
+  const [isCheckNull, setIsCheckNull] = useState(false)
+  const [totalPrice, setTotalPrice] = useState(0)
+
   const listCart = useStore((state) => state.listCart)
   const setListCart = useStore((state) => state.setListCart)
   const actionCart = useStore((state) => state.actionCart)
   const setActionCart = useStore((state) => state.setActionCart)
 
+  useEffect(() => {
+    let sum = 0
+    cart?.map((item) => {
+      sum += listCart?.[item]?.line_subtotal
+    })
+    setTotalPrice(sum)
+  }, [cart])
+
   const handleCart = () => {
+    if (isCheckNull) return
     if (cart?.length === listCart?.length) {
       setCart([])
     } else {
@@ -61,33 +72,6 @@ export default function SheetCart({
     }
   }
 
-  const totalPrice = useMemo(() => {
-    if (Array.isArray(listCart)) {
-      const total = listCart?.reduce((total, item) => {
-        if (isAuth) {
-          if (item.type === 'wooco') {
-            return total + Number(item?.line_total)
-          } else {
-            return total + Number(item?.price) * Number(item.quantity)
-          }
-        } else {
-          if (item.type === 'wooco') {
-            return total + Number(item?.line_total)
-          } else if (item.type === 'variable') {
-            return (
-              total +
-              Number(item?.variation?.display_price) * Number(item.quantity)
-            )
-          } else {
-            return total + Number(item?.price) * Number(item.quantity)
-          }
-        }
-      }, 0)
-
-      return total
-    }
-  }, [listCart])
-
   const handleClearCart = async () => {
     if (cart?.length <= 0) return
     const newListCart = listCart?.filter(
@@ -96,13 +80,11 @@ export default function SheetCart({
 
     if (isAuth) {
       const listKeyDelete = cart.map((item) => ({key: listCart[item].key}))
-      // setIsLoadingCart(true)
       const res = await deleteDataAuth({
         api: '/okhub/v1/cart',
         token: session?.accessToken,
         body: {cart_items: listKeyDelete},
       })
-      // setIsLoadingCart(false)
 
       if (res.success) {
         setListCart(newListCart)
@@ -123,6 +105,7 @@ export default function SheetCart({
       setCart([])
     }
   }
+
   return (
     <Sheet
       open={isOpen}
@@ -139,18 +122,22 @@ export default function SheetCart({
             <div className='md:mt-[1.46rem] flex justify-between bg-[#F5F5F5] md:rounded-[0.58565rem] px-[1.17rem] py-[0.88rem] mb-[0.88rem]'>
               <div
                 onClick={handleCart}
-                className='flex items-center cursor-pointer select-none w-fit'
+                className={`${
+                  isCheckNull ? 'cursor-default' : 'cursor-pointer'
+                } flex items-center select-none w-fit`}
               >
-                <div className='size-[1.75695rem] relative overflow-hidden cursor-pointer '>
-                  <ICBoxCheck className='size-full' />
-                  {cart?.length === listCart?.length && (
-                    <div className='absolute top-0 left-0 flex items-center justify-center bg-blue-700 size-full rounded-[0.25rem]'>
-                      <ICCheck className='w-[0.8rem] h-auto' />
-                    </div>
-                  )}
-                </div>
+                {!isCheckNull && (
+                  <div className='size-[1.75695rem] relative overflow-hidden cursor-pointer '>
+                    <ICBoxCheck className='size-full' />
+                    {cart?.length === listCart?.length && (
+                      <div className='absolute top-0 left-0 flex items-center justify-center bg-blue-700 size-full rounded-[0.25rem]'>
+                        <ICCheck className='w-[0.8rem] h-auto' />
+                      </div>
+                    )}
+                  </div>
+                )}
                 <span className='text-[1.02489rem] text-[#262626] leading-[1.2] tracking-[0.01025rem] font-semibold w-fit ml-[0.88rem] mr-[0.29rem]'>
-                  Chọn tất cả
+                  {isCheckNull ? 'Tất cả sản phẩm' : 'Chọn tất cả'}
                 </span>
                 <span className='text-[1.02489rem] tracking-[0.01025rem] leading-[1.2] font-semibold text-brown-500'>
                   ({listCart?.length || 0} sản phẩm)
@@ -176,7 +163,7 @@ export default function SheetCart({
               type={isMobile ? 'never' : 'always'}
               className='w-full h-[calc(100vh-10rem-4rem)] xmd:h-[calc(100vh-10.17rem-3.6rem)] pl-[2.92rem] pr-[1.5rem] xmd:px-[0.59rem]'
             >
-              {isLoading || isLoadingCart ? (
+              {isLoading ? (
                 <Loading />
               ) : (
                 <div className='grid grid-cols-1 gap-y-[0.88rem] xmd:mb-[4rem]'>
@@ -190,6 +177,7 @@ export default function SheetCart({
                         item={item}
                         isAuth={isAuth}
                         session={session}
+                        setIsCheckNull={setIsCheckNull}
                       />
                     </div>
                   ))}
@@ -204,7 +192,7 @@ export default function SheetCart({
                   Tổng tiền hàng:
                 </span>
                 <span className='text-[#D48E43] font-bold text-[1.1713rem] leading-[1.2] md:tracking-[0.00586rem] xmd:text-[1.02489rem]'>
-                  {formatToVND(totalPrice)}
+                  {totalPrice ? formatToVND(totalPrice) : '0đ'}
                 </span>
               </div>
               {/* <div className='flex items-center space-x-[0.29rem] mt-[0.44rem] xmd:mt-[0.29rem]'>
@@ -218,9 +206,9 @@ export default function SheetCart({
             </div>
             <button
               onClick={handlePayment}
-              className='h-[2.92826rem] w-[12.15227rem] xmd:w-[10.2489rem] rounded-[0.58565rem] shadow-[2px_1px_12px_0px_rgba(0,0,0,0.06),2px_2px_20px_0px_rgba(0,0,0,0.04)] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] text-white caption1 font-semibold flex justify-center items-center ml-[0.88rem]'
+              className='h-[2.92826rem] w-[12.15227rem] rounded-[0.58565rem] shadow-[2px_1px_12px_0px_rgba(0,0,0,0.06),2px_2px_20px_0px_rgba(0,0,0,0.04)] bg-[linear-gradient(97deg,#102841_0%,#1359A1_100%)] text-white caption1 font-semibold flex justify-center items-center ml-[0.88rem]'
             >
-              THANH TOÁN
+              ĐI ĐẾN THANH TOÁN
             </button>
           </div>
         </div>

@@ -8,7 +8,7 @@ import {fetchMetaData} from '@/lib/fetchMetaData'
 import {getMeta} from '@/lib/getMeta'
 
 export async function generateMetadata({params: {slug}}) {
-  const result = await fetchMetaData(`product/${slug}/`)
+  const result = await fetchMetaData(`product/${slug?.[0]}/`)
   return getMeta(result, `combo/${slug}`)
 }
 
@@ -17,7 +17,7 @@ export async function generateStaticParams() {
   const productsNew = products?.filter((e) => e?.type === 'wooco')
 
   return productsNew?.map((product) => ({
-    slug: [product.slug],
+    slug: [product?.slug],
   }))
 }
 
@@ -26,16 +26,18 @@ const ProductDetailPage = async ({searchParams, params: {slug}}) => {
   const isMobile = viewport.includes('mobile')
 
   const dataProductDetailReq = getData(
-    `/okhub/v1/product/productByslug/${slug}`,
+    `/okhub/v1/product/productByslug/${slug?.[0]}`,
   )
   const dataProductVoucherReq = getData(
-    `/okhub/v1/coupon/product-detail/${slug}?limit=10`,
+    `/okhub/v1/coupon/product-detail/${slug?.[0]}?limit=10`,
   )
 
   const linkSocials = await getData(`/wp/v2/pages/${IDGLOBALAPI}`)
 
-  const bestCouponReq = getData(`/okhub/v1/coupon/product-detail/${slug}/best`)
-  const mainDataReq = getData(`/wp/v2/product?slug=${slug}`)
+  const bestCouponReq = getData(
+    `/okhub/v1/coupon/product-detail/${slug?.[0]}/best`,
+  )
+  const mainDataReq = getData(`/wp/v2/product?slug=${slug?.[0]}`)
   const FiveProductReq = getData(`/okhub/v1/product/allProduct?limit=5&page=1`)
 
   const [

@@ -245,11 +245,11 @@ const ProductDetail = ({
           </div>
         </div>
 
-        <div className='col flex-1 w-[43.48463rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[6.6rem] xmd:mb-[1.17rem]'>
+        <div className='col flex-1 w-[43.48463rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[2.1rem] xmd:mb-[1.17rem]'>
           <div className='subContainer xmd:rounded-0 md:relative'>
-            <h2 className='md:w-[38rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'>
+            <h1 className='md:w-[38rem] text-[1.52489rem] md:h-[3.8rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'>
               {data?.name}
-            </h2>
+            </h1>
             <ProductPrice
               regularPrice={regular_price}
               price={price}
@@ -422,8 +422,8 @@ const ProductDetail = ({
                 session={session}
               ></DialogProductCombo> */}
 
-              <div className='flex items-center justify-between mt-[1.17rem]'>
-                <div className='flex items-center xmd:flex-col xmd:items-start'>
+              <div className='flex items-center justify-between mt-[1.17rem] space-x-0'>
+                <div className='flex items-center xmd:flex-col xmd:items-start xmd:w-[12.5rem]'>
                   <span className='sub1 font-bold xmd:font-semibold text-greyscale-20 xmd:text-greyscale-50 mr-[0.59rem] xmd:mr-0 xmd:mb-[0.3rem]'>
                     Tổng cộng:
                   </span>

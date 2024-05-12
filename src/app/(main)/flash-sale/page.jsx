@@ -1,5 +1,3 @@
-import 'swiper/css'
-
 import IndexFlashSale from '@/sections/flashsale'
 import {fetchMetaData} from '@/lib/fetchMetaData'
 import {getMeta} from '@/lib/getMeta'

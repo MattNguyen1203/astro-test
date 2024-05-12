@@ -41,6 +41,7 @@ export default async function page({searchParams}) {
         <ExpRank
           dataRank={dataRank}
           session={session}
+          profile={profile}
           isMobile={isMobile}
         />
       </div>

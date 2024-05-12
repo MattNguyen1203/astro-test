@@ -25,9 +25,7 @@ export default async function InfoAccount({session}) {
           <div className='flex flex-col ml-[0.88rem]'>
             {profile?.user_id && (
               <span className='font-medium caption1 text-greyscale-50'>
-                {profile?.nickname ||
-                  profile?.display_name?.trim() ||
-                  profile?.email?.split('@')?.[0]}
+                {profile?.display_name?.trim() || profile?.username}
               </span>
             )}
             <ItemRank rank={Number(profile?.member_level) || 0} />
