@@ -1,5 +1,12 @@
+import {fetchMetaData} from '@/lib/fetchMetaData'
+import {getMeta} from '@/lib/getMeta'
 import FogetPassIndex from '@/sections/fogetpass'
 import Image from 'next/image'
+
+export async function generateMetadata({params}) {
+  const result = await fetchMetaData(`tai-khoan/`)
+  return getMeta(result, `quen-mat-khau`)
+}
 
 export default function ForgetPage({searchParams}) {
   const {viewport} = searchParams

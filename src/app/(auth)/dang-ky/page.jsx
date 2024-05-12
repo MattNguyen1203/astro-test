@@ -1,5 +1,12 @@
+import {fetchMetaData} from '@/lib/fetchMetaData'
+import {getMeta} from '@/lib/getMeta'
 import SignUpIndex from '@/sections/signup'
 import Image from 'next/image'
+
+export async function generateMetadata({params}) {
+  const result = await fetchMetaData(`tai-khoan/`)
+  return getMeta(result, `dang-ky`)
+}
 
 export default function SignUpPage({searchParams}) {
   const {viewport} = searchParams
