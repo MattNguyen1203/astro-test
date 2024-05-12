@@ -22,10 +22,15 @@ import FeedBack from './components/feedback'
 import TechnologyConner from './components/technologyconner'
 import ListStrength from '@/components/liststrength'
 import WrapperPromotionSlide from './components/promotions/WrapperPromotionSlide'
+import {headers} from 'next/headers'
 
 export default function HomeIndex({viewport}) {
   const isMobile = viewport === 'mobile'
   const isTablet = viewport === 'tablet'
+  // const isIPhone = viewport === 'iPhone'
+  const headersList = headers()
+  const userAgent = headersList.get('user-agent')
+  const isIPhone = /iPhone/i.test(userAgent)
   return (
     <main className='relative bg-elevation-20 xmd:bg-white'>
       <section className='pt-[8rem] xmd:pt-[4.1rem] xmd:bg-elevation-20 tablet:pb-[5rem]'>
@@ -38,7 +43,10 @@ export default function HomeIndex({viewport}) {
       <section>
         <FlashVoucher isMobile={isMobile} />
         {isMobile && <CategoriesProduct />}
-        <Accessory isMobile={isMobile} />
+        <Accessory
+          isIPhone={isIPhone}
+          isMobile={isMobile}
+        />
       </section>
       {!isMobile && (
         <section>
