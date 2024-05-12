@@ -5,11 +5,11 @@ import SlideInfinity from './slideinfinity'
 
 export default function PreOder() {
   return (
-    <div className='xmd:flex-col container h-[8.05rem] bg-white relative rounded-[0.87848rem] flex'>
+    <div className='xmd:flex-col container h-[8.05rem] xmd:h-[10.05rem] bg-white relative rounded-[0.87848rem] flex'>
       <div className='relative w-[48.16984rem] xmd:w-full h-full'>
         <div className='relative size-full group'>
           <Image
-            className='xmd:absolute xmd:top-0 xmd:left-0 w-[11.9rem] h-[11.7rem] xmd:w-[7.46706rem] xmd:h-[7.68668rem] object-cover absolute -left-[2.12rem] bottom-0 z-50 group-hover:scale-110 origin-bottom transition-all duration-500'
+            className='xmd:absolute xmd:top-0 xmd:left-0 w-[11.9rem] h-[11.7rem] xmd:w-[9.46706rem] xmd:h-[9.68668rem] object-cover absolute -left-[2.12rem] bottom-0 z-50 group-hover:scale-110 origin-bottom transition-all duration-500'
             src={'/home/customer-preoders.png'}
             alt='customer'
             width={165}
