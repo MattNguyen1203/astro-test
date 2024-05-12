@@ -17,6 +17,8 @@ export default function InfoOrderBill({
 }) {
   const router = useRouter()
 
+  console.log('detailOrder', detailOrder)
+
   const [isPending, setTransition] = useTransition()
   const setProgress = useStore((state) => state.setProgress)
 
@@ -38,8 +40,6 @@ export default function InfoOrderBill({
   }, [])
 
   const isShipIn = detailOrder?.shipping_lines?.[0]?.method_id === 'in_hcm'
-  const isFreeShip =
-    detailOrder?.shipping_lines?.[0]?.method_id === 'free_shipping'
 
   const handleRePayment = () => {
     setTransition(() => {
@@ -75,6 +75,10 @@ export default function InfoOrderBill({
 
   const totalBill = handleTotalBill()
 
+  const isFreeShip =
+    detailOrder?.shipping_lines?.[0]?.method_id === 'free_shipping' ||
+    totalBill >= 300000
+
   return (
     <aside className='md:sticky top-[9.76rem] right-0 w-[36.2rem] xmd:w-full'>
       <div className='xmd:px-[0.58565rem] p-[1.46rem] rounded-[0.58565rem] bg-white'>
@@ -93,8 +97,8 @@ export default function InfoOrderBill({
               - Khách hàng:
             </span>
             <span className='font-normal caption1 text-greyscale-40'>
-              {detailOrder?.billing?.first_name +
-                detailOrder?.billing?.last_name}
+              {detailOrder?.shipping?.first_name +
+                detailOrder?.shipping?.last_name}
             </span>
           </li>
           <li className='flex'>
@@ -102,7 +106,7 @@ export default function InfoOrderBill({
               - Số điện thoại:
             </span>
             <span className='font-normal caption1 text-greyscale-40'>
-              {detailOrder?.billing?.phone}
+              {detailOrder?.shipping?.phone}
             </span>
           </li>
           <li className='flex'>
@@ -126,11 +130,11 @@ export default function InfoOrderBill({
               - Địa chỉ nhận hàng:
             </span>
             <span className='font-normal capitalize caption1 text-greyscale-40'>
-              {detailOrder?.billing?.address_1 +
+              {detailOrder?.shipping?.address_1 +
                 ', ' +
-                detailOrder?.billing?.address_2 +
+                detailOrder?.shipping?.address_2 +
                 ', ' +
-                detailOrder?.billing?.city}
+                detailOrder?.shipping?.city}
             </span>
           </li>
         </ul>
@@ -210,16 +214,16 @@ export default function InfoOrderBill({
               </span>
             </div>
           )}
-          {!!detailOrder?.counpon?.length && (
+          {/* {!!detailOrder?.counpon?.length && (
             <div className='flex items-center justify-between'>
               <span className='font-medium caption1 text-greyscale-40'>
                 Voucher giảm giá
               </span>
               <span className='font-semibold caption1 text-greyscale-80'>
-                - 40.000đ
+                - 30.000đ
               </span>
             </div>
-          )}
+          )} */}
           {/* <div className='flex items-center justify-between'>
             <span className='font-medium caption1 text-greyscale-40'>
               Khuyến mãi hạng thành viên

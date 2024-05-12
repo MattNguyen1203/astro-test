@@ -42,7 +42,7 @@ export function TabsVoucher() {
         </TabsTrigger>
       </TabsList>
       <TabsContent value='tv'>
-        <div className='space-y-[0.59rem]'>
+        <div className='space-y-[0.59rem] xmd:px-[0.59rem]'>
           {Array(8)
             .fill(0)
             .map((_, index) => (
@@ -57,7 +57,7 @@ export function TabsVoucher() {
         </div>
       </TabsContent>
       <TabsContent value='cat'>
-        <div className='space-y-[0.59rem]'>
+        <div className='space-y-[0.59rem] xmd:px-[0.59rem]'>
           {Array(8)
             .fill(0)
             .map((_, index) => (
