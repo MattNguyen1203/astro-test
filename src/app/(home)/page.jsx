@@ -2,7 +2,7 @@ import {fetchMetaData} from '@/lib/fetchMetaData'
 import {getMeta} from '@/lib/getMeta'
 import HomeIndex from '@/sections/home'
 
-export async function generateMetadata({params}) {
+export async function generateMetadata() {
   const result = await fetchMetaData('')
   return getMeta(result, '')
 }

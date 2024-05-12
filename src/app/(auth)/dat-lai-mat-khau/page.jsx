@@ -1,3 +1,5 @@
+import {fetchMetaData} from '@/lib/fetchMetaData'
+import {getMeta} from '@/lib/getMeta'
 import ResetPassIndex from '@/sections/resetpass'
 import Image from 'next/image'
 import {Suspense} from 'react'
