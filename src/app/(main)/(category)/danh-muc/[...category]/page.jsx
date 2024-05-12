@@ -2,6 +2,8 @@ import getData from '@/lib/getData'
 import AllNews from '@/sections/news/allnews'
 import {notFound} from 'next/navigation'
 import {IDGLOBALAPI} from '@/lib/IdPageAPI'
+import {getMeta} from '@/lib/getMeta'
+import {fetchMetaData} from '@/lib/fetchMetaData'
 
 export async function generateStaticParams() {
   const categories = await getData(`/okhub/v1/category/post/build`)
@@ -35,9 +37,19 @@ export async function generateStaticParams() {
   return staticParams
 }
 
-export default async function page({ params }) {
-  
-  const [posts, categories, products,linkSocials] = await Promise.all([
+export async function generateMetadata({params}) {
+  // console.log('params', params?.category)
+
+  const categorySlug =
+    params?.category?.[0] +
+    '/' +
+    `${params?.category?.length > 1 ? params?.category?.[1] + '/' : ''}`
+  const result = await fetchMetaData(`category/${categorySlug}`)
+  return getMeta(result, `danh-muc/${categorySlug}`)
+}
+
+export default async function page({params}) {
+  const [posts, categories, products, linkSocials] = await Promise.all([
     getData(
       `/okhub/v1/post/postsByCategory/${params?.category[0]}?page=${
         Number(params?.category?.length) > 1 ? params?.category[1] : 1
@@ -45,7 +57,7 @@ export default async function page({ params }) {
     ),
     getData(`/okhub/v1/category/post`),
     getData('/okhub/v1/product/allProduct?limit=5&page=1'),
-    getData(`/wp/v2/pages/${IDGLOBALAPI}`)
+    getData(`/wp/v2/pages/${IDGLOBALAPI}`),
   ])
 
   if (!posts) return notFound()

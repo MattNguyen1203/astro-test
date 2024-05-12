@@ -1,7 +1,14 @@
+import {fetchMetaData} from '@/lib/fetchMetaData'
 import getData from '@/lib/getData'
+import {getMeta} from '@/lib/getMeta'
 import InfoOrderBill from '@/sections/payment/InfoOrderBill'
 import ItemProductPayment from '@/sections/payment/ItemProductPayment'
 import StatusPayment from '@/sections/payment/StatusPayment'
+
+export async function generateMetadata({params}) {
+  const result = await fetchMetaData(`thank-you/`)
+  return getMeta(result, `thank-you`)
+}
 
 export default async function PaymentPage({searchParams}) {
   const {viewport} = searchParams

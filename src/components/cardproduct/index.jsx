@@ -15,7 +15,7 @@ const DialogProduct = dynamic(
   {ssr: false},
 )
 
-function CardProduct({product, priority = false, boxPlaced = false}) {
+function CardProduct({product, priority = false, boxPlaced = false, isIPhone}) {
   const [isOpen, setIsOpen] = useState(false)
   const percentSale = handlePercentSale(product)
   const price = renderPriceProduct(product)
@@ -136,6 +136,7 @@ function CardProduct({product, priority = false, boxPlaced = false}) {
 
         {isOpen && !isCombo && (
           <DialogProduct
+            isIPhone={isIPhone}
             isOpen={isOpen}
             setIsOpen={setIsOpen}
             type={product?.type}

@@ -1,5 +1,12 @@
+import {fetchMetaData} from '@/lib/fetchMetaData'
+import {getMeta} from '@/lib/getMeta'
 import OTPIndex from '@/sections/otp'
 import Image from 'next/image'
+
+export async function generateMetadata({params}) {
+  const result = await fetchMetaData(`tai-khoan/`)
+  return getMeta(result, `otp`)
+}
 
 export default function page({searchParams}) {
   const {viewport} = searchParams

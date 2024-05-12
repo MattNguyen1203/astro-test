@@ -1,5 +1,7 @@
 import BreadCrumb from '@/components/breadcrumb'
+import {fetchMetaData} from '@/lib/fetchMetaData'
 import getData from '@/lib/getData'
+import {getMeta} from '@/lib/getMeta'
 import WrapperAllNew from '@/sections/news/WrapperAllNew'
 import WrapperHandBook from '@/sections/news/WrapperHandBook'
 import WrapperReview from '@/sections/news/WrapperReview'
@@ -22,6 +24,10 @@ export async function generateStaticParams() {
   return staticParams
 }
 
+export async function generateMetadata({params}) {
+  const result = await fetchMetaData(`tin-tuc/`)
+  return getMeta(result, `tin-tuc`)
+}
 export default function page({params}) {
   return (
     <main className='pt-[9.76rem] bg-elevation-10'>

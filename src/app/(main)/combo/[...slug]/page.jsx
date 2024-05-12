@@ -4,6 +4,13 @@ import {getDataProfile} from '@/lib/getDataProfile'
 import ComboDetail from '@/sections/productDetail/ComboDetail'
 import {notFound} from 'next/navigation'
 import {IDGLOBALAPI} from '@/lib/IdPageAPI'
+import {fetchMetaData} from '@/lib/fetchMetaData'
+import {getMeta} from '@/lib/getMeta'
+
+export async function generateMetadata({params: {slug}}) {
+  const result = await fetchMetaData(`product/${slug}/`)
+  return getMeta(result, `combo/${slug}`)
+}
 
 export async function generateStaticParams() {
   const products = await getData('/okhub/v1/product')
