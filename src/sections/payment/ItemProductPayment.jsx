@@ -16,6 +16,8 @@ export default function ItemProductPayment({item, length, index}) {
   // const percentSale = handlePercentSale(item)
 
   const isWooco = item?.type === 'wooco'
+
+  isWooco && console.log('🚀 ~ ItemProductPayment ~ item:', item)
   const isVariation = item?.type === 'variable'
 
   const handleSumPrice = (children) => {
@@ -87,7 +89,7 @@ export default function ItemProductPayment({item, length, index}) {
             </span>
 
             {!isEqual && regularPriceResult && (
-              <span className='caption1 line-through text-greyscale-40 xmd:font-medium xmd:text-greyscale-30 xmd:leading-normal'>
+              <span className='line-through caption1 text-greyscale-40 xmd:font-medium xmd:text-greyscale-30 xmd:leading-normal'>
                 {formatToVND(regularPriceResult)}
               </span>
             )}
@@ -138,7 +140,7 @@ export default function ItemProductPayment({item, length, index}) {
             />
           )}
         </div>
-        <div className='flex items-end flex-1 justify-end'>
+        <div className='flex items-end justify-end flex-1'>
           <span className='font-medium caption1 text-greyscale-40'>
             x{item?.quantity > 9 ? item?.quantity : '0' + item?.quantity}
           </span>

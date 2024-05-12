@@ -6,6 +6,8 @@ import dynamic from 'next/dynamic'
 const SheetMegaMenu = dynamic(() => import('@/components/sheetmegamenu'))
 
 export default function MenuRes({referer, categories}) {
+  console.log('🚀 ~ MenuRes ~ categories:', categories)
+  console.log('🚀 ~ MenuRes ~ referer:', referer)
   const setIsOpenMegaMenuRes = useStore((state) => state.setIsOpenMegaMenuRes)
   const isOpenMegaMenuRes = useStore((state) => state.isOpenMegaMenuRes)
 

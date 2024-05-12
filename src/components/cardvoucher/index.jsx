@@ -72,7 +72,7 @@ export default function CardVoucher({
           </span>
         </div>
       )}
-      <div className='w-[9.6rem] xmd:w-[9.0776rem] h-full py-[0.59rem] px-[0.88rem] xmd:p-[0.59rem] flex flex-col justify-center'>
+      <div className='w-[10.6rem] xmd:w-[9.0776rem] h-full py-[0.59rem] px-[0.88rem] xmd:p-[0.59rem] flex flex-col justify-center'>
         <h3
           className={`${
             noDetail ? 'button' : 'body1'

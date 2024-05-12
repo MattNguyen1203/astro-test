@@ -15,7 +15,9 @@ export default function ContentMegaMenu({data = []}) {
                   <Link
                     href={'/'}
                     className={`${
-                      idx !== e.childCategories.length - 1 ? 'mr-[0.59rem]' : ''
+                      idx !== e?.childCategories?.length - 1
+                        ? 'mr-[0.59rem]'
+                        : ''
                     } mt-[0.59rem] block w-fit rounded-[0.58565rem] bg-elevation-20 py-[0.59rem] px-[0.88rem] caption1 font-semibold tracking-[0.00439rem] text-blue-800`}
                   >
                     {item}
