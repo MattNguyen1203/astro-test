@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 const ranks = [
   {
     id: 0,
@@ -32,7 +33,8 @@ const ranks = [
 export default function ItemRank({rank}) {
   const item = ranks?.find((e) => e?.id === rank)
   return (
-    <div
+    <Link
+      href='/khach-hanh-than-thiet'
       className={`${item?.background} flex items-center px-[0.6rem] py-[0.3rem] rounded-[7.4rem] w-fit mt-[0.44rem] shadow-[4px_4px_8px_0px_rgba(83,118,209,0.10)]`}
     >
       <Image
@@ -50,6 +52,6 @@ export default function ItemRank({rank}) {
       >
         {item?.title}
       </span>
-    </div>
+    </Link>
   )
 }

@@ -12,9 +12,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import LoadingBar from 'react-top-loading-bar'
 
-export default function NavDown({categoryOptions}) {
+export default function NavDown({categoryOptions, categories}) {
   const progress = useStore((state) => state.progress)
   const setProgress = useStore((state) => state.setProgress)
+
+  const isHasChildren = (id) => {
+    return categories?.find((item) => item?.id === id)?.children
+  }
 
   return (
     <>
@@ -63,14 +67,23 @@ export default function NavDown({categoryOptions}) {
                   )}
                 </Link>
               </NavigationMenuTrigger>
-              {e?.children?.length > 0 && (
-                <NavigationMenuContent className='container xl:min-w-[1200px] h-fit p-[2.05rem] rounded-[0.87848rem] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.10),2px_4px_6px_0px_rgba(0,0,0,0.02)]'>
-                  <div className='flex justify-between'>
-                    {e?.children?.map((item, idx) => (
+              {isHasChildren(e?.id)?.length > 0 && (
+                <NavigationMenuContent className='container xl:min-w-[1200px] min-h-[13rem] h-fit p-[2.05rem] rounded-[0.87848rem] shadow-[0px_2px_30px_0px_rgba(0,0,0,0.10),2px_4px_6px_0px_rgba(0,0,0,0.02)]'>
+                  <div
+                    className={`${
+                      isHasChildren(e?.id)?.length >= 5
+                        ? 'justify-between'
+                        : 'space-x-[5rem]'
+                    } flex `}
+                  >
+                    {isHasChildren(e?.id)?.map((item, idx) => (
                       <div key={idx}>
-                        <h2 className='font-bold text-blue-800 caption1 pl-[0.3rem]'>
+                        <Link
+                          href={`/san-pham/${item?.slug}`}
+                          className='font-bold text-blue-800 caption1 pl-[0.3rem] inline-block cursor-pointer'
+                        >
                           {item?.name}
-                        </h2>
+                        </Link>
                         {item?.children?.length > 0 && (
                           <ul className='flex flex-col mt-[0.15rem]'>
                             {item?.children?.map((child, i) => (

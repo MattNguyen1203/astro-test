@@ -27,10 +27,6 @@ import {toast} from 'sonner'
 import useStore from '@/app/(store)/store'
 
 const formSchema = z.object({
-  nickname: z
-    .string()
-    .min(1, 'Trường này là bắt buộc!')
-    .min(2, 'Trường này phải có ít nhất 2 ký tự'),
   fullName: z
     .string()
     .min(1, 'Trường này là bắt buộc!')
@@ -108,7 +104,6 @@ export default function IndexAccount({
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      nickname: profile?.nickname,
       fullName: profile?.display_name?.trim(),
       email: profile?.email,
       street: communeSplit?.length > 1 ? communeSplit?.[0] : '',
@@ -200,7 +195,6 @@ export default function IndexAccount({
     setIdDistrict(defaultIdDistrict)
     setSrc(null)
     form.reset({
-      nickname: profile?.nickname,
       fullName: profile?.display_name?.trim(),
       email: profile?.email,
       street: communeSplit?.length > 1 ? communeSplit?.[0] : '',
@@ -248,31 +242,6 @@ export default function IndexAccount({
                   </div>
                   <div className='flex items-center'>
                     <FormLabel
-                      htmlFor='nickname'
-                      className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'
-                    >
-                      Họ và tên:
-                    </FormLabel>
-                    <FormField
-                      control={form.control}
-                      name='nickname'
-                      render={({field}) => (
-                        <FormItem className='relative w-full'>
-                          <FormControl>
-                            <Input
-                              className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
-                              placeholder='Thêm nick name'
-                              disabled={!isEdit}
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage className='pl-[0.73rem] mt-[0.2rem]' />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <div className='flex items-center'>
-                    <FormLabel
                       htmlFor='fullName'
                       className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'
                     >
@@ -287,6 +256,31 @@ export default function IndexAccount({
                             <Input
                               className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
                               placeholder='Trịnh Văn Đức'
+                              disabled={!isEdit}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className='pl-[0.73rem] mt-[0.2rem]' />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className='flex items-center'>
+                    <FormLabel
+                      htmlFor='email'
+                      className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'
+                    >
+                      Email:
+                    </FormLabel>
+                    <FormField
+                      control={form.control}
+                      name='email'
+                      render={({field}) => (
+                        <FormItem className='relative w-full'>
+                          <FormControl>
+                            <Input
+                              className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
+                              placeholder='Email của bạn'
                               disabled={!isEdit}
                               {...field}
                             />
@@ -339,32 +333,6 @@ export default function IndexAccount({
                 )}
               </div>
               <div>
-                <div className='flex items-center my-[0.5rem]'>
-                  <FormLabel
-                    htmlFor='email'
-                    className='w-[11.2rem] caption1 font-normal text-greyscale-80 font-svnGraphik block flex-shrink-0'
-                  >
-                    Email:
-                  </FormLabel>
-                  <FormField
-                    control={form.control}
-                    name='email'
-                    render={({field}) => (
-                      <FormItem className='relative w-full'>
-                        <FormControl>
-                          <Input
-                            className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik w-full placeholder:caption1 placeholder:font-medium placeholder:text-greyscale-20'
-                            placeholder='Email của bạn'
-                            disabled={!isEdit}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className='pl-[0.73rem] mt-[0.2rem]' />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
                 <div className='flex items-center'>
                   <span className='w-[11.2rem] block flex-shrink-0 caption1 font-normal text-greyscale-80'>
                     Giới tính:

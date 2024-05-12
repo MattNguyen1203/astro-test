@@ -14,6 +14,7 @@ import BtnSubmit from '../auth/components/btnsubmit'
 import {applyCoupon} from '@/actions/applyCoupon'
 import {memo, useEffect, useTransition} from 'react'
 import {toast} from 'sonner'
+import {handleShelfLife} from '@/lib/utils'
 
 const formSchema = z.object({
   voucher: z.string().min(1, {message: 'Bạn chưa nhập Voucher!'}),
@@ -45,9 +46,11 @@ function FormUseVoucher({
   }, [isCouponBest])
 
   function onSubmit(values) {
+    console.log('🚀 ~ onSubmit ~ values:', values)
     setTransition(() => {
       applyCoupon(values?.voucher)
         .then((coupon) => {
+          console.log('🚀 ~ .then ~ coupon:', coupon)
           //handle coupon không tồn tại
           if (Number(coupon?.amount) === 0) {
             return toast.error('Voucher không tồn tại!', {

@@ -1,5 +1,3 @@
-import 'swiper/css'
-
 import IndexFlashSale from '@/sections/flashsale'
 
 export default function FlashSalePage({searchParams}) {

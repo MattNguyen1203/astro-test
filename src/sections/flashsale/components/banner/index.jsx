@@ -51,7 +51,7 @@ export default function BannerFlashSale({isMobile}) {
         alt='banner'
         width={isMobile ? 380 : 1400}
         height={isMobile ? 320 : 600}
-        quality={100}
+        quality={90}
         priority
       />
       <div className='absolute top-0 left-0 size-full'>
