@@ -4,6 +4,8 @@ import localFont from 'next/font/local'
 import Footer from '@/layout/footer'
 import {Work_Sans} from 'next/font/google'
 import Contact from '@/layout/contact'
+import {SessionProvider} from 'next-auth/react'
+import {auth} from '@/auth'
 
 export const metadata = {
   title: 'AstroMazing',
@@ -67,6 +69,7 @@ export const viewport = {
 }
 
 export default async function RootLayout({children}) {
+  const session = await auth()
   return (
     <html lang='en'>
       <head>
@@ -79,7 +82,7 @@ export default async function RootLayout({children}) {
         suppressHydrationWarning={true}
         className={`${svnGraphik.className} ${svnGraphik.variable} ${workSans.variable}`}
       >
-        {children}
+        <SessionProvider session={session}>{children}</SessionProvider>
         <Footer />
         <Contact />
       </body>
