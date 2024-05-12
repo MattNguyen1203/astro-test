@@ -7,7 +7,7 @@ import CategoriesIndex from './categories'
 import {auth} from '@/auth'
 import WrapperSlideAccessory from './slideaccessory/WrapperSlideAccessory'
 
-export default async function Accessory({isMobile}) {
+export default async function Accessory({isMobile, isIPhone}) {
   const session = await auth()
   return (
     <div className='pt-[4.39rem] md:bg-elevation-20 xmd:pt-[3rem]'>
@@ -33,7 +33,10 @@ export default async function Accessory({isMobile}) {
           </div>
         </div>
         <div className='md:w-[69.03367rem] h-[31.8448rem] xmd:h-[25.92rem] md:rounded-[0.87848rem] bg-white overflow-hidden relative xmd:top-[-1.17rem]'>
-          <WrapperSlideAccessory session={session} />
+          <WrapperSlideAccessory
+            isIPhone={isIPhone}
+            session={session}
+          />
         </div>
       </div>
       {!isMobile && (
