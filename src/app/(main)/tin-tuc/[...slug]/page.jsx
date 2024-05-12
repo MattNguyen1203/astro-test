@@ -1,5 +1,7 @@
 import BreadCrumb from '@/components/breadcrumb'
+import {fetchMetaData} from '@/lib/fetchMetaData'
 import getData from '@/lib/getData'
+import {getMeta} from '@/lib/getMeta'
 import SlideAccessory from '@/sections/home/components/accessory/slideaccessory'
 import ActualProduct from '@/sections/postdetail/ActualProduct'
 import MainPostdetail from '@/sections/postdetail/MainPostdetail'
@@ -14,6 +16,11 @@ export async function generateStaticParams() {
       slug: [post?.post_slug],
     }
   })
+}
+
+export async function generateMetadata({params: {slug}}) {
+  const result = await fetchMetaData(`${slug[0]}/`)
+  return getMeta(result, slug[0])
 }
 
 export default async function page({params, searchParams}) {
