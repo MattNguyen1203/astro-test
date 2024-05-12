@@ -30,13 +30,11 @@ export default function SheetCart({
   const router = useRouter()
 
   const [cart, setCart] = useState([])
-  console.log('🚀 ~ cart:', cart)
 
   const [isCheckNull, setIsCheckNull] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0)
 
   const listCart = useStore((state) => state.listCart)
-  console.log('🚀 ~ listCart:', listCart)
   const setListCart = useStore((state) => state.setListCart)
   const actionCart = useStore((state) => state.actionCart)
   const setActionCart = useStore((state) => state.setActionCart)

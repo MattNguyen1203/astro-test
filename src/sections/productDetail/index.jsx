@@ -247,9 +247,9 @@ const ProductDetail = ({
 
         <div className='col flex-1 w-[43.48463rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[2.1rem] xmd:mb-[1.17rem]'>
           <div className='subContainer xmd:rounded-0 md:relative'>
-            <h2 className='md:w-[38rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'>
+            <h1 className='md:w-[38rem] text-[1.52489rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'>
               {data?.name}
-            </h2>
+            </h1>
             <ProductPrice
               regularPrice={regular_price}
               price={price}

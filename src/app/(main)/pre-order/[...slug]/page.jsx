@@ -14,26 +14,26 @@ export async function generateStaticParams() {
   )
 
   return productsNew?.map((product) => ({
-    slug: [product.slug],
+    slug: [product?.slug],
   }))
 }
 
 export async function generateMetadata({params: {slug}}) {
-  const result = await fetchMetaData(`product/${slug}/`)
-  return getMeta(result, `pre-order/${slug}`)
+  const result = await fetchMetaData(`product/${slug?.[0]}/`)
+  return getMeta(result, `pre-order/${slug?.[0]}`)
 }
 const page = async ({searchParams, params: {slug}}) => {
   const {viewport} = searchParams
   const isMobile = viewport.includes('mobile')
   const dataProductDetailReq = getData(
-    `/okhub/v1/product/productByslug/${slug}`,
+    `/okhub/v1/product/productByslug/${slug?.[0]}`,
   )
-  const dataProductVoucherReq = getData(`/okhub/v1/product/coupon/${slug}`)
+  const dataProductVoucherReq = getData(`/okhub/v1/product/coupon/${slug?.[0]}`)
 
   const dataVariationReq = getData(
-    `/okhub/v1/product/${slug}/attributes/detail`,
+    `/okhub/v1/product/${slug?.[0]}/attributes/detail`,
   )
-  const mainDataReq = getData(`/wp/v2/product?slug=${slug}`)
+  const mainDataReq = getData(`/wp/v2/product?slug=${slug?.[0]}`)
   const FiveProductReq = getData(`/okhub/v1/product/allProduct?limit=5&page=1`)
 
   const [

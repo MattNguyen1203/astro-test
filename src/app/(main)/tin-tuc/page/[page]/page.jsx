@@ -24,7 +24,7 @@ export async function generateStaticParams() {
   return staticParams
 }
 
-export async function generateMetadata({params}) {
+export async function generateMetadata() {
   const result = await fetchMetaData(`tin-tuc/`)
   return getMeta(result, `tin-tuc`)
 }

@@ -10,7 +10,7 @@ export default function AvatarRes({profile, session}) {
       />
       <div className='ml-[0.75rem] flex flex-col justify-between'>
         <h2 className='font-medium text-greyscale-50 sub1'>
-          {profile?.nickname}
+          {profile?.display_name || profile?.username}
         </h2>
         <ItemRank rank={Number(profile?.member_level) || 0} />
       </div>

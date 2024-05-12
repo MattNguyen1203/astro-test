@@ -15,6 +15,7 @@ export default function ExpRank({dataRank, isMobile, profile}) {
       ? 1
       : dataRank[numberRank + 1]?.amount_up_level -
         dataRank[numberRank]?.amount_up_level
+
   const wasRank =
     profile?.member_total_charge - dataRank[numberRank]?.amount_up_level
   const percentPC =

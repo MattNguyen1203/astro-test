@@ -46,11 +46,9 @@ function FormUseVoucher({
   }, [isCouponBest])
 
   function onSubmit(values) {
-    console.log('🚀 ~ onSubmit ~ values:', values)
     setTransition(() => {
       applyCoupon(values?.voucher)
         .then((coupon) => {
-          console.log('🚀 ~ .then ~ coupon:', coupon)
           //handle coupon không tồn tại
           if (Number(coupon?.amount) === 0) {
             return toast.error('Voucher không tồn tại!', {
