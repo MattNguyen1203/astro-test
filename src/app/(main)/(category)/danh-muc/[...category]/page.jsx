@@ -38,14 +38,27 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({params}) {
-  // console.log('params', params?.category)
+  function getSlugHierarchy(data, targetSlug) {
+    for (const item of data) {
+      if (item.slug === targetSlug) {
+        return item.slug
+      }
+      if (item.children && item.children.length > 0) {
+        const result = getSlugHierarchy(item.children, targetSlug)
+        if (result) {
+          return `${item.slug}/${result}`
+        }
+      }
+    }
+    return null
+  }
 
-  const categorySlug =
-    params?.category?.[0] +
-    '/' +
-    `${params?.category?.length > 1 ? params?.category?.[1] + '/' : ''}`
-  const result = await fetchMetaData(`category/${categorySlug}`)
-  return getMeta(result, `danh-muc/${categorySlug}`)
+  const allCate = await getData(`/okhub/v1/category/post`)
+  const targetParams = params?.category[params?.category?.length - 1]
+
+  const combineCate = getSlugHierarchy(allCate, targetParams)
+  const result = await fetchMetaData(`category/${combineCate}/`)
+  return getMeta(result, `danh-muc/${targetParams}`)
 }
 
 export default async function page({params}) {

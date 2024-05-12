@@ -38,6 +38,5 @@ export const getMeta = (result, slug) => {
     })
   }
 
-  console.log('meta', meta)
   return meta
 }

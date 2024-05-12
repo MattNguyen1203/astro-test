@@ -5,5 +5,6 @@ export const fetchMetaData = async (slug) => {
       method: 'GET',
     },
   )
+
   return result.json()
 }
