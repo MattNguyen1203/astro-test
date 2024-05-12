@@ -41,7 +41,7 @@ export default function ProductInfo({
   const [regularPriceResult, priceResult] = handlePrice(data)
 
   return (
-    <div className='xmd:flex-col md:justify-between xmd:flex px-[1.17rem] xmd:p-[0] xmd:pt-[0.73rem] xmd:pb-[9rem] pt-[1.17rem] pb-[1.14rem] rounded-[0.87848rem] bg-elevation-20 xmd:bg-white w-full h-fit min-h-[20rem] flex xmd:overflow-hidden'>
+    <div className='xmd:flex-col md:justify-between xmd:flex px-[1.17rem] xmd:p-[0] xmd:pt-[0.73rem] xmd:pb-[2rem] pt-[1.17rem] pb-[1.14rem] rounded-[0.87848rem] bg-elevation-20 xmd:bg-white w-full h-fit min-h-[20rem] flex xmd:overflow-hidden'>
       <SlideMultiple
         listGallery={listGallery}
         activeImage={data?.variation ? data?.variation?.image?.url : ''}
@@ -76,13 +76,14 @@ export default function ProductInfo({
           )}
         </div>
 
-        <div className={`mt-[0.88rem] flex xmd:w-full`}>
+        <div className={`mt-[0.88rem] flex xmd:w-full xmd:items-center`}>
           {!isCombo && (
-            <div className='flex xmd:px-[0.73rem] xmd:w-full'>
+            <div className='flex xmd:px-[0.73rem] xmd:items-center'>
               <ChangeQuantity
                 stockQty={data?.variation?.max_qty || data?.stock_quantity}
                 setChangeQty={setSelectedPrd}
                 quantity={data.quantity}
+                noMaGin
               />
             </div>
           )}

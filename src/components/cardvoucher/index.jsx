@@ -46,15 +46,13 @@ export default function CardVoucher({
       className={`${className} ${
         noDetail
           ? 'h-[5.12445rem] w-[21.22987rem]'
-          : 'h-[7.75988rem] w-[32.9429rem]'
+          : 'h-[7.50366rem] w-[32.9429rem]'
       } bg-white xmd:w-[18.66764rem] xmd:h-[4.1rem] rounded-[0.58565rem] xmd:bg-white flex transition-all duration-200 select-none xmd:shadow-[2px_2px_12px_0px_rgba(0,0,0,0.02),-3px_2px_20px_0px_rgba(0,0,0,0.04)]`}
     >
       {item?.categories?.length > 0 && (
         <div
           className={`${
-            noDetail
-              ? 'w-[5.12445rem] xmd:w-[5.27086rem]'
-              : 'w-[7.75988rem] xmd:w-[4.09956rem]'
+            noDetail ? 'w-[5.12445rem] xmd:w-[5.27086rem]' : 'w-[7.50366rem]'
           } h-full flex flex-col justify-center items-center bg-[linear-gradient(44deg,#FFF5E6_50.63%,#FFE4B9_106.58%)] rounded-tl-[0.58565rem] rounded-bl-[0.58565rem]`}
         >
           <Image
@@ -65,16 +63,28 @@ export default function CardVoucher({
             height={32}
             priority={isPriority}
           />
-          <span className='inline-block mt-[0.44rem] xmd:mt-[0.29rem] text-brown-700 text-[0.65886rem] font-medium leading-[1.2] tracking-[0.00329rem] whitespace-nowrap xmd:caption3 xmd:text-brown-800'>
+          <span
+            className={`${
+              noDetail ? 'text-[0.65886rem]' : 'text-[1.02489rem]'
+            } inline-block xmd:caption3 mt-[0.44rem] xmd:mt-[0.29rem] text-brown-700 font-medium leading-[1.2] tracking-[0.00329rem] whitespace-nowrap xmd:text-brown-800`}
+          >
             {item?.categories?.[0]?.name}
           </span>
         </div>
       )}
       <div className='w-[9.6rem] xmd:w-[9.0776rem] h-full py-[0.59rem] px-[0.88rem] xmd:p-[0.59rem] flex flex-col justify-center'>
-        <h3 className='font-medium button text-greyscale-80 mb-[0.29rem] xmd:mb-[0.15rem] xmd:caption xmd:font-semibold xmd:tracking-[0.00439rem] xmd:text-greyscale-60'>
+        <h3
+          className={`${
+            noDetail ? 'button' : 'body1'
+          } font-medium xmd:caption text-greyscale-80 mb-[0.29rem] xmd:mb-[0.15rem] xmd:font-semibold xmd:tracking-[0.00439rem] xmd:text-greyscale-60`}
+        >
           Giảm {handleDiscount(item)}
         </h3>
-        <p className='font-normal caption2 tracking-[0.00732rem] text-greyscale-40 xmd:tracking-normal xmd:text-greyscale-30'>
+        <p
+          className={`${
+            noDetail ? 'caption2' : 'caption1 xmd:caption2'
+          } font-normal tracking-[0.00732rem] text-greyscale-40 xmd:tracking-normal xmd:text-greyscale-30`}
+        >
           Đơn Tối thiểu {formatToShortVND(item?.minimum_amount)}
           <br />
           {item?.max_discount && (

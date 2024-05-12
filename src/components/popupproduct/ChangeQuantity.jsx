@@ -5,7 +5,12 @@ import Image from 'next/image'
 import {useState} from 'react'
 import {toast} from 'sonner'
 
-const ChangeQuantity = ({stockQty, setChangeQty, quantity}) => {
+const ChangeQuantity = ({
+  stockQty,
+  setChangeQty,
+  quantity,
+  noMaGin = false,
+}) => {
   const [inputVal, setInputVal] = useState(quantity || 1)
   const handleDec = () => {
     if (inputVal > 1) {
@@ -42,7 +47,11 @@ const ChangeQuantity = ({stockQty, setChangeQty, quantity}) => {
   }
 
   return (
-    <div className='flex items-center justify-between xmd:w-full xmd:mb-[0.88rem]'>
+    <div
+      className={`${
+        !noMaGin && 'xmd:mb-[0.88rem]'
+      } flex items-center justify-between xmd:w-full`}
+    >
       <span className='hidden font-medium xmd:flex caption1 text-greyscale-30 '>
         Số lượng:
       </span>
@@ -62,14 +71,21 @@ const ChangeQuantity = ({stockQty, setChangeQty, quantity}) => {
           />
         </div>
         <div className={`size-[2.3rem] select-none`}>
-          <input
+          <div
+            onChange={(e) => handleChange(e.target.value)}
+            className='input-hidden sub2 font-semibold text-[#000] flex items-center justify-center w-full h-full text-center px-[0.5rem]'
+          >
+            {inputVal}
+          </div>
+          {/* <input
             type='number'
             name='quantity'
             value={inputVal}
             className='input-hidden sub2 font-semibold text-[#000] flex items-center justify-center w-full h-full text-center px-[0.5rem] pointer-events-none select-none'
+            className='inputFocus input-hidden sub2 font-semibold text-[#000] flex items-center justify-center w-full h-full text-center px-[0.5rem]'
             onChange={(e) => handleChange(e.target.value)}
             autoFocus={false}
-          />
+          /> */}
         </div>
         <div
           className={cn(
