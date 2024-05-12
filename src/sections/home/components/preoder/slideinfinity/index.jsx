@@ -12,7 +12,7 @@ export default async function SlideInfinity() {
       id='slide_infinity'
       className='relative overflow-hidden size-full'
     >
-      <div className='absolute top-0 left-0 flex items-center h-full w-fit'>
+      <div className='absolute top-0 left-0 flex items-center h-full xmd:w-[3.67782rem] w-fit'>
         <div
           id='wrapper_infinity'
           className='flex *:mr-[0.59rem] w-fit'
@@ -20,7 +20,7 @@ export default async function SlideInfinity() {
           {products?.item?.map((product, index) => (
             <div
               key={index}
-              className='bg-white size-[6.22255rem] rounded-[0.58565rem]'
+              className='bg-white size-[6.22255rem] xmd:size-[3.06801rem] rounded-[0.58565rem]'
             >
               <Image
                 className='size-full object-cover rounded-[0.58565rem]'

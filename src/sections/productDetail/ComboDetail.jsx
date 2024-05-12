@@ -123,7 +123,7 @@ const ComboDetail = ({
           </div>
         </div>
 
-        <div className='col flex-1 w-[43.48rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[6.6rem] xmd:mb-[1.17rem] '>
+        <div className='col flex-1 w-[43.48rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[1.1rem] xmd:mb-[1.17rem] '>
           <div className='w-full bg-white xmd:flex xmd:flex-col xmd:rounded-0 md:relative subContainer'>
             <h2 className='md:w-[38rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'>
               {data?.name}

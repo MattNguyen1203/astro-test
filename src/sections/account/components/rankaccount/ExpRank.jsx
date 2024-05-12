@@ -37,7 +37,7 @@ export default function ExpRank({session, dataRank, isMobile}) {
             className='flex items-center xmd:w-[53.73352rem] z-[99]'
           >
             <div className='flex relative flex-col justify-center items-start w-0 md:pl-[0.5rem]'>
-              <div className='xmd:ml-[2rem] flex justify-center items-center w-[1.75695rem] h-[1.75695rem] pr-[0.00117rem]'>
+              <div className='xmd:ml-[1rem] flex justify-center items-center w-[1.75695rem] h-[1.75695rem] pr-[0.00117rem]'>
                 <Image
                   width={23.984}
                   height={24}

@@ -63,7 +63,7 @@ export function DialogProduct({
           className,
         )}
       >
-        <div className='relative bg-elevation-20 rounded-[0.87848rem] w-[55.49048rem] h-fit xmd:w-screen xmd:h-[35rem] xmd:overflow-y-scroll'>
+        <div className='relative bg-elevation-20 rounded-[0.87848rem] w-[55.49048rem] h-fit xmd:w-screen xmd:h-[80vh] xmd:overflow-y-scroll'>
           <div className='relative min-h-[25rem]'>
             <PopupProduct
               type={type}

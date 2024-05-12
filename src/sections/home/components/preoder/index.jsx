@@ -15,7 +15,7 @@ export default function PreOder() {
             width={165}
             height={165}
           />
-          <div className='xmd:p-0 xmd:items-start relative z-10 size-full rounded-tr-[0.87848rem] rounded-br-[0.87848rem] bg-white before:absolute before:origin-bottom-right before:w-0 before:h-full before:bg-blue-700 before:rounded-tr-[0.87848rem] before:rounded-br-[0.87848rem] group-hover:before:size-full before:transition-all before:duration-700 before:right-0 before:bottom-0 before:opacity-0 group-hover:before:opacity-100 flex justify-end items-center pr-[2.49rem]'>
+          <div className='xmd:p-0 relative z-10 size-full rounded-tr-[0.87848rem] rounded-br-[0.87848rem] bg-white before:absolute before:origin-bottom-right before:w-0 before:h-full before:bg-blue-700 before:rounded-tr-[0.87848rem] before:rounded-br-[0.87848rem] group-hover:before:size-full before:transition-all before:duration-700 before:right-0 before:bottom-0 before:opacity-0 group-hover:before:opacity-100 flex justify-end items-center pr-[2.49rem]'>
             <Link
               href={'/pre-order'}
               className='relative z-20 flex'
@@ -29,7 +29,7 @@ export default function PreOder() {
                   iPhone 14 pro max sắp ra mắt
                 </span>
               </div>
-              <div className='size-[3.51391rem] xmd:size-[2.34261rem] relative ml-[2.42rem] xmd:ml-[2.17rem]'>
+              <div className='size-[3.51391rem] xmd:size-[2.34261rem] relative ml-[2.42rem] xmd:ml-0'>
                 <Image
                   className='absolute top-0 left-0 z-10 object-contain transition-all duration-500 size-full group-hover:z-0 group-hover:opacity-0'
                   src={'/home/cart-preoder-blue.svg'}
