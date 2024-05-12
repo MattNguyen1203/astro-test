@@ -20,7 +20,7 @@ export default async function SlideInfinity() {
           {products?.item?.map((product, index) => (
             <div
               key={index}
-              className='bg-white size-[6.22255rem] xmd:size-[3.06801rem] rounded-[0.58565rem]'
+              className='bg-white size-[6.22255rem] xmd:size-[4.06801rem] rounded-[0.58565rem]'
             >
               <Image
                 className='size-full object-cover rounded-[0.58565rem]'
