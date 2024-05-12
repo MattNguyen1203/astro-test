@@ -43,6 +43,7 @@ export default function SheetMegaMenu({children, categoryOptions, categories}) {
 
   useEffect(() => {
     const indexCurrent = handleIndexCategory()
+    if (Number(indexCurrent) <= 0) return
     setIndexCat(indexCurrent)
   }, [])
   const handleIndexCategory = () => {

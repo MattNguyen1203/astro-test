@@ -1,6 +1,7 @@
 'use client'
 
 import CardVoucher from '@/components/cardvoucher'
+
 import {useState} from 'react'
 
 export default function VoucherSlideRes({data = [], className = ''}) {
@@ -19,14 +20,14 @@ export default function VoucherSlideRes({data = [], className = ''}) {
             >
               {data
                 .slice(
-                  index * (data.length / 2),
-                  (index + 1) * (data.length / 2),
+                  index * Math.ceil(data?.length / 2),
+                  (index + 1) * Math.ceil(data?.length / 2),
                 )
                 .map((item, idx) => (
                   <CardVoucher
                     isIndex={isIndex}
                     setIsIndex={setIsIndex}
-                    index={index === 0 ? idx : idx + (data.length / 2) * index}
+                    index={index === 0 ? idx : idx + (data?.length / 2) * index}
                     className={idx === 0 ? '!ml-0' : 'ml-[0.59rem]'}
                     key={idx}
                     isPriority={idx < 2 ? true : false}

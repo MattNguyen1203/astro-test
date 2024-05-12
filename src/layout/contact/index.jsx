@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Contact() {
   return (
-    <section className='container space-y-[0.88rem] items-end pr-[1.17rem] fixed flex flex-col right-[7rem] bottom-[3rem] xmd:right-0 xmd:bottom-[4rem] z-[9999] pointer-events-none'>
+    <section className='container space-y-[0.88rem] items-end pr-[1.17rem] fixed flex flex-col right-[7rem] bottom-[3rem] xmd:right-0 xmd:bottom-[4rem] z-[99] pointer-events-none'>
       <Link
         href='tel:+0815850292'
         className='size-[2.92826rem] rounded-full p-[0.73206rem] bg-[#FEBE10] pointer-events-auto'

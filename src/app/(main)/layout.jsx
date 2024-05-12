@@ -4,7 +4,7 @@ import {headers} from 'next/headers'
 // components
 import Nav from '@/layout/nav'
 import ListStrength from '@/components/liststrength'
-import VoucherPin from '@/components/voucherpin'
+import WrapperVoucherPin from '@/components/voucherpin/WrapperVoucherPin'
 
 export default function MainLayout({children}) {
   const headersList = headers()
@@ -16,7 +16,7 @@ export default function MainLayout({children}) {
   return (
     <>
       <Nav isMobile={isMobile} />
-      {isMobile && <VoucherPin />}
+      {isMobile && <WrapperVoucherPin />}
       {children}
       <ListStrength />
     </>

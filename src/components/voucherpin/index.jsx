@@ -3,8 +3,12 @@ import Image from 'next/image'
 import ICArrowRightWhite from '../icon/ICArrowRightWhite'
 import VoucherSlideRes from '@/sections/home/components/flashvoucher/slidevoucherres'
 import {useState} from 'react'
+import {useParams} from 'next/navigation'
 
-export default function VoucherPin() {
+export default function VoucherPin({data}) {
+  const params = useParams()
+
+  if (params?.slug?.length) return null
   const [isOpen, setIsOpen] = useState(false)
   return (
     <div
@@ -34,7 +38,7 @@ export default function VoucherPin() {
         />
       </div>
       <div className='flex items-center bg-white h-[calc(13.2rem-3.22rem)]'>
-        <VoucherSlideRes data={new Array(14).fill(0)} />
+        <VoucherSlideRes data={data} />
       </div>
     </div>
   )
