@@ -1,4 +1,6 @@
+import {fetchMetaData} from '@/lib/fetchMetaData'
 import getData from '@/lib/getData'
+import {getMeta} from '@/lib/getMeta'
 import IndexProduct from '@/sections/product'
 import {notFound} from 'next/navigation'
 
@@ -32,6 +34,15 @@ export async function generateStaticParams() {
   })
 
   return staticParams
+}
+
+export async function generateMetadata({params}) {
+  const categorySlug =
+    params?.category?.[0] +
+    '/' +
+    `${params?.category?.length > 1 ? params?.category?.[1] + '/' : ''}`
+  const result = await fetchMetaData(`product-category/${categorySlug}`)
+  return getMeta(result, `san-pham/${categorySlug}`)
 }
 
 export default async function CategoryProductPage({params, searchParams}) {

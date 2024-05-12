@@ -1,4 +1,6 @@
 'use client'
+import 'swiper/css'
+
 import CardVoucher from '@/components/cardvoucher'
 import {useState} from 'react'
 

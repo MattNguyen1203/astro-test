@@ -2,6 +2,11 @@ import ResetPassIndex from '@/sections/resetpass'
 import Image from 'next/image'
 import {Suspense} from 'react'
 
+export async function generateMetadata({params}) {
+  const result = await fetchMetaData(`tai-khoan/`)
+  return getMeta(result, `dat-lai-mat-khau`)
+}
+
 export default function ResetPage({searchParams}) {
   const {viewport} = searchParams
   const isMobile = viewport === 'mobile'

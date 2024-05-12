@@ -236,3 +236,8 @@ body {
 .HoverCardContent[data-side='left'] {
   transform: translateX(25%);
 }
+
+input[type='password']::-ms-reveal,
+input[type='password']::-ms-clear {
+  display: none;
+}

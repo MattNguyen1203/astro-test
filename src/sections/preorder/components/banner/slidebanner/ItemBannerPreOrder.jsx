@@ -11,7 +11,7 @@ function ItemBannerPreOrder({product}) {
       className='w-[21.43163rem] h-full pr-[4.1rem] block pb-[1rem]'
     >
       <Image
-        className='size-[10.61493rem] block object-contain mx-auto'
+        className='size-[10.61493rem] block object-cover mx-auto rounded-[0.6rem]'
         src={product?.featuredImage?.url || '/preorder/item-preorder.png'}
         alt={product?.featuredImage?.alt || product?.name}
         width={150}
