@@ -15,7 +15,13 @@ import InfoOrder from './InfoOrder'
 
 import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group'
 import {Label} from '@/components/ui/label'
-import {Form, FormControl, FormField, FormItem} from '@/components/ui/form'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form'
 import {Input} from '@/components/ui/input'
 import {Textarea} from '@/components/ui/textarea'
 import ShipHT from './ShipHT'
@@ -37,10 +43,14 @@ import VoucherSlide from '../home/components/flashvoucher/slidevoucher'
 import useStore from '@/app/(store)/store'
 
 const formSchema = z.object({
-  name: z.string(),
+  name: z.string().min(1, {message: 'Vui lòng nhập họ và tên!'}),
+  phone: z
+    .string()
+    .min(1, {message: 'Vui lòng nhập số điện thoại!'})
+    .regex(/^[0-9]{6,15}$/, {message: 'Định dạng không hợp lệ!'}),
   email: z.string().email({message: 'Nhập đúng định dạng email!'}),
-  address: z.string(),
-  street: z.string(),
+  address: z.string().min(1, {message: 'Vui lòng điền đầy đủ địa chỉ!'}),
+  street: z.string().min(1, {message: 'Vui lòng điền địa chỉ cụ thể!'}),
   note: z.string(),
 })
 
@@ -97,6 +107,7 @@ export default function PaymentIndex({
   const [valueCommune, setValueCommune] = useState(defaultValueCommune)
 
   const [ship, setShip] = useState('in')
+  console.log('🚀 ~ ship:', ship)
   const [payment, setPayment] = useState()
   const [carts, setCarts] = useState(
     id ? detailOrder?.product : isAuth ? dataCarts : [],
@@ -180,8 +191,6 @@ export default function PaymentIndex({
       }
     }
   }, [listIdItemCart])
-
-  const values = form.watch()
 
   const handleAddCoupon = (total, coupon) => {
     const min = coupon?.minimum_amount || 0
@@ -365,6 +374,8 @@ export default function PaymentIndex({
   }
 
   function onSubmit(valueForm) {
+    console.log('🚀 ~ onSubmit ~ valueForm:', valueForm)
+
     if (!payment) {
       return toast.error('Vui lòng chọn phương thức thanh toán!', {
         position: 'bottom-center',
@@ -520,6 +531,7 @@ export default function PaymentIndex({
                             {...field}
                           />
                         </FormControl>
+                        <FormMessage className='pl-[0.88rem] mt-[0.2rem]' />
                       </FormItem>
                     )}
                   />
@@ -536,6 +548,7 @@ export default function PaymentIndex({
                             {...field}
                           />
                         </FormControl>
+                        <FormMessage className='pl-[0.88rem] mt-[0.2rem]' />
                       </FormItem>
                     )}
                   />
@@ -553,6 +566,7 @@ export default function PaymentIndex({
                           {...field}
                         />
                       </FormControl>
+                      <FormMessage className='pl-[0.88rem] mt-[0.2rem]' />
                     </FormItem>
                   )}
                 />
@@ -593,6 +607,7 @@ export default function PaymentIndex({
                           {...field}
                         />
                       </FormControl>
+                      <FormMessage className='pl-[0.88rem] mt-[0.2rem]' />
                     </FormItem>
                   )}
                 />
@@ -755,7 +770,7 @@ export default function PaymentIndex({
         </article>
         <InfoOrder
           carts={carts}
-          onSubmit={onSubmit}
+          onSubmit={form.handleSubmit(onSubmit)}
           shipValue={ship}
           ship={propertyShip?.find((e) => e?.value === ship)?.label}
           payment={propertyPayment?.find((e) => e?.value === payment)?.label}
