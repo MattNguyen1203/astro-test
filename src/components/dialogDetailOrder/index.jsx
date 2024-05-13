@@ -66,7 +66,7 @@ export function DialogDetailOrder({children, isOpen, setIsOpen, id}) {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent
         className={
-          'z-[1000] xmd:!w-[95%] rounded-[0.87848rem] !w-[48.53587rem] !max-w-[48.53587rem] h-fit py-[2.34rem] pl-[1.6rem] pr-[0.6rem] xmd:p-[0.88rem] xmd:pr-0 overflow-hidden'
+          'z-[1000] xmd:!h-[75vh] bg-elevation-20 xmd:!w-[95%] rounded-[0.87848rem] !w-[48.53587rem] !max-w-[48.53587rem] h-fit py-[2.34rem] pl-[1.6rem] pr-[0.6rem] xmd:p-[0.88rem] xmd:pr-0 overflow-hidden'
         }
       >
         <div className='absolute z-10 top-0 left-0 w-full px-[2.34rem] py-[0.88rem] flex justify-between items-center bg-elevation-20'>

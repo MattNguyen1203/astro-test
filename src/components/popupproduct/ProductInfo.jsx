@@ -9,6 +9,7 @@ import {useMemo} from 'react'
 import {handlePrice} from '@/sections/productDetail/function'
 import {cn} from '@/lib/utils'
 import AddToCartBtn from '@/sections/productDetail/addToCartBtn'
+import Progress from '../progress'
 
 export default function ProductInfo({
   type,
@@ -39,7 +40,9 @@ export default function ProductInfo({
   }, [data])
 
   const [regularPriceResult, priceResult] = handlePrice(data)
-
+  const isFlashSale = data?.meta_detect?.flash_sale?.is_flash_sale === '1'
+  console.log('isFlashSale', isFlashSale)
+  console.log('producinfor', data)
   return (
     <div className='xmd:flex-col md:justify-between xmd:flex px-[1.17rem] xmd:p-[0] xmd:pt-[0.73rem] xmd:pb-[2rem] pt-[1.17rem] pb-[1.14rem] rounded-[0.87848rem] bg-elevation-20 xmd:bg-white w-full h-fit min-h-[20rem] flex xmd:overflow-hidden'>
       <SlideMultiple
@@ -65,6 +68,15 @@ export default function ProductInfo({
               regularPrice={regularPriceResult}
               price={priceResult}
             />
+          )}
+
+          {isFlashSale && (
+            <div className='my-[0.88rem]'>
+              <Progress
+                totalProd={data?.meta_detect?.flash_sale?.flash_sale_total_sale}
+                ordered={data?.meta_detect?.flash_sale?.flash_sale_total_buyed}
+              />
+            </div>
           )}
 
           {data.type === 'variable' && (
