@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  next-app:
+    container_name: astro
+    image: okhubvn/astro:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+        GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+        AUTH_SECRET: ${AUTH_SECRET}
+        DOMAIN: ${DOMAIN}
+        NEXT_PUBLIC_DOMAIN: ${NEXT_PUBLIC_DOMAIN}
+        SITE_NAME: ${SITE_NAME}
+        API: ${API}
+        NEXT_PUBLIC_API: ${NEXT_PUBLIC_API}
+        NEXT_PUBLIC_HOST: ${NEXT_PUBLIC_HOST}
+    restart: always
+    ports:
+      - 3001:3000
+    networks:
+      - astronetwork
+
+  # Add more containers below (nginx, postgres, etc.)
+
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+networks:
+  astronetwork:
+    external: true

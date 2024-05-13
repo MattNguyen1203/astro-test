@@ -16,6 +16,7 @@ const nextConfig = {
   //   removeConsole: true,
   // },
   reactStrictMode: false,
+  output: 'standalone',
   // staticPageGenerationTimeout: 5000,
 }
 
