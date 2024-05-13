@@ -87,6 +87,22 @@ const PreOrder = ({
 
     return []
   }, [relatedProduct, FiveProduct])
+
+  const isOutOfStock = useMemo(() => {
+    // console.log('selectedPrd', selectedPrd)
+    if (selectedPrd.type === 'variable') {
+      // console.log('variable', selectedPrd?.variation?.max_qty)
+      return (
+        !selectedPrd?.variation ||
+        !selectedPrd?.variation?.max_qty ||
+        Number(selectedPrd?.variation?.max_qty) < 1
+      )
+    } else {
+      // console.log('simple', selectedPrd.stock_quantity < 1)
+
+      return selectedPrd?.stock_quantity < 1
+    }
+  }, [selectedPrd])
   return (
     <>
       <div className='container mx-auto mt-[8.1rem] xmd:mt-[4.1rem] bg-elevation-10 relative xmd:w-full'>
@@ -115,7 +131,7 @@ const PreOrder = ({
 
           <div className='col flex-1 w-[52.2694rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[6.6rem] xmd:mb-[1.17rem]'>
             <div className='subContainer xmd:rounded-0 md:relative'>
-              <h1 className='md:w-[38rem] text-[1.52489rem] md:h-[3.8rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'>
+              <h1 className='md:w-[38rem] text-[1.52489rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full mb-[0.88rem] xmd:w-full xmd:h-fit'>
                 {data?.name}
               </h1>
               <ProductPrice
@@ -164,9 +180,10 @@ const PreOrder = ({
                   <button
                     className={cn(
                       'caption1 font-semibold text-white flex items-center justify-center w-[10.688rem] xmd:w-full h-full rounded-[0.58565rem] bg-[#102841] px-[1.17rem] py-[0.73rem] uppercase ml-[0.88rem] xmd:ml-0',
-                      !isHaveSelectedVar && 'opacity-50 pointer-events-none',
+                      (!isHaveSelectedVar || isOutOfStock) &&
+                        'opacity-50 pointer-events-none',
                     )}
-                    disabled={!isHaveSelectedVar}
+                    disabled={!isHaveSelectedVar || isOutOfStock}
                     onClick={() => handleAddToSession(selectedPrd, router)}
                   >
                     Đặt trước

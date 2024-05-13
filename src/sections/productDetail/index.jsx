@@ -211,6 +211,19 @@ const ProductDetail = ({
 
     return [price, regular_price]
   }, [selectedPrd, isFlashSale])
+
+  const isOutOfStock = useMemo(() => {
+    if (selectedPrd.type === 'variable') {
+      return (
+        !selectedPrd?.variation ||
+        !selectedPrd?.variation?.max_qty ||
+        Number(selectedPrd?.variation?.max_qty) < 1
+      )
+    } else {
+      return selectedPrd?.stock_quantity < 1
+    }
+  }, [selectedPrd])
+
   return (
     <div className='container mt-[8.1rem] xmd:mt-[4.1rem] md:pb-[4rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
@@ -247,7 +260,7 @@ const ProductDetail = ({
 
         <div className='col flex-1 w-[43.48463rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[2.1rem] xmd:mb-[1.17rem]'>
           <div className='subContainer xmd:rounded-0 md:relative'>
-            <h1 className='md:w-[38rem] text-[1.52489rem] md:h-[3.8rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'>
+            <h1 className='md:w-[38rem] text-[1.52489rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full mb-[0.88rem] xmd:w-full xmd:h-fit'>
               {data?.name}
             </h1>
             <ProductPrice
@@ -281,8 +294,7 @@ const ProductDetail = ({
             <div className='border-y xmd:border-none border-[rgba(236,236,236,0.70)] py-[1.46rem] xmd:py-0 flex items-center my-[1.46rem] xmd:mb-0 xmd:flex-col xmd:justify-start xmd:items-start'>
               <div
                 className={cn(
-                  data?.type === 'variable' &&
-                    (!selectedPrd?.variation || !selectedPrd?.variation.max_qty)
+                  isOutOfStock
                     ? 'pointer-events-none opacity-40 cursor-not-allowed xmd:w-full'
                     : 'xmd:w-full',
                 )}
@@ -299,8 +311,8 @@ const ProductDetail = ({
               <div className='flex xmd:flex-row-reverse h-[2.9282rem] xmd:h-[3.22108rem]'>
                 <div
                   className={cn(
-                    !isHaveSelectedVar &&
-                      selectedPrd.type === 'variable' &&
+                    ((!isHaveSelectedVar && selectedPrd.type === 'variable') ||
+                      isOutOfStock) &&
                       'opacity-50 pointer-events-none',
                   )}
                 >
@@ -320,6 +332,9 @@ const ProductDetail = ({
                   disabled={!isHaveSelectedVar}
                   className={cn(
                     'caption1 font-semibold text-white flex items-center justify-center w-[10.688rem] xmd:w-[21.3rem] h-full rounded-[0.58565rem] bg-[#102841] px-[1.17rem] py-[0.73rem] uppercase',
+                    ((!isHaveSelectedVar && selectedPrd.type === 'variable') ||
+                      isOutOfStock) &&
+                      'opacity-50 pointer-events-none',
                   )}
                   onClick={() => handleAddToSession(selectedPrd, router)}
                 >

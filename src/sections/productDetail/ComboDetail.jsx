@@ -93,6 +93,14 @@ const ComboDetail = ({
       return [selectedPrd?.regular_price, selectedPrd?.price]
     }
   }, [listProduct, selectedPrd])
+
+  const isOutOfStock = useMemo(() => {
+    return selectedPrd?.stock_quantity < 1
+  }, [selectedPrd])
+
+  console.log('isOutOfStock', isOutOfStock)
+  console.log('selectedPrd', selectedPrd)
+
   return (
     <div className='container mt-[8.1rem] xmd:mt-[4.1rem] bg-elevation-10 relative xmd:w-full'>
       <div className='py-[1.76rem] xmd:px-[0.59rem] xmd:py-[1.17rem] xmd:bg-white'>
@@ -125,7 +133,7 @@ const ComboDetail = ({
 
         <div className='col flex-1 w-[43.48rem] xmd:w-full xmd:pr-0 pr-[0.92rem] mb-[1.1rem] xmd:mb-[1.17rem] '>
           <div className='w-full bg-white xmd:flex xmd:flex-col xmd:rounded-0 md:relative subContainer'>
-            <h1 className='md:w-[38rem] text-[1.52489rem] md:h-[3.8rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full h-[2.489402rem] md:line-clamp-2 mb-[0.88rem] xmd:w-full xmd:h-fit'>
+            <h1 className='md:w-[38rem] text-[1.52489rem] capitalize sub2 xmd:text-[1.31772rem] text-greyscale-50 font-medium w-full mb-[0.88rem] xmd:w-full xmd:h-fit'>
               {data?.name}
             </h1>
 
