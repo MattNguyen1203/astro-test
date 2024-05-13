@@ -20,6 +20,8 @@
   border-radius: 0.87848rem;
   display: flex;
   height: 26.50073rem;
+  width: 100%;
+  object-fit: cover;
   justify-content: flex-end;
   align-items: center;
   align-self: stretch;
