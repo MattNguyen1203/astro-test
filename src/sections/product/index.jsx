@@ -10,6 +10,7 @@ export default function IndexProduct({
   categories,
   devices,
   page,
+  isIPhone = false,
 }) {
   return (
     <main className='bg-elevation-20 pt-[9.76rem] xmd:pt-[5.5rem]'>
@@ -30,6 +31,7 @@ export default function IndexProduct({
         </div>
       </section>
       <Wrapper
+        isIPhone={isIPhone}
         isMobile={isMobile}
         products={products}
         categories={categories}

@@ -13,6 +13,7 @@ export default function GridProduct({
   isMobile,
   isLoading,
   session,
+  isIPhone = false,
 }) {
   const isFilterProduct = useStore((state) => state.isFilterProduct)
   const setIsFilterProduct = useStore((state) => state.setIsFilterProduct)
@@ -44,6 +45,7 @@ export default function GridProduct({
                 <SkeletonCardProduct />
               ) : (
                 <CardProduct
+                  isIPhone={isIPhone}
                   product={product}
                   priority={priority && index < indexPriority ? true : false}
                   session={session}

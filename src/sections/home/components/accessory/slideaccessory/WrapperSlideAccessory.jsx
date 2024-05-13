@@ -9,6 +9,7 @@ export default async function WrapperSlideAccessory({session, isIPhone}) {
     `/okhub/v1/product/filter/products?device=${categories?.[0]?.slug}`,
   )
 
+  console.log('wrapper', isIPhone)
   return (
     <SlideAccessory
       isIPhone={isIPhone}

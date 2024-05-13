@@ -15,7 +15,12 @@ const DialogProduct = dynamic(
   {ssr: false},
 )
 
-function CardProduct({product, priority = false, boxPlaced = false, isIPhone}) {
+function CardProduct({
+  product,
+  priority = false,
+  boxPlaced = false,
+  isIPhone = false,
+}) {
   const [isOpen, setIsOpen] = useState(false)
   const percentSale = handlePercentSale(product)
   const price = renderPriceProduct(product)
@@ -27,7 +32,6 @@ function CardProduct({product, priority = false, boxPlaced = false, isIPhone}) {
     ...product,
     quantity: 1,
   })
-
   return (
     <div
       className={`${
@@ -100,9 +104,9 @@ function CardProduct({product, priority = false, boxPlaced = false, isIPhone}) {
           onClick={() => {
             if (isCombo) {
               router.push(`/combo/${product?.slug}`)
-            }
-
-            setIsOpen(true)
+            } else if (isPreOrder) {
+              router.push(`/pre-order/${product?.slug}`)
+            } else setIsOpen(true)
           }}
           className='mt-[0.51rem] w-full h-[2.92826rem] rounded-[0.58565rem] bg-blue-50 md:group-hover:bg-blue-800 transition-all duration-500 py-[0.65886rem] px-[0.58565rem] flex justify-between items-center xmd:bg-[#10273F] xmd:absolute xmd:left-1/2 xmd:w-[calc(100%-0.88rem)] xmd:-translate-x-1/2 xmd:bottom-[0.44rem]'
         >
