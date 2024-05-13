@@ -248,7 +248,7 @@ export function checkProduct(listProduct, listCart, type, isAuth) {
     listProduct[0]?.type == 'wooco'
   ) {
     const isHaveVariant = listProduct[0]?.grouped_products?.some(
-      (item) => item.type === 'variable' && !item.variation.attributes,
+      (item) => item?.type === 'variable' && !item?.variation?.attributes,
     )
 
     if (isHaveVariant) {

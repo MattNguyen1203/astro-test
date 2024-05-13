@@ -30,11 +30,13 @@ export default function SheetCart({
   const router = useRouter()
 
   const [cart, setCart] = useState([])
+  console.log('🚀 ~ cart:', cart)
 
   const [isCheckNull, setIsCheckNull] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0)
 
   const listCart = useStore((state) => state.listCart)
+  console.log('🚀 ~ listCart:', listCart)
   const setListCart = useStore((state) => state.setListCart)
   const actionCart = useStore((state) => state.actionCart)
   const setActionCart = useStore((state) => state.setActionCart)
@@ -42,7 +44,10 @@ export default function SheetCart({
   useEffect(() => {
     let sum = 0
     cart?.map((item) => {
-      sum += listCart?.[item]?.line_subtotal
+      sum +=
+        listCart?.[item]?.line_subtotal ||
+        listCart?.[item]?.variation?.display_price ||
+        0
     })
     setTotalPrice(sum)
   }, [cart])
