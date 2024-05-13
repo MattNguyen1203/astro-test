@@ -4,7 +4,8 @@ import CategoryProductRes from './CategoryProductRes'
 import GridProductNewRes from './GridProductNewRes'
 import SlideProduct from './SlideProduct'
 
-export default async function ProductIndex({isMobile}) {
+export default async function ProductIndex({isMobile, isIPhone = false}) {
+  console.log('ProductIndex', isIPhone)
   const products = await getData(
     `/okhub/v1/product/allProduct?limit=${isMobile ? 8 : 20}&order=desc&page=1`,
   )
@@ -24,7 +25,10 @@ export default async function ProductIndex({isMobile}) {
         />
       )}
       {isMobile ? (
-        <GridProductNewRes products={products} />
+        <GridProductNewRes
+          isIPhone={isIPhone}
+          products={products}
+        />
       ) : (
         <SlideProduct products={products} />
       )}
