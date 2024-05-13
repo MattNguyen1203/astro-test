@@ -157,7 +157,7 @@ export default function FormPreOrder({data, setSelectedPrd, selectedPrd}) {
                 <FormItem className='xmd:w-[11.22rem]'>
                   <FormControl>
                     <Input
-                      type='email'
+                      type='text'
                       className=' !outline-none focus:!outline-none focus-visible:!outline-none border-none font-svnGraphik'
                       placeholder='Email *'
                       {...field}
@@ -178,6 +178,12 @@ export default function FormPreOrder({data, setSelectedPrd, selectedPrd}) {
                       placeholder='Số điện thoại *'
                       type='tel'
                       {...field}
+                      onChange={(e) => {
+                        const value = e.target.value
+                        // Use a regex to remove any non-numeric characters
+                        const filteredValue = value.replace(/[^\d]/g, '')
+                        field.onChange(filteredValue) // Update the form field with filtered value
+                      }}
                     />
                   </FormControl>
                   <FormMessage className='pl-[0.88rem] font-svnGraphik' />

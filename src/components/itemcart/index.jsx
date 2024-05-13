@@ -42,7 +42,11 @@ export default function ItemCart({
   const [isLoading, setIsLoading] = useState(false)
   const [isShow, setIsShow] = useState(false)
 
-  const isZero = Number(item?.stock_quantity) < 1
+  const isZero = useMemo(() => {
+    if (item.type === 'variable') {
+      return Number(item?.variation?.max_qty) < 1
+    } else return item?.stock_quantity
+  }, [item])
 
   useEffect(() => {
     isZero && setIsCheckNull(isZero)
