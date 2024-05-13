@@ -18,6 +18,7 @@ export default function Wrapper({
   categories,
   devices,
   page,
+  isIPhone = false,
 }) {
   const boxRef = useRef(null)
   const searchParams = useSearchParams()
@@ -110,6 +111,7 @@ export default function Wrapper({
         />
         <Suspense fallback={<GridProductLoading />}>
           <GridProduct
+            isIPhone={isIPhone}
             isLoading={isLoading}
             products={isFilter() ? data : products}
             priority={true}

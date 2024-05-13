@@ -54,7 +54,10 @@ export default function HomeIndex({viewport}) {
         </section>
       )}
       <section>
-        <ProductIndex isMobile={isMobile} />
+        <ProductIndex
+          isIPhone={isIPhone}
+          isMobile={isMobile}
+        />
       </section>
       <section className='mt-[3.22rem] xmd:mt-[1.17rem]'>
         <LevelUpYourTech isMobile={isMobile} />

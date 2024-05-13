@@ -15,7 +15,7 @@ export function DialogProduct({
   isAddToCart,
   handleChangeVariation,
   session,
-  isIPhone,
+  isIPhone = false,
 }) {
   const [initData, setInitData] = useState(productSelected || {})
 
@@ -50,7 +50,6 @@ export function DialogProduct({
       setProductSelected(initData)
     }
   }, [initData])
-
   return (
     <Dialog
       open={isOpen}
@@ -60,14 +59,15 @@ export function DialogProduct({
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent
         className={cn(
-          'sm:max-w-[425px] p-0 rounded-[0.8rem] w-fit h-fit max-w-screen xmd:rounded-b-none xmd:bottom-0 xmd:top-auto xmd:translate-y-0 z-[100000]',
+          'sm:max-w-[425px] bg-transparent p-0 rounded-[0.8rem] w-fit h-fit max-w-screen xmd:rounded-b-none xmd:bottom-0 xmd:top-auto xmd:translate-y-0 z-[100000]',
+          isIPhone && 'xmd:translate-y-[5rem]',
           className,
         )}
       >
         <div
           className={`${
-            isIPhone ? 'xmd:h-[60vh]' : 'xmd:h-[80vh]'
-          } relative bg-elevation-20 rounded-[0.87848rem] w-[55.49048rem] h-fit xmd:w-screen xmd:overflow-y-scroll`}
+            isIPhone ? 'xmd:h-[80vh] bottom-0' : 'xmd:h-[80vh]'
+          } relative bg-purple-700 rounded-[0.87848rem] w-[55.49048rem] h-fit xmd:w-screen xmd:overflow-y-scroll`}
         >
           <div className='relative min-h-[25rem]'>
             <PopupProduct
