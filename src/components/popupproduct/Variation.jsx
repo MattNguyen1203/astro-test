@@ -164,13 +164,13 @@ const Variation = ({data = {}, setSelectedPrd, selectedPrd}) => {
               {variation?.label}:
             </span>
 
-            <div className='flex'>
+            <div className='flex flex-wrap '>
               {variation?.value?.map((item, itemIndex) => {
                 return (
                   <div
                     key={itemIndex}
                     className={cn(
-                      'h-[2.34261rem] flex relative items-center mr-[0.44rem] p-[0.44rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02),-6px_2px_32px_0px_rgba(0,0,0,0.06)] rounded-[0.29283rem] cursor-pointer border-[2px] border-solid',
+                      'h-[2.34261rem] flex relative items-center mb-[0.5rem] mr-[0.44rem] p-[0.44rem] shadow-[2px_4px_20px_0px_rgba(0,0,0,0.02),-6px_2px_32px_0px_rgba(0,0,0,0.06)] rounded-[0.29283rem] cursor-pointer border-[2px] border-solid',
                       isSelected(variation?.key, item?.slug)
                         ? 'border-blue-500'
                         : 'border-transparent',

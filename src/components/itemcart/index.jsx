@@ -44,13 +44,12 @@ export default function ItemCart({
 
   const isZero = useMemo(() => {
     if (item.type === 'variable') {
-      return Number(item?.variation?.max_qty) < 1
-    } else return item?.stock_quantity
+      return !item?.variation?.max_qty || Number(item?.variation?.max_qty) < 1
+    } else return item?.stock_quantity < 1
   }, [item])
-
   useEffect(() => {
     isZero && setIsCheckNull(isZero)
-  }, [])
+  }, [isZero])
 
   useEffect(() => {
     setProductSelected(item)

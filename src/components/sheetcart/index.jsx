@@ -39,6 +39,7 @@ export default function SheetCart({
   const actionCart = useStore((state) => state.actionCart)
   const setActionCart = useStore((state) => state.setActionCart)
 
+  console.log('isCheckNull', isCheckNull)
   useEffect(() => {
     let sum = 0
     cart?.map((item) => {

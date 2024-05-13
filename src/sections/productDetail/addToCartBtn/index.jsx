@@ -6,7 +6,7 @@ import {cn} from '@/lib/utils'
 import {getSession} from 'next-auth/react'
 
 import Image from 'next/image'
-import {useEffect, useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 
 const AddToCartBtn = ({className, listProduct, session: sessionDefault}) => {
   const [session, setSession] = useState(sessionDefault || null)
