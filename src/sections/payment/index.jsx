@@ -35,9 +35,17 @@ import {bestCouponOrder} from '@/actions/bestCouponOrder'
 import CheckDefault from '@/components/sheetcategories/CheckDefault'
 import VoucherSlide from '../home/components/flashvoucher/slidevoucher'
 import useStore from '@/app/(store)/store'
-
+const phoneRegExp = /^\d+$/
 const formSchema = z.object({
   name: z.string(),
+  phone: z
+    .string()
+    .refine((value) => phoneRegExp.test(value), {
+      message: 'Định dạng không hợp lệ!',
+      path: ['phone'],
+    })
+    .min(1, {message: 'Vui lòng nhập số điện thoại!'}),
+  // .regex(/^[0-9]{6,15}$/, {message: 'Định dạng không hợp lệ!'}),
   email: z.string().email({message: 'Nhập đúng định dạng email!'}),
   address: z.string(),
   street: z.string(),

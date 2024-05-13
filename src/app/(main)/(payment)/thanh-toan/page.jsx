@@ -6,7 +6,7 @@ import getDataProxy from '@/lib/getDataProxy'
 import {getMeta} from '@/lib/getMeta'
 import PaymentIndex from '@/sections/payment'
 
-export async function generateMetadata({params}) {
+export async function generateMetadata() {
   const result = await fetchMetaData(`thanh-toan/`)
   return getMeta(result, `thanh-toan`)
 }

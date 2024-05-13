@@ -17,6 +17,7 @@ import Gift from './components/Gift'
 import {useMemo, useState} from 'react'
 import {cn} from '@/lib/utils'
 import {useRouter} from 'next/navigation'
+import {handleAddToSession} from '../productDetail/function'
 
 const PreOrder = ({
   linkSocials,
