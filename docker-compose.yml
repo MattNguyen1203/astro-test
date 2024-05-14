@@ -19,7 +19,7 @@ services:
         NEXT_PUBLIC_HOST: ${NEXT_PUBLIC_HOST}
     restart: always
     ports:
-      - 3001:3000
+      - 3000:3000
     networks:
       - astronetwork
 
